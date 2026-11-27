@@ -197,13 +197,23 @@ class ShoppingListState {
   final Map<String, String> checkedBy;
   final List<ShoppingItem> manualItems;
 
+  /// key -> when it was last ticked or unticked (ms since epoch), so two
+  /// phones sharing a list can keep the latest change.
+  final Map<String, int> tickTimes;
+
+  /// Keys of hand-added items that were removed, with when, so a removal
+  /// on one phone is not undone by the other.
+  final Map<String, int> removedManual;
+
   const ShoppingListState({
     this.checked = const {},
     this.checkedBy = const {},
     this.manualItems = const [],
+    this.tickTimes = const {},
+    this.removedManual = const {},
   });
 
-  ShoppingListState toggle(String key, {String? by}) {
+  ShoppingListState toggle(String key, {String? by, DateTime? now}) {
     final next = {...checked};
     final nextBy = {...checkedBy};
     if (!next.remove(key)) {
@@ -216,6 +226,11 @@ class ShoppingListState {
       checked: next,
       checkedBy: nextBy,
       manualItems: manualItems,
+      tickTimes: {
+        ...tickTimes,
+        key: (now ?? DateTime.now()).millisecondsSinceEpoch,
+      },
+      removedManual: removedManual,
     );
   }
 
@@ -223,13 +238,69 @@ class ShoppingListState {
     checked: checked,
     checkedBy: checkedBy,
     manualItems: [...manualItems, item],
+    tickTimes: tickTimes,
+    removedManual: {...removedManual}..remove(item.key),
   );
 
-  ShoppingListState removeManual(String key) => ShoppingListState(
-    checked: {...checked}..remove(key),
-    checkedBy: {...checkedBy}..remove(key),
-    manualItems: manualItems.where((i) => i.key != key).toList(),
-  );
+  ShoppingListState removeManual(String key, {DateTime? now}) =>
+      ShoppingListState(
+        checked: {...checked}..remove(key),
+        checkedBy: {...checkedBy}..remove(key),
+        manualItems: manualItems.where((i) => i.key != key).toList(),
+        tickTimes: tickTimes,
+        removedManual: {
+          ...removedManual,
+          key: (now ?? DateTime.now()).millisecondsSinceEpoch,
+        },
+      );
+
+  /// Combines this phone's list with another household member's: for each
+  /// item the most recent tick or untick wins, hand-added items are united
+  /// unless one side removed them later.
+  ShoppingListState mergeWith(ShoppingListState other) {
+    final keys = {...tickTimes.keys, ...other.tickTimes.keys};
+    final checkedNext = {...checked};
+    final byNext = {...checkedBy};
+    final timesNext = {...tickTimes};
+    for (final key in keys) {
+      final mine = tickTimes[key] ?? 0;
+      final theirs = other.tickTimes[key] ?? 0;
+      if (theirs > mine) {
+        timesNext[key] = theirs;
+        if (other.checked.contains(key)) {
+          checkedNext.add(key);
+          final by = other.checkedBy[key];
+          if (by != null) byNext[key] = by;
+        } else {
+          checkedNext.remove(key);
+          byNext.remove(key);
+        }
+      }
+    }
+    final removedNext = {...removedManual};
+    other.removedManual.forEach((k, t) {
+      if ((removedNext[k] ?? 0) < t) removedNext[k] = t;
+    });
+    final manual = <String, ShoppingItem>{
+      for (final i in [...manualItems, ...other.manualItems]) i.key: i,
+    };
+    manual.removeWhere((k, _) => removedNext.containsKey(k));
+    return ShoppingListState(
+      checked: checkedNext,
+      checkedBy: byNext,
+      manualItems: manual.values.toList(),
+      tickTimes: timesNext,
+      removedManual: removedNext,
+    );
+  }
+
+  bool sameAs(ShoppingListState other) =>
+      checked.length == other.checked.length &&
+      checked.containsAll(other.checked) &&
+      manualItems.length == other.manualItems.length &&
+      manualItems.every((i) => other.manualItems.any((o) => o.key == i.key)) &&
+      tickTimes.length == other.tickTimes.length &&
+      tickTimes.entries.every((e) => other.tickTimes[e.key] == e.value);
 
   Map<String, dynamic> toJson() => {
     'checked': checked.toList(),
@@ -244,6 +315,8 @@ class ShoppingListState {
           'aisle': i.aisle.name,
         },
     ],
+    if (tickTimes.isNotEmpty) 'tickTimes': tickTimes,
+    if (removedManual.isNotEmpty) 'removedManual': removedManual,
   };
 
   static ShoppingListState fromJson(Map<String, dynamic> json) {
@@ -278,8 +351,16 @@ class ShoppingListState {
                 manual: true,
               ),
       ],
+      tickTimes: _intMap(json['tickTimes']),
+      removedManual: _intMap(json['removedManual']),
     );
   }
+
+  static Map<String, int> _intMap(Object? raw) => {
+    if (raw is Map)
+      for (final e in raw.entries)
+        if (e.key is String && e.value is int) e.key as String: e.value as int,
+  };
 }
 
 /// Times of the planner reminders. Null means off.

@@ -2430,5 +2430,407 @@
   "remindersLogBody": "Did you have what you planned? Log it in one tap.",
   "@remindersLogBody": {
     "description": "Notification body."
+  },
+  "householdTitle": "Shared household",
+  "@householdTitle": {
+    "description": "Title of the household screen."
+  },
+  "householdEntry": "Share and sync",
+  "@householdEntry": {
+    "description": "Settings entry for the household and agent connector."
+  },
+  "householdEntrySubtitle": "Shared menus, joint shopping list, agent connector",
+  "@householdEntrySubtitle": {
+    "description": "Subtitle of the settings entry."
+  },
+  "householdIntro": "Link your app with another person's. Each of you keeps your own menu, diary and points; you see each other's menus and share one shopping list. Everything is end-to-end encrypted.",
+  "@householdIntro": {
+    "description": "Explanation at the top of the household screen before setup."
+  },
+  "householdCreate": "Create a household",
+  "@householdCreate": {
+    "description": "Button that starts setting up a household."
+  },
+  "householdJoin": "Join with a QR code",
+  "@householdJoin": {
+    "description": "Button that scans another phone's invite."
+  },
+  "householdYourName": "Your name or initial",
+  "@householdYourName": {
+    "description": "Field shown to the other members."
+  },
+  "householdStorageTitle": "Where the data is kept",
+  "@householdStorageTitle": {
+    "description": "Section title for the sync backend."
+  },
+  "householdStorageSupabase": "Supabase (recommended)",
+  "@householdStorageSupabase": {
+    "description": "Backend option."
+  },
+  "householdStorageSupabaseSubtitle": "Your own free project. Fast enough to tick items off at the supermarket.",
+  "@householdStorageSupabaseSubtitle": {
+    "description": "Backend option subtitle."
+  },
+  "householdStorageWebdav": "Nextcloud / WebDAV",
+  "@householdStorageWebdav": {
+    "description": "Backend option."
+  },
+  "householdStorageWebdavSubtitle": "A folder on your own server.",
+  "@householdStorageWebdavSubtitle": {
+    "description": "Backend option subtitle."
+  },
+  "householdStorageLocal": "My own server (Ubuntu)",
+  "@householdStorageLocal": {
+    "description": "Backend option."
+  },
+  "householdStorageLocalSubtitle": "The app installs the sync service for you over SSH.",
+  "@householdStorageLocalSubtitle": {
+    "description": "Backend option subtitle."
+  },
+  "householdStorageDrive": "Google Drive",
+  "@householdStorageDrive": {
+    "description": "Backend option."
+  },
+  "householdStorageDriveSubtitle": "In development.",
+  "@householdStorageDriveSubtitle": {
+    "description": "Backend option subtitle."
+  },
+  "householdSupabaseUrl": "Project URL",
+  "@householdSupabaseUrl": {
+    "description": "Field."
+  },
+  "householdSupabaseAnonKey": "Anon (public) key",
+  "@householdSupabaseAnonKey": {
+    "description": "Field."
+  },
+  "householdSupabaseToken": "Personal access token (only to create the database)",
+  "@householdSupabaseToken": {
+    "description": "Optional field."
+  },
+  "householdSupabaseCreateDb": "Create the database for me",
+  "@householdSupabaseCreateDb": {
+    "description": "Button that runs the setup SQL through the Supabase API."
+  },
+  "householdSupabaseCopySql": "Copy the setup SQL",
+  "@householdSupabaseCopySql": {
+    "description": "Button that copies the setup SQL."
+  },
+  "householdSupabaseDbCreated": "Database ready",
+  "@householdSupabaseDbCreated": {
+    "description": "Snackbar after the automatic setup."
+  },
+  "householdWebdavUrl": "Folder URL",
+  "@householdWebdavUrl": {
+    "description": "Field."
+  },
+  "householdWebdavUser": "User",
+  "@householdWebdavUser": {
+    "description": "Field."
+  },
+  "householdPassword": "Password",
+  "@householdPassword": {
+    "description": "Field."
+  },
+  "householdLocalHaveServer": "I already have the service",
+  "@householdLocalHaveServer": {
+    "description": "Choice for the local server."
+  },
+  "householdLocalInstall": "Install it for me",
+  "@householdLocalInstall": {
+    "description": "Choice for the local server."
+  },
+  "householdLocalUrl": "Server address",
+  "@householdLocalUrl": {
+    "description": "Field, e.g. http://192.168.1.10:8787."
+  },
+  "householdLocalToken": "Access token",
+  "@householdLocalToken": {
+    "description": "Field."
+  },
+  "householdSshHost": "Host or IP",
+  "@householdSshHost": {
+    "description": "Field."
+  },
+  "householdSshPort": "SSH port",
+  "@householdSshPort": {
+    "description": "Field."
+  },
+  "householdSshUser": "SSH user",
+  "@householdSshUser": {
+    "description": "Field."
+  },
+  "householdSshKey": "Private key (optional)",
+  "@householdSshKey": {
+    "description": "Field."
+  },
+  "householdInstall": "Install",
+  "@householdInstall": {
+    "description": "Button."
+  },
+  "householdInstallStep": "Step: {step}",
+  "@householdInstallStep": {
+    "description": "Progress of the server installation.",
+    "placeholders": {
+      "step": {
+        "type": "String",
+        "example": "configuring"
+      }
+    }
+  },
+  "householdInstallDone": "Sync service installed",
+  "@householdInstallDone": {
+    "description": "Snackbar."
+  },
+  "householdTestAndCreate": "Test and create",
+  "@householdTestAndCreate": {
+    "description": "Button that checks the connection and creates the household."
+  },
+  "householdConnectionFailed": "Could not connect: {reason}",
+  "@householdConnectionFailed": {
+    "description": "Error message.",
+    "placeholders": {
+      "reason": {
+        "type": "String",
+        "example": "wrong password"
+      }
+    }
+  },
+  "householdWrongCredentials": "the password, key or token was rejected",
+  "@householdWrongCredentials": {
+    "description": "Reason inside householdConnectionFailed."
+  },
+  "householdMembers": "Members",
+  "@householdMembers": {
+    "description": "Section title."
+  },
+  "householdYou": "{name} (you)",
+  "@householdYou": {
+    "description": "A member row for this phone.",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "A"
+      }
+    }
+  },
+  "householdLastSync": "Last synced {time}",
+  "@householdLastSync": {
+    "description": "Status line.",
+    "placeholders": {
+      "time": {
+        "type": "String",
+        "example": "10:42"
+      }
+    }
+  },
+  "householdNeverSynced": "Not synced yet",
+  "@householdNeverSynced": {
+    "description": "Status line."
+  },
+  "householdSyncNow": "Sync now",
+  "@householdSyncNow": {
+    "description": "Button."
+  },
+  "householdSynced": "Synced with {count} other members",
+  "@householdSynced": {
+    "description": "Snackbar after a sync.",
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "example": "1"
+      }
+    }
+  },
+  "householdInvite": "Invite with QR",
+  "@householdInvite": {
+    "description": "Button that shows the invite QR."
+  },
+  "householdInviteBody": "Scan this on the other phone, in person. It contains the household key, so don't share a photo of it.",
+  "@householdInviteBody": {
+    "description": "Text under the invite QR."
+  },
+  "householdInvalidInvite": "That code is not an EatPoint household invite",
+  "@householdInvalidInvite": {
+    "description": "Error after scanning."
+  },
+  "householdLeave": "Leave household",
+  "@householdLeave": {
+    "description": "Button."
+  },
+  "householdLeaveConfirm": "This phone stops syncing and forgets the other members' menus. Your own data stays.",
+  "@householdLeaveConfirm": {
+    "description": "Confirmation text."
+  },
+  "householdStorageInUse": "Stored in: {storage}",
+  "@householdStorageInUse": {
+    "description": "Status line.",
+    "placeholders": {
+      "storage": {
+        "type": "String",
+        "example": "Supabase"
+      }
+    }
+  },
+  "householdUnreadable": "{count} member files could not be read (different key?)",
+  "@householdUnreadable": {
+    "description": "Warning after a sync.",
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "example": "1"
+      }
+    }
+  },
+  "plannerViewMine": "Mine",
+  "@plannerViewMine": {
+    "description": "Planner toggle."
+  },
+  "plannerViewBoth": "Both",
+  "@plannerViewBoth": {
+    "description": "Planner toggle."
+  },
+  "plannerSameDish": "Same dish · {points} pts",
+  "@plannerSameDish": {
+    "description": "Under my dish when the other member planned it too.",
+    "placeholders": {
+      "points": {
+        "type": "String",
+        "example": "4.5"
+      }
+    }
+  },
+  "plannerCopyToMine": "Copy to my menu",
+  "@plannerCopyToMine": {
+    "description": "Action on another member's dish."
+  },
+  "plannerCopied": "Added to your menu",
+  "@plannerCopied": {
+    "description": "Snackbar."
+  },
+  "shoppingJoint": "Joint",
+  "@shoppingJoint": {
+    "description": "Shopping list filter."
+  },
+  "shoppingMineOnly": "Mine only",
+  "@shoppingMineOnly": {
+    "description": "Shopping list filter."
+  },
+  "mcpTitle": "Agent connector (MCP)",
+  "@mcpTitle": {
+    "description": "Title."
+  },
+  "mcpIntro": "Lets an AI agent you use read your menus, shopping list and budget, and propose changes. Every change waits for your approval here. It runs while the app is open, on your Wi‑Fi.",
+  "@mcpIntro": {
+    "description": "Explanation."
+  },
+  "mcpEnable": "Turn on the connector",
+  "@mcpEnable": {
+    "description": "Switch."
+  },
+  "mcpAddress": "Address",
+  "@mcpAddress": {
+    "description": "Label."
+  },
+  "mcpToken": "Access token",
+  "@mcpToken": {
+    "description": "Label."
+  },
+  "mcpCopyConfig": "Copy client configuration",
+  "@mcpCopyConfig": {
+    "description": "Button that copies a JSON snippet for MCP clients."
+  },
+  "mcpCopied": "Copied",
+  "@mcpCopied": {
+    "description": "Snackbar."
+  },
+  "mcpNewToken": "New token",
+  "@mcpNewToken": {
+    "description": "Button that rotates the token."
+  },
+  "mcpAllowDiary": "Let the agent read my diary",
+  "@mcpAllowDiary": {
+    "description": "Switch, off by default."
+  },
+  "mcpProposals": "Waiting for your approval",
+  "@mcpProposals": {
+    "description": "Section title."
+  },
+  "mcpNoProposals": "No proposals",
+  "@mcpNoProposals": {
+    "description": "Empty state."
+  },
+  "mcpApprove": "Approve",
+  "@mcpApprove": {
+    "description": "Button."
+  },
+  "mcpReject": "Reject",
+  "@mcpReject": {
+    "description": "Button."
+  },
+  "mcpNoNetwork": "No Wi‑Fi address found. Connect to a network to use the connector.",
+  "@mcpNoNetwork": {
+    "description": "Shown when no LAN address exists."
+  },
+  "mcpProposalAdd": "Add {dish} ({grams}) to {meal} on {date}",
+  "@mcpProposalAdd": {
+    "description": "Text of a proposal.",
+    "placeholders": {
+      "dish": {
+        "type": "String",
+        "example": "Salmon"
+      },
+      "grams": {
+        "type": "String",
+        "example": "130 g"
+      },
+      "meal": {
+        "type": "String",
+        "example": "Lunch"
+      },
+      "date": {
+        "type": "String",
+        "example": "Tue 1"
+      }
+    }
+  },
+  "mcpProposalTick": "Tick off {item} on the shopping list",
+  "@mcpProposalTick": {
+    "description": "Text of a proposal.",
+    "placeholders": {
+      "item": {
+        "type": "String",
+        "example": "Bananas"
+      }
+    }
+  },
+  "shareExportData": "Export EatPoint data",
+  "@shareExportData": {
+    "description": "Tile that exports points settings, menus and lists as JSON."
+  },
+  "shareExportDataSubtitle": "Points settings, menus, shopping lists and reminders (JSON)",
+  "@shareExportDataSubtitle": {
+    "description": "Subtitle of the export tile."
+  },
+  "shareImportData": "Import EatPoint data",
+  "@shareImportData": {
+    "description": "Tile that imports a JSON export."
+  },
+  "shareImported": "{count} items imported",
+  "@shareImported": {
+    "description": "Snackbar after an import.",
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "example": "12"
+      }
+    }
+  },
+  "shareImportInvalid": "That file is not an EatPoint export",
+  "@shareImportInvalid": {
+    "description": "Snackbar for a wrong file."
+  },
+  "plannerShareWeek": "Share this week's menu",
+  "@plannerShareWeek": {
+    "description": "Planner menu action that shares the week as text."
   }
 }

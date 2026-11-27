@@ -7,7 +7,9 @@ import 'package:opennutritracker/core/styles/app_palette.dart';
 import 'package:opennutritracker/core/styles/dimens.dart';
 import 'package:opennutritracker/core/utils/calc/points_calc.dart';
 import 'package:opennutritracker/core/utils/locator.dart';
+import 'package:opennutritracker/features/mcp/data/mcp_controller.dart';
 import 'package:opennutritracker/features/planner/presentation/planner_screen.dart';
+import 'package:opennutritracker/features/sync/domain/household_auto_sync.dart';
 import 'package:opennutritracker/features/planner/presentation/shopping_list_screen.dart';
 import 'package:opennutritracker/features/points/data/points_settings_data_source.dart';
 import 'package:opennutritracker/features/points/domain/points_extensions.dart';
@@ -56,12 +58,26 @@ class _PointsHomeSwitcherState extends State<PointsHomeSwitcher> {
     if (!_available) return;
     _settings!.revision.addListener(_load);
     _load();
+    _startConnectedServices();
+    _lifecycle = AppLifecycleListener(onResume: _startConnectedServices);
   }
 
   @override
   void dispose() {
     _settings?.revision.removeListener(_load);
+    _lifecycle?.dispose();
     super.dispose();
+  }
+
+  AppLifecycleListener? _lifecycle;
+
+  /// The agent connector and the household sync run while the app is in
+  /// the foreground; the home screen is where the app comes back to.
+  void _startConnectedServices() {
+    if (locator.isRegistered<McpController>()) {
+      locator<McpController>().applyConfig().catchError((_) {});
+    }
+    HouseholdAutoSync.instance.syncSoon(Duration.zero);
   }
 
   Future<void> _load() async {

@@ -15,7 +15,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 2.7.0+69
+version: 0.1.0+1
 
 environment:
   sdk: '>=3.11.0 <4.0.0'
@@ -102,6 +102,8 @@ dependencies:
   # (Android SpeechRecognizer / iOS SFSpeech); no audio is sent by the app.
   speech_to_text: ^7.5.0
   google_mlkit_text_recognition: ^1.0.3
+  cryptography: ^2.9.0
+  dartssh2: ^4.2.0
 
 dev_dependencies:
   flutter_test:
@@ -145,6 +147,7 @@ flutter:
     # in unsplash_attribution.dart). Shipping them means Try Demo never
     # contacts Unsplash's CDN, at seed time or at render time.
     - assets/demo/meals/
+    - assets/server/
 
   fonts:
     - family: CustomIcons

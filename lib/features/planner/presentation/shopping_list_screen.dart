@@ -11,6 +11,9 @@ import 'package:opennutritracker/features/planner/data/planner_data_source.dart'
 import 'package:opennutritracker/features/planner/domain/entity/planner_entities.dart';
 import 'package:opennutritracker/features/planner/domain/shopping_list_builder.dart';
 import 'package:opennutritracker/features/points/presentation/points_format.dart';
+import 'package:opennutritracker/features/sync/data/household_store.dart';
+import 'package:opennutritracker/features/sync/domain/household.dart';
+import 'package:opennutritracker/features/sync/domain/household_auto_sync.dart';
 import 'package:opennutritracker/generated/l10n.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
@@ -29,9 +32,17 @@ class ShoppingListScreen extends StatefulWidget {
 }
 
 class _ShoppingListScreenState extends State<ShoppingListScreen> {
-  static const _owner = 'me';
+  static const _defaultOwner = 'me';
 
   final _source = locator<PlannerDataSource>();
+
+  /// EatPoint household: the other members' menus feed a joint list.
+  final HouseholdStore? _household = locator.isRegistered<HouseholdStore>()
+      ? locator<HouseholdStore>()
+      : null;
+  bool _jointView = true;
+  bool _shared = false;
+  String _owner = _defaultOwner;
 
   List<ShoppingItem> _items = const [];
   ShoppingListState _state = const ShoppingListState();
@@ -40,12 +51,16 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
   void initState() {
     super.initState();
     _source.revision.addListener(_load);
+    _household?.revision.addListener(_load);
+    HouseholdAutoSync.instance.attach();
     _load();
   }
 
   @override
   void dispose() {
     _source.revision.removeListener(_load);
+    _household?.revision.removeListener(_load);
+    HouseholdAutoSync.instance.detach();
     super.dispose();
   }
 
@@ -68,8 +83,21 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
 
   void _load() {
     final plans = _source.getWeek(widget.weekOf);
+    final household = _household?.getHousehold();
+    final others = household == null
+        ? const <MemberSnapshot>[]
+        : _household!.otherMembers();
+    final myName = household?.memberName ?? '';
+    _owner = myName.isEmpty ? _defaultOwner : myName;
+    _shared = others.isNotEmpty;
+    final start = DayPlan.weekStart(widget.weekOf);
     final built = ShoppingListBuilder.build([
       for (final p in plans) (owner: _owner, plan: p),
+      if (_jointView)
+        for (final m in others)
+          for (var i = 0; i < 7; i++)
+            if (m.dayFor(start.add(Duration(days: i))) case final d?)
+              (owner: m.name.isEmpty ? m.memberId : m.name, plan: d),
     ], recipeIngredients: _ingredientsOf);
     final state = _source.getShopping(widget.weekOf);
     final keys = built.map((i) => i.key).toSet();
@@ -248,6 +276,32 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
     final total = _items.length;
 
     final children = <Widget>[];
+    if (_shared) {
+      children.add(
+        Padding(
+          padding: const EdgeInsets.fromLTRB(
+            Dimens.spacing16,
+            Dimens.spacing8,
+            Dimens.spacing16,
+            0,
+          ),
+          child: Semantics(
+            identifier: 'shopping-joint-toggle',
+            child: SegmentedButton<bool>(
+              segments: [
+                ButtonSegment(value: true, label: Text(s.shoppingJoint)),
+                ButtonSegment(value: false, label: Text(s.shoppingMineOnly)),
+              ],
+              selected: {_jointView},
+              onSelectionChanged: (v) {
+                setState(() => _jointView = v.first);
+                _load();
+              },
+            ),
+          ),
+        ),
+      );
+    }
     if (total > 0) {
       children.add(
         Padding(

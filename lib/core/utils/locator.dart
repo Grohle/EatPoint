@@ -82,7 +82,11 @@ import 'package:http/http.dart' as http;
 import 'package:opennutritracker/core/utils/ai_credential_storage.dart';
 import 'package:opennutritracker/features/planner/data/planner_data_source.dart';
 import 'package:opennutritracker/features/planner/data/planner_reminder_service.dart';
+import 'package:opennutritracker/features/mcp/data/mcp_controller.dart';
 import 'package:opennutritracker/features/points/data/points_settings_data_source.dart';
+import 'package:opennutritracker/features/sync/data/backends/sync_backend_factory.dart';
+import 'package:opennutritracker/features/sync/data/household_store.dart';
+import 'package:opennutritracker/features/sync/domain/household_sync_service.dart';
 import 'package:opennutritracker/features/points/domain/usecase/get_meal_points_usage_usecase.dart';
 import 'package:opennutritracker/features/points/domain/usecase/get_points_budget_usecase.dart';
 import 'package:opennutritracker/features/add_meal/data/meal_items_api_factory.dart';
@@ -731,6 +735,32 @@ Future<void> initLocator() async {
   );
   locator.registerLazySingleton<PlannerReminderService>(
     () => PlannerReminderService(locator()),
+  );
+  locator.registerLazySingleton<HouseholdStore>(
+    () => HouseholdStore(hiveDBProvider),
+  );
+  locator.registerLazySingleton<McpController>(
+    () => McpController(
+      hiveDBProvider,
+      locator(),
+      locator(),
+      locator(),
+      locator(),
+      locator(),
+      locator(),
+    ),
+  );
+  locator.registerLazySingleton<HouseholdSyncService>(
+    () => HouseholdSyncService(
+      locator(),
+      locator(),
+      (config, {required householdId, required secret}) => createSyncBackend(
+        http.Client(),
+        config,
+        householdId: householdId,
+        secret: secret,
+      ),
+    ),
   );
   locator.registerLazySingleton(() => CustomMealDataSource(hiveDBProvider));
   locator.registerLazySingleton(() => RecipeDataSource(hiveDBProvider));

@@ -19,7 +19,12 @@ import 'package:opennutritracker/features/planner/presentation/shopping_list_scr
 import 'package:opennutritracker/features/points/domain/usecase/get_points_budget_usecase.dart';
 import 'package:opennutritracker/features/points/presentation/meal_type_label.dart';
 import 'package:opennutritracker/features/points/presentation/points_format.dart';
+import 'package:opennutritracker/features/sync/data/household_store.dart';
+import 'package:opennutritracker/features/sync/domain/household.dart';
+import 'package:opennutritracker/features/sync/domain/household_auto_sync.dart';
+import 'package:opennutritracker/core/utils/id_generator.dart';
 import 'package:opennutritracker/generated/l10n.dart';
+import 'package:share_plus/share_plus.dart';
 
 /// The weekly menu: a day strip, each meal's planned dishes with their
 /// points against the meal budget, logging a planned meal in one tap, and
@@ -33,7 +38,7 @@ class PlannerScreen extends StatefulWidget {
   State<PlannerScreen> createState() => _PlannerScreenState();
 }
 
-enum _DayAction { copyPreviousWeek, copyDayTo, clearDay, reminders }
+enum _DayAction { copyPreviousWeek, copyDayTo, clearDay, shareWeek, reminders }
 
 class _PlannerScreenState extends State<PlannerScreen> {
   final _source = locator<PlannerDataSource>();
@@ -46,10 +51,19 @@ class _PlannerScreenState extends State<PlannerScreen> {
 
   DateTime get _weekStart => DayPlan.weekStart(_selected);
 
+  /// EatPoint household: the other members' menus, shown read-only.
+  final HouseholdStore? _household = locator.isRegistered<HouseholdStore>()
+      ? locator<HouseholdStore>()
+      : null;
+  List<MemberSnapshot> _others = const [];
+  bool _viewBoth = true;
+
   @override
   void initState() {
     super.initState();
     _source.revision.addListener(_reload);
+    _household?.revision.addListener(_reload);
+    HouseholdAutoSync.instance.attach();
     _reload();
     _loadBudget();
   }
@@ -57,12 +71,37 @@ class _PlannerScreenState extends State<PlannerScreen> {
   @override
   void dispose() {
     _source.revision.removeListener(_reload);
+    _household?.revision.removeListener(_reload);
+    HouseholdAutoSync.instance.detach();
     super.dispose();
   }
 
   void _reload() {
     if (!mounted) return;
-    setState(() => _week = _source.getWeek(_selected));
+    setState(() {
+      _week = _source.getWeek(_selected);
+      _others = _household?.getHousehold() == null
+          ? const []
+          : _household!.otherMembers();
+    });
+  }
+
+  Future<void> _copyToMine(IntakeTypeEntity type, PlannedItem item) async {
+    final messenger = ScaffoldMessenger.of(context);
+    final copied = S.of(context).plannerCopied;
+    final day = _day;
+    await _save(
+      day.withMeal(type, [
+        ...day.itemsFor(type),
+        PlannedItem(
+          id: IdGenerator.getUniqueID(),
+          meal: item.meal,
+          amount: item.amount,
+          unit: item.unit,
+        ),
+      ]),
+    );
+    messenger.showSnackBar(SnackBar(content: Text(copied)));
   }
 
   Future<void> _loadBudget() async {
@@ -189,12 +228,41 @@ class _PlannerScreenState extends State<PlannerScreen> {
         await _copyDayTo();
       case _DayAction.clearDay:
         await _save(DayPlan.empty(_selected));
+      case _DayAction.shareWeek:
+        await _shareWeek();
       case _DayAction.reminders:
         if (!mounted) return;
         await Navigator.of(context).push(
           MaterialPageRoute(builder: (_) => const PlannerRemindersScreen()),
         );
     }
+  }
+
+  /// Shares the week's menu as plain text.
+  Future<void> _shareWeek() async {
+    final s = S.of(context);
+    final locale = Localizations.localeOf(context).toString();
+    final format = PointsFormat.of(context);
+    final buffer = StringBuffer('${s.plannerTitle}\n');
+    for (final day in _week) {
+      if (day.isEmpty) continue;
+      buffer.writeln();
+      buffer.writeln(DateFormat.MMMMEEEEd(locale).format(day.date));
+      for (final type in IntakeTypeEntity.values) {
+        final items = day.itemsFor(type);
+        if (items.isEmpty) continue;
+        buffer.writeln(
+          '  ${mealTypeLabel(context, type)} · '
+          '${format.points(day.pointsFor(type).total)} ${s.pointsShort}',
+        );
+        for (final item in items) {
+          buffer.writeln(
+            '    - ${item.name} (${format.grams(item.amount)} ${item.unit})',
+          );
+        }
+      }
+    }
+    await SharePlus.instance.share(ShareParams(text: buffer.toString()));
   }
 
   Future<void> _copyDayTo() async {
@@ -306,6 +374,10 @@ class _PlannerScreenState extends State<PlannerScreen> {
                   child: Text(s.plannerClearDay),
                 ),
                 PopupMenuItem(
+                  value: _DayAction.shareWeek,
+                  child: Text(s.plannerShareWeek),
+                ),
+                PopupMenuItem(
                   value: _DayAction.reminders,
                   child: Text(s.plannerReminders),
                 ),
@@ -326,6 +398,28 @@ class _PlannerScreenState extends State<PlannerScreen> {
                 Dimens.spacing16,
               ),
               children: [
+                if (_others.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.only(top: Dimens.spacing8),
+                    child: Semantics(
+                      identifier: 'planner-view-toggle',
+                      child: SegmentedButton<bool>(
+                        segments: [
+                          ButtonSegment(
+                            value: false,
+                            label: Text(s.plannerViewMine),
+                          ),
+                          ButtonSegment(
+                            value: true,
+                            label: Text(s.plannerViewBoth),
+                          ),
+                        ],
+                        selected: {_viewBoth},
+                        onSelectionChanged: (v) =>
+                            setState(() => _viewBoth = v.first),
+                      ),
+                    ),
+                  ),
                 if (budget != null)
                   Padding(
                     padding: const EdgeInsets.symmetric(
@@ -594,6 +688,53 @@ class _PlannerScreenState extends State<PlannerScreen> {
                         onPressed: () => _removeItem(type, item),
                       ),
               ),
+            if (_viewBoth)
+              for (final member in _others)
+                for (final other
+                    in member.dayFor(day.date)?.itemsFor(type) ??
+                        const <PlannedItem>[])
+                  ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    dense: true,
+                    leading: CircleAvatar(
+                      radius: 12,
+                      backgroundColor: const Color(0xFFFFB300),
+                      child: Text(
+                        member.name.isEmpty
+                            ? '?'
+                            : member.name.characters.first.toUpperCase(),
+                        style: const TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w700,
+                          color: Color(0xFF4D2F00),
+                        ),
+                      ),
+                    ),
+                    title: Text(
+                      other.name,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    subtitle: Text(
+                      items.any(
+                            (mine) =>
+                                ShoppingListBuilder.normalise(mine.name) ==
+                                ShoppingListBuilder.normalise(other.name),
+                          )
+                          ? s.plannerSameDish(format.points(other.points.total))
+                          : '${member.name} · '
+                                '${format.grams(other.amount)} ${other.unit} · '
+                                '${format.points(other.points.total)} '
+                                '${s.pointsShort}',
+                    ),
+                    trailing: logged
+                        ? null
+                        : IconButton(
+                            tooltip: s.plannerCopyToMine,
+                            icon: const Icon(Icons.content_copy_rounded),
+                            onPressed: () => _copyToMine(type, other),
+                          ),
+                  ),
             if (!logged)
               Align(
                 alignment: Alignment.centerLeft,
