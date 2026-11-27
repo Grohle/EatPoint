@@ -108,7 +108,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
   bool? _aiConfigured;
   String? _aiEndpoint;
   bool _aiEnabled = false;
-
   /// Null when the stored name is unrecognised — see #753.
   AiProvider? _aiProvider;
 
@@ -243,545 +242,553 @@ class _SettingsScreenState extends State<SettingsScreen> {
           // shrink-wrapped, unscrollable list of fixed children *is* a
           // Column, with a viewport in the way.
           final children = <Widget>[
-            // EatPoint: points settings come first.
-            if (locator.isRegistered<PointsSettingsDataSource>()) ...[
+              // EatPoint: points settings come first.
+              if (locator.isRegistered<PointsSettingsDataSource>()) ...[
+                SettingsCategoryHeader(
+                  palette: palette,
+                  label: S.of(context).pointsSettingsTitle,
+                ),
+                SettingsGroup(
+                  palette: palette,
+                  tiles: [
+                    SettingsTile(
+                      identifier: 'settings-points',
+                      palette: palette,
+                      icon: Icons.donut_large_rounded,
+                      title: S.of(context).pointsSettingsTitle,
+                      subtitle: S.of(context).pointsSettingsSubtitle,
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => const PointsSettingsScreen(),
+                        ),
+                      ),
+                    ),
+                    SettingsTile(
+                      identifier: 'settings-meals',
+                      palette: palette,
+                      icon: Icons.restaurant_menu_rounded,
+                      title: S.of(context).mealSlotsTitle,
+                      subtitle: S.of(context).mealSlotsEditSubtitle,
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => const MealSlotsScreen(),
+                        ),
+                      ),
+                    ),
+                    if (locator.isRegistered<DietProfileStore>())
+                      SettingsTile(
+                        identifier: 'settings-diet',
+                        palette: palette,
+                        icon: Icons.no_food_outlined,
+                        title: S.of(context).dietTitle,
+                        subtitle: S.of(context).dietSubtitle,
+                        onTap: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => const DietProfileScreen(),
+                          ),
+                        ),
+                      ),
+                    if (locator.isRegistered<FoodDbService>())
+                      SettingsTile(
+                        identifier: 'settings-food-db',
+                        palette: palette,
+                        icon: Icons.storage_rounded,
+                        title: S.of(context).foodDbTitle,
+                        subtitle: S.of(context).foodDbSubtitle,
+                        onTap: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => const FoodDbScreen(),
+                          ),
+                        ),
+                      ),
+                    SettingsTile(
+                      identifier: 'settings-travel',
+                      palette: palette,
+                      icon: Icons.flight_takeoff_rounded,
+                      title: S.of(context).travelTitle,
+                      subtitle: S.of(context).travelSettingsSubtitle,
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => const TravelModeScreen(),
+                        ),
+                      ),
+                    ),
+                    SettingsTile(
+                      identifier: 'settings-share-sync',
+                      palette: palette,
+                      icon: Icons.sync_rounded,
+                      title: S.of(context).householdEntry,
+                      subtitle: S.of(context).householdEntrySubtitle,
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => const ShareHubScreen(),
+                        ),
+                      ),
+                    ),
+                    SettingsTile(
+                      identifier: 'settings-updates',
+                      palette: palette,
+                      icon: Icons.system_update_rounded,
+                      title: S.of(context).updatesTitle,
+                      subtitle: S.of(context).updatesSubtitle,
+                      onTap: () => UpdateSettingsSheet.show(context),
+                    ),
+                  ],
+                ),
+              ],
               SettingsCategoryHeader(
                 palette: palette,
-                label: S.of(context).pointsSettingsTitle,
+                label: S.of(context).settingsCategoryUnits,
               ),
               SettingsGroup(
                 palette: palette,
                 tiles: [
                   SettingsTile(
-                    identifier: 'settings-points',
+                    identifier: 'settings-food-units',
                     palette: palette,
-                    icon: Icons.donut_large_rounded,
-                    title: S.of(context).pointsSettingsTitle,
-                    subtitle: S.of(context).pointsSettingsSubtitle,
-                    onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => const PointsSettingsScreen(),
-                      ),
+                    icon: Icons.kitchen_rounded,
+                    title: S.of(context).settingsFoodUnitsLabel,
+                    subtitle: state.usesImperialFoodUnits
+                        ? S.of(context).settingsFoodUnitsImperial
+                        : S.of(context).settingsFoodUnitsMetric,
+                    onTap: () => _showFoodUnitsDialog(
+                      context,
+                      state.usesImperialFoodUnits,
                     ),
                   ),
                   SettingsTile(
-                    identifier: 'settings-meals',
+                    identifier: 'settings-height-units',
                     palette: palette,
-                    icon: Icons.restaurant_menu_rounded,
-                    title: S.of(context).mealSlotsTitle,
-                    subtitle: S.of(context).mealSlotsEditSubtitle,
-                    onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => const MealSlotsScreen(),
-                      ),
-                    ),
-                  ),
-                  if (locator.isRegistered<DietProfileStore>())
-                    SettingsTile(
-                      identifier: 'settings-diet',
-                      palette: palette,
-                      icon: Icons.no_food_outlined,
-                      title: S.of(context).dietTitle,
-                      subtitle: S.of(context).dietSubtitle,
-                      onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) => const DietProfileScreen(),
-                        ),
-                      ),
-                    ),
-                  if (locator.isRegistered<FoodDbService>())
-                    SettingsTile(
-                      identifier: 'settings-food-db',
-                      palette: palette,
-                      icon: Icons.storage_rounded,
-                      title: S.of(context).foodDbTitle,
-                      subtitle: S.of(context).foodDbSubtitle,
-                      onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_) => const FoodDbScreen()),
-                      ),
-                    ),
-                  SettingsTile(
-                    identifier: 'settings-travel',
-                    palette: palette,
-                    icon: Icons.flight_takeoff_rounded,
-                    title: S.of(context).travelTitle,
-                    subtitle: S.of(context).travelSettingsSubtitle,
-                    onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => const TravelModeScreen(),
-                      ),
+                    icon: Icons.height_rounded,
+                    title: S.of(context).settingsHeightUnitsLabel,
+                    subtitle: state.usesImperialHeightUnits
+                        ? S.of(context).settingsHeightUnitsImperial
+                        : S.of(context).settingsHeightUnitsMetric,
+                    onTap: () => _showHeightUnitsDialog(
+                      context,
+                      state.usesImperialHeightUnits,
                     ),
                   ),
                   SettingsTile(
-                    identifier: 'settings-share-sync',
+                    identifier: 'settings-body-weight-unit',
                     palette: palette,
-                    icon: Icons.sync_rounded,
-                    title: S.of(context).householdEntry,
-                    subtitle: S.of(context).householdEntrySubtitle,
-                    onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_) => const ShareHubScreen()),
+                    icon: Icons.monitor_weight_rounded,
+                    title: S.of(context).settingsBodyWeightUnitLabel,
+                    subtitle: state.bodyWeightUnit.getLabel(context),
+                    onTap: () => _showBodyWeightUnitDialog(
+                      context,
+                      state.bodyWeightUnit,
                     ),
                   ),
                   SettingsTile(
-                    identifier: 'settings-updates',
+                    identifier: 'settings-energy-unit',
                     palette: palette,
-                    icon: Icons.system_update_rounded,
-                    title: S.of(context).updatesTitle,
-                    subtitle: S.of(context).updatesSubtitle,
-                    onTap: () => UpdateSettingsSheet.show(context),
+                    icon: Icons.local_fire_department_rounded,
+                    title: S.of(context).settingsEnergyUnitLabel,
+                    subtitle: state.usesKilojoules
+                        ? S.of(context).energyUnitKjLabel
+                        : S.of(context).energyUnitKcalLabel,
+                    onTap: () =>
+                        _showEnergyUnitDialog(context, state.usesKilojoules),
+                  ),
+                  // #1126: opt out of the serving-first default so the
+                  // meal-detail dropdown lands on the food unit (g, oz,
+                  // ml, fl oz) straight away. Sits after Energy unit in
+                  // the Units & Energy group since it steers the same
+                  // meal-detail dropdown. Off preserves the pre-existing
+                  // behaviour — serving wins whenever the food has one.
+                  _SettingsSwitchTile(
+                    identifier: 'settings-default-raw-food-units',
+                    palette: palette,
+                    icon: Icons.straighten_rounded,
+                    title: S.of(context).settingsDefaultToRawFoodUnitsLabel,
+                    subtitle: S
+                        .of(context)
+                        .settingsDefaultToRawFoodUnitsSubtitle,
+                    value: state.defaultToRawFoodUnits,
+                    onChanged: (bool value) {
+                      _settingsBloc.setDefaultToRawFoodUnits(value);
+                      _settingsBloc.add(LoadSettingsEvent());
+                    },
                   ),
                 ],
               ),
-            ],
-            SettingsCategoryHeader(
-              palette: palette,
-              label: S.of(context).settingsCategoryUnits,
-            ),
-            SettingsGroup(
-              palette: palette,
-              tiles: [
-                SettingsTile(
-                  identifier: 'settings-food-units',
-                  palette: palette,
-                  icon: Icons.kitchen_rounded,
-                  title: S.of(context).settingsFoodUnitsLabel,
-                  subtitle: state.usesImperialFoodUnits
-                      ? S.of(context).settingsFoodUnitsImperial
-                      : S.of(context).settingsFoodUnitsMetric,
-                  onTap: () => _showFoodUnitsDialog(
-                    context,
-                    state.usesImperialFoodUnits,
-                  ),
-                ),
-                SettingsTile(
-                  identifier: 'settings-height-units',
-                  palette: palette,
-                  icon: Icons.height_rounded,
-                  title: S.of(context).settingsHeightUnitsLabel,
-                  subtitle: state.usesImperialHeightUnits
-                      ? S.of(context).settingsHeightUnitsImperial
-                      : S.of(context).settingsHeightUnitsMetric,
-                  onTap: () => _showHeightUnitsDialog(
-                    context,
-                    state.usesImperialHeightUnits,
-                  ),
-                ),
-                SettingsTile(
-                  identifier: 'settings-body-weight-unit',
-                  palette: palette,
-                  icon: Icons.monitor_weight_rounded,
-                  title: S.of(context).settingsBodyWeightUnitLabel,
-                  subtitle: state.bodyWeightUnit.getLabel(context),
-                  onTap: () =>
-                      _showBodyWeightUnitDialog(context, state.bodyWeightUnit),
-                ),
-                SettingsTile(
-                  identifier: 'settings-energy-unit',
-                  palette: palette,
-                  icon: Icons.local_fire_department_rounded,
-                  title: S.of(context).settingsEnergyUnitLabel,
-                  subtitle: state.usesKilojoules
-                      ? S.of(context).energyUnitKjLabel
-                      : S.of(context).energyUnitKcalLabel,
-                  onTap: () =>
-                      _showEnergyUnitDialog(context, state.usesKilojoules),
-                ),
-                // #1126: opt out of the serving-first default so the
-                // meal-detail dropdown lands on the food unit (g, oz,
-                // ml, fl oz) straight away. Sits after Energy unit in
-                // the Units & Energy group since it steers the same
-                // meal-detail dropdown. Off preserves the pre-existing
-                // behaviour — serving wins whenever the food has one.
-                _SettingsSwitchTile(
-                  identifier: 'settings-default-raw-food-units',
-                  palette: palette,
-                  icon: Icons.straighten_rounded,
-                  title: S.of(context).settingsDefaultToRawFoodUnitsLabel,
-                  subtitle: S.of(context).settingsDefaultToRawFoodUnitsSubtitle,
-                  value: state.defaultToRawFoodUnits,
-                  onChanged: (bool value) {
-                    _settingsBloc.setDefaultToRawFoodUnits(value);
-                    _settingsBloc.add(LoadSettingsEvent());
-                  },
-                ),
-              ],
-            ),
-            const SizedBox(height: Dimens.spacing20),
-            SettingsCategoryHeader(
-              palette: palette,
-              label: S.of(context).settingsCategoryGoals,
-            ),
-            SettingsGroup(
-              palette: palette,
-              tiles: [
-                // The old Calculations dialog had grown into a wall of
-                // sliders covering daily kcal, macros, per-meal split,
-                // ten nutrient goals, and the diary day boundary. Each
-                // is now its own focused entry so people can find the
-                // setting they want and only see the controls for it.
-                SettingsTile(
-                  identifier: 'settings-kcal-goal-info',
-                  palette: palette,
-                  icon: Icons.functions_rounded,
-                  title: S.of(context).settingsKcalGoalInfoLabel,
-                  showChevron: true,
-                  onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute<void>(
-                      builder: (_) => const KcalGoalInfoScreen(),
-                    ),
-                  ),
-                ),
-                SettingsTile(
-                  identifier: 'settings-kcal-adjustment',
-                  palette: palette,
-                  icon: Icons.calculate_rounded,
-                  title: state.usesKilojoules
-                      ? S.of(context).settingsKjAdjustmentLabel
-                      : S.of(context).settingsKcalAdjustmentLabel,
-                  onTap: () => _showKcalAdjustmentDialog(context),
-                ),
-                SettingsTile(
-                  identifier: 'settings-macro-split',
-                  palette: palette,
-                  icon: Icons.pie_chart_rounded,
-                  title: S.of(context).settingsMacroSplitLabel,
-                  onTap: () => _showMacroSplitDialog(context),
-                ),
-                SettingsTile(
-                  identifier: 'settings-per-meal-share',
-                  palette: palette,
-                  icon: Icons.restaurant_menu_rounded,
-                  title: S.of(context).settingsPerMealKcalShareLabel,
-                  onTap: () => _showPerMealKcalShareDialog(context),
-                ),
-                SettingsTile(
-                  identifier: 'settings-nutrient-goals',
-                  palette: palette,
-                  icon: Icons.spa_rounded,
-                  title: S.of(context).settingsNutrientGoalsLabel,
-                  showChevron: true,
-                  onTap: () => _openNutrientGoalsScreen(context),
-                ),
-                SettingsTile(
-                  identifier: 'settings-day-boundary',
-                  palette: palette,
-                  icon: Icons.schedule_rounded,
-                  title: S.of(context).settingsDayStartLabel,
-                  onTap: () => _showDayBoundaryDialog(context),
-                ),
-              ],
-            ),
-            const SizedBox(height: Dimens.spacing20),
-            SettingsCategoryHeader(
-              palette: palette,
-              label: S.of(context).settingsCategoryDisplay,
-            ),
-            SettingsGroup(
-              palette: palette,
-              tiles: [
-                _SettingsSwitchTile(
-                  palette: palette,
-                  icon: Icons.directions_run_rounded,
-                  title: S.of(context).settingsShowActivityTracking,
-                  value: state.showActivityTracking,
-                  onChanged: (bool value) {
-                    _settingsBloc.setShowActivityTracking(value);
-                    _settingsBloc.add(LoadSettingsEvent());
-                    _homeBloc.add(LoadItemsEvent());
-                    // DiaryBloc is a lazy singleton so its loaded state
-                    // survives navigation. Without an explicit reload here
-                    // the diary keeps the stale flag and the per-day
-                    // Activity section stays visible after toggling off.
-                    _diaryBloc.add(const LoadDiaryYearEvent());
-                  },
-                ),
-                _SettingsSwitchTile(
-                  palette: palette,
-                  icon: Icons.bar_chart_rounded,
-                  title: S.of(context).settingsShowMealMacros,
-                  value: state.showMealMacros,
-                  onChanged: (bool value) async {
-                    // Every reload below reads the flag back, so it must
-                    // be stored first.
-                    await _settingsBloc.setShowMealMacros(value);
-                    _settingsBloc.add(LoadSettingsEvent());
-                    _homeBloc.add(LoadItemsEvent());
-                    // The Diary's meal headers read the flag from
-                    // DiaryBloc, which keeps it until reloaded.
-                    reloadDiaryAndTrends();
-                  },
-                ),
-                _SettingsSwitchTile(
-                  palette: palette,
-                  icon: Icons.science_rounded,
-                  title: S.of(context).settingsShowMicronutrientsLabel,
-                  value: state.showMicronutrients,
-                  onChanged: (bool value) {
-                    _settingsBloc.setShowMicronutrients(value);
-                    _settingsBloc.add(LoadSettingsEvent());
-                  },
-                ),
-                // #1518: one switch for every AI surface — the Snap meal tile,
-                // the AI badges, the set-up offer and the AI meal
-                // assistance row — and, while off, nothing is sent to a
-                // model. Device-wide, like the keys it sits beside.
-                _SettingsSwitchTile(
-                  identifier: 'settings-show-ai',
-                  palette: palette,
-                  icon: Icons.auto_awesome_rounded,
-                  title: S.of(context).settingsShowAiFeaturesLabel,
-                  subtitle: S.of(context).settingsShowAiFeaturesSubtitle,
-                  value: !_aiHidden,
-                  onChanged: (bool value) async {
-                    setState(() => _aiHidden = !value);
-                    await _aiCredentials.setHidden(!value);
-                    await _refreshAiAssistState();
-                  },
-                ),
-                // #160 follow-up: lets the user pick which nutrients show
-                // on the diary's daily nutrient panel. Lives next to the
-                // meal-detail micronutrient toggle above; both shape what
-                // the user sees from the same underlying nutrient data.
-                SettingsTile(
-                  identifier: 'settings-nutrient-visibility',
-                  palette: palette,
-                  icon: Icons.tune_rounded,
-                  title: S.of(context).settingsNutrientsLabel,
-                  subtitle: S.of(context).settingsNutrientsSubtitle,
-                  onTap: () => _openNutrientVisibilityScreen(context),
-                ),
-              ],
-            ),
-            const SizedBox(height: Dimens.spacing20),
-            SettingsCategoryHeader(
-              palette: palette,
-              label: S.of(context).settingsCategoryAppearance,
-            ),
-            SettingsGroup(
-              palette: palette,
-              tiles: [
-                SettingsTile(
-                  palette: palette,
-                  icon: Icons.brightness_medium_rounded,
-                  title: S.of(context).settingsThemeLabel,
-                  onTap: () => _showThemeDialog(context, state.appTheme),
-                ),
-                SettingsTile(
-                  identifier: 'settings-accent-colour',
-                  palette: palette,
-                  icon: Icons.palette_rounded,
-                  title: S.of(context).settingsAccentColourTitle,
-                  subtitle: _accentSubtitle(
-                    context,
-                    useMaterialYou: state.useMaterialYou,
-                    accentColor: state.accentColor,
-                  ),
-                  trailing: _AccentTrailingSwatch(
-                    useMaterialYou: state.useMaterialYou,
-                    accentColor: state.accentColor,
-                  ),
-                  onTap: () => Navigator.of(
-                    context,
-                  ).pushNamed(NavigationOptions.accentColourRoute),
-                ),
-                SettingsTile(
-                  palette: palette,
-                  icon: Icons.language_rounded,
-                  title: S.of(context).settingsLanguageLabel,
-                  subtitle:
-                      _localeDisplayName(state.selectedLocale) ??
-                      S.of(context).settingsThemeSystemDefaultLabel,
-                  onTap: () =>
-                      _showLanguageDialog(context, state.selectedLocale),
-                ),
-              ],
-            ),
-            const SizedBox(height: Dimens.spacing20),
-            SettingsCategoryHeader(
-              palette: palette,
-              label: S.of(context).settingsNotificationsLabel,
-            ),
-            SettingsGroup(
-              palette: palette,
-              tiles: [
-                _SettingsSwitchTile(
-                  palette: palette,
-                  icon: Icons.notifications_rounded,
-                  title: S.of(context).settingsNotificationsLabel,
-                  subtitle: state.notificationsEnabled
-                      ? S
-                            .of(context)
-                            .settingsNotificationsTimeLabel(
-                              _formatNotificationTime(
-                                state.notificationHour,
-                                state.notificationMinute,
-                              ),
-                            )
-                      : null,
-                  value: state.notificationsEnabled,
-                  onChanged: (bool value) =>
-                      _onNotificationToggled(context, value, state),
-                ),
-                if (state.notificationsEnabled)
+              const SizedBox(height: Dimens.spacing20),
+              SettingsCategoryHeader(
+                palette: palette,
+                label: S.of(context).settingsCategoryGoals,
+              ),
+              SettingsGroup(
+                palette: palette,
+                tiles: [
+                  // The old Calculations dialog had grown into a wall of
+                  // sliders covering daily kcal, macros, per-meal split,
+                  // ten nutrient goals, and the diary day boundary. Each
+                  // is now its own focused entry so people can find the
+                  // setting they want and only see the controls for it.
                   SettingsTile(
+                    identifier: 'settings-kcal-goal-info',
                     palette: palette,
-                    icon: Icons.access_time_rounded,
-                    title: S
-                        .of(context)
-                        .settingsNotificationsTimeLabel(
-                          _formatNotificationTime(
-                            state.notificationHour,
-                            state.notificationMinute,
-                          ),
-                        ),
-                    onTap: () => _pickNotificationTime(
-                      context,
-                      TimeOfDay(
-                        hour: state.notificationHour,
-                        minute: state.notificationMinute,
+                    icon: Icons.functions_rounded,
+                    title: S.of(context).settingsKcalGoalInfoLabel,
+                    showChevron: true,
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (_) => const KcalGoalInfoScreen(),
                       ),
                     ),
                   ),
-              ],
-            ),
-            const SizedBox(height: Dimens.spacing20),
-            SettingsCategoryHeader(
-              palette: palette,
-              label: S.of(context).settingsCategoryData,
-            ),
-            SettingsGroup(
-              palette: palette,
-              tiles: [
-                SettingsTile(
-                  identifier: 'settings-food-sources',
-                  palette: palette,
-                  icon: Icons.travel_explore_rounded,
-                  title: S.of(context).settingsFoodSourcesLabel,
-                  subtitle: S.of(context).settingsFoodSourcesSubtitle,
-                  onTap: () => _openFoodSourcesScreen(context),
-                ),
-                SettingsTile(
-                  identifier: 'settings-health-sync',
-                  palette: palette,
-                  icon: Icons.favorite_rounded,
-                  // The platform's own product name, so the row reads as
-                  // the thing users already know ("Health Connect"), not
-                  // as a generic feature label.
-                  title: healthPlatformName,
-                  subtitle: S.of(context).settingsHealthSyncSubtitle,
-                  showChevron: true,
-                  onTap: () => _openHealthSyncScreen(context),
-                ),
-                // Hidden with the rest of the AI features (#1518); the Show AI
-                // features switch under Display brings it back.
-                if (!_aiHidden)
                   SettingsTile(
-                    identifier: 'settings-ai-assist',
+                    identifier: 'settings-kcal-adjustment',
+                    palette: palette,
+                    icon: Icons.calculate_rounded,
+                    title: state.usesKilojoules
+                        ? S.of(context).settingsKjAdjustmentLabel
+                        : S.of(context).settingsKcalAdjustmentLabel,
+                    onTap: () => _showKcalAdjustmentDialog(context),
+                  ),
+                  SettingsTile(
+                    identifier: 'settings-macro-split',
+                    palette: palette,
+                    icon: Icons.pie_chart_rounded,
+                    title: S.of(context).settingsMacroSplitLabel,
+                    onTap: () => _showMacroSplitDialog(context),
+                  ),
+                  SettingsTile(
+                    identifier: 'settings-per-meal-share',
+                    palette: palette,
+                    icon: Icons.restaurant_menu_rounded,
+                    title: S.of(context).settingsPerMealKcalShareLabel,
+                    onTap: () => _showPerMealKcalShareDialog(context),
+                  ),
+                  SettingsTile(
+                    identifier: 'settings-nutrient-goals',
+                    palette: palette,
+                    icon: Icons.spa_rounded,
+                    title: S.of(context).settingsNutrientGoalsLabel,
+                    showChevron: true,
+                    onTap: () => _openNutrientGoalsScreen(context),
+                  ),
+                  SettingsTile(
+                    identifier: 'settings-day-boundary',
+                    palette: palette,
+                    icon: Icons.schedule_rounded,
+                    title: S.of(context).settingsDayStartLabel,
+                    onTap: () => _showDayBoundaryDialog(context),
+                  ),
+                ],
+              ),
+              const SizedBox(height: Dimens.spacing20),
+              SettingsCategoryHeader(
+                palette: palette,
+                label: S.of(context).settingsCategoryDisplay,
+              ),
+              SettingsGroup(
+                palette: palette,
+                tiles: [
+                  _SettingsSwitchTile(
+                    palette: palette,
+                    icon: Icons.directions_run_rounded,
+                    title: S.of(context).settingsShowActivityTracking,
+                    value: state.showActivityTracking,
+                    onChanged: (bool value) {
+                      _settingsBloc.setShowActivityTracking(value);
+                      _settingsBloc.add(LoadSettingsEvent());
+                      _homeBloc.add(LoadItemsEvent());
+                      // DiaryBloc is a lazy singleton so its loaded state
+                      // survives navigation. Without an explicit reload here
+                      // the diary keeps the stale flag and the per-day
+                      // Activity section stays visible after toggling off.
+                      _diaryBloc.add(const LoadDiaryYearEvent());
+                    },
+                  ),
+                  _SettingsSwitchTile(
+                    palette: palette,
+                    icon: Icons.bar_chart_rounded,
+                    title: S.of(context).settingsShowMealMacros,
+                    value: state.showMealMacros,
+                    onChanged: (bool value) async {
+                      // Every reload below reads the flag back, so it must
+                      // be stored first.
+                      await _settingsBloc.setShowMealMacros(value);
+                      _settingsBloc.add(LoadSettingsEvent());
+                      _homeBloc.add(LoadItemsEvent());
+                      // The Diary's meal headers read the flag from
+                      // DiaryBloc, which keeps it until reloaded.
+                      reloadDiaryAndTrends();
+                    },
+                  ),
+                  _SettingsSwitchTile(
+                    palette: palette,
+                    icon: Icons.science_rounded,
+                    title: S.of(context).settingsShowMicronutrientsLabel,
+                    value: state.showMicronutrients,
+                    onChanged: (bool value) {
+                      _settingsBloc.setShowMicronutrients(value);
+                      _settingsBloc.add(LoadSettingsEvent());
+                    },
+                  ),
+                  // #1518: one switch for every AI surface — the Snap meal tile,
+                  // the AI badges, the set-up offer and the AI meal
+                  // assistance row — and, while off, nothing is sent to a
+                  // model. Device-wide, like the keys it sits beside.
+                  _SettingsSwitchTile(
+                    identifier: 'settings-show-ai',
                     palette: palette,
                     icon: Icons.auto_awesome_rounded,
-                    title: S.of(context).settingsAiAssistLabel,
-                    subtitle: _aiAssistSubtitle(context),
-                    badge: S.of(context).aiAssistExperimentalLabel,
-                    onTap: () => _openAiAssistDialog(context),
+                    title: S.of(context).settingsShowAiFeaturesLabel,
+                    subtitle: S.of(context).settingsShowAiFeaturesSubtitle,
+                    value: !_aiHidden,
+                    onChanged: (bool value) async {
+                      setState(() => _aiHidden = !value);
+                      await _aiCredentials.setHidden(!value);
+                      await _refreshAiAssistState();
+                    },
                   ),
-                SettingsTile(
-                  identifier: 'settings-import-custom-food',
-                  palette: palette,
-                  icon: Icons.restaurant_menu_rounded,
-                  title: S.of(context).importCustomFoodDataLabel,
-                  onTap: () => _showImportCustomFoodDataDialog(context),
-                ),
-                SettingsTile(
-                  palette: palette,
-                  icon: Icons.import_export_rounded,
-                  title: S.of(context).exportImportAppDataLabel,
-                  onTap: () => _showExportImportDialog(context),
-                ),
-                SettingsTile(
-                  palette: palette,
-                  icon: Icons.cached_rounded,
-                  title: S.of(context).clearOffCacheLabel,
-                  subtitle: S
-                      .of(context)
-                      .clearOffCacheSubtitle(
-                        state.offCacheCount,
-                        _formatBytes(state.offCacheSizeBytes),
+                  // #160 follow-up: lets the user pick which nutrients show
+                  // on the diary's daily nutrient panel. Lives next to the
+                  // meal-detail micronutrient toggle above; both shape what
+                  // the user sees from the same underlying nutrient data.
+                  SettingsTile(
+                    identifier: 'settings-nutrient-visibility',
+                    palette: palette,
+                    icon: Icons.tune_rounded,
+                    title: S.of(context).settingsNutrientsLabel,
+                    subtitle: S.of(context).settingsNutrientsSubtitle,
+                    onTap: () => _openNutrientVisibilityScreen(context),
+                  ),
+                ],
+              ),
+              const SizedBox(height: Dimens.spacing20),
+              SettingsCategoryHeader(
+                palette: palette,
+                label: S.of(context).settingsCategoryAppearance,
+              ),
+              SettingsGroup(
+                palette: palette,
+                tiles: [
+                  SettingsTile(
+                    palette: palette,
+                    icon: Icons.brightness_medium_rounded,
+                    title: S.of(context).settingsThemeLabel,
+                    onTap: () => _showThemeDialog(context, state.appTheme),
+                  ),
+                  SettingsTile(
+                    identifier: 'settings-accent-colour',
+                    palette: palette,
+                    icon: Icons.palette_rounded,
+                    title: S.of(context).settingsAccentColourTitle,
+                    subtitle: _accentSubtitle(
+                      context,
+                      useMaterialYou: state.useMaterialYou,
+                      accentColor: state.accentColor,
+                    ),
+                    trailing: _AccentTrailingSwatch(
+                      useMaterialYou: state.useMaterialYou,
+                      accentColor: state.accentColor,
+                    ),
+                    onTap: () => Navigator.of(
+                      context,
+                    ).pushNamed(NavigationOptions.accentColourRoute),
+                  ),
+                  SettingsTile(
+                    palette: palette,
+                    icon: Icons.language_rounded,
+                    title: S.of(context).settingsLanguageLabel,
+                    subtitle:
+                        _localeDisplayName(state.selectedLocale) ??
+                        S.of(context).settingsThemeSystemDefaultLabel,
+                    onTap: () =>
+                        _showLanguageDialog(context, state.selectedLocale),
+                  ),
+                ],
+              ),
+              const SizedBox(height: Dimens.spacing20),
+              SettingsCategoryHeader(
+                palette: palette,
+                label: S.of(context).settingsNotificationsLabel,
+              ),
+              SettingsGroup(
+                palette: palette,
+                tiles: [
+                  _SettingsSwitchTile(
+                    palette: palette,
+                    icon: Icons.notifications_rounded,
+                    title: S.of(context).settingsNotificationsLabel,
+                    subtitle: state.notificationsEnabled
+                        ? S
+                              .of(context)
+                              .settingsNotificationsTimeLabel(
+                                _formatNotificationTime(
+                                  state.notificationHour,
+                                  state.notificationMinute,
+                                ),
+                              )
+                        : null,
+                    value: state.notificationsEnabled,
+                    onChanged: (bool value) =>
+                        _onNotificationToggled(context, value, state),
+                  ),
+                  if (state.notificationsEnabled)
+                    SettingsTile(
+                      palette: palette,
+                      icon: Icons.access_time_rounded,
+                      title: S
+                          .of(context)
+                          .settingsNotificationsTimeLabel(
+                            _formatNotificationTime(
+                              state.notificationHour,
+                              state.notificationMinute,
+                            ),
+                          ),
+                      onTap: () => _pickNotificationTime(
+                        context,
+                        TimeOfDay(
+                          hour: state.notificationHour,
+                          minute: state.notificationMinute,
+                        ),
                       ),
-                  enabled: state.offCacheCount > 0,
-                  onTap: () => _confirmClearOffCache(context),
-                ),
-                SettingsTile(
-                  identifier: 'settings-delete-all-data',
-                  palette: palette,
-                  icon: Icons.delete_forever_rounded,
-                  iconColor: error,
-                  titleColor: error,
-                  title: S.of(context).settingsDeleteAllDataLabel,
-                  subtitle: S.of(context).settingsDeleteAllDataSubtitle,
-                  onTap: () => _confirmDeleteAllData(context),
-                ),
-              ],
-            ),
-            const SizedBox(height: Dimens.spacing20),
-            SettingsCategoryHeader(
-              palette: palette,
-              label: S.of(context).settingsCategoryAbout,
-            ),
-            SettingsGroup(
-              palette: palette,
-              tiles: [
-                // The Support page (tip jar, store rating) belongs to the
-                // upstream project's store listings, so it is not offered
-                // here; the credit below replaces it.
-                SettingsTile(
-                  identifier: 'settings-upstream-credit',
-                  palette: palette,
-                  icon: Icons.favorite_rounded,
-                  title: S.of(context).settingsUpstreamCreditTitle,
-                  subtitle: S.of(context).settingsUpstreamCreditBody,
-                  onTap: () =>
-                      openUrlOrShowError(context, AppConst.upstreamUrl),
-                ),
-                SettingsTile(
-                  palette: palette,
-                  icon: Icons.policy_rounded,
-                  title: S.of(context).settingsPrivacySettings,
-                  onTap: () => _showPrivacyDialog(
-                    context,
-                    state.sendAnonymousData,
-                    isDemoData: state.isDemoData,
+                    ),
+                ],
+              ),
+              const SizedBox(height: Dimens.spacing20),
+              SettingsCategoryHeader(
+                palette: palette,
+                label: S.of(context).settingsCategoryData,
+              ),
+              SettingsGroup(
+                palette: palette,
+                tiles: [
+                  SettingsTile(
+                    identifier: 'settings-food-sources',
+                    palette: palette,
+                    icon: Icons.travel_explore_rounded,
+                    title: S.of(context).settingsFoodSourcesLabel,
+                    subtitle: S.of(context).settingsFoodSourcesSubtitle,
+                    onTap: () => _openFoodSourcesScreen(context),
                   ),
-                ),
-                SettingsTile(
-                  palette: palette,
-                  icon: Icons.description_rounded,
-                  title: S.of(context).settingsDisclaimerLabel,
-                  onTap: () => _showDisclaimerDialog(context),
-                ),
-                SettingsTile(
-                  palette: palette,
-                  icon: Icons.menu_book_rounded,
-                  title: S.of(context).settingsSourcesLabel,
-                  onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => const SourcesScreen()),
+                  SettingsTile(
+                    identifier: 'settings-health-sync',
+                    palette: palette,
+                    icon: Icons.favorite_rounded,
+                    // The platform's own product name, so the row reads as
+                    // the thing users already know ("Health Connect"), not
+                    // as a generic feature label.
+                    title: healthPlatformName,
+                    subtitle: S.of(context).settingsHealthSyncSubtitle,
+                    showChevron: true,
+                    onTap: () => _openHealthSyncScreen(context),
                   ),
-                ),
-                SettingsTile(
-                  palette: palette,
-                  icon: Icons.bug_report_rounded,
-                  title: S.of(context).settingsReportErrorLabel,
-                  onTap: () => _showReportErrorDialog(context),
-                ),
-                SettingsTile(
-                  palette: palette,
-                  icon: Icons.error_outline_rounded,
-                  title: S.of(context).settingAboutLabel,
-                  onTap: () => _showAboutDialog(context),
-                ),
-              ],
-            ),
-            const SizedBox(height: Dimens.spacing24),
-            AppBannerVersion(versionNumber: state.versionNumber),
+                  // Hidden with the rest of the AI features (#1518); the Show AI
+                  // features switch under Display brings it back.
+                  if (!_aiHidden)
+                    SettingsTile(
+                      identifier: 'settings-ai-assist',
+                      palette: palette,
+                      icon: Icons.auto_awesome_rounded,
+                      title: S.of(context).settingsAiAssistLabel,
+                      subtitle: _aiAssistSubtitle(context),
+                      badge: S.of(context).aiAssistExperimentalLabel,
+                      onTap: () => _openAiAssistDialog(context),
+                    ),
+                  SettingsTile(
+                    identifier: 'settings-import-custom-food',
+                    palette: palette,
+                    icon: Icons.restaurant_menu_rounded,
+                    title: S.of(context).importCustomFoodDataLabel,
+                    onTap: () => _showImportCustomFoodDataDialog(context),
+                  ),
+                  SettingsTile(
+                    palette: palette,
+                    icon: Icons.import_export_rounded,
+                    title: S.of(context).exportImportAppDataLabel,
+                    onTap: () => _showExportImportDialog(context),
+                  ),
+                  SettingsTile(
+                    palette: palette,
+                    icon: Icons.cached_rounded,
+                    title: S.of(context).clearOffCacheLabel,
+                    subtitle: S
+                        .of(context)
+                        .clearOffCacheSubtitle(
+                          state.offCacheCount,
+                          _formatBytes(state.offCacheSizeBytes),
+                        ),
+                    enabled: state.offCacheCount > 0,
+                    onTap: () => _confirmClearOffCache(context),
+                  ),
+                  SettingsTile(
+                    identifier: 'settings-delete-all-data',
+                    palette: palette,
+                    icon: Icons.delete_forever_rounded,
+                    iconColor: error,
+                    titleColor: error,
+                    title: S.of(context).settingsDeleteAllDataLabel,
+                    subtitle: S.of(context).settingsDeleteAllDataSubtitle,
+                    onTap: () => _confirmDeleteAllData(context),
+                  ),
+                ],
+              ),
+              const SizedBox(height: Dimens.spacing20),
+              SettingsCategoryHeader(
+                palette: palette,
+                label: S.of(context).settingsCategoryAbout,
+              ),
+              SettingsGroup(
+                palette: palette,
+                tiles: [
+                  // The Support page (tip jar, store rating) belongs to the
+                  // upstream project's store listings, so it is not offered
+                  // here; the credit below replaces it.
+                  SettingsTile(
+                    identifier: 'settings-upstream-credit',
+                    palette: palette,
+                    icon: Icons.favorite_rounded,
+                    title: S.of(context).settingsUpstreamCreditTitle,
+                    subtitle: S.of(context).settingsUpstreamCreditBody,
+                    onTap: () =>
+                        openUrlOrShowError(context, AppConst.upstreamUrl),
+                  ),
+                  SettingsTile(
+                    palette: palette,
+                    icon: Icons.policy_rounded,
+                    title: S.of(context).settingsPrivacySettings,
+                    onTap: () => _showPrivacyDialog(
+                      context,
+                      state.sendAnonymousData,
+                      isDemoData: state.isDemoData,
+                    ),
+                  ),
+                  SettingsTile(
+                    palette: palette,
+                    icon: Icons.description_rounded,
+                    title: S.of(context).settingsDisclaimerLabel,
+                    onTap: () => _showDisclaimerDialog(context),
+                  ),
+                  SettingsTile(
+                    palette: palette,
+                    icon: Icons.menu_book_rounded,
+                    title: S.of(context).settingsSourcesLabel,
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(builder: (_) => const SourcesScreen()),
+                    ),
+                  ),
+                  SettingsTile(
+                    palette: palette,
+                    icon: Icons.bug_report_rounded,
+                    title: S.of(context).settingsReportErrorLabel,
+                    onTap: () => _showReportErrorDialog(context),
+                  ),
+                  SettingsTile(
+                    palette: palette,
+                    icon: Icons.error_outline_rounded,
+                    title: S.of(context).settingAboutLabel,
+                    onTap: () => _showAboutDialog(context),
+                  ),
+                ],
+              ),
+              const SizedBox(height: Dimens.spacing24),
+              AppBannerVersion(versionNumber: state.versionNumber),
           ];
 
           if (widget.embedded) {
@@ -835,7 +842,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
     // Saves the choice and schedules or cancels in one step, in turn with
     // any language-change refresh still running.
-    await locator<DailyReminderScheduler>().setEnabled(enabled, locale: locale);
+    await locator<DailyReminderScheduler>().setEnabled(
+      enabled,
+      locale: locale,
+    );
     _settingsBloc.add(LoadSettingsEvent());
   }
 
