@@ -15,7 +15,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 0.1.0+1
+version: 0.2.0+2
 
 environment:
   sdk: '>=3.11.0 <4.0.0'
@@ -132,13 +132,13 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/icon/ont_logo_square.svg
-    - assets/icon/ont_splash_rings.svg
-    - assets/icon/ont_splash_spoon.svg
-    - assets/icon/ont_logo_square_color_back_1024x1024.png
-    - assets/icon/ont_logo_square_color_white_1024x1024.png
-    - assets/icon/ont_banner_top.png
-    - assets/icon/ont_banner_top_light.png
+    - assets/icon/eatpoint_mark.svg
+    - assets/icon/eatpoint_mark_dark.svg
+    - assets/icon/eatpoint_splash_e.svg
+    - assets/icon/eatpoint_splash_leaf.svg
+    - assets/icon/eatpoint_splash_dot.svg
+    - assets/icon/eatpoint_logo_1024.png
+    - assets/icon/eatpoint_launcher_ios_dark_1024.png
     - assets/icon/nonbinary_symbol.svg
     # Offline demo profile portrait (bundled Unsplash photo; credit in
     # unsplash_attribution.dart). Avoids a hot network download on Try Demo.

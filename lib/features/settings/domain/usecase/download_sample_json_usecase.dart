@@ -10,8 +10,8 @@ import 'package:opennutritracker/features/settings/domain/export_import_failure.
 /// location. Mirrors [DownloadSampleCsvUsecase] which holds both the
 /// meals and recipes CSV samples in a single class for the same reason.
 class DownloadSampleJsonUsecase {
-  static const mealsSampleFileName = 'opennutritracker-meals-sample.json';
-  static const recipesSampleFileName = 'opennutritracker-recipes-sample.json';
+  static const mealsSampleFileName = 'eatpoint-meals-sample.json';
+  static const recipesSampleFileName = 'eatpoint-recipes-sample.json';
 
   /// Writes [JsonMealImporter.sampleJson] to a user-chosen path.
   /// Returns true when the save was confirmed, false when the user cancelled.

@@ -1,4 +1,4 @@
-OpenNutriTracker is a calorie counter and food diary with no account, no subscription and no ads — for losing weight or keeping a balanced diet. It is open source, and your diary stays on your device.
+EatPoint is a calorie counter and food diary with no account, no subscription and no ads — for losing weight or keeping a balanced diet. It is open source, and your diary stays on your device.
 
 Nothing to pay, nothing to sign up for. There is no paid tier, no advertising, and no sign-in step between installing the app and logging your first meal.
 
@@ -23,4 +23,4 @@ PRIVACY
 
 No account, no sign-in, no analytics, no ads. Your diary, profile, weight, custom meals and recipes are stored on your device in AES-256 encrypted databases; photos you attach are ordinary image files beside them. Food search sends the search term and your language code to rank results. Crash reporting is opt-in.
 
-OpenNutriTracker is not a medical device and does not diagnose, treat, cure, or prevent any medical condition. Figures are estimates from public databases and published equations. Always consult a healthcare professional for medical advice, diagnosis, or treatment.
+EatPoint is not a medical device and does not diagnose, treat, cure, or prevent any medical condition. Figures are estimates from public databases and published equations. Always consult a healthcare professional for medical advice, diagnosis, or treatment.

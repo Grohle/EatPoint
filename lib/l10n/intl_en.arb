@@ -268,7 +268,7 @@
   "ageLabel": "Age",
   "allItemsLabel": "All",
   "alphaVersionName": "[Alpha]",
-  "appDescription": "OpenNutriTracker is a free and open-source calorie and nutrient tracker that respects your privacy.",
+  "appDescription": "EatPoint is a free and open-source calorie and nutrient tracker that respects your privacy.",
   "appLicenseLabel": "GPL-3.0 license",
   "appTitle": "EatPoint",
   "appVersionName": "Version {versionNumber}",
@@ -437,7 +437,7 @@
   "discardChangesContent": "Your unsaved changes will be lost.",
   "discardChangesTitle": "Discard changes?",
   "disclaimerAcknowledgeLabel": "I understand",
-  "disclaimerText": "OpenNutriTracker is not a medical application. All data provided is not validated and should be used with caution. Please maintain a healthy lifestyle and consult a professional if you have any problems. Use during illness, pregnancy or lactation is not recommended. For the peer-reviewed sources behind each calculation, tap the info icon on the Home or Profile screen.",
+  "disclaimerText": "EatPoint is not a medical application. All data provided is not validated and should be used with caution. Please maintain a healthy lifestyle and consult a professional if you have any problems. Use during illness, pregnancy or lactation is not recommended. For the peer-reviewed sources behind each calculation, tap the info icon on the Home or Profile screen.",
   "downloadSampleCsvAction": "Sample meals (csv)",
   "downloadSampleJsonAction": "Sample meals (json)",
   "downloadSampleRecipesCsvAction": "Sample recipes (csv)",
@@ -465,7 +465,7 @@
   "exportImportCsvRecipesNote": "CSV keeps your activity, meal log and tracked days. Recipes, favourites and any photos you've attached are JSON-only — switch to JSON if you want them in your backup.",
   "exportImportDescription": "You can export the app data to a zip file and import it later. This is useful if you want to backup your data or transfer it to another device.\n\nThe app does not use any cloud service to store your data.",
   "exportImportErrorLabel": "Export / Import error",
-  "exportImportErrorUnreadableLabel": "The selected file could not be read. Choose the .zip backup that OpenNutriTracker exported.",
+  "exportImportErrorUnreadableLabel": "The selected file could not be read. Choose the .zip backup that EatPoint exported.",
   "exportImportErrorWriteFailedLabel": "The file could not be saved to the chosen location. Try a different folder.",
   "exportImportSuccessLabel": "Export / Import successful",
   "fatLabel": "fat",
@@ -643,7 +643,7 @@
   "notificationsDailyReminderBody": "Don't forget to log your meals today!",
   "notificationsDailyReminderChannelName": "Daily Reminders",
   "notificationsDailyReminderChannelDescription": "Daily meal logging reminder",
-  "notificationsDailyReminderTitle": "OpenNutriTracker",
+  "notificationsDailyReminderTitle": "EatPoint",
   "notificationsPermissionDeniedSnack": "Notification permission denied.",
   "nutrientPanelAllHiddenLabel": "All nutrients hidden — turn some on in Settings → Nutrients.",
   "nutrientPanelLimitLabel": "limit",
@@ -1194,12 +1194,12 @@
   "sourcesIconTooltip": "View sources",
   "sourcesMacrosDescription": "The default split of 60% carbohydrates, 25% fat, and 15% protein falls within the population nutrient intake ranges published by the WHO. You can adjust this in Settings → Calculations. Source: WHO Technical Report Series 916 (2003), Diet, Nutrition and the Prevention of Chronic Diseases.",
   "sourcesMacrosTitle": "Macronutrient distribution",
-  "sourcesNonBinaryDescription": "Energy-expenditure research has historically used binary sex categories, so there is no single validated TDEE formula for non-binary people. OpenNutriTracker therefore lets you choose between an averaged reference, an estrogen-typical reference, or a testosterone-typical reference under Settings → Calculations. If an accurate number genuinely matters for your care, please speak to a clinician familiar with your hormone status.",
+  "sourcesNonBinaryDescription": "Energy-expenditure research has historically used binary sex categories, so there is no single validated TDEE formula for non-binary people. EatPoint therefore lets you choose between an averaged reference, an estrogen-typical reference, or a testosterone-typical reference under Settings → Calculations. If an accurate number genuinely matters for your care, please speak to a clinician familiar with your hormone status.",
   "sourcesNutrientReferenceTitle": "Nutrient reference intakes",
   "sourcesNutrientReferenceDescription": "Daily reference amounts shown on the diary nutrient panel come from the Institute of Medicine's Dietary Reference Intakes summary, which covers per-nutrient targets for adults.",
   "sourcesNonBinaryTitle": "Non-binary calorie estimation",
   "sourcesOpenSourceLabel": "View source",
-  "sourcesScreenIntro": "OpenNutriTracker uses well-established, peer-reviewed methodologies for every calculation it shows. The citations below link to the original sources so you can verify any number yourself.",
+  "sourcesScreenIntro": "EatPoint uses well-established, peer-reviewed methodologies for every calculation it shows. The citations below link to the original sources so you can verify any number yourself.",
   "sugarLabel": "sugar",
   "suggestedLabel": "Suggested",
   "suppliedLabel": "supplied",
@@ -1398,7 +1398,7 @@
   "aiConsentChangeProviderNote": "You can change provider later. Each provider's terms are shown in Settings, and nothing you type or photograph is sent until you use the feature.",
   "aiConsentOwnServerCheckNote": "Saving your server's address also asks it which models it offers, and runs one setup check \u2014 a fixed example line and a sample photograph of ours, never anything of yours.",
   "aiConsentAgreeLabel": "I UNDERSTAND",
-  "aiAssistDisclosureCommon": "Your diary and your profile are never sent. Nutrition values always come from the food databases, never from the model. The key is stored on this device only: OpenNutriTracker never sees it and does not pay for its use.",
+  "aiAssistDisclosureCommon": "Your diary and your profile are never sent. Nutrition values always come from the food databases, never from the model. The key is stored on this device only: EatPoint never sees it and does not pay for its use.",
   "aiAssistDisclosureAnthropic": "With a key saved, the text you type on the multi-item add screen — and any photo you choose to read there — is sent to Anthropic. Photos are sent for that one request and never saved.",
   "aiAssistDisclosureOpenRouter": "With a key saved, the text you type on the multi-item add screen — and any photo you choose to read there — is sent to OpenRouter, which forwards it to the provider serving your chosen model. OpenRouter also forwards an account-level identity to that provider on every request, and this cannot be switched off. It does not keep your content beyond routing the request, except as required for abuse detection, security, billing or legal compliance. The vendor serving your model keeps what it receives under its own policy.",
   "aiAssistDisclosureOpenAI": "With a key saved, the text you type on the multi-item add screen — and any photo you choose to read there — is sent to OpenAI. OpenAI keeps what you send for up to 30 days to monitor for abuse, and longer if the law requires it or it is reasonably necessary to protect its services or a third party from harm.",
@@ -1468,7 +1468,7 @@
   "bulkAddWaitModelLoadingLabel": "Your server may be loading its model. The first request after a while can take a minute or two — that is normal.",
   "bulkAddWaitCancelLabel": "Cancel",
   "bulkAddPhotoLabel": "Read a photo",
-  "bulkAddPhotoDisclosureCommon": "OpenNutriTracker keeps no copy of its own, and it is never included in your exports.",
+  "bulkAddPhotoDisclosureCommon": "EatPoint keeps no copy of its own, and it is never included in your exports.",
   "bulkAddPhotoDisclosureAnthropic": "The photo is sent to Anthropic to identify the foods in it.",
   "bulkAddPhotoDisclosureOpenRouter": "The photo is sent to OpenRouter, which forwards it to {provider} to identify the foods in it.",
   "@bulkAddPhotoDisclosureOpenRouter": {"placeholders": {"provider": {"type": "String"}}},
@@ -1513,13 +1513,13 @@
   "healthSyncNeverImportedLabel": "No workouts imported yet",
   "healthSyncImportedCountLabel": "{count, plural, =0{No new workouts} one{1 workout imported} other{{count} workouts imported}}",
   "@healthSyncImportedCountLabel": {"placeholders": {"count": {"type": "num"}}},
-  "healthSyncPermissionDeniedLabel": "{platform} access was not granted. Allow OpenNutriTracker to read workouts to import them.",
+  "healthSyncPermissionDeniedLabel": "{platform} access was not granted. Allow EatPoint to read workouts to import them.",
   "@healthSyncPermissionDeniedLabel": {"placeholders": {"platform": {"type": "String"}}},
   "healthSyncDisclosureTitle": "Import workouts from {platform}?",
   "@healthSyncDisclosureTitle": {"placeholders": {"platform": {"type": "String"}}},
-  "healthSyncDisclosureBody": "OpenNutriTracker will read your finished workouts from {platform} — their type, when they happened, how long they lasted and the energy they report.\n\nWorkouts are filed in your diary as activities you can edit or delete, and the energy they report raises that day's calorie goal by a share you choose.",
+  "healthSyncDisclosureBody": "EatPoint will read your finished workouts from {platform} — their type, when they happened, how long they lasted and the energy they report.\n\nWorkouts are filed in your diary as activities you can edit or delete, and the energy they report raises that day's calorie goal by a share you choose.",
   "@healthSyncDisclosureBody": {"placeholders": {"platform": {"type": "String"}}},
-  "healthSyncDisclosureBodyFatAddendum": "OpenNutriTracker will also read the most recent body fat percentage that {platform} holds. The body fat reading is used to suggest what that share should be.",
+  "healthSyncDisclosureBodyFatAddendum": "EatPoint will also read the most recent body fat percentage that {platform} holds. The body fat reading is used to suggest what that share should be.",
   "@healthSyncDisclosureBodyFatAddendum": {"placeholders": {"platform": {"type": "String"}}},
   "healthSyncDisclosureFooter": "Nothing is written back to {platform}, and none of it is sent anywhere — it stays on this device.\n\nYou can turn this off at any time, and doing so stops any further reading.",
   "@healthSyncDisclosureFooter": {"placeholders": {"platform": {"type": "String"}}},
@@ -1527,14 +1527,14 @@
   "healthSyncUnavailableLabel": "Health data is not available on this device. Workout import needs Health Connect on Android or Apple Health on iOS.",
   "sourcesEnergyCompensationTitle": "Workout calorie credit",
   "sourcesEnergyCompensationDescription": "Imported workouts are credited with less than the energy your device reports. People compensate for exercise by burning fewer calories through the rest of the day — about 28% on average, and more at a higher body fat percentage. The suggested credit comes from that research and you can override it under Settings → Health sync. The energy itself is reported by the app or device that recorded the workout, not calculated with the app’s MET formula.",
-  "settingsSupportLabel": "Support OpenNutriTracker",
+  "settingsSupportLabel": "Support EatPoint",
   "settingsSupportSubtitle": "Tip, translate, code, rate",
-  "supportHeader": "OpenNutriTracker is free, ad-free and open source, built by volunteers. If it helps you, here are a few ways to help it back.",
+  "supportHeader": "EatPoint is free, ad-free and open source, built by volunteers. If it helps you, here are a few ways to help it back.",
   "supportGroupSpreadWord": "Spread the word",
   "supportGroupSkills": "Give your skills",
   "supportGroupMoney": "Give money",
   "supportRateTitle": "Rate the app",
-  "supportRateSubtitle": "A rating helps others find OpenNutriTracker.",
+  "supportRateSubtitle": "A rating helps others find EatPoint.",
   "supportShareTitle": "Share with a friend",
   "supportShareSubtitle": "Send a link through any app.",
   "supportStarTitle": "Star on GitHub",
@@ -1551,7 +1551,7 @@
   "supportTipMedium": "Medium tip",
   "supportTipLarge": "Large tip",
   "supportTipThanksTitle": "Thank you!",
-  "supportTipThanksBody": "Your {tipName} ({price}) helps keep OpenNutriTracker free.",
+  "supportTipThanksBody": "Your {tipName} ({price}) helps keep EatPoint free.",
   "@supportTipThanksBody": {"placeholders": {"tipName": {"type": "String"}, "price": {"type": "String"}}},
   "supportTipLeft": "You left a tip — thank you!",
   "supportTipLoadFailed": "Couldn't load tips. Tips work in the App Store and Google Play versions of the app.",
@@ -2832,5 +2832,540 @@
   "plannerShareWeek": "Share this week's menu",
   "@plannerShareWeek": {
     "description": "Planner menu action that shares the week as text."
+  },
+  "mealSlotsTitle": "Your meals",
+  "@mealSlotsTitle": {
+    "description": "Title of the screen where the user sets up the meals of their day"
+  },
+  "mealSlotsIntro": "Add as many meals as you eat in a day, or remove the ones you skip. Each meal gets its share of your daily points.",
+  "@mealSlotsIntro": {
+    "description": "Intro text on the meals screen"
+  },
+  "mealSlotsEditButton": "Edit meals",
+  "@mealSlotsEditButton": {
+    "description": "Button that opens the meals screen"
+  },
+  "mealSlotsEditSubtitle": "Add, remove, rename or reorder your meals",
+  "@mealSlotsEditSubtitle": {
+    "description": "Subtitle of the edit meals entry in points settings"
+  },
+  "mealSlotsAddButton": "Add meal",
+  "@mealSlotsAddButton": {
+    "description": "Button that adds a meal to the day"
+  },
+  "mealSlotsEditTitle": "Edit meal",
+  "@mealSlotsEditTitle": {
+    "description": "Title of the sheet that edits one meal"
+  },
+  "mealSlotsNewMealName": "New meal",
+  "@mealSlotsNewMealName": {
+    "description": "Name given to a meal the user added without typing a name"
+  },
+  "mealSlotsNameLabel": "Name",
+  "@mealSlotsNameLabel": {
+    "description": "Label of the meal name field"
+  },
+  "mealSlotsCountsAsLabel": "Counts as",
+  "@mealSlotsCountsAsLabel": {
+    "description": "Label above the choice of meal type a custom meal is stored as"
+  },
+  "mealSlotsCountsAsHelper": "how the diary and exports file this meal",
+  "@mealSlotsCountsAsHelper": {
+    "description": "Helper after the chosen meal type, explaining what it is for"
+  },
+  "mealSlotsShareTitle": "Share of your daily points",
+  "@mealSlotsShareTitle": {
+    "description": "Title above the per-macro share sliders of a meal"
+  },
+  "mealSlotsShareHelper": "Shares are rebalanced so your meals always add up to your daily budget.",
+  "@mealSlotsShareHelper": {
+    "description": "Helper below the share sliders"
+  },
+  "mealSlotsBudgetLine": "{carbs} carbs · {protein} protein · {fat} fat points",
+  "@mealSlotsBudgetLine": {
+    "description": "A meal's points budget per macro",
+    "placeholders": {
+      "carbs": {
+        "type": "String"
+      },
+      "protein": {
+        "type": "String"
+      },
+      "fat": {
+        "type": "String"
+      }
+    }
+  },
+  "mealSlotsStoredAs": "Counts as {type}",
+  "@mealSlotsStoredAs": {
+    "description": "Subtitle of a meal: the meal type it is stored as",
+    "placeholders": {
+      "type": {
+        "type": "String"
+      }
+    }
+  },
+  "mealSlotsDeleteTitle": "Remove {name}?",
+  "@mealSlotsDeleteTitle": {
+    "description": "Title of the dialog confirming a meal removal",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "mealSlotsDeleteBody": "Food you already logged in this meal stays in your diary, under the first meal of the same type.",
+  "@mealSlotsDeleteBody": {
+    "description": "Body of the dialog confirming a meal removal"
+  },
+  "mealSlotsDeleteConfirm": "Remove",
+  "@mealSlotsDeleteConfirm": {
+    "description": "Button that removes a meal"
+  },
+  "mealSlotsLastMeal": "You need at least one meal.",
+  "@mealSlotsLastMeal": {
+    "description": "Shown when the user tries to remove the last meal"
+  },
+  "mealSlotsReset": "Back to the four standard meals",
+  "@mealSlotsReset": {
+    "description": "Menu action that restores the default meals"
+  },
+  "mealSlotsSuggestionMidMorning": "Mid-morning",
+  "@mealSlotsSuggestionMidMorning": {
+    "description": "Suggested name for a new meal"
+  },
+  "mealSlotsSuggestionAfternoon": "Afternoon snack",
+  "@mealSlotsSuggestionAfternoon": {
+    "description": "Suggested name for a new meal"
+  },
+  "mealSlotsSuggestionPreWorkout": "Pre-workout",
+  "@mealSlotsSuggestionPreWorkout": {
+    "description": "Suggested name for a new meal"
+  },
+  "mealSlotsSuggestionPostWorkout": "Post-workout",
+  "@mealSlotsSuggestionPostWorkout": {
+    "description": "Suggested name for a new meal"
+  },
+  "mealSlotsSuggestionLate": "Late snack",
+  "@mealSlotsSuggestionLate": {
+    "description": "Suggested name for a new meal"
+  },
+  "plannerCalendarTitle": "Calendar",
+  "@plannerCalendarTitle": {
+    "description": "Title of the month calendar of the menu"
+  },
+  "plannerCalendarToday": "Today",
+  "@plannerCalendarToday": {
+    "description": "Button that jumps the calendar to today"
+  },
+  "plannerCalendarPlannedDays": "{count} days planned",
+  "@plannerCalendarPlannedDays": {
+    "description": "How many days of the shown month have a menu",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "plannerCalendarOpenDay": "Open this day",
+  "@plannerCalendarOpenDay": {
+    "description": "Button that opens the selected day in the weekly menu"
+  },
+  "plannerCalendarEmptyDay": "Nothing planned for this day yet.",
+  "@plannerCalendarEmptyDay": {
+    "description": "Shown in the calendar preview for a day with no menu"
+  },
+  "plannerCalendarLegendPlanned": "Planned",
+  "@plannerCalendarLegendPlanned": {
+    "description": "Calendar legend: a day with a menu"
+  },
+  "plannerCalendarLegendPartly": "Partly logged",
+  "@plannerCalendarLegendPartly": {
+    "description": "Calendar legend: some planned meals were logged"
+  },
+  "plannerCalendarLegendLogged": "Logged",
+  "@plannerCalendarLegendLogged": {
+    "description": "Calendar legend: every planned meal was logged"
+  },
+  "plannerCalendarLegendOver": "Over budget",
+  "@plannerCalendarLegendOver": {
+    "description": "Calendar legend: more points planned than the daily budget"
+  },
+  "plannerOtherMeal": "Other meal",
+  "@plannerOtherMeal": {
+    "description": "Name shown for food planned in a meal the user has since removed"
+  },
+  "settingsUpstreamCreditTitle": "Built on OpenNutriTracker",
+  "@settingsUpstreamCreditTitle": {
+    "description": "Title of the Settings > About row crediting the upstream project EatPoint is forked from."
+  },
+  "settingsUpstreamCreditBody": "EatPoint is a fork of OpenNutriTracker by Simon Oppowa, released under the GPLv3. Thank you!",
+  "@settingsUpstreamCreditBody": {
+    "description": "Subtitle of the Settings > About row crediting the upstream project. Tapping it opens the upstream GitHub page."
+  },
+  "pointsRebalanceTitle": "Spread overspending over later meals",
+  "@pointsRebalanceTitle": {
+    "description": "Switch: when a meal goes over, take the excess off the meals still ahead that day"
+  },
+  "pointsRebalanceHelp": "If a meal goes over on carbs, protein or fat, the extra is taken off the meals still ahead today. Your menu plan stays as planned.",
+  "@pointsRebalanceHelp": {
+    "description": "Help text of the rebalance switch"
+  },
+  "pointsMealAdjustedNote": "{points} pts less than planned, to make up for an earlier meal.",
+  "@pointsMealAdjustedNote": {
+    "description": "Shown under the fit strip when this meal's budget was lowered",
+    "placeholders": {
+      "points": {
+        "type": "String"
+      }
+    }
+  },
+  "travelTitle": "Travel mode",
+  "@travelTitle": {
+    "description": "Name of travel mode (chip on Home, settings entry, screen title)"
+  },
+  "travelSettingsSubtitle": "Just log what you eat while you're away",
+  "@travelSettingsSubtitle": {
+    "description": "Subtitle of the travel mode entry in settings"
+  },
+  "travelSheetTitle": "Start a trip",
+  "@travelSheetTitle": {
+    "description": "Title of the sheet that turns travel mode on"
+  },
+  "travelIntro": "Away from home, out to eat or travelling? Travel mode pauses your menus and shopping so you only log what you eat.",
+  "@travelIntro": {
+    "description": "Intro of the travel mode screen"
+  },
+  "travelSwitch": "Travel mode on",
+  "@travelSwitch": {
+    "description": "Switch that turns travel mode on or off"
+  },
+  "travelUntilLabel": "Last day of the trip",
+  "@travelUntilLabel": {
+    "description": "Label of the end date of travel mode"
+  },
+  "travelUntilNone": "Until I turn it off",
+  "@travelUntilNone": {
+    "description": "Shown when travel mode has no end date"
+  },
+  "travelUntilClear": "No end date",
+  "@travelUntilClear": {
+    "description": "Tooltip of the button that removes the end date"
+  },
+  "travelPausesTitle": "While you're away",
+  "@travelPausesTitle": {
+    "description": "Title of the list of what travel mode pauses"
+  },
+  "travelPausePlanner": "Pause the menu and shopping list",
+  "@travelPausePlanner": {
+    "description": "Travel mode option"
+  },
+  "travelPausePlannerHelp": "They're hidden from Home and stay as they are.",
+  "@travelPausePlannerHelp": {
+    "description": "Help of the pause planner option"
+  },
+  "travelPauseReminders": "Pause menu reminders",
+  "@travelPauseReminders": {
+    "description": "Travel mode option"
+  },
+  "travelDailyOnly": "Daily budget only",
+  "@travelDailyOnly": {
+    "description": "Travel mode option: count against the daily budget, no per-meal budgets"
+  },
+  "travelDailyOnlyHelp": "Eat when you can: no per-meal budgets, just today's total.",
+  "@travelDailyOnlyHelp": {
+    "description": "Help of the daily budget only option"
+  },
+  "travelPauseSync": "Pause household sync",
+  "@travelPauseSync": {
+    "description": "Travel mode option"
+  },
+  "travelPauseSyncHelp": "Useful on roaming or slow connections.",
+  "@travelPauseSyncHelp": {
+    "description": "Help of the pause sync option"
+  },
+  "travelStart": "Start trip",
+  "@travelStart": {
+    "description": "Button that turns travel mode on"
+  },
+  "travelTurnOff": "Turn off",
+  "@travelTurnOff": {
+    "description": "Button that turns travel mode off"
+  },
+  "travelBannerTitle": "Travel mode · logging only",
+  "@travelBannerTitle": {
+    "description": "Banner shown while travel mode is on"
+  },
+  "travelBannerTitleUntil": "Travel mode until {date}",
+  "@travelBannerTitleUntil": {
+    "description": "Banner shown while travel mode is on, with its last day",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "travelPausedMenus": "menu and shopping paused",
+  "@travelPausedMenus": {
+    "description": "Part of the travel banner"
+  },
+  "travelPausedReminders": "reminders off",
+  "@travelPausedReminders": {
+    "description": "Part of the travel banner"
+  },
+  "travelPausedSync": "sync paused",
+  "@travelPausedSync": {
+    "description": "Part of the travel banner"
+  },
+  "travelDailyOnlyShort": "daily budget only",
+  "@travelDailyOnlyShort": {
+    "description": "Part of the travel banner"
+  },
+  "onboardingPointsTitle": "Your points",
+  "@onboardingPointsTitle": {
+    "description": "Title of the onboarding page about EatPoint points"
+  },
+  "onboardingPointsIntro": "EatPoint counts food in points: 1 point is 100 kcal of carbs, protein or fat. You get a daily budget of each, split across your meals, and the app turns points into grams for your scale.",
+  "@onboardingPointsIntro": {
+    "description": "Intro of the onboarding points page"
+  },
+  "onboardingPointsSuggested": "Suggested: {points} points a day",
+  "@onboardingPointsSuggested": {
+    "description": "Suggested daily points budget in onboarding",
+    "placeholders": {
+      "points": {
+        "type": "String"
+      }
+    }
+  },
+  "onboardingPointsGuideOnly": "About {kcal} kcal. A guide only, not medical advice: you can change every number later.",
+  "@onboardingPointsGuideOnly": {
+    "description": "Disclaimer under the suggested budget",
+    "placeholders": {
+      "kcal": {
+        "type": "String"
+      }
+    }
+  },
+  "onboardingPointsMethodTitle": "How to work out your budget",
+  "@onboardingPointsMethodTitle": {
+    "description": "Title of the budget method choice in onboarding"
+  },
+  "onboardingPointsMethodLeanMass": "Lean mass",
+  "@onboardingPointsMethodLeanMass": {
+    "description": "Short label: lean mass budget method"
+  },
+  "onboardingPointsMethodCalories": "Calorie goal",
+  "@onboardingPointsMethodCalories": {
+    "description": "Short label: calorie goal and macros method"
+  },
+  "onboardingPointsMealsTitle": "Meals in your day",
+  "@onboardingPointsMealsTitle": {
+    "description": "Title of the meals-per-day choice in onboarding"
+  },
+  "onboardingPointsLater": "You can add, remove or rename meals at any time in Settings.",
+  "@onboardingPointsLater": {
+    "description": "Footnote of the onboarding points page"
+  },
+  "menuImportTitle": "Import a menu",
+  "@menuImportTitle": {
+    "description": "Title of the menu importer and its menu entry"
+  },
+  "menuImportEntrySubtitle": "From text, a table, a file or a photo",
+  "@menuImportEntrySubtitle": {
+    "description": "Subtitle of the menu importer entry"
+  },
+  "menuImportIntro": "Paste a weekly menu or a set of recipes, as text or a table copied from a spreadsheet, or take a photo. EatPoint finds the days, the meals and the foods, and fills in amounts that fit your points.",
+  "@menuImportIntro": {
+    "description": "Intro of the menu importer"
+  },
+  "menuImportHint": "Monday\nBreakfast: oats 50 g, milk 250 ml\nLunch: chicken breast, brown rice, salad\nDinner: salmon 130 g, baked potato\n\nTuesday\n…",
+  "@menuImportHint": {
+    "description": "Example shown in the empty importer text field"
+  },
+  "menuImportPaste": "Paste",
+  "@menuImportPaste": {
+    "description": "Paste from clipboard"
+  },
+  "menuImportCamera": "Camera",
+  "@menuImportCamera": {
+    "description": "Take a photo of a menu"
+  },
+  "menuImportGallery": "Gallery",
+  "@menuImportGallery": {
+    "description": "Pick a photo of a menu"
+  },
+  "menuImportFile": "File",
+  "@menuImportFile": {
+    "description": "Pick a text or CSV file"
+  },
+  "menuImportUseAi": "Read with AI",
+  "@menuImportUseAi": {
+    "description": "Switch: use the configured AI provider to read the menu"
+  },
+  "menuImportUseAiHelp": "Better with photos, handwriting and messy layouts. Only this text or photo is sent, and you're asked first.",
+  "@menuImportUseAiHelp": {
+    "description": "Help of the AI switch in the importer"
+  },
+  "menuImportRead": "Read menu",
+  "@menuImportRead": {
+    "description": "Button that reads the pasted menu"
+  },
+  "menuImportPhotoUnreadable": "No text could be read from the photo. Try a sharper photo or Read with AI.",
+  "@menuImportPhotoUnreadable": {
+    "description": "Error when on-device OCR found nothing"
+  },
+  "menuImportAiConfirmTitle": "Send to your AI provider?",
+  "@menuImportAiConfirmTitle": {
+    "description": "Title of the confirmation before sending a menu to the AI"
+  },
+  "menuImportAiConfirmBody": "Only this menu's text or photo is sent to the AI provider you set up. Your diary and profile stay on the phone.",
+  "@menuImportAiConfirmBody": {
+    "description": "Body of the AI confirmation"
+  },
+  "menuImportAiConfirmSend": "Send",
+  "@menuImportAiConfirmSend": {
+    "description": "Confirm sending to AI"
+  },
+  "menuImportAiNetworkError": "The AI provider could not be reached. Check the connection or your key.",
+  "@menuImportAiNetworkError": {
+    "description": "AI network error"
+  },
+  "menuImportAiBadAnswer": "The AI's answer could not be read. Try again or read it on the phone.",
+  "@menuImportAiBadAnswer": {
+    "description": "AI bad answer error"
+  },
+  "menuImportNothingFound": "No foods were found. Put each day and meal on its own line, or try Read with AI.",
+  "@menuImportNothingFound": {
+    "description": "Shown when nothing could be parsed"
+  },
+  "menuImportReviewTitle": "Check the menu",
+  "@menuImportReviewTitle": {
+    "description": "Title of the import review screen"
+  },
+  "menuImportMatching": "Finding the foods… {done} of {total}",
+  "@menuImportMatching": {
+    "description": "Progress while matching foods",
+    "placeholders": {
+      "done": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "menuImportFound": "{days} days · {foods} foods",
+  "@menuImportFound": {
+    "description": "Summary of what was read",
+    "placeholders": {
+      "days": {
+        "type": "String"
+      },
+      "foods": {
+        "type": "String"
+      }
+    }
+  },
+  "menuImportUnmatched": "{count} foods weren't found and will be left out. Remove them or change their names in the text.",
+  "@menuImportUnmatched": {
+    "description": "Warning about foods without nutrition",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "menuImportStartsOn": "Starts on",
+  "@menuImportStartsOn": {
+    "description": "Label of the date the imported menu starts"
+  },
+  "menuImportFit": "Fit amounts to my points",
+  "@menuImportFit": {
+    "description": "Switch: compute missing amounts from each meal's budget"
+  },
+  "menuImportFitHelp": "Foods without an amount get one that fills the meal's carbs, protein and fat.",
+  "@menuImportFitHelp": {
+    "description": "Help of the fit switch"
+  },
+  "menuImportAdd": "Add to plan",
+  "@menuImportAdd": {
+    "description": "Option: add to what's planned"
+  },
+  "menuImportReplace": "Replace days",
+  "@menuImportReplace": {
+    "description": "Option: replace what's planned those days"
+  },
+  "menuImportSave": "Add {days} days to my menu",
+  "@menuImportSave": {
+    "description": "Button that writes the import into the planner",
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "menuImportDone": "{days} days added to your menu",
+  "@menuImportDone": {
+    "description": "Snack after importing",
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "menuImportReadAs": "Read as “{text}”",
+  "@menuImportReadAs": {
+    "description": "Shows the original label of a day or meal",
+    "placeholders": {
+      "text": {
+        "type": "String"
+      }
+    }
+  },
+  "menuImportChangeMeal": "Change meal",
+  "@menuImportChangeMeal": {
+    "description": "Tooltip of the meal picker"
+  },
+  "menuImportOriginMine": "One of your foods",
+  "@menuImportOriginMine": {
+    "description": "Tooltip: matched a food of the user"
+  },
+  "menuImportOriginDatabase": "From the food database",
+  "@menuImportOriginDatabase": {
+    "description": "Tooltip: matched a database food"
+  },
+  "menuImportOriginEstimate": "AI estimate",
+  "@menuImportOriginEstimate": {
+    "description": "Tooltip: nutrition estimated by the AI"
+  },
+  "menuImportOriginNone": "Not found",
+  "@menuImportOriginNone": {
+    "description": "Tooltip: no nutrition found"
+  },
+  "menuImportNotFound": "“{name}” not found",
+  "@menuImportNotFound": {
+    "description": "Food without nutrition",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "menuImportAmountFitted": "fitted to your points",
+  "@menuImportAmountFitted": {
+    "description": "Amount computed from the meal budget"
+  },
+  "menuImportAmountFromPoints": "from the points given",
+  "@menuImportAmountFromPoints": {
+    "description": "Amount computed from given points"
+  },
+  "menuImportAmountUsual": "your usual amount",
+  "@menuImportAmountUsual": {
+    "description": "Amount the user usually has"
+  },
+  "pointsMealLoweredTooltip": "Lowered to make up for an earlier meal",
+  "@pointsMealLoweredTooltip": {
+    "description": "Tooltip of the arrow next to a meal whose budget was lowered"
   }
 }

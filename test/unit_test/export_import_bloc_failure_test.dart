@@ -296,7 +296,7 @@ void main() {
       final bloc = _bloc(
         exportError: const ExportImportFailure(
           ExportImportFailureReason.writeFailed,
-          'Could not save opennutritracker-export.zip',
+          'Could not save eatpoint-export.zip',
         ),
       );
       addTearDown(bloc.close);
@@ -338,7 +338,7 @@ void main() {
       final bloc = _bloc(
         sampleCsvError: const ExportImportFailure(
           ExportImportFailureReason.writeFailed,
-          'Could not save opennutritracker-meals-sample.csv',
+          'Could not save eatpoint-meals-sample.csv',
         ),
       );
       addTearDown(bloc.close);

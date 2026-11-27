@@ -110,7 +110,7 @@ class MainActivity : FlutterFragmentActivity() {
             }
 
         // Keeps the app's own language picker and Android's per-app language
-        // picker (Settings -> Apps -> OpenNutriTracker -> Language) telling
+        // picker (Settings -> Apps -> EatPoint -> Language) telling
         // the same story. Without this the OS picker is visible but inert for
         // anyone who has ever chosen a language in the app, because Flutter
         // reads its locale from our saved config rather than from the system.

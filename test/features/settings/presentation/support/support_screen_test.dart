@@ -167,10 +167,10 @@ void main() {
       await tapRow(tester, 'support-way-code');
 
       expect(opened, [
-        'https://github.com/simonoppowa/OpenNutriTracker',
+        'https://github.com/Grohle/EatPoint',
         'https://hosted.weblate.org/engage/opennutritracker/',
-        'https://github.com/simonoppowa/OpenNutriTracker/issues/new/choose',
-        'https://github.com/simonoppowa/OpenNutriTracker/blob/main/CONTRIBUTING.md',
+        'https://github.com/Grohle/EatPoint/issues/new/choose',
+        'https://github.com/Grohle/EatPoint/blob/main/CONTRIBUTING.md',
       ]);
     });
 
