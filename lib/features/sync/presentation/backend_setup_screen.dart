@@ -12,7 +12,9 @@ import 'package:opennutritracker/features/sync/domain/household_crypto.dart';
 import 'package:opennutritracker/features/sync/domain/household_sync_service.dart';
 import 'package:opennutritracker/features/sync/domain/sync_backend.dart';
 import 'package:opennutritracker/features/sync/presentation/storage_labels.dart';
+import 'package:opennutritracker/features/sync/data/backends/google_drive_sync_backend.dart';
 import 'package:opennutritracker/generated/l10n.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 /// Picks where the household's data is kept, tests it and creates the
 /// household.
@@ -60,6 +62,12 @@ class _BackendSetupScreenState extends State<BackendSetupScreen> {
   final _sshUser = TextEditingController();
   final _sshPassword = TextEditingController();
   final _sshKey = TextEditingController();
+  // EatPoint: Google Drive.
+  final _driveClientId = TextEditingController(
+    text: GoogleDriveAuth.builtInWebClientId,
+  );
+  final _driveShareWith = TextEditingController();
+  String? _driveEmail;
 
   @override
   void dispose() {
@@ -110,8 +118,50 @@ class _BackendSetupScreenState extends State<BackendSetupScreen> {
           _localToken.text.trim(),
         );
       case SyncBackendKind.googleDrive:
+        // The folder is created in _testAndCreate, once signed in.
         return null;
     }
+  }
+
+  Future<void> _driveSignIn() async {
+    final s = S.of(context);
+    final clientId = _driveClientId.text.trim();
+    if (clientId.isEmpty) return;
+    setState(() => _busy = true);
+    try {
+      final email = await GoogleDriveAuth.signIn(clientId);
+      if (mounted) setState(() => _driveEmail = email);
+    } catch (e) {
+      if (mounted) _snack(s.householdConnectionFailed(syncFailureReason(s, e)));
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
+  }
+
+  /// Creates the household's folder in Drive and shares it, then the
+  /// config that points at it.
+  Future<SyncBackendConfig?> _driveConfig() async {
+    final s = S.of(context);
+    if (_driveEmail == null) {
+      _snack(s.householdDriveNeedsSignIn);
+      return null;
+    }
+    final clientId = _driveClientId.text.trim();
+    final token = await GoogleDriveAuth.accessToken(clientId);
+    final folderId = await GoogleDriveSyncBackend.createFolder(
+      _client,
+      token,
+      s.householdDriveFolderName,
+    );
+    // One or more Google accounts, separated by commas, spaces or `;`.
+    final shareWith = _driveShareWith.text
+        .split(RegExp(r'[\s,;]+'))
+        .where((e) => e.contains('@'))
+        .toSet();
+    for (final email in shareWith) {
+      await GoogleDriveSyncBackend.shareFolder(_client, token, folderId, email);
+    }
+    return SyncBackendConfig(kind: _kind, url: folderId, user: clientId);
   }
 
   Future<void> _createDatabase() async {
@@ -189,10 +239,30 @@ class _BackendSetupScreenState extends State<BackendSetupScreen> {
 
   Future<void> _testAndCreate() async {
     final s = S.of(context);
-    final built = _buildConfig();
-    if (built == null) return;
-    final (config, secret) = built;
     final navigator = Navigator.of(context);
+    SyncBackendConfig config;
+    String? secret;
+    if (_kind == SyncBackendKind.googleDrive) {
+      setState(() => _busy = true);
+      try {
+        final drive = await _driveConfig();
+        if (drive == null) {
+          if (mounted) setState(() => _busy = false);
+          return;
+        }
+        config = drive;
+      } catch (e) {
+        if (mounted) {
+          _snack(s.householdConnectionFailed(syncFailureReason(s, e)));
+          setState(() => _busy = false);
+        }
+        return;
+      }
+    } else {
+      final built = _buildConfig();
+      if (built == null) return;
+      (config, secret) = built;
+    }
     setState(() => _busy = true);
     try {
       final householdId = Household.randomHexId();
@@ -301,12 +371,8 @@ class _BackendSetupScreenState extends State<BackendSetupScreen> {
                     child: RadioListTile<SyncBackendKind>(
                       contentPadding: EdgeInsets.zero,
                       value: kind,
-                      enabled: kind != SyncBackendKind.googleDrive,
                       title: Text(title),
                       subtitle: Text(subtitle),
-                      secondary: kind == SyncBackendKind.googleDrive
-                          ? Chip(label: Text(s.labelScanInDevelopment))
-                          : null,
                     ),
                   ),
               ],
@@ -322,7 +388,10 @@ class _BackendSetupScreenState extends State<BackendSetupScreen> {
                 minimumSize: const Size.fromHeight(52),
                 backgroundColor: scheme.primary,
               ),
-              onPressed: _busy || _kind == SyncBackendKind.googleDrive
+              onPressed:
+                  _busy ||
+                      (_kind == SyncBackendKind.googleDrive &&
+                          _driveEmail == null)
                   ? null
                   : _testAndCreate,
               child: Text(s.householdTestAndCreate),
@@ -482,7 +551,62 @@ class _BackendSetupScreenState extends State<BackendSetupScreen> {
           ],
         ];
       case SyncBackendKind.googleDrive:
-        return const [];
+        return [
+          _field(
+            _driveClientId,
+            s.householdDriveClientId,
+            'household-drive-client-id',
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: Dimens.spacing4),
+            child: Text(
+              s.householdDriveClientIdHelp,
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+          ),
+          Align(
+            alignment: AlignmentDirectional.centerStart,
+            child: TextButton.icon(
+              icon: const Icon(Icons.help_outline_rounded),
+              label: Text(s.householdDriveGuide),
+              onPressed: () => launchUrl(
+                Uri.parse(
+                  'https://github.com/Grohle/EatPoint/blob/main/docs/google-drive.md',
+                ),
+                mode: LaunchMode.externalApplication,
+              ),
+            ),
+          ),
+          const SizedBox(height: Dimens.spacing8),
+          if (_driveEmail == null)
+            Semantics(
+              identifier: 'household-drive-sign-in',
+              child: OutlinedButton.icon(
+                icon: const Icon(Icons.login_rounded),
+                label: Text(s.householdDriveSignIn),
+                onPressed: _busy ? null : _driveSignIn,
+              ),
+            )
+          else
+            ListTile(
+              contentPadding: EdgeInsets.zero,
+              leading: const Icon(Icons.check_circle_rounded),
+              title: Text(s.householdDriveSignedIn(_driveEmail!)),
+            ),
+          _field(
+            _driveShareWith,
+            s.householdDriveShareWith,
+            'household-drive-share-with',
+            keyboardType: TextInputType.emailAddress,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: Dimens.spacing4),
+            child: Text(
+              s.householdDriveShareHelp,
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+          ),
+        ];
     }
   }
 }

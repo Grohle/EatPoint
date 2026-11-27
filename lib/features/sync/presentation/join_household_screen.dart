@@ -5,6 +5,9 @@ import 'package:opennutritracker/core/utils/locator.dart';
 import 'package:opennutritracker/features/sync/data/household_store.dart';
 import 'package:opennutritracker/features/sync/domain/household.dart';
 import 'package:opennutritracker/features/sync/domain/household_sync_service.dart';
+import 'package:opennutritracker/features/sync/data/backends/google_drive_sync_backend.dart';
+import 'package:opennutritracker/features/sync/domain/sync_backend.dart';
+import 'package:opennutritracker/features/sync/presentation/storage_labels.dart';
 import 'package:opennutritracker/generated/l10n.dart';
 
 /// Scans (or takes pasted) invite text and joins that household.
@@ -44,6 +47,26 @@ class _JoinHouseholdScreenState extends State<JoinHouseholdScreen> {
     }
     _busy = true;
     final navigator = Navigator.of(context);
+    // EatPoint: a Drive household needs this member's Google account.
+    if (invite.backend.kind == SyncBackendKind.googleDrive) {
+      try {
+        await GoogleDriveAuth.signIn(
+          invite.backend.user ?? GoogleDriveAuth.builtInWebClientId,
+        );
+      } catch (e) {
+        _busy = false;
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                s.householdConnectionFailed(syncFailureReason(s, e)),
+              ),
+            ),
+          );
+        }
+        return;
+      }
+    }
     await _store.writeKey(invite.key);
     await _store.writeBackendSecret(invite.backendSecret);
     await _store.saveHousehold(

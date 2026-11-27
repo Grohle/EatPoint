@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/testing.dart';
+import 'package:opennutritracker/features/sync/data/backends/google_drive_sync_backend.dart';
 import 'package:opennutritracker/features/sync/data/backends/local_server_sync_backend.dart';
 import 'package:opennutritracker/features/sync/data/backends/supabase_sync_backend.dart';
 import 'package:opennutritracker/features/sync/data/backends/sync_backend_factory.dart';
@@ -21,10 +22,7 @@ void main() {
     expect(make(SyncBackendKind.localServer), isA<LocalServerSyncBackend>());
   });
 
-  test('google drive is unsupported', () {
-    expect(
-      () => make(SyncBackendKind.googleDrive),
-      throwsA(isA<UnsupportedError>()),
-    );
+  test('google drive maps to the Drive backend', () {
+    expect(make(SyncBackendKind.googleDrive), isA<GoogleDriveSyncBackend>());
   });
 }

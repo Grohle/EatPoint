@@ -1824,7 +1824,7 @@
   "householdStorageLocal": "Mi propio servidor (Ubuntu)",
   "householdStorageLocalSubtitle": "La app instala el servicio de sincronización por SSH.",
   "householdStorageDrive": "Google Drive",
-  "householdStorageDriveSubtitle": "En desarrollo.",
+  "householdStorageDriveSubtitle": "Una carpeta en tu Google Drive, compartida con el otro miembro. Requiere configurar Google una vez.",
   "householdSupabaseUrl": "URL del proyecto",
   "householdSupabaseAnonKey": "Clave anon (pública)",
   "householdSupabaseToken": "Token de acceso personal (solo para crear la base de datos)",
@@ -2347,5 +2347,15 @@
   "supportShareLinks": "App Store: {appStoreUrl}\nGoogle Play: {playStoreUrl}",
   "calendarPreviousMonthLabel": "Mes anterior",
   "calendarNextMonthLabel": "Mes siguiente",
-  "removeIngredientLabel": "Quitar ingrediente"
+  "removeIngredientLabel": "Quitar ingrediente",
+  "householdDriveClientId": "ID de cliente web de Google",
+  "householdDriveClientIdHelp": "De tu proyecto de Google Cloud (acaba en .apps.googleusercontent.com). No es un secreto.",
+  "householdDriveSignIn": "Iniciar sesión con Google",
+  "householdDriveSignedIn": "Conectado como {email}",
+  "householdDriveShareWith": "Compartir con (correo de Google de los demás miembros)",
+  "householdDriveShareHelp": "Opcional. Google le dará acceso a la carpeta por correo; después se une con la invitación de EatPoint.",
+  "householdDriveGuide": "Cómo configurar Google (una vez)",
+  "householdDriveNeedsSignIn": "Primero inicia sesión con Google.",
+  "householdDriveReconnect": "Volver a conectar con Google",
+  "householdDriveFolderName": "Hogar EatPoint"
 }

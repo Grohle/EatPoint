@@ -13,7 +13,8 @@ enum SyncBackendKind {
   /// SSH with the EatPoint sync service.
   localServer,
 
-  /// Google Drive. Not available yet (needs an OAuth client).
+  /// A folder in the creator's Google Drive, shared with the other member.
+  /// Needs a Google OAuth client for the app (docs/google-drive.md).
   googleDrive,
 }
 
