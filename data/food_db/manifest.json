@@ -1,0 +1,33 @@
+{
+  "format": "eatpoint-foods-manifest",
+  "version": 1,
+  "file": "eatpoint-foods-v1.json.gz",
+  "bytes": 199865,
+  "sha256": "2bfb64943bddc88813abadb9e18a1c5a2b1c5257e84f0e2420382bfff128600a",
+  "count": 4667,
+  "counts": {
+    "eatpoint": 235,
+    "usda": 4432
+  },
+  "generated": "2026-11-27",
+  "sources": [
+    {
+      "id": "eatpoint",
+      "name": "EatPoint",
+      "license": "GPL-3.0",
+      "url": "https://github.com/Grohle/EatPoint"
+    },
+    {
+      "id": "usda",
+      "name": "USDA FoodData Central (SR Legacy)",
+      "license": "CC0 1.0 (public domain)",
+      "url": "https://fdc.nal.usda.gov/"
+    },
+    {
+      "id": "off",
+      "name": "Open Food Facts",
+      "license": "Open Database License (ODbL) 1.0",
+      "url": "https://world.openfoodfacts.org/"
+    }
+  ]
+}

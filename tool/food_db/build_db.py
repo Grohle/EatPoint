@@ -72,6 +72,28 @@ EXCLUDED_WORDS = re.compile(
     r"with added solution|by-products|usda commodity|school lunch|ns as to|"
     r"industrial|nfs|mixed species|game meat|alaska")
 
+# US brands and chains: not useful for an EatPoint user in Spain.
+BRANDS = re.compile(
+    r"\b(pillsbury|kraft|george weston|kellogg'?s?|general mills|quaker|"
+    r"nabisco|campbell'?s?|hormel|oscar mayer|kentucky fried|mcdonald'?s|"
+    r"burger king|taco bell|wendy'?s|subway|domino'?s|pizza hut|"
+    r"little caesars|papa john'?s|heinz|hershey'?s?|keebler|pepperidge farm|"
+    r"sara lee|ocean spray|tropicana|minute maid|lipton|arnold|martha white|"
+    r"betty crocker|duncan hines|jell-o|lay'?s|frito|tostitos|doritos|"
+    r"cheetos|snickers|reese'?s|m&m'?s|nestle|ovaltine|carnation|gatorade|"
+    r"powerade|coca-cola|pepsi|dr\. pepper|mountain dew|sunkist|"
+    r"oreo|ritz|triscuit|wheat thins|goldfish|pringles|smucker'?s|"
+    r"post|ralston|malt-o-meal|cheerios|wheaties|thomas'?|eggo|"
+    r"stouffer'?s|banquet|swanson|lean cuisine|healthy choice|"
+    r"shake n bake|rice-a-roni|hamburger helper|kool-aid|tang|"
+    r"cracker barrel|denny'?s|applebee'?s|olive garden|chick-fil-a|"
+    r"popeyes|arby'?s|dairy queen|carl'?s jr|jack in the box|sonic|"
+    r"starbucks|dunkin|krispy kreme|hostess|little debbie|entenmann'?s|"
+    r"kashi|special k|fiber one|nature valley|clif|luna|kind|"
+    r"silk|so delicious|morningstar|boca|gardenburger|worthington|"
+    r"van'?s|kemps|dannon|yoplait|chobani|stonyfield|breyers|"
+    r"ben & jerry'?s|haagen-dazs|dreyer'?s|blue bell|turkey hill)\b")
+
 CATEGORY_ES = {
     "Vegetables and Vegetable Products": "Verduras",
     "Baked Products": "Panadería y bollería",
@@ -158,6 +180,8 @@ def usda(sr_dir):
         if cat in EXCLUDED_CATEGORIES or EXCLUDED_WORDS.search(desc.lower()):
             continue
         if re.search(r"\b[A-Z]{3,}\b", desc):  # brand names in capitals
+            continue
+        if BRANDS.search(desc.lower()):
             continue
         keep[r["fdc_id"]] = (desc, cat)
     values = {}
