@@ -50,4 +50,22 @@ void main() {
     await tester.pumpAndSettle();
     expect(routes, contains(NavigationOptions.mainRoute));
   });
+
+  testWidgets('with reduced motion it shows the finished mark and moves on', (
+    tester,
+  ) async {
+    tester.platformDispatcher.accessibilityFeaturesTestValue =
+        const FakeAccessibilityFeatures(disableAnimations: true);
+    addTearDown(tester.platformDispatcher.clearAccessibilityFeaturesTestValue);
+    final routes = <String>[];
+    await tester.pumpWidget(app(userInitialized: false, routes: routes));
+    // No navigation while the first frame is being built.
+    expect(tester.takeException(), isNull);
+    expect(find.text('EatPoint'), findsOneWidget);
+    expect(routes, isEmpty);
+
+    await tester.pump(const Duration(milliseconds: 700));
+    await tester.pumpAndSettle();
+    expect(routes, [NavigationOptions.onboardingRoute]);
+  });
 }

@@ -78,10 +78,6 @@ class _SplashScreenState extends State<SplashScreen>
       end: Offset.zero,
     ).animate(_interval(0.66, 0.90, Curves.easeOutCubic));
 
-    _controller.addStatusListener((status) {
-      if (status == AnimationStatus.completed) _goNext();
-    });
-
     // Honour the OS "reduce motion" setting: show the finished mark and move on.
     final reduceMotion = WidgetsBinding
         .instance
@@ -89,9 +85,14 @@ class _SplashScreenState extends State<SplashScreen>
         .accessibilityFeatures
         .disableAnimations;
     if (reduceMotion) {
+      // Jump to the end before listening: a completed status reported from
+      // initState would navigate in the middle of the first build.
       _controller.value = 1.0;
       _startTimer = Timer(const Duration(milliseconds: 600), _goNext);
     } else {
+      _controller.addStatusListener((status) {
+        if (status == AnimationStatus.completed) _goNext();
+      });
       // A short beat on the empty canvas before the mark builds itself.
       _startTimer = Timer(_startDelay, () {
         if (mounted) _controller.forward();
