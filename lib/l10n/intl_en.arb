@@ -3730,5 +3730,55 @@
   "budgetInfoSeeCalorieBreakdown": "See today's numbers",
   "@budgetInfoSeeCalorieBreakdown": {
     "description": "Button opening the calorie goal breakdown"
+  },
+  "plannerSearchYourDishes": "Your dishes",
+  "@plannerSearchYourDishes": {
+    "description": "Search section: the user's dishes"
+  },
+  "plannerSearchBasicFoods": "Basic foods",
+  "@plannerSearchBasicFoods": {
+    "description": "Search section: EatPoint's basic foods"
+  },
+  "plannerSearchDatabases": "Search \"{query}\" in the food databases",
+  "@plannerSearchDatabases": {
+    "description": "Button",
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
+  },
+  "plannerSearchNoMatches": "Nothing called \"{query}\" among your dishes or the basic foods.",
+  "@plannerSearchNoMatches": {
+    "description": "No search results",
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
+  },
+  "plannerSearchFoodTitle": "Find a food",
+  "@plannerSearchFoodTitle": {
+    "description": "Title of the database search screen"
+  },
+  "plannerCreateRecipe": "Create a recipe",
+  "@plannerCreateRecipe": {
+    "description": "Button"
+  },
+  "plannerFindFood": "Find a food",
+  "@plannerFindFood": {
+    "description": "Button"
+  },
+  "plannerEmptyTitle": "No recipes or dishes yet",
+  "@plannerEmptyTitle": {
+    "description": "Empty state title"
+  },
+  "plannerNoRecipesTitle": "No recipes yet",
+  "@plannerNoRecipesTitle": {
+    "description": "Empty recipes tab title"
+  },
+  "plannerEmptyBody": "Create a recipe to plan it in your menus, or find a food. You can also type above to search the basic foods.",
+  "@plannerEmptyBody": {
+    "description": "Empty state body"
   }
 }

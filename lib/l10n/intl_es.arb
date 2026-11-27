@@ -2064,5 +2064,15 @@
   "budgetInfoCaloriesTitle": "Objetivo calórico",
   "budgetInfoCaloriesBody": "1. Tu gasto diario se calcula con tu sexo, edad, altura, peso y nivel de actividad (ecuaciones IOM 2005).\n2. Se suma tu ritmo semanal: unas 1.100 kcal al día por cada kilo a la semana (−0,5 kg a la semana ≈ −550 kcal al día). Sin ritmo, el objetivo suma −500, 0 o +500 kcal.\n3. Las actividades que registras suman sus calorías ese día, así tu déficit o superávit se mantiene.\n4. Las calorías se reparten según tus porcentajes de macros (60 % hidratos, 25 % grasa, 15 % proteína por defecto, cambiables en Ajustes), y con puntos cada 100 kcal de un macro es un punto. Un objetivo de músculo sube la proteína a al menos 1,8 g por kg de peso (2 g en déficit).\n\nSencillo y conocido; el objetivo calórico de Inicio muestra cada número que usa.",
   "budgetInfoGuideOnly": "Son estimaciones generales, no un consejo médico. Puedes cambiar cada número.",
-  "budgetInfoSeeCalorieBreakdown": "Ver los números de hoy"
+  "budgetInfoSeeCalorieBreakdown": "Ver los números de hoy",
+  "plannerSearchYourDishes": "Tus platos",
+  "plannerSearchBasicFoods": "Alimentos básicos",
+  "plannerSearchDatabases": "Buscar «{query}» en las bases de datos",
+  "plannerSearchNoMatches": "No hay nada llamado «{query}» entre tus platos ni los alimentos básicos.",
+  "plannerSearchFoodTitle": "Buscar un alimento",
+  "plannerCreateRecipe": "Crear una receta",
+  "plannerFindFood": "Buscar un alimento",
+  "plannerEmptyTitle": "Aún no tienes recetas ni platos",
+  "plannerNoRecipesTitle": "Aún no tienes recetas",
+  "plannerEmptyBody": "Crea una receta para planificarla en tus menús, o busca un alimento. También puedes escribir arriba para buscar entre los alimentos básicos."
 }

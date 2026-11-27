@@ -31,7 +31,11 @@ class _MealSearchBarState extends State<MealSearchBar> {
   // switches search source on the first keystroke, which rebuilds this widget;
   // a controller created per build would be replaced and would swallow that
   // first character (the "first input ignored" bug).
-  final _searchTextController = TextEditingController();
+  // EatPoint: starts with the listener's text, so a caller can open the
+  // search with a query already typed.
+  late final _searchTextController = TextEditingController(
+    text: widget.searchStringListener.value,
+  );
 
   @override
   void dispose() {

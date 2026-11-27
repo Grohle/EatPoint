@@ -13,7 +13,11 @@ import 'package:opennutritracker/core/utils/hive_db_provider.dart';
 import 'package:opennutritracker/core/utils/id_generator.dart';
 import 'package:opennutritracker/core/utils/locator.dart';
 import 'package:opennutritracker/features/add_meal/domain/entity/meal_entity.dart';
+import 'package:opennutritracker/core/utils/navigation_options.dart';
+import 'package:opennutritracker/features/food_knowledge/domain/food_knowledge.dart';
+import 'package:opennutritracker/features/food_knowledge/domain/portion_formatter.dart';
 import 'package:opennutritracker/features/planner/domain/entity/planner_entities.dart';
+import 'package:opennutritracker/features/recipes/presentation/widgets/food_search_tab_view.dart';
 import 'package:opennutritracker/features/planner/domain/shopping_list_builder.dart';
 import 'package:opennutritracker/features/points/domain/points_extensions.dart';
 import 'package:opennutritracker/features/points/presentation/meal_type_label.dart';
@@ -33,8 +37,31 @@ class PastDish {
   String get unit => meal.isLiquid ? 'ml' : 'g';
 }
 
+/// How well [name] matches [query], 0 for no match. Accents and case do
+/// not matter, the words may come in any order, and each may be the
+/// start of a word ("pech poll" finds "Pechuga de pollo").
+double dishMatchScore(String name, String query) {
+  final n = FoodKnowledge.fold(name);
+  final q = FoodKnowledge.fold(query).trim();
+  if (q.isEmpty) return 1;
+  if (n == q) return 4;
+  if (n.startsWith(q)) return 3;
+  final words = n.split(RegExp(r'[^a-z0-9]+')).where((w) => w.isNotEmpty);
+  var score = 2.0;
+  for (final part in q.split(RegExp(r'\s+'))) {
+    if (part.isEmpty) continue;
+    if (words.any((w) => w.startsWith(part))) continue;
+    if (n.contains(part)) {
+      score -= 0.5;
+      continue;
+    }
+    return 0;
+  }
+  return score;
+}
+
 /// Where a past dish comes from.
-enum PastDishSource { recent, recipe, favourite }
+enum PastDishSource { recent, recipe, favourite, basic, database }
 
 enum _Tab { fits, recent, recipes, favourites }
 
@@ -65,9 +92,17 @@ class _DishPickerScreenState extends State<DishPickerScreen> {
   bool _scaleToFit = true;
   List<PastDish>? _dishes;
 
+  /// EatPoint's basic foods, found only by searching.
+  List<PastDish> _basics = const [];
+
+  bool _loadStarted = false;
+
+  // Loads once the locale is known: the basic foods are named in it.
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_loadStarted) return;
+    _loadStarted = true;
     _load();
   }
 
@@ -132,12 +167,89 @@ class _DishPickerScreenState extends State<DishPickerScreen> {
         );
       }
     } catch (_) {}
+    final basics = <PastDish>[];
+    final knowledge = FoodKnowledge.instance;
+    if (knowledge != null && mounted) {
+      final lang = Localizations.localeOf(context).languageCode;
+      for (final food in knowledge.foods) {
+        final portion = knowledge.conceptById(food.conceptId)?.mainPortion;
+        basics.add(
+          PastDish(
+            food.toMealEntity(lang),
+            portion?.grams ?? 100,
+            PastDishSource.basic,
+          ),
+        );
+      }
+    }
     if (!mounted) return;
+    bool hasPoints(PastDish d) =>
+        d.meal.pointsPer100 != null && d.meal.pointsPer100! > 0;
     setState(() {
-      _dishes = dishes.values
-          .where((d) => d.meal.pointsPer100 != null && d.meal.pointsPer100! > 0)
-          .toList();
+      _dishes = dishes.values.where(hasPoints).toList();
+      _basics = basics.where(hasPoints).toList();
     });
+  }
+
+  List<PastDish> _matching(List<PastDish> from, String query, int limit) {
+    final scored =
+        [
+          for (final d in from)
+            if (dishMatchScore(d.meal.name ?? '', query) case final sc
+                when sc > 0)
+              (d, sc),
+        ]..sort((a, b) {
+          final byScore = b.$2.compareTo(a.$2);
+          return byScore != 0
+              ? byScore
+              : _fitScore(a.$1).compareTo(_fitScore(b.$1));
+        });
+    return [for (final (d, _) in scored.take(limit)) d];
+  }
+
+  /// Opens the recipe builder; a recipe saved there is offered straight
+  /// away.
+  Future<void> _createRecipe() async {
+    final before = {
+      for (final d in _dishes ?? const <PastDish>[])
+        if (d.source == PastDishSource.recipe) d.meal.code,
+    };
+    await Navigator.of(context).pushNamed(NavigationOptions.recipeBuilderRoute);
+    if (!mounted) return;
+    await _load();
+    if (!mounted) return;
+    final created = (_dishes ?? const <PastDish>[])
+        .where(
+          (d) =>
+              d.source == PastDishSource.recipe &&
+              !before.contains(d.meal.code),
+        )
+        .firstOrNull;
+    if (created != null) await _choose(created);
+  }
+
+  /// Searches the food databases, starting with what is typed.
+  Future<void> _searchDatabases() async {
+    final s = S.of(context);
+    final meal = await Navigator.of(context).push<MealEntity>(
+      MaterialPageRoute(
+        builder: (searchContext) => Scaffold(
+          appBar: AppBar(title: Text(s.plannerSearchFoodTitle)),
+          body: FoodSearchTabView(
+            initialQuery: _search.text,
+            onMealSelected: (meal) => Navigator.of(searchContext).pop(meal),
+          ),
+        ),
+      ),
+    );
+    if (meal == null || !mounted) return;
+    await _choose(
+      PastDish(
+        meal,
+        meal.scalableServingQuantity ?? 100,
+        PastDishSource.database,
+      ),
+    );
   }
 
   /// The amount to plan: the usual amount, or scaled so the dish's points
@@ -147,6 +259,8 @@ class _DishPickerScreenState extends State<DishPickerScreen> {
     if (!_scaleToFit || remaining == null || remaining.total <= 0.1) {
       return dish.usualAmount;
     }
+    // A basic food is one ingredient of the meal, not all of it.
+    if (dish.source == PastDishSource.basic) return dish.usualAmount;
     final result = PointsCalc.pointsToGrams(
       remaining.total,
       dish.meal.pointsPer100!,
@@ -260,8 +374,18 @@ class _DishPickerScreenState extends State<DishPickerScreen> {
               child: TextField(
                 controller: _search,
                 onChanged: (_) => setState(() {}),
+                textInputAction: TextInputAction.search,
                 decoration: InputDecoration(
                   prefixIcon: const Icon(Icons.search_rounded),
+                  suffixIcon: _search.text.isEmpty
+                      ? null
+                      : IconButton(
+                          icon: const Icon(Icons.close_rounded),
+                          tooltip: MaterialLocalizations.of(
+                            context,
+                          ).deleteButtonTooltip,
+                          onPressed: () => setState(_search.clear),
+                        ),
                   hintText: s.plannerPickSearch,
                   border: const OutlineInputBorder(
                     borderRadius: Dimens.borderRadiusL,
@@ -270,31 +394,34 @@ class _DishPickerScreenState extends State<DishPickerScreen> {
               ),
             ),
           ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.all(Dimens.spacing12),
-            child: Row(
-              children: [
-                for (final (tab, label) in [
-                  (_Tab.fits, s.plannerTabFits),
-                  (_Tab.recent, s.plannerTabRecent),
-                  (_Tab.recipes, s.plannerTabRecipes),
-                  (_Tab.favourites, s.plannerTabFavourites),
-                ])
-                  Padding(
-                    padding: const EdgeInsets.only(right: Dimens.spacing8),
-                    child: Semantics(
-                      identifier: 'planner-pick-tab-${tab.name}',
-                      child: ChoiceChip(
-                        label: Text(label),
-                        selected: _tab == tab,
-                        onSelected: (_) => setState(() => _tab = tab),
+          if (_search.text.trim().isEmpty)
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.all(Dimens.spacing12),
+              child: Row(
+                children: [
+                  for (final (tab, label) in [
+                    (_Tab.fits, s.plannerTabFits),
+                    (_Tab.recent, s.plannerTabRecent),
+                    (_Tab.recipes, s.plannerTabRecipes),
+                    (_Tab.favourites, s.plannerTabFavourites),
+                  ])
+                    Padding(
+                      padding: const EdgeInsets.only(right: Dimens.spacing8),
+                      child: Semantics(
+                        identifier: 'planner-pick-tab-${tab.name}',
+                        child: ChoiceChip(
+                          label: Text(label),
+                          selected: _tab == tab,
+                          onSelected: (_) => setState(() => _tab = tab),
+                        ),
                       ),
                     ),
-                  ),
-              ],
+                ],
+              ),
             ),
-          ),
+          if (_search.text.trim().isNotEmpty)
+            const SizedBox(height: Dimens.spacing8),
           if (remaining != null)
             Semantics(
               identifier: 'planner-pick-scale',
@@ -308,6 +435,8 @@ class _DishPickerScreenState extends State<DishPickerScreen> {
           Expanded(
             child: dishes == null
                 ? const Center(child: CircularProgressIndicator())
+                : _search.text.trim().isNotEmpty
+                ? _searchResults(context)
                 : _list(context),
           ),
         ],
@@ -318,6 +447,10 @@ class _DishPickerScreenState extends State<DishPickerScreen> {
   Widget _list(BuildContext context) {
     final s = S.of(context);
     final visible = _visible();
+    if ((_dishes ?? const []).isEmpty) return _emptyState(context);
+    if (_tab == _Tab.recipes && visible.isEmpty) {
+      return _emptyState(context, recipesOnly: true);
+    }
     if (visible.isEmpty) {
       return Padding(
         padding: const EdgeInsets.all(Dimens.spacing24),
@@ -328,9 +461,6 @@ class _DishPickerScreenState extends State<DishPickerScreen> {
         ),
       );
     }
-    final format = PointsFormat.of(context);
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    final palette = isDark ? AppPalette.dark : AppPalette.light;
     return ListView.separated(
       padding: const EdgeInsets.fromLTRB(
         Dimens.spacing16,
@@ -340,71 +470,219 @@ class _DishPickerScreenState extends State<DishPickerScreen> {
       ),
       itemCount: visible.length,
       separatorBuilder: (_, _) => const SizedBox(height: Dimens.spacing8),
-      itemBuilder: (context, i) {
-        final dish = visible[i];
-        final amount = _amountFor(dish);
-        final points = dish.meal.nutriments.macroPointsFor(amount);
-        final fits = widget.remaining != null && _fitScore(dish) < 0.35;
-        return Card(
-          margin: EdgeInsets.zero,
-          shape: RoundedRectangleBorder(
-            borderRadius: Dimens.borderRadiusL,
-            side: BorderSide(
-              color: fits
-                  ? Theme.of(context).colorScheme.primary
-                  : palette.border,
-              width: fits ? 2 : 1,
-            ),
-          ),
-          child: InkWell(
-            borderRadius: Dimens.borderRadiusL,
-            onTap: () => _choose(dish),
-            child: Padding(
-              padding: const EdgeInsets.all(Dimens.spacing12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+      itemBuilder: (context, i) => _dishCard(context, visible[i]),
+    );
+  }
+
+  Widget _dishCard(BuildContext context, PastDish dish) {
+    final s = S.of(context);
+    final format = PointsFormat.of(context);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final palette = isDark ? AppPalette.dark : AppPalette.light;
+    final amount = _amountFor(dish);
+    final portion = PortionFormatter.forFood(
+      dish.meal.name ?? '',
+      amount,
+    )?.label(Localizations.localeOf(context).languageCode);
+    final points = dish.meal.nutriments.macroPointsFor(amount);
+    final fits = widget.remaining != null && _fitScore(dish) < 0.35;
+    return Card(
+      margin: EdgeInsets.zero,
+      shape: RoundedRectangleBorder(
+        borderRadius: Dimens.borderRadiusL,
+        side: BorderSide(
+          color: fits ? Theme.of(context).colorScheme.primary : palette.border,
+          width: fits ? 2 : 1,
+        ),
+      ),
+      child: InkWell(
+        borderRadius: Dimens.borderRadiusL,
+        onTap: () => _choose(dish),
+        child: Padding(
+          padding: const EdgeInsets.all(Dimens.spacing12),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
                 children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          dish.meal.name ?? '',
-                          style: Theme.of(context).textTheme.titleSmall,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      if (fits)
-                        Chip(
-                          label: Text(s.plannerFits),
-                          visualDensity: VisualDensity.compact,
-                        ),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.only(right: Dimens.spacing8),
+                    child: Icon(
+                      _sourceIcon(dish.source),
+                      size: 18,
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
                   ),
-                  const SizedBox(height: Dimens.spacing4),
-                  Wrap(
-                    spacing: Dimens.spacing8,
-                    runSpacing: Dimens.spacing4,
-                    children: [
-                      Text(
-                        '${format.grams(amount)} ${dish.unit} · '
-                        '${format.points(points.total)} ${s.pointsShort}',
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
-                      if (points.carbs >= 0.05)
-                        _Dot(palette.carbs, format.points(points.carbs)),
-                      if (points.protein >= 0.05)
-                        _Dot(palette.protein, format.points(points.protein)),
-                      if (points.fat >= 0.05)
-                        _Dot(palette.fat, format.points(points.fat)),
-                    ],
+                  Expanded(
+                    child: Text(
+                      dish.meal.name ?? '',
+                      style: Theme.of(context).textTheme.titleSmall,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
+                  if (fits)
+                    Chip(
+                      label: Text(s.plannerFits),
+                      visualDensity: VisualDensity.compact,
+                    ),
                 ],
               ),
+              const SizedBox(height: Dimens.spacing4),
+              Wrap(
+                spacing: Dimens.spacing8,
+                runSpacing: Dimens.spacing4,
+                children: [
+                  Text(
+                    '${format.grams(amount)} ${dish.unit}'
+                    '${portion == null ? '' : ' (≈ $portion)'} · '
+                    '${format.points(points.total)} ${s.pointsShort}',
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                  if (points.carbs >= 0.05)
+                    _Dot(palette.carbs, format.points(points.carbs)),
+                  if (points.protein >= 0.05)
+                    _Dot(palette.protein, format.points(points.protein)),
+                  if (points.fat >= 0.05)
+                    _Dot(palette.fat, format.points(points.fat)),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  static IconData _sourceIcon(PastDishSource source) => switch (source) {
+    PastDishSource.recent => Icons.history_rounded,
+    PastDishSource.recipe => Icons.menu_book_rounded,
+    PastDishSource.favourite => Icons.star_rounded,
+    PastDishSource.basic => Icons.eco_rounded,
+    PastDishSource.database => Icons.travel_explore_rounded,
+  };
+
+  /// What to show when typing: the user's own dishes first, then EatPoint's
+  /// basic foods, then a way into the food databases.
+  Widget _searchResults(BuildContext context) {
+    final s = S.of(context);
+    final theme = Theme.of(context);
+    final query = _search.text.trim();
+    final own = _matching(_dishes ?? const [], query, 30);
+    final basics = _matching(_basics, query, 12);
+    Widget header(String text) => Padding(
+      padding: const EdgeInsets.fromLTRB(
+        0,
+        Dimens.spacing8,
+        0,
+        Dimens.spacing8,
+      ),
+      child: Text(
+        text,
+        style: theme.textTheme.titleSmall?.copyWith(
+          color: theme.colorScheme.primary,
+        ),
+      ),
+    );
+    return ListView(
+      padding: const EdgeInsets.fromLTRB(
+        Dimens.spacing16,
+        0,
+        Dimens.spacing16,
+        Dimens.spacing24,
+      ),
+      children: [
+        if (own.isNotEmpty) ...[
+          header(s.plannerSearchYourDishes),
+          for (final dish in own) ...[
+            _dishCard(context, dish),
+            const SizedBox(height: Dimens.spacing8),
+          ],
+        ],
+        if (basics.isNotEmpty) ...[
+          header(s.plannerSearchBasicFoods),
+          for (final dish in basics) ...[
+            _dishCard(context, dish),
+            const SizedBox(height: Dimens.spacing8),
+          ],
+        ],
+        if (own.isEmpty && basics.isEmpty)
+          Padding(
+            padding: const EdgeInsets.all(Dimens.spacing16),
+            child: Text(
+              s.plannerSearchNoMatches(query),
+              textAlign: TextAlign.center,
+              style: theme.textTheme.bodyMedium,
             ),
           ),
-        );
-      },
+        const SizedBox(height: Dimens.spacing8),
+        Semantics(
+          identifier: 'planner-pick-search-databases',
+          child: OutlinedButton.icon(
+            icon: const Icon(Icons.travel_explore_rounded),
+            label: Text(s.plannerSearchDatabases(query)),
+            onPressed: _searchDatabases,
+          ),
+        ),
+        const SizedBox(height: Dimens.spacing8),
+        Semantics(
+          identifier: 'planner-pick-search-create-recipe',
+          child: TextButton.icon(
+            icon: const Icon(Icons.add_rounded),
+            label: Text(s.plannerCreateRecipe),
+            onPressed: _createRecipe,
+          ),
+        ),
+      ],
+    );
+  }
+
+  /// No dishes yet (or no recipes on the Recipes tab): offers to create a
+  /// recipe or find a food.
+  Widget _emptyState(BuildContext context, {bool recipesOnly = false}) {
+    final s = S.of(context);
+    final theme = Theme.of(context);
+    return ListView(
+      padding: const EdgeInsets.all(Dimens.spacing24),
+      children: [
+        Icon(
+          Icons.menu_book_rounded,
+          size: 56,
+          color: theme.colorScheme.primary,
+        ),
+        const SizedBox(height: Dimens.spacing12),
+        Text(
+          recipesOnly ? s.plannerNoRecipesTitle : s.plannerEmptyTitle,
+          textAlign: TextAlign.center,
+          style: theme.textTheme.titleMedium,
+        ),
+        const SizedBox(height: Dimens.spacing8),
+        Text(
+          s.plannerEmptyBody,
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyMedium?.copyWith(
+            color: theme.colorScheme.onSurfaceVariant,
+          ),
+        ),
+        const SizedBox(height: Dimens.spacing24),
+        Semantics(
+          identifier: 'planner-pick-create-recipe',
+          child: FilledButton.icon(
+            icon: const Icon(Icons.add_rounded),
+            label: Text(s.plannerCreateRecipe),
+            onPressed: _createRecipe,
+          ),
+        ),
+        const SizedBox(height: Dimens.spacing8),
+        Semantics(
+          identifier: 'planner-pick-find-food',
+          child: OutlinedButton.icon(
+            icon: const Icon(Icons.search_rounded),
+            label: Text(s.plannerFindFood),
+            onPressed: _searchDatabases,
+          ),
+        ),
+      ],
     );
   }
 }
