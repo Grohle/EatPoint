@@ -1,6 +1,7 @@
 import 'package:http/http.dart' as http;
 
 import '../../domain/sync_backend.dart';
+import 'google_drive_sync_backend.dart';
 import 'local_server_sync_backend.dart';
 import 'supabase_sync_backend.dart';
 import 'webdav_sync_backend.dart';
@@ -37,6 +38,13 @@ SyncBackend createSyncBackend(
         householdId: householdId,
       );
     case SyncBackendKind.googleDrive:
-      throw UnsupportedError('Google Drive sync is in development');
+      // url: the household folder's id; user: the Google web client ID.
+      final clientId = config.user ?? GoogleDriveAuth.builtInWebClientId;
+      return GoogleDriveSyncBackend(
+        client,
+        folderId: config.url,
+        token: () => GoogleDriveAuth.accessToken(clientId),
+        forget: GoogleDriveAuth.forget,
+      );
   }
 }

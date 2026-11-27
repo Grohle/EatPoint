@@ -8,6 +8,8 @@ import 'package:opennutritracker/features/sync/domain/household_sync_service.dar
 import 'package:opennutritracker/features/sync/presentation/backend_setup_screen.dart';
 import 'package:opennutritracker/features/sync/presentation/join_household_screen.dart';
 import 'package:opennutritracker/features/sync/presentation/storage_labels.dart';
+import 'package:opennutritracker/features/sync/domain/sync_backend.dart';
+import 'package:opennutritracker/features/sync/data/backends/google_drive_sync_backend.dart';
 import 'package:opennutritracker/generated/l10n.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
@@ -235,6 +237,26 @@ class _HouseholdScreenState extends State<HouseholdScreen> {
           label: Text(s.householdSyncNow),
         ),
       ),
+      // EatPoint: Google may ask this member to sign in again.
+      if (household.backend.kind == SyncBackendKind.googleDrive)
+        Semantics(
+          identifier: 'household-drive-reconnect',
+          child: TextButton.icon(
+            icon: const Icon(Icons.login_rounded),
+            label: Text(s.householdDriveReconnect),
+            onPressed: _syncing
+                ? null
+                : () async {
+                    try {
+                      await GoogleDriveAuth.signIn(
+                        household.backend.user ??
+                            GoogleDriveAuth.builtInWebClientId,
+                      );
+                    } catch (_) {}
+                    if (mounted) await _sync();
+                  },
+          ),
+        ),
       const SizedBox(height: Dimens.spacing24),
       Text(s.householdMembers, style: Theme.of(context).textTheme.titleMedium),
       ListTile(

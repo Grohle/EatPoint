@@ -2491,7 +2491,7 @@
   "@householdStorageDrive": {
     "description": "Backend option."
   },
-  "householdStorageDriveSubtitle": "In development.",
+  "householdStorageDriveSubtitle": "A folder in your Google Drive, shared with the other member. Needs a one-time Google setup.",
   "@householdStorageDriveSubtitle": {
     "description": "Backend option subtitle."
   },
@@ -4607,5 +4607,50 @@
   "foodDbOnboardingBody": "Basic foods and supermarket products to search offline. It downloads from GitHub once setup ends; you can remove it in Settings.",
   "@foodDbOnboardingBody": {
     "description": "Onboarding switch help"
+  },
+  "householdDriveClientId": "Google web client ID",
+  "@householdDriveClientId": {
+    "description": "Field"
+  },
+  "householdDriveClientIdHelp": "From your Google Cloud project (ends in .apps.googleusercontent.com). It is not a secret.",
+  "@householdDriveClientIdHelp": {
+    "description": "Field help"
+  },
+  "householdDriveSignIn": "Sign in with Google",
+  "@householdDriveSignIn": {
+    "description": "Button"
+  },
+  "householdDriveSignedIn": "Signed in as {email}",
+  "@householdDriveSignedIn": {
+    "description": "Status",
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "householdDriveShareWith": "Share with (other members' Google email)",
+  "@householdDriveShareWith": {
+    "description": "Field"
+  },
+  "householdDriveShareHelp": "Optional. Google emails them access to the folder; they then join with EatPoint's invite.",
+  "@householdDriveShareHelp": {
+    "description": "Field help"
+  },
+  "householdDriveGuide": "How to set up Google (once)",
+  "@householdDriveGuide": {
+    "description": "Link"
+  },
+  "householdDriveNeedsSignIn": "Sign in with Google first.",
+  "@householdDriveNeedsSignIn": {
+    "description": "Error"
+  },
+  "householdDriveReconnect": "Reconnect Google",
+  "@householdDriveReconnect": {
+    "description": "Button"
+  },
+  "householdDriveFolderName": "EatPoint household",
+  "@householdDriveFolderName": {
+    "description": "Drive folder name"
   }
 }

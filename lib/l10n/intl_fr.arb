@@ -1713,7 +1713,7 @@
   "householdStorageLocal": "Mon propre serveur (Ubuntu)",
   "householdStorageLocalSubtitle": "L'appli installe le service de synchronisation pour toi via SSH.",
   "householdStorageDrive": "Google Drive",
-  "householdStorageDriveSubtitle": "En développement.",
+  "householdStorageDriveSubtitle": "Un dossier dans ton Google Drive, partagé avec l'autre membre. Nécessite une configuration Google unique.",
   "householdSupabaseUrl": "URL du projet",
   "householdSupabaseAnonKey": "Clé anon (publique)",
   "householdSupabaseToken": "Jeton d'accès personnel (uniquement pour créer la base de données)",
@@ -2133,5 +2133,15 @@
   "foodDbSourcesTitle": "Sources et licences",
   "foodDbSourcesNote": "Valeurs pour 100 g, à titre indicatif. Les produits changent : vérifie l'emballage.",
   "foodDbOnboardingTitle": "Télécharger la base d'aliments",
-  "foodDbOnboardingBody": "Des aliments de base et des produits de supermarché à rechercher hors ligne. Elle se télécharge depuis GitHub une fois la configuration terminée ; tu peux la supprimer dans les Paramètres."
+  "foodDbOnboardingBody": "Des aliments de base et des produits de supermarché à rechercher hors ligne. Elle se télécharge depuis GitHub une fois la configuration terminée ; tu peux la supprimer dans les Paramètres.",
+  "householdDriveClientId": "ID client web Google",
+  "householdDriveClientIdHelp": "De ton projet Google Cloud (se termine par .apps.googleusercontent.com). Ce n'est pas un secret.",
+  "householdDriveSignIn": "Se connecter avec Google",
+  "householdDriveSignedIn": "Connecté en tant que {email}",
+  "householdDriveShareWith": "Partager avec (e-mail Google des autres membres)",
+  "householdDriveShareHelp": "Facultatif. Google lui donnera accès au dossier par e-mail ; il rejoint ensuite avec l'invitation EatPoint.",
+  "householdDriveGuide": "Comment configurer Google (une fois)",
+  "householdDriveNeedsSignIn": "Connecte-toi d'abord avec Google.",
+  "householdDriveReconnect": "Reconnecter Google",
+  "householdDriveFolderName": "Foyer EatPoint"
 }

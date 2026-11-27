@@ -139,9 +139,13 @@ jobs:
         timeout-minutes: 25
         env:
           GRADLE_OPTS: -Dorg.gradle.daemon=false
+          # Optional repo variable: the Google Cloud Web client ID for the
+          # Google Drive household. Empty means members paste their own.
+          GOOGLE_WEB_CLIENT_ID: ${{ vars.EATPOINT_GOOGLE_WEB_CLIENT_ID }}
         run: >-
           flutter build apk --flavor full --release --split-per-abi
           --target-platform android-arm,android-arm64
+          --dart-define=EATPOINT_GOOGLE_WEB_CLIENT_ID="$GOOGLE_WEB_CLIENT_ID"
 
       - name: Collect APKs
         id: apks

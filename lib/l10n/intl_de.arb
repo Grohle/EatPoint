@@ -1629,7 +1629,7 @@
   "householdStorageLocal": "Mein eigener Server (Ubuntu)",
   "householdStorageLocalSubtitle": "Die App installiert den Synchronisationsdienst per SSH für dich.",
   "householdStorageDrive": "Google Drive",
-  "householdStorageDriveSubtitle": "In Entwicklung.",
+  "householdStorageDriveSubtitle": "Ein Ordner in deinem Google Drive, mit dem anderen Mitglied geteilt. Erfordert eine einmalige Google-Einrichtung.",
   "householdSupabaseUrl": "Projekt-URL",
   "householdSupabaseAnonKey": "Anon-Schlüssel (öffentlich)",
   "householdSupabaseToken": "Persönliches Zugriffstoken (nur zum Erstellen der Datenbank)",
@@ -2049,5 +2049,15 @@
   "foodDbSourcesTitle": "Quellen und Lizenzen",
   "foodDbSourcesNote": "Werte pro 100 g, als Richtwert. Produkte ändern sich: Prüfe die Packung.",
   "foodDbOnboardingTitle": "Lebensmitteldatenbank herunterladen",
-  "foodDbOnboardingBody": "Grundnahrungsmittel und Supermarktprodukte für die Offline-Suche. Sie wird von GitHub heruntergeladen, sobald die Einrichtung abgeschlossen ist; du kannst sie in den Einstellungen entfernen."
+  "foodDbOnboardingBody": "Grundnahrungsmittel und Supermarktprodukte für die Offline-Suche. Sie wird von GitHub heruntergeladen, sobald die Einrichtung abgeschlossen ist; du kannst sie in den Einstellungen entfernen.",
+  "householdDriveClientId": "Google-Web-Client-ID",
+  "householdDriveClientIdHelp": "Aus deinem Google-Cloud-Projekt (endet auf .apps.googleusercontent.com). Sie ist nicht geheim.",
+  "householdDriveSignIn": "Mit Google anmelden",
+  "householdDriveSignedIn": "Angemeldet als {email}",
+  "householdDriveShareWith": "Teilen mit (Google-E-Mail der anderen Mitglieder)",
+  "householdDriveShareHelp": "Optional. Google schickt ihm per E-Mail Zugriff auf den Ordner; danach tritt es mit der EatPoint-Einladung bei.",
+  "householdDriveGuide": "Google einrichten (einmalig)",
+  "householdDriveNeedsSignIn": "Melde dich zuerst mit Google an.",
+  "householdDriveReconnect": "Google erneut verbinden",
+  "householdDriveFolderName": "EatPoint-Haushalt"
 }

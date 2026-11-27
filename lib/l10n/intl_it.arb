@@ -1598,7 +1598,7 @@
   "householdStorageLocal": "Il mio server (Ubuntu)",
   "householdStorageLocalSubtitle": "L'app installa per te il servizio di sincronizzazione via SSH.",
   "householdStorageDrive": "Google Drive",
-  "householdStorageDriveSubtitle": "In sviluppo.",
+  "householdStorageDriveSubtitle": "Una cartella nel tuo Google Drive, condivisa con l'altro membro. Richiede una configurazione Google una tantum.",
   "householdSupabaseUrl": "URL del progetto",
   "householdSupabaseAnonKey": "Chiave anon (pubblica)",
   "householdSupabaseToken": "Token di accesso personale (solo per creare il database)",
@@ -2018,5 +2018,15 @@
   "foodDbSourcesTitle": "Fonti e licenze",
   "foodDbSourcesNote": "Valori per 100 g, a titolo indicativo. I prodotti cambiano: controlla la confezione.",
   "foodDbOnboardingTitle": "Scarica il database degli alimenti",
-  "foodDbOnboardingBody": "Alimenti di base e prodotti da supermercato da cercare offline. Viene scaricato da GitHub al termine della configurazione; puoi rimuoverlo nelle Impostazioni."
+  "foodDbOnboardingBody": "Alimenti di base e prodotti da supermercato da cercare offline. Viene scaricato da GitHub al termine della configurazione; puoi rimuoverlo nelle Impostazioni.",
+  "householdDriveClientId": "ID client web di Google",
+  "householdDriveClientIdHelp": "Dal tuo progetto Google Cloud (termina con .apps.googleusercontent.com). Non è un segreto.",
+  "householdDriveSignIn": "Accedi con Google",
+  "householdDriveSignedIn": "Connesso come {email}",
+  "householdDriveShareWith": "Condividi con (email Google degli altri membri)",
+  "householdDriveShareHelp": "Facoltativo. Google gli darà accesso alla cartella via email; poi si unisce con l'invito di EatPoint.",
+  "householdDriveGuide": "Come configurare Google (una volta)",
+  "householdDriveNeedsSignIn": "Prima accedi con Google.",
+  "householdDriveReconnect": "Riconnetti Google",
+  "householdDriveFolderName": "Casa EatPoint"
 }
