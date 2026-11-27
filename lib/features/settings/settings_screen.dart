@@ -26,6 +26,7 @@ import 'package:opennutritracker/core/utils/reload_diary_and_trends.dart';
 import 'package:opennutritracker/core/utils/theme_mode_provider.dart';
 import 'package:opennutritracker/core/utils/url_const.dart';
 import 'package:opennutritracker/features/points/presentation/points_settings_screen.dart';
+import 'package:opennutritracker/features/sharing/share_hub_screen.dart';
 import 'package:opennutritracker/features/points/data/points_settings_data_source.dart';
 import 'package:opennutritracker/features/diary/presentation/bloc/calendar_day_bloc.dart';
 import 'package:opennutritracker/features/diary/presentation/bloc/diary_bloc.dart';
@@ -254,6 +255,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (_) => const PointsSettingsScreen(),
+                        ),
+                      ),
+                    ),
+                    SettingsTile(
+                      identifier: 'settings-share-sync',
+                      palette: palette,
+                      icon: Icons.sync_rounded,
+                      title: S.of(context).householdEntry,
+                      subtitle: S.of(context).householdEntrySubtitle,
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => const ShareHubScreen(),
                         ),
                       ),
                     ),
