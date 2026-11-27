@@ -80,6 +80,12 @@ original calorie-first screens stay available from the menu.
 | **English and Spanish** | Every new screen, message and export ships in English and Spanish from the start, using the app's existing localization files. Other languages show English until they are translated. |
 | **Isolated from upstream** | The new logic lives in its own modules. Calorie, macro and BMI calculations and the Open Food Facts integration behave as they do upstream. |
 
+### Coming next
+
+- **On-device AI model for labels.** An optional model you download once, so difficult labels can be read offline without sending the photo anywhere. Its settings entry is already in the app, marked *in development*.
+- **More scripts and alphabets in the label scanner.** Today the scanner reads Latin-script labels (Spanish, English and other Latin-alphabet languages). Chinese, Japanese, Korean and Devanagari text recognition is planned, along with Cyrillic, Greek and Arabic labels.
+- **Google Drive** as another place to keep the household's encrypted data.
+
 ## Install
 
 <p align="center">
