@@ -61,7 +61,7 @@ with the people you live with, and keep everything on your phone.
 | **Travel mode** | For days away from home: one tap on Home pauses the menu, the shopping list and their reminders (and, if you like, household sync and per-meal budgets), so you only log what you eat. It can end on a date you choose. |
 | **Nutrition-label scanner** | Photograph a label to create a food. On-device text recognition reads the per-100 g values in Spanish and English, checks the calories against the macros, and opens an editor beside the photo. |
 | **Optional AI assistance** | If you configure an AI provider (Anthropic, OpenAI, OpenRouter or your own server), labels and menus can also be read by it. The app asks before anything is sent, and only that photo or text is sent. |
-| **Shared household** | Link two phones by QR code. You see each other's menu next to yours and share one shopping list. Data syncs through storage you choose (your own Supabase project, a Nextcloud/WebDAV folder or your own Ubuntu server, which the app can set up over SSH), always end-to-end encrypted. |
+| **Shared household** | Link two phones by QR code. You see each other's menu next to yours and share one shopping list. Data syncs through storage you choose (a folder in your Google Drive, your own Supabase project, a Nextcloud/WebDAV folder or your own Ubuntu server, which the app can set up over SSH), always end-to-end encrypted. Google Drive needs a one-time Google setup: see [docs/google-drive.md](docs/google-drive.md). |
 | **Agent connector (MCP)** | An optional Model Context Protocol server runs on the phone while the app is open, so AI agents on your Wi‑Fi can read your budget, menus and shopping list and *propose* changes for you to approve. |
 | **Reminders and export** | Optional reminders to plan the week, shop, prepare and log. EatPoint's data exports to and imports from a JSON file. |
 | **English and Spanish** | Every EatPoint screen ships complete in English and Spanish. |
@@ -112,14 +112,10 @@ data. To bring your diary over, export it from OpenNutriTracker and import it in
 
 ## Coming next
 
-- **Downloadable food database.** A large, cleaned and normalised database of basic foods and
-  common supermarket products, built from openly licensed sources and adapted to points,
-  downloadable during setup or from Settings.
 - **More languages**, with label and menu reading in each of them.
 - **On-device AI model** for labels and menus, downloaded once and used offline.
 - **More scripts and alphabets** in the scanner: Chinese, Japanese, Korean, Devanagari,
   Cyrillic, Greek and Arabic.
-- **Google Drive** as another place to keep the household's encrypted data.
 
 ## Disclaimer
 
