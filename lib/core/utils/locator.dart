@@ -89,6 +89,7 @@ import 'package:opennutritracker/features/food_db/data/food_db_service.dart';
 import 'package:opennutritracker/features/diet_profile/data/food_facts_store.dart';
 import 'package:opennutritracker/features/travel/data/travel_mode_store.dart';
 import 'package:opennutritracker/features/updates/data/update_store.dart';
+import 'package:opennutritracker/features/sync/domain/household_menu.dart';
 import 'package:opennutritracker/features/planner/data/planner_reminder_service.dart';
 import 'package:opennutritracker/features/mcp/data/mcp_controller.dart';
 import 'package:opennutritracker/features/points/data/points_settings_data_source.dart';
@@ -789,6 +790,19 @@ Future<void> initLocator() async {
         householdId: householdId,
         secret: secret,
       ),
+      // EatPoint: what the household needs to plan for this member.
+      profile: () async {
+        final budget = await locator<GetPointsBudgetUsecase>().getBudget();
+        return MemberProfile(
+          slots: [
+            for (final slot in budget.slots)
+              MemberSlot(id: slot.id, baseType: slot.baseType, name: slot.name),
+          ],
+          budgets: budget.perSlot,
+          fibre: budget.fibrePerSlot,
+          diet: locator<DietProfileStore>().get(),
+        );
+      },
     ),
   );
   locator.registerLazySingleton(() => CustomMealDataSource(hiveDBProvider));

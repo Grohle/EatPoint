@@ -7,6 +7,7 @@ import 'package:opennutritracker/features/sync/data/household_store.dart';
 import 'package:opennutritracker/features/sync/domain/household.dart';
 import 'package:opennutritracker/features/sync/domain/household_sync_service.dart';
 import 'package:opennutritracker/features/sync/presentation/backend_setup_screen.dart';
+import 'package:opennutritracker/features/sync/presentation/household_edits_switch.dart';
 import 'package:opennutritracker/features/sync/presentation/join_household_screen.dart';
 import 'package:opennutritracker/features/sync/presentation/storage_labels.dart';
 import 'package:opennutritracker/features/sync/domain/sync_backend.dart';
@@ -304,7 +305,9 @@ class _HouseholdScreenState extends State<HouseholdScreen> {
                   },
           ),
         ),
-      const SizedBox(height: Dimens.spacing24),
+      const SizedBox(height: Dimens.spacing8),
+      HouseholdEditsSwitch(store: _store, contentPadding: EdgeInsets.zero),
+      const SizedBox(height: Dimens.spacing16),
       Text(s.householdMembers, style: Theme.of(context).textTheme.titleMedium),
       ListTile(
         contentPadding: EdgeInsets.zero,

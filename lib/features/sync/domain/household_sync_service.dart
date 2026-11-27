@@ -1,6 +1,7 @@
 import 'package:logging/logging.dart';
 import 'package:opennutritracker/features/planner/data/planner_data_source.dart';
 import 'package:opennutritracker/features/planner/domain/entity/planner_entities.dart';
+import 'package:opennutritracker/features/sync/domain/household_menu.dart';
 import 'package:opennutritracker/features/sync/data/household_store.dart';
 import 'package:opennutritracker/features/sync/domain/household.dart';
 import 'package:opennutritracker/features/sync/domain/household_crypto.dart';
@@ -39,12 +40,25 @@ class HouseholdSyncService {
   final HouseholdStore _store;
   final SyncBackendBuilder _backendBuilder;
 
+  /// EatPoint: this member's meals, points and diet, shared when they allow
+  /// changes to their menu. Null in builds and tests without it.
+  final Future<MemberProfile?> Function()? _profile;
+
   bool _running = false;
 
-  HouseholdSyncService(this._planner, this._store, this._backendBuilder);
+  HouseholdSyncService(
+    this._planner,
+    this._store,
+    this._backendBuilder, {
+    Future<MemberProfile?> Function()? profile,
+  }) : _profile = profile;
 
   /// Builds this member's snapshot from the local planner.
-  MemberSnapshot buildMySnapshot(Household household, {DateTime? now}) {
+  MemberSnapshot buildMySnapshot(
+    Household household, {
+    DateTime? now,
+    MemberProfile? profile,
+  }) {
     final today = DayPlan.dateOnly(now ?? DateTime.now());
     final days = <DayPlan>[];
     for (var i = -daysBack; i <= daysAhead; i++) {
@@ -68,7 +82,53 @@ class HouseholdSyncService {
       updatedAt: now ?? DateTime.now(),
       days: days,
       shopping: shopping,
+      profile: profile,
+      edits: _store.pendingEdits(),
+      applied: _store.appliedEdits(),
     );
+  }
+
+  Future<MemberProfile?> _myProfile() async {
+    final allow = _store.allowEdits;
+    if (!allow) return const MemberProfile(allowEdits: false);
+    try {
+      final profile = await _profile?.call();
+      return profile == null
+          ? const MemberProfile()
+          : MemberProfile(
+              slots: profile.slots,
+              budgets: profile.budgets,
+              fibre: profile.fibre,
+              diet: profile.diet,
+            );
+    } catch (e) {
+      _log.warning('Profile not shared this round: $e');
+      return const MemberProfile();
+    }
+  }
+
+  /// Applies the changes [other] made to this member's menu, when this
+  /// member allows it, and remembers each as handled either way. A meal
+  /// already logged is left as it is. Returns whether the menu changed.
+  Future<bool> _applyEdits(Household household, MemberSnapshot other) async {
+    final handled = _store.appliedEdits();
+    final incoming = [
+      for (final e in other.edits)
+        if (e.memberId == household.memberId && !handled.contains(e.id)) e,
+    ]..sort((a, b) => a.at.compareTo(b.at));
+    if (incoming.isEmpty) return false;
+    var changed = false;
+    if (_store.allowEdits) {
+      for (final edit in incoming) {
+        final day = _planner.getDay(edit.date);
+        if (day.logged.contains(edit.slotId)) continue;
+        await _planner.saveDay(edit.applyTo(day));
+        changed = true;
+      }
+    }
+    await _store.markApplied(incoming.map((e) => e.id));
+    if (changed) _log.fine('Menu changed by ${other.memberId}');
+    return true;
   }
 
   /// One sync round. Returns null when no household is set up or another
@@ -89,15 +149,17 @@ class HouseholdSyncService {
         secret: await _store.readBackendSecret(),
       );
 
-      final mine = buildMySnapshot(household, now: now);
-      await backend.put(
+      final profile = await _myProfile();
+      Future<void> publish() async => backend.put(
         household.blobName,
         await HouseholdCrypto.encryptJson(
-          mine.toJson(),
+          buildMySnapshot(household, now: now, profile: profile).toJson(),
           key,
           household.householdId,
         ),
       );
+      await publish();
+      var republish = false;
 
       final names = await backend.list();
       final members = <String, String>{...household.members};
@@ -121,9 +183,14 @@ class HouseholdSyncService {
         if (snapshot == null) continue;
         seen++;
         members[snapshot.memberId] = snapshot.name;
-        await _store.saveMember(snapshot);
+        await _store.confirmEdits(snapshot.memberId, snapshot.applied);
+        await _store.saveMember(_withPending(snapshot));
         listChanged |= await _mergeShopping(snapshot);
+        republish |= await _applyEdits(household, snapshot);
       }
+      // What was applied (and the confirmations) reach the others now
+      // rather than on the next round.
+      if (republish) await publish();
       await _store.saveHousehold(
         household.copyWith(members: members, lastSyncAt: now ?? DateTime.now()),
       );
@@ -135,6 +202,17 @@ class HouseholdSyncService {
     } finally {
       _running = false;
     }
+  }
+
+  /// [snapshot] with this phone's unconfirmed changes to it still shown.
+  MemberSnapshot _withPending(MemberSnapshot snapshot) {
+    var result = snapshot;
+    for (final edit in _store.pendingEdits()) {
+      if (edit.memberId != snapshot.memberId) continue;
+      final day = result.dayFor(edit.date) ?? DayPlan.empty(edit.date);
+      result = result.withDay(edit.applyTo(day));
+    }
+    return result;
   }
 
   Future<bool> _mergeShopping(MemberSnapshot other) async {

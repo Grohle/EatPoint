@@ -20,6 +20,8 @@ import 'package:opennutritracker/features/travel/presentation/travel_mode_banner
 import 'package:opennutritracker/features/food_knowledge/domain/portion_formatter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:opennutritracker/features/sync/presentation/member_avatar.dart';
+import 'package:opennutritracker/features/planner/domain/pack_sizes.dart';
 
 /// The shopping list of one week, built from the week's plans.
 class ShoppingListScreen extends StatefulWidget {
@@ -46,6 +48,9 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
   bool _jointView = true;
   bool _shared = false;
   String _owner = _defaultOwner;
+
+  /// Colour key (member id) of each owner name, for the circles.
+  Map<String, String> _ownerKeys = const {};
 
   List<ShoppingItem> _items = const [];
   ShoppingListState _state = const ShoppingListState();
@@ -93,6 +98,10 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
     final myName = household?.memberName ?? '';
     _owner = myName.isEmpty ? _defaultOwner : myName;
     _shared = others.isNotEmpty;
+    _ownerKeys = {
+      _owner: household?.memberId ?? _owner,
+      for (final m in others) (m.name.isEmpty ? m.memberId : m.name): m.memberId,
+    };
     final start = DayPlan.weekStart(widget.weekOf);
     final built = ShoppingListBuilder.build([
       for (final p in plans) (owner: _owner, plan: p),
@@ -153,6 +162,22 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
     }
     final rounded = format.grams(item.amount.roundToDouble());
     return unit.isEmpty ? rounded : '$rounded $unit';
+  }
+
+  /// EatPoint: "2 × 500 g · 80 g left over" for foods sold in packs.
+  String? _packText(ShoppingItem item) {
+    if (item.unit != 'g' && item.unit != 'ml') return null;
+    final advice = PackSizes.forFood(item.name, item.amount);
+    if (advice == null) return null;
+    final s = S.of(context);
+    final format = PointsFormat.of(context);
+    final size = advice.pieces != null
+        ? s.shoppingPackPieces('${advice.pieces}')
+        : '${format.grams(advice.size)} ${item.unit}';
+    final packs = s.shoppingPacks('${advice.packs}', size);
+    return advice.leftover >= advice.size * 0.1
+        ? '$packs · ${s.shoppingPackLeftover('${format.grams(advice.leftover.roundToDouble())} ${item.unit}')}'
+        : packs;
   }
 
   /// "≈ 6 patatas" under an item bought by the piece.
@@ -442,6 +467,7 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
     final muted = theme.colorScheme.onSurfaceVariant;
     final subtitleLines = <String>[
       ?_piecesText(item),
+      ?_packText(item),
       if (item.perOwner.length > 1)
         item.perOwner.entries
             .map((e) => '${e.key}: ${format.grams(e.value.roundToDouble())}')
@@ -456,16 +482,33 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
         controlAffinity: ListTileControlAffinity.leading,
         value: checked,
         onChanged: (_) => _save(_state.toggle(item.key, by: _owner)),
-        title: Text(
-          item.name,
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-          style: checked
-              ? TextStyle(
-                  decoration: TextDecoration.lineThrough,
-                  color: muted.withValues(alpha: 0.7),
-                )
-              : null,
+        title: Row(
+          children: [
+            Flexible(
+              child: Text(
+                item.name,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: checked
+                    ? TextStyle(
+                        decoration: TextDecoration.lineThrough,
+                        color: muted.withValues(alpha: 0.7),
+                      )
+                    : null,
+              ),
+            ),
+            // EatPoint: who needs it, one circle per member.
+            if (_shared)
+              for (final owner in item.perOwner.keys)
+                Padding(
+                  padding: const EdgeInsets.only(left: 4),
+                  child: MemberAvatar(
+                    name: owner,
+                    colourKey: _ownerKeys[owner] ?? owner,
+                    radius: 9,
+                  ),
+                ),
+          ],
         ),
         subtitle: subtitleLines.isEmpty ? null : Text(subtitleLines.join('\n')),
         secondary: amount.isEmpty

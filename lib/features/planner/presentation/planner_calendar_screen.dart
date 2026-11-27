@@ -10,6 +10,10 @@ import 'package:opennutritracker/features/points/domain/entity/meal_slot.dart';
 import 'package:opennutritracker/features/points/domain/usecase/get_points_budget_usecase.dart';
 import 'package:opennutritracker/features/points/presentation/meal_type_label.dart';
 import 'package:opennutritracker/features/points/presentation/points_format.dart';
+import 'package:opennutritracker/features/sync/data/household_store.dart';
+import 'package:opennutritracker/features/sync/domain/household.dart';
+import 'package:opennutritracker/features/sync/presentation/member_avatar.dart';
+import 'package:opennutritracker/features/sync/presentation/member_day_screen.dart';
 import 'package:opennutritracker/generated/l10n.dart';
 
 /// A month view of the menu: every day shows how much of the daily budget
@@ -37,16 +41,25 @@ class _PlannerCalendarScreenState extends State<PlannerCalendarScreen> {
   late DateTime _selected = DayPlan.dateOnly(widget.initialDay);
   PointsBudgetResult? _budget;
 
+  /// EatPoint: the household's other members, to show their menus too.
+  final HouseholdStore? _household = locator.isRegistered<HouseholdStore>()
+      ? locator<HouseholdStore>()
+      : null;
+  List<MemberSnapshot> get _others =>
+      _household?.getHousehold() == null ? const [] : _household!.otherMembers();
+
   @override
   void initState() {
     super.initState();
     _source.revision.addListener(_refresh);
+    _household?.revision.addListener(_refresh);
     _loadBudget();
   }
 
   @override
   void dispose() {
     _source.revision.removeListener(_refresh);
+    _household?.revision.removeListener(_refresh);
     _pages.dispose();
     super.dispose();
   }
@@ -239,6 +252,7 @@ class _PlannerCalendarScreenState extends State<PlannerCalendarScreen> {
   }
 
   Widget _dayCell(BuildContext context, DateTime date) {
+    final others = _others;
     final scheme = Theme.of(context).colorScheme;
     final locale = Localizations.localeOf(context).toString();
     final plan = _source.getDay(date);
@@ -293,14 +307,30 @@ class _PlannerCalendarScreenState extends State<PlannerCalendarScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    '${date.day}',
-                    style: TextStyle(
-                      fontWeight: isToday || selected
-                          ? FontWeight.w700
-                          : FontWeight.w500,
-                      color: selected ? scheme.onPrimary : null,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        '${date.day}',
+                        style: TextStyle(
+                          fontWeight: isToday || selected
+                              ? FontWeight.w700
+                              : FontWeight.w500,
+                          color: selected ? scheme.onPrimary : null,
+                        ),
+                      ),
+                      for (final member in others)
+                        if (!(member.dayFor(date)?.isEmpty ?? true))
+                          Container(
+                            width: 6,
+                            height: 6,
+                            margin: const EdgeInsets.only(left: 2),
+                            decoration: BoxDecoration(
+                              color: memberColor(member.memberId),
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                    ],
                   ),
                   if (!plan.isEmpty)
                     Text(
@@ -491,7 +521,89 @@ class _PlannerCalendarScreenState extends State<PlannerCalendarScreen> {
               ),
             ),
         ],
+        for (final member in _others) _memberPreview(context, member),
       ],
+    );
+  }
+
+  /// EatPoint: another member's meals that day; tapping opens their day.
+  Widget _memberPreview(BuildContext context, MemberSnapshot member) {
+    final s = S.of(context);
+    final theme = Theme.of(context);
+    final format = PointsFormat.of(context);
+    final day = member.dayFor(_selected);
+    final slots = memberSlots(member, day);
+    return Padding(
+      padding: const EdgeInsets.only(top: Dimens.spacing16),
+      child: Semantics(
+        identifier: 'planner-calendar-member-${member.memberId}',
+        child: Card(
+          margin: EdgeInsets.zero,
+          child: InkWell(
+            borderRadius: Dimens.borderRadiusM,
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => MemberDayScreen(
+                  memberId: member.memberId,
+                  date: _selected,
+                ),
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(Dimens.spacing12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      MemberAvatar(
+                        name: member.name,
+                        colourKey: member.memberId,
+                      ),
+                      const SizedBox(width: Dimens.spacing8),
+                      Expanded(
+                        child: Text(
+                          s.householdMemberMenu(member.name),
+                          style: theme.textTheme.titleSmall,
+                        ),
+                      ),
+                      Icon(
+                        member.allowsEdits
+                            ? Icons.edit_outlined
+                            : Icons.chevron_right_rounded,
+                        size: 20,
+                      ),
+                    ],
+                  ),
+                  if (day == null || day.isEmpty)
+                    Padding(
+                      padding: const EdgeInsets.only(top: Dimens.spacing4),
+                      child: Text(
+                        s.plannerCalendarEmptyDay,
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: theme.colorScheme.onSurfaceVariant,
+                        ),
+                      ),
+                    )
+                  else
+                    for (final slot in slots)
+                      if (day.itemsFor(slot.id).isNotEmpty)
+                        Padding(
+                          padding: const EdgeInsets.only(top: Dimens.spacing4),
+                          child: Text(
+                            '${mealSlotLabel(context, slot)}: '
+                            '${day.itemsFor(slot.id).map((i) => i.name).join(' · ')}'
+                            ' (${format.points(day.pointsFor(slot.id).total)} '
+                            '${s.pointsShort})',
+                            style: theme.textTheme.bodySmall,
+                          ),
+                        ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

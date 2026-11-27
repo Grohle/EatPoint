@@ -4,22 +4,20 @@ import 'package:opennutritracker/core/styles/app_palette.dart';
 import 'package:opennutritracker/core/styles/dimens.dart';
 import 'package:opennutritracker/core/utils/calc/points_calc.dart';
 import 'package:opennutritracker/core/utils/locator.dart';
-import 'package:opennutritracker/features/diary/presentation/bloc/calendar_day_bloc.dart';
-import 'package:opennutritracker/features/diary/presentation/bloc/diary_bloc.dart';
-import 'package:opennutritracker/features/home/presentation/bloc/home_bloc.dart';
 import 'package:opennutritracker/features/meal_detail/presentation/bloc/meal_detail_bloc.dart';
 import 'package:opennutritracker/features/food_knowledge/domain/portion_formatter.dart';
 import 'package:opennutritracker/features/insights/presentation/week_insights_card.dart';
 import 'package:opennutritracker/features/menu_import/presentation/menu_import_screen.dart';
+import 'package:opennutritracker/features/planner/data/planned_meal_logger.dart';
 import 'package:opennutritracker/features/planner/data/planner_data_source.dart';
 import 'package:opennutritracker/features/planner/data/planner_reminder_service.dart';
 import 'package:opennutritracker/features/planner/domain/entity/planner_entities.dart';
 import 'package:opennutritracker/features/planner/domain/shopping_list_builder.dart';
 import 'package:opennutritracker/features/planner/presentation/dish_picker_screen.dart';
+import 'package:opennutritracker/features/planner/presentation/planned_meal_editor_screen.dart';
 import 'package:opennutritracker/features/planner/presentation/planner_reminders_screen.dart';
 import 'package:opennutritracker/features/planner/presentation/shopping_list_screen.dart';
 import 'package:opennutritracker/features/planner/presentation/planner_calendar_screen.dart';
-import 'package:opennutritracker/features/points/data/meal_slot_assignments.dart';
 import 'package:opennutritracker/features/points/domain/entity/meal_slot.dart';
 import 'package:opennutritracker/features/points/domain/usecase/get_points_budget_usecase.dart';
 import 'package:opennutritracker/features/points/presentation/meal_type_label.dart';
@@ -27,6 +25,8 @@ import 'package:opennutritracker/features/points/presentation/points_format.dart
 import 'package:opennutritracker/features/sync/data/household_store.dart';
 import 'package:opennutritracker/features/sync/domain/household.dart';
 import 'package:opennutritracker/features/sync/domain/household_auto_sync.dart';
+import 'package:opennutritracker/features/sync/presentation/member_avatar.dart';
+import 'package:opennutritracker/features/sync/presentation/member_day_screen.dart';
 import 'package:opennutritracker/features/travel/data/travel_mode_store.dart';
 import 'package:opennutritracker/features/travel/presentation/travel_mode_banner.dart';
 import 'package:opennutritracker/core/utils/id_generator.dart';
@@ -238,28 +238,226 @@ class _PlannerScreenState extends State<PlannerScreen> {
     final s = S.of(context);
     final mealName = mealSlotLabel(context, slot);
     try {
-      await MealSlotContext.run(slot, () async {
-        for (final item in items) {
-          if (!mounted) return;
-          await bloc.addIntake(
-            context,
-            item.unit,
-            item.amount.toString(),
-            slot.baseType,
-            item.meal,
-            day.date,
-          );
-        }
-      });
-      await _save(day.withLogged(slot.id, true));
-      locator<HomeBloc>().add(const LoadItemsEvent());
-      locator<DiaryBloc>().add(const LoadDiaryYearEvent());
-      locator<CalendarDayBloc>().add(const RefreshCalendarDayEvent());
+      final logged = await PlannedMealLogger.app(context).log(
+        day,
+        slot,
+        PlannedMealLogger.appAdd(context, bloc, slot, day.date),
+      );
+      await _save(logged);
+      PlannedMealLogger.refreshDiary();
       messenger.showSnackBar(
         SnackBar(content: Text(s.plannerLoggedSnack(mealName))),
       );
     } finally {
       await bloc.close();
+      if (mounted) setState(() => _logging.remove(slot.id));
+    }
+  }
+
+  /// EatPoint: changes a day's meal (amounts, foods out, foods in). A meal
+  /// already logged is taken out of the diary and logged again as edited.
+  Future<void> _editMeal(MealSlot slot) async {
+    final day = _day;
+    final locale = Localizations.localeOf(context).toString();
+    final wasLogged = day.logged.contains(slot.id);
+    final edited = await Navigator.of(context).push<List<PlannedItem>>(
+      MaterialPageRoute(
+        builder: (_) => PlannedMealEditorScreen(
+          title:
+              '${mealSlotLabel(context, slot)} · '
+              '${DateFormat.MMMEd(locale).format(day.date)}',
+          day: day.date,
+          mealType: slot.baseType,
+          items: day.itemsFor(slot.id),
+          budget: _budget?.perSlot[slot.id],
+          fibreTarget: _budget?.fibrePerSlot[slot.id] ?? 0,
+          logged: wasLogged,
+        ),
+      ),
+    );
+    if (edited == null || !mounted) return;
+    if (!wasLogged) {
+      await _save(_day.withMeal(slot.id, edited));
+      return;
+    }
+    setState(() => _logging.add(slot.id));
+    final bloc = locator<MealDetailBloc>();
+    try {
+      final logger = PlannedMealLogger.app(context);
+      var next = (await logger.unlog(_day, slot)).withMeal(slot.id, edited);
+      if (edited.isNotEmpty && mounted) {
+        next = await logger.log(
+          next,
+          slot,
+          PlannedMealLogger.appAdd(context, bloc, slot, next.date),
+        );
+      }
+      await _save(next);
+      PlannedMealLogger.refreshDiary();
+    } finally {
+      await bloc.close();
+      if (mounted) setState(() => _logging.remove(slot.id));
+    }
+  }
+
+  /// EatPoint: takes one meal out of the day's menu (and so out of the
+  /// shopping list). A logged meal asks whether its diary entries go too.
+  /// Can be undone from the snack bar.
+  Future<void> _deleteMeal(MealSlot slot) async {
+    final s = S.of(context);
+    final before = _day;
+    if (before.itemsFor(slot.id).isEmpty) return;
+    final mealName = mealSlotLabel(context, slot);
+    var alsoDiary = false;
+    if (before.logged.contains(slot.id)) {
+      final choice = await showDialog<bool>(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(s.plannerDeleteLoggedTitle(mealName)),
+          content: Text(s.plannerDeleteLoggedBody),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: Text(s.plannerDeleteOnlyMenu),
+            ),
+            FilledButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: Text(s.plannerDeleteAlsoDiary),
+            ),
+          ],
+        ),
+      );
+      if (choice == null || !mounted) return;
+      alsoDiary = choice;
+    }
+    final messenger = ScaffoldMessenger.of(context);
+    var next = before;
+    if (alsoDiary) {
+      next = await PlannedMealLogger.app(context).unlog(next, slot);
+      PlannedMealLogger.refreshDiary();
+    }
+    await _save(next.withMeal(slot.id, const []).withLogged(slot.id, false));
+    messenger.showSnackBar(
+      SnackBar(
+        content: Text(s.plannerDeletedMeal(mealName)),
+        action: SnackBarAction(
+          label: s.plannerUndo,
+          // What the diary lost is not put back: the meal returns as
+          // planned, ready to log again.
+          onPressed: () => _save(
+            alsoDiary ? before.withLogged(slot.id, false) : before,
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// EatPoint: empties the selected day's menu after asking, optionally
+  /// taking what was logged from it out of the diary too.
+  Future<void> _deleteDay() async {
+    final s = S.of(context);
+    final before = _day;
+    if (before.isEmpty) return;
+    final locale = Localizations.localeOf(context).toString();
+    final hasLogged = before.logged.isNotEmpty;
+    var alsoDiary = false;
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => StatefulBuilder(
+        builder: (context, setDialogState) => AlertDialog(
+          title: Text(
+            s.plannerDeleteDayTitle(
+              DateFormat.MMMMEEEEd(locale).format(before.date),
+            ),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(s.plannerDeleteDayBody),
+              if (hasLogged)
+                CheckboxListTile(
+                  contentPadding: EdgeInsets.zero,
+                  value: alsoDiary,
+                  title: Text(s.plannerDeleteDayDiary),
+                  onChanged: (v) => setDialogState(() => alsoDiary = v!),
+                ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
+            ),
+            FilledButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: Text(s.plannerDeleteDay),
+            ),
+          ],
+        ),
+      ),
+    );
+    if (confirmed != true || !mounted) return;
+    final messenger = ScaffoldMessenger.of(context);
+    var restore = before;
+    if (alsoDiary) {
+      final logger = PlannedMealLogger.app(context);
+      var day = before;
+      for (final id in before.logged) {
+        final slot = _slotsFor(before).where((s) => s.id == id).firstOrNull;
+        if (slot == null) continue;
+        day = await logger.unlog(day, slot);
+      }
+      restore = day;
+      PlannedMealLogger.refreshDiary();
+    }
+    await _save(DayPlan.empty(before.date));
+    messenger.showSnackBar(
+      SnackBar(
+        content: Text(s.plannerDeletedDay),
+        action: SnackBarAction(
+          label: s.plannerUndo,
+          onPressed: () => _save(restore),
+        ),
+      ),
+    );
+  }
+
+  /// EatPoint: takes a meal logged by mistake back out of the diary.
+  Future<void> _unlogMeal(MealSlot slot) async {
+    final s = S.of(context);
+    final mealName = mealSlotLabel(context, slot);
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(s.plannerUnlogTitle(mealName)),
+        content: Text(s.plannerUnlogBody),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: Text(s.plannerUnlog),
+          ),
+        ],
+      ),
+    );
+    if (confirmed != true || !mounted) return;
+    final messenger = ScaffoldMessenger.of(context);
+    setState(() => _logging.add(slot.id));
+    try {
+      await _save(await PlannedMealLogger.app(context).unlog(_day, slot));
+      PlannedMealLogger.refreshDiary();
+      messenger.showSnackBar(
+        SnackBar(content: Text(s.plannerUnloggedSnack(mealName))),
+      );
+    } finally {
       if (mounted) setState(() => _logging.remove(slot.id));
     }
   }
@@ -307,7 +505,7 @@ class _PlannerScreenState extends State<PlannerScreen> {
       case _DayAction.copyDayTo:
         await _copyDayTo();
       case _DayAction.clearDay:
-        await _save(DayPlan.empty(_selected));
+        await _deleteDay();
       case _DayAction.shareWeek:
         await _shareWeek();
       case _DayAction.reminders:
@@ -543,6 +741,21 @@ class _PlannerScreenState extends State<PlannerScreen> {
                   ),
                 for (final slot in _slotsFor(day))
                   _mealCard(context, day, slot),
+                if (!day.isEmpty)
+                  Align(
+                    alignment: Alignment.center,
+                    child: Semantics(
+                      identifier: 'planner-delete-day',
+                      child: TextButton.icon(
+                        style: TextButton.styleFrom(
+                          foregroundColor: Theme.of(context).colorScheme.error,
+                        ),
+                        onPressed: _deleteDay,
+                        icon: const Icon(Icons.delete_sweep_outlined),
+                        label: Text(s.plannerClearDay),
+                      ),
+                    ),
+                  ),
               ],
             ),
           ),
@@ -708,30 +921,65 @@ class _PlannerScreenState extends State<PlannerScreen> {
               children: [
                 Icon(mealSlotIcon(slot), size: 20),
                 const SizedBox(width: Dimens.spacing8),
+                // The points under the name, so the meal's buttons fit.
                 Expanded(
-                  child: Text(
-                    _slotName(context, slot),
-                    style: theme.textTheme.titleSmall,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        _slotName(context, slot),
+                        style: theme.textTheme.titleSmall,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Text(
+                        mealBudget == null
+                            ? '${format.points(points.total)} ${s.pointsShort}'
+                            : '${format.points(points.total)} / '
+                                  '${format.points(mealBudget.total)} ${s.pointsShort}',
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: over ? theme.colorScheme.error : null,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                Text(
-                  mealBudget == null
-                      ? '${format.points(points.total)} ${s.pointsShort}'
-                      : '${format.points(points.total)} / '
-                            '${format.points(mealBudget.total)} ${s.pointsShort}',
-                  style: theme.textTheme.bodyMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
-                    color: over ? theme.colorScheme.error : null,
+                if (items.isNotEmpty)
+                  Semantics(
+                    identifier: 'planner-delete-${slot.id}',
+                    child: IconButton(
+                      tooltip: s.plannerDeleteMeal,
+                      visualDensity: VisualDensity.compact,
+                      icon: const Icon(Icons.delete_outline_rounded),
+                      onPressed: _logging.contains(slot.id)
+                          ? null
+                          : () => _deleteMeal(slot),
+                    ),
                   ),
-                ),
-                const SizedBox(width: Dimens.spacing8),
-                if (logged)
-                  Chip(
-                    avatar: const Icon(Icons.check_rounded, size: 16),
-                    label: Text(s.plannerLogged),
+                Semantics(
+                  identifier: 'planner-edit-${slot.id}',
+                  child: IconButton(
+                    tooltip: s.mealEditorTitle,
                     visualDensity: VisualDensity.compact,
+                    icon: const Icon(Icons.edit_outlined),
+                    onPressed: _logging.contains(slot.id)
+                        ? null
+                        : () => _editMeal(slot),
+                  ),
+                ),
+                if (logged)
+                  Semantics(
+                    identifier: 'planner-unlog-${slot.id}',
+                    child: ActionChip(
+                      avatar: const Icon(Icons.check_rounded, size: 16),
+                      label: Text(s.plannerLogged),
+                      tooltip: s.plannerUnlog,
+                      visualDensity: VisualDensity.compact,
+                      onPressed: _logging.contains(slot.id)
+                          ? null
+                          : () => _unlogMeal(slot),
+                    ),
                   )
                 else if (items.isNotEmpty)
                   Semantics(
@@ -820,19 +1068,17 @@ class _PlannerScreenState extends State<PlannerScreen> {
                   ListTile(
                     contentPadding: EdgeInsets.zero,
                     dense: true,
-                    leading: CircleAvatar(
-                      radius: 12,
-                      backgroundColor: const Color(0xFFFFB300),
-                      child: Text(
-                        member.name.isEmpty
-                            ? '?'
-                            : member.name.characters.first.toUpperCase(),
-                        style: const TextStyle(
-                          fontSize: 11,
-                          fontWeight: FontWeight.w700,
-                          color: Color(0xFF4D2F00),
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => MemberDayScreen(
+                          memberId: member.memberId,
+                          date: day.date,
                         ),
                       ),
+                    ),
+                    leading: MemberAvatar(
+                      name: member.name,
+                      colourKey: member.memberId,
                     ),
                     title: Text(
                       other.name,

@@ -41,6 +41,7 @@ import 'package:opennutritracker/features/travel/presentation/travel_mode_screen
 import 'package:opennutritracker/features/diet_profile/presentation/diet_profile_screen.dart';
 import 'package:opennutritracker/features/food_db/presentation/food_db_screen.dart';
 import 'package:opennutritracker/generated/l10n.dart';
+import 'package:opennutritracker/features/sync/presentation/household_edits_switch.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -219,6 +220,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   MaterialPageRoute(builder: (_) => const TravelModeScreen()),
                 ),
               ),
+              const HouseholdEditsSwitch(),
             ],
           ],
         ),

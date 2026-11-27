@@ -21,6 +21,14 @@ import 'package:opennutritracker/features/points/data/points_settings_data_sourc
 import 'package:opennutritracker/features/points/domain/entity/meal_slot.dart';
 import 'package:opennutritracker/features/points/domain/usecase/get_points_budget_usecase.dart';
 import 'package:opennutritracker/features/points/presentation/meal_type_label.dart';
+import 'package:opennutritracker/core/utils/id_generator.dart';
+import 'package:opennutritracker/features/menu_generator/domain/member_menu_adapter.dart';
+import 'package:opennutritracker/features/sync/data/household_store.dart';
+import 'package:opennutritracker/features/sync/domain/household.dart';
+import 'package:opennutritracker/features/sync/domain/household_auto_sync.dart';
+import 'package:opennutritracker/features/sync/domain/household_menu.dart';
+import 'package:opennutritracker/features/sync/presentation/member_avatar.dart';
+import 'package:opennutritracker/features/sync/presentation/member_day_screen.dart';
 import 'package:opennutritracker/generated/l10n.dart';
 
 enum _Engine { phone, ai }
@@ -52,6 +60,14 @@ class _MenuGeneratorScreenState extends State<MenuGeneratorScreen> {
   List<MealSlot> _slots = MealSlot.builtIn();
   DietProfile _profile = DietProfile.empty;
 
+  /// EatPoint: an efficient shopping basket.
+  bool _efficient = false;
+
+  /// Household members who let others plan for them, and the ones this
+  /// menu is also for.
+  List<MemberSnapshot> _members = const [];
+  final Set<String> _with = {};
+
   @override
   void initState() {
     super.initState();
@@ -64,6 +80,15 @@ class _MenuGeneratorScreenState extends State<MenuGeneratorScreen> {
       _slots = settings.effectiveMealSlots;
     }
     _readProfile();
+    if (locator.isRegistered<HouseholdStore>()) {
+      final store = locator<HouseholdStore>();
+      if (store.getHousehold() != null) {
+        _members = [
+          for (final m in store.otherMembers())
+            if (m.allowsEdits && m.profile != null) m,
+        ];
+      }
+    }
     if (locator.isRegistered<AiCredentialStorage>()) {
       try {
         _aiAvailable =
@@ -140,10 +165,15 @@ class _MenuGeneratorScreenState extends State<MenuGeneratorScreen> {
     });
     final checker = _profile.isEmpty ? null : DietChecker(_profile);
     final pool = await MenuGeneratorPool.build(knowledge, lang);
+    final companions = <MemberSnapshot, MenuCompanion>{
+      for (final m in _members)
+        if (_with.contains(m.memberId)) m: _companionFor(m),
+    };
     ImportedMenu menu;
     MenuFoodMatcher? matcher;
+    GeneratedMenu? generated;
     try {
-      if (_engine == _Engine.ai) {
+      if (_engine == _Engine.ai && companions.isEmpty) {
         final budget = locator.isRegistered<GetPointsBudgetUsecase>()
             ? await locator<GetPointsBudgetUsecase>().getBudget()
             : null;
@@ -161,7 +191,7 @@ class _MenuGeneratorScreenState extends State<MenuGeneratorScreen> {
           locator<AiCredentialStorage>(),
         ).generate(brief, names.values.toList());
       } else {
-        final generated = MenuGenerator.generate(
+        generated = MenuGenerator.generate(
           slots: _slots,
           nameOf: (slot) => names[slot]!,
           pool: pool,
@@ -172,6 +202,9 @@ class _MenuGeneratorScreenState extends State<MenuGeneratorScreen> {
             seed: _seed++,
             checker: checker,
             languageCode: lang,
+            efficient: _efficient,
+            companions: companions.values.toList(),
+            leftoversLabel: s.generatorLeftovers,
           ),
         );
         menu = generated.menu;
@@ -202,7 +235,67 @@ class _MenuGeneratorScreenState extends State<MenuGeneratorScreen> {
         ),
       ),
     );
-    if (saved != null && mounted) Navigator.of(context).pop(saved);
+    if (saved == null || !mounted) return;
+    if (generated != null && companions.isNotEmpty) {
+      await _sendToMembers(generated, pool, companions, names, lang);
+    }
+    if (mounted) Navigator.of(context).pop(saved);
+  }
+
+  MenuCompanion _companionFor(MemberSnapshot member) {
+    final diet = member.profile?.diet;
+    return MenuCompanion(
+      diet: diet?.diet ?? DietStyle.omnivore,
+      checker: diet == null || diet.isEmpty ? null : DietChecker(diet),
+    );
+  }
+
+  /// Gives each member chosen their share of the menu: the same dishes in
+  /// their meals, fitted to their points, with what they can't eat swapped.
+  /// It reaches their phone on the next sync.
+  Future<void> _sendToMembers(
+    GeneratedMenu generated,
+    List<GenFood> pool,
+    Map<MemberSnapshot, MenuCompanion> companions,
+    Map<MealSlot, String> names,
+    String lang,
+  ) async {
+    final store = locator<HouseholdStore>();
+    final me = store.getHousehold()?.memberName ?? '';
+    final messenger = ScaffoldMessenger.of(context);
+    final s = S.of(context);
+    for (final entry in companions.entries) {
+      final member = entry.key;
+      final meals = MemberMenuAdapter.adapt(
+        menu: generated.menu,
+        foods: generated.foods,
+        mySlots: _slots,
+        myNameOf: (slot) => names[slot]!,
+        theirSlots: memberSlots(member, null),
+        theirBudgets: member.profile?.budgets ?? const {},
+        pool: pool,
+        them: entry.value,
+        languageCode: lang,
+        start: _start,
+      );
+      for (final meal in meals) {
+        await store.editMemberMenu(
+          MenuEdit(
+            id: IdGenerator.getUniqueID(),
+            memberId: member.memberId,
+            date: meal.date,
+            slotId: meal.slotId,
+            items: meal.items,
+            by: me,
+            at: DateTime.now(),
+          ),
+        );
+      }
+      messenger.showSnackBar(
+        SnackBar(content: Text(s.generatorSentTo(member.name))),
+      );
+    }
+    HouseholdAutoSync.instance.syncSoon(Duration.zero);
   }
 
   @override
@@ -281,6 +374,51 @@ class _MenuGeneratorScreenState extends State<MenuGeneratorScreen> {
               onChanged: (v) => setState(() => _preferOwn = v),
             ),
           ),
+          Semantics(
+            identifier: 'generator-efficient',
+            child: SwitchListTile(
+              contentPadding: EdgeInsets.zero,
+              title: Text(s.generatorEfficient),
+              subtitle: Text(s.generatorEfficientHelp),
+              value: _efficient,
+              onChanged: (v) => setState(() {
+                _efficient = v;
+                if (v) _engine = _Engine.phone;
+              }),
+            ),
+          ),
+          if (_members.isNotEmpty) ...[
+            section(s.generatorForWhom),
+            Wrap(
+              spacing: Dimens.spacing8,
+              runSpacing: Dimens.spacing8,
+              children: [
+                FilterChip(
+                  label: Text(s.generatorForMe),
+                  selected: true,
+                  onSelected: null,
+                ),
+                for (final m in _members)
+                  Semantics(
+                    identifier: 'generator-with-${m.memberId}',
+                    child: FilterChip(
+                      avatar: MemberAvatar(
+                        name: m.name,
+                        colourKey: m.memberId,
+                        radius: 10,
+                      ),
+                      label: Text(m.name),
+                      selected: _with.contains(m.memberId),
+                      onSelected: (v) => setState(() {
+                        v ? _with.add(m.memberId) : _with.remove(m.memberId);
+                        if (v) _engine = _Engine.phone;
+                      }),
+                    ),
+                  ),
+              ],
+            ),
+            help(s.generatorForWhomHelp),
+          ],
           section(s.generatorEngineTitle),
           Semantics(
             identifier: 'generator-engine',
@@ -295,7 +433,7 @@ class _MenuGeneratorScreenState extends State<MenuGeneratorScreen> {
                   value: _Engine.ai,
                   icon: const Icon(Icons.auto_awesome_rounded),
                   label: Text(s.generatorEngineAi),
-                  enabled: _aiAvailable,
+                  enabled: _aiAvailable && _with.isEmpty && !_efficient,
                 ),
               ],
               selected: {_engine},
