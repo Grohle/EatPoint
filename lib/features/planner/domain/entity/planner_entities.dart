@@ -22,6 +22,8 @@ class PlannedItem {
 
   MacroPoints get points => meal.nutriments.macroPointsFor(amount);
 
+  double get fibrePoints => meal.nutriments.fibrePointsFor(amount);
+
   String get name => meal.name ?? '';
 
   PlannedItem copyWith({double? amount}) => PlannedItem(
@@ -85,6 +87,11 @@ class DayPlan {
 
   MacroPoints get totalPoints =>
       meals.keys.fold(MacroPoints.zero, (sum, t) => sum + pointsFor(t));
+
+  double fibreFor(String mealId) =>
+      itemsFor(mealId).fold(0.0, (sum, i) => sum + i.fibrePoints);
+
+  double get totalFibre => meals.keys.fold(0.0, (sum, t) => sum + fibreFor(t));
 
   bool get isEmpty => meals.values.every((items) => items.isEmpty);
 

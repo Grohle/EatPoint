@@ -3367,5 +3367,41 @@
   "pointsMealLoweredTooltip": "Lowered to make up for an earlier meal",
   "@pointsMealLoweredTooltip": {
     "description": "Tooltip of the arrow next to a meal whose budget was lowered"
+  },
+  "pointsFibreLabel": "Fibre",
+  "@pointsFibreLabel": {
+    "description": "Label of fibre points"
+  },
+  "pointsFibreOfMin": "{used} / {target} min",
+  "@pointsFibreOfMin": {
+    "description": "Fibre points logged against the minimum",
+    "placeholders": {
+      "used": {
+        "type": "String"
+      },
+      "target": {
+        "type": "String"
+      }
+    }
+  },
+  "pointsFibreTargetLabel": "Minimum fibre a day (g)",
+  "@pointsFibreTargetLabel": {
+    "description": "Field for the daily fibre minimum in grams"
+  },
+  "pointsFibreTargetHelper": "1 fibre point = 5 g. 25 g (5 points) is a common minimum for adults.",
+  "@pointsFibreTargetHelper": {
+    "description": "Helper of the fibre minimum field"
+  },
+  "plannerDayFibre": "Fibre {planned} of {target} pts min",
+  "@plannerDayFibre": {
+    "description": "Fibre planned for the day",
+    "placeholders": {
+      "planned": {
+        "type": "String"
+      },
+      "target": {
+        "type": "String"
+      }
+    }
   }
 }

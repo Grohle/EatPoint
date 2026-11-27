@@ -39,6 +39,27 @@ class GetMealPointsUsageUsecase {
     };
   }
 
+  /// The fibre points logged in each of [slots] on [day], by meal id.
+  Future<Map<String, double>> usedFibrePerSlot(
+    DateTime day,
+    List<MealSlot> slots,
+  ) async {
+    final intakes = [
+      for (final type in IntakeTypeEntity.values) ...await intakesOf(type, day),
+    ];
+    final grouping = locator.isRegistered<MealSlotAssignments>()
+        ? locator<MealSlotAssignments>().group(intakes, slots)
+        : null;
+    return {
+      for (final slot in slots)
+        slot.id: grouping != null
+            ? (grouping.bySlot[slot.id] ?? const <IntakeEntity>[]).fibrePoints
+            : (slots.defaultFor(slot.baseType)?.id == slot.id
+                  ? intakes.where((i) => i.type == slot.baseType).fibrePoints
+                  : 0.0),
+    };
+  }
+
   /// The intakes logged as [type] on [day].
   Future<List<IntakeEntity>> intakesOf(
     IntakeTypeEntity type,

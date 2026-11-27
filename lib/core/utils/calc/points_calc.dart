@@ -40,10 +40,10 @@ class PointsProfile {
 
   @override
   int get hashCode => Object.hash(
-        (carbShare * 1000).round(),
-        (proteinShare * 1000).round(),
-        (fatShare * 1000).round(),
-      );
+    (carbShare * 1000).round(),
+    (proteinShare * 1000).round(),
+    (fatShare * 1000).round(),
+  );
 
   @override
   String toString() =>
@@ -67,22 +67,22 @@ class MacroPoints {
   double get total => carbs + protein + fat;
 
   MacroPoints operator +(MacroPoints other) => MacroPoints(
-        carbs: carbs + other.carbs,
-        protein: protein + other.protein,
-        fat: fat + other.fat,
-      );
+    carbs: carbs + other.carbs,
+    protein: protein + other.protein,
+    fat: fat + other.fat,
+  );
 
   MacroPoints operator -(MacroPoints other) => MacroPoints(
-        carbs: carbs - other.carbs,
-        protein: protein - other.protein,
-        fat: fat - other.fat,
-      );
+    carbs: carbs - other.carbs,
+    protein: protein - other.protein,
+    fat: fat - other.fat,
+  );
 
   MacroPoints operator *(double factor) => MacroPoints(
-        carbs: carbs * factor,
-        protein: protein * factor,
-        fat: fat * factor,
-      );
+    carbs: carbs * factor,
+    protein: protein * factor,
+    fat: fat * factor,
+  );
 
   @override
   bool operator ==(Object other) =>
@@ -93,10 +93,10 @@ class MacroPoints {
 
   @override
   int get hashCode => Object.hash(
-        (carbs * 1000).round(),
-        (protein * 1000).round(),
-        (fat * 1000).round(),
-      );
+    (carbs * 1000).round(),
+    (protein * 1000).round(),
+    (fat * 1000).round(),
+  );
 
   @override
   String toString() => 'MacroPoints(C $carbs, P $protein, F $fat)';
@@ -122,7 +122,8 @@ class PointsToGramsResult {
   });
 
   @override
-  String toString() => 'PointsToGramsResult(exact $exactGrams g, '
+  String toString() =>
+      'PointsToGramsResult(exact $exactGrams g, '
       'rounded $roundedGrams g, real $realPoints pts)';
 }
 
@@ -136,6 +137,14 @@ class PointsCalc {
 
   /// Points are planned and shown in quarters of a point.
   static const pointStep = 0.25;
+
+  /// Grams of fibre in one fibre point. Fibre is counted apart from the
+  /// energy points: it is a minimum to reach, not a budget to stay under.
+  static const fibreGramsPerPoint = 5.0;
+
+  /// The fibre points in [fibreGrams] grams of fibre.
+  static double fibrePoints(double fibreGrams) =>
+      fibreGrams <= 0 ? 0 : fibreGrams / fibreGramsPerPoint;
 
   /// Energy densities used to split a food's energy by macronutrient.
   /// Fibre is left out of the split: its small energy contribution is not
@@ -191,7 +200,8 @@ class PointsCalc {
     PointsProfile best = standardProfiles.first;
     double bestDistance = double.infinity;
     for (final candidate in standardProfiles) {
-      final distance = math.pow(candidate.carbShare - profile.carbShare, 2) +
+      final distance =
+          math.pow(candidate.carbShare - profile.carbShare, 2) +
           math.pow(candidate.proteinShare - profile.proteinShare, 2) +
           math.pow(candidate.fatShare - profile.fatShare, 2);
       if (distance < bestDistance) {
@@ -260,12 +270,11 @@ class PointsCalc {
       (points / step).round() * step;
 
   /// Splits [points] of a food by its [profile].
-  static MacroPoints split(double points, PointsProfile profile) =>
-      MacroPoints(
-        carbs: points * profile.carbShare,
-        protein: points * profile.proteinShare,
-        fat: points * profile.fatShare,
-      );
+  static MacroPoints split(double points, PointsProfile profile) => MacroPoints(
+    carbs: points * profile.carbShare,
+    protein: points * profile.proteinShare,
+    fat: points * profile.fatShare,
+  );
 
   /// Rounds [value] to [decimals] decimal places.
   static double roundTo(double value, int decimals) {

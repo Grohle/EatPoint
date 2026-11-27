@@ -15,6 +15,7 @@ import 'package:opennutritracker/features/points/domain/usecase/get_day_meal_bud
 import 'package:opennutritracker/features/points/domain/usecase/get_meal_points_usage_usecase.dart';
 import 'package:opennutritracker/features/points/domain/usecase/get_points_budget_usecase.dart';
 import 'package:opennutritracker/features/points/presentation/meal_type_label.dart';
+import 'package:opennutritracker/features/points/presentation/points_colors.dart';
 import 'package:opennutritracker/features/points/presentation/points_format.dart';
 import 'package:opennutritracker/generated/l10n.dart';
 
@@ -73,6 +74,10 @@ class _PointsAmountPanelState extends State<PointsAmountPanel> {
   /// overspend, when it did.
   double? _mealAdjustedBy;
 
+  /// The meal's minimum fibre and the fibre already logged in it.
+  double _fibreTarget = 0;
+  double _fibreUsed = 0;
+
   double? get _per100 => widget.product.pointsPer100;
 
   @override
@@ -116,6 +121,12 @@ class _PointsAmountPanelState extends State<PointsAmountPanel> {
           day.slots.defaultFor(widget.intakeType);
       if (!mounted) return;
       setState(() {
+        _fibreTarget = day.dailyOnly || slot == null
+            ? day.fibreDaily
+            : day.fibreTarget[slot.id] ?? 0;
+        _fibreUsed = day.dailyOnly || slot == null
+            ? day.fibreUsedTotal
+            : day.fibreUsed[slot.id] ?? 0;
         if (day.dailyOnly || slot == null) {
           _mealSlot = null;
           _mealBudget = day.daily;
@@ -143,6 +154,14 @@ class _PointsAmountPanelState extends State<PointsAmountPanel> {
   }
 
   PointsFormat get _format => PointsFormat.of(context);
+
+  /// Fibre points of the amount entered, from the serving's energy.
+  double _servingFibre(MacroPoints serving) {
+    final per100 = _per100;
+    if (per100 == null || per100 <= 0) return 0;
+    final grams = serving.total * 100 / per100;
+    return widget.product.nutriments.fibrePointsFor(grams);
+  }
 
   String get _baseUnit => widget.product.isLiquid ? 'ml' : 'g';
 
@@ -359,6 +378,11 @@ class _PointsAmountPanelState extends State<PointsAmountPanel> {
             budget: _mealBudget!,
             used: _mealUsed,
             serving: serving,
+            fibre: (
+              target: _fibreTarget,
+              used: _fibreUsed,
+              serving: _servingFibre(serving),
+            ),
           ),
           if (_mealAdjustedBy case final lost?)
             Padding(
@@ -416,12 +440,17 @@ class MealFitStrip extends StatelessWidget {
   final MacroPoints used;
   final MacroPoints serving;
 
+  /// The meal's minimum fibre, what is logged and what this serving adds,
+  /// in fibre points. Null hides the row.
+  final ({double target, double used, double serving})? fibre;
+
   const MealFitStrip({
     super.key,
     required this.mealName,
     required this.budget,
     required this.used,
     required this.serving,
+    this.fibre,
   });
 
   @override
@@ -490,6 +519,54 @@ class MealFitStrip extends StatelessWidget {
             serving.protein,
           ),
           row(s.pointsFatLabel, palette.fat, budget.fat, used.fat, serving.fat),
+          if (fibre case final f? when f.target > 0)
+            _fibreRow(context, f, format),
+        ],
+      ),
+    );
+  }
+
+  /// Fibre is a minimum: the bar fills towards it and the figure turns
+  /// green once the meal reaches it.
+  Widget _fibreRow(
+    BuildContext context,
+    ({double target, double used, double serving}) f,
+    PointsFormat format,
+  ) {
+    final s = S.of(context);
+    final total = f.used + f.serving;
+    final reached = total + 0.001 >= f.target;
+    return Padding(
+      padding: const EdgeInsets.only(bottom: Dimens.spacing4),
+      child: Row(
+        children: [
+          SizedBox(
+            width: 72,
+            child: Text(
+              s.pointsFibreLabel,
+              style: Theme.of(context).textTheme.bodySmall,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          Expanded(
+            child: _FitBar(
+              color: PointsColors.fibre,
+              budget: f.target,
+              used: f.used,
+              adding: f.serving,
+            ),
+          ),
+          SizedBox(
+            width: 76,
+            child: Text(
+              s.pointsFibreOfMin(format.points(total), format.points(f.target)),
+              textAlign: TextAlign.end,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                fontWeight: FontWeight.w600,
+                color: reached ? PointsColors.fibre : null,
+              ),
+            ),
+          ),
         ],
       ),
     );

@@ -502,10 +502,17 @@ class _PlannerScreenState extends State<PlannerScreen> {
                       vertical: Dimens.spacing8,
                     ),
                     child: Text(
-                      s.plannerDayPoints(
-                        format.points(day.totalPoints.total),
-                        format.points(budget.daily.total),
-                      ),
+                      [
+                        s.plannerDayPoints(
+                          format.points(day.totalPoints.total),
+                          format.points(budget.daily.total),
+                        ),
+                        if (budget.fibreDaily > 0)
+                          s.plannerDayFibre(
+                            format.points(day.totalFibre),
+                            format.points(budget.fibreDaily),
+                          ),
+                      ].join(' · '),
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ),

@@ -421,7 +421,10 @@ class McpController {
                   'budget': _points(b.perSlot[slot.id] ?? MacroPoints.zero),
                 },
             ],
-            'note': 'A guide only; the user can change it in the app.',
+            'fibre_min_points': b.fibreDaily,
+            'fibre_grams_per_point': PointsCalc.fibreGramsPerPoint,
+            'note': 'A guide only; the user can change it in the app. '
+                'Fibre is a minimum to reach, not a budget.',
           };
         },
       ),

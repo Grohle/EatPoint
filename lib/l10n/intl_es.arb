@@ -2001,5 +2001,10 @@
   "menuImportAmountFitted": "ajustado a tus puntos",
   "menuImportAmountFromPoints": "según los puntos indicados",
   "menuImportAmountUsual": "tu cantidad habitual",
-  "pointsMealLoweredTooltip": "Reducido para compensar una comida anterior"
+  "pointsMealLoweredTooltip": "Reducido para compensar una comida anterior",
+  "pointsFibreLabel": "Fibra",
+  "pointsFibreOfMin": "{used} / {target} mín.",
+  "pointsFibreTargetLabel": "Fibra mínima al día (g)",
+  "pointsFibreTargetHelper": "1 punto de fibra = 5 g. 25 g (5 puntos) es un mínimo habitual en adultos.",
+  "plannerDayFibre": "Fibra {planned} de {target} pts mín."
 }

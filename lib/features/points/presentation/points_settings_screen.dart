@@ -42,6 +42,7 @@ class _PointsSettingsScreenState extends State<PointsSettingsScreen> {
   final _ownCarbs = TextEditingController();
   final _ownProtein = TextEditingController();
   final _ownFat = TextEditingController();
+  final _fibre = TextEditingController();
 
   @override
   void initState() {
@@ -62,6 +63,7 @@ class _PointsSettingsScreenState extends State<PointsSettingsScreen> {
       _ownCarbs,
       _ownProtein,
       _ownFat,
+      _fibre,
     ]) {
       c.dispose();
     }
@@ -85,6 +87,7 @@ class _PointsSettingsScreenState extends State<PointsSettingsScreen> {
     _neck.text = opt(settings.neckCm);
     _waist.text = opt(settings.waistCm);
     _hip.text = opt(settings.hipCm);
+    _fibre.text = format.grams(settings.fibreTargetGrams);
     final own = settings.dailyBudgetOverride;
     if (own != null) {
       _ownCarbs.text = format.points(own.carbs);
@@ -151,6 +154,7 @@ class _PointsSettingsScreenState extends State<PointsSettingsScreen> {
       waistCm: () => num(_waist),
       hipCm: () => num(_hip),
       dailyBudgetOverride: () => own,
+      fibreTargetGrams: num(_fibre)?.clamp(0, 150).toDouble(),
     );
   }
 
@@ -267,15 +271,23 @@ class _PointsSettingsScreenState extends State<PointsSettingsScreen> {
                     ),
                   ),
                 _mealSplit(context, draft),
+                _fieldRow([
+                  _NumberField(
+                    controller: _fibre,
+                    label: s.pointsFibreTargetLabel,
+                    helper: s.pointsFibreTargetHelper,
+                    onChanged: _onFieldChanged,
+                    id: 'points-fibre-target',
+                  ),
+                ]),
                 Semantics(
                   identifier: 'points-rebalance-overspend',
                   child: SwitchListTile(
                     title: Text(s.pointsRebalanceTitle),
                     subtitle: Text(s.pointsRebalanceHelp),
                     value: draft.rebalanceOverspend,
-                    onChanged: (v) => _update(
-                      (d) => d.copyWith(rebalanceOverspend: v),
-                    ),
+                    onChanged: (v) =>
+                        _update((d) => d.copyWith(rebalanceOverspend: v)),
                   ),
                 ),
                 const Divider(),

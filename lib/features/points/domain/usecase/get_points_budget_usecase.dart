@@ -31,6 +31,12 @@ class PointsBudgetResult {
   /// The budget of each meal in [slots], by [MealSlot.id].
   final Map<String, MacroPoints> perSlot;
 
+  /// The day's minimum fibre, in fibre points.
+  final double fibreDaily;
+
+  /// Each meal's share of [fibreDaily], by [MealSlot.id].
+  final Map<String, double> fibrePerSlot;
+
   /// True when [daily] is the user's own figure rather than the suggestion.
   final bool isOverridden;
 
@@ -42,6 +48,8 @@ class PointsBudgetResult {
     required this.perMeal,
     this.slots = const [],
     this.perSlot = const {},
+    this.fibreDaily = 0,
+    this.fibrePerSlot = const {},
     required this.isOverridden,
     required this.settings,
   });
@@ -88,6 +96,14 @@ class GetPointsBudgetUsecase {
       perMeal: perMeal,
       slots: slots,
       perSlot: perSlot,
+      fibreDaily: PointsCalc.snapToStep(
+        PointsCalc.fibrePoints(settings.fibreTargetGrams),
+      ),
+      fibrePerSlot: slots.fibreTargets(
+        PointsCalc.snapToStep(
+          PointsCalc.fibrePoints(settings.fibreTargetGrams),
+        ),
+      ),
       isOverridden: settings.dailyBudgetOverride != null,
       settings: settings,
     );
