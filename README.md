@@ -6,18 +6,139 @@
 </p>
 
 <p align="center">
-  A fork of <a href="https://github.com/simonoppowa/OpenNutriTracker">OpenNutriTracker</a> that adds
-  points ↔ grams tracking, weekly menus with a shared shopping list, and nutrition-label scanning.
+  <b>Count food in points. Plan your week. Shop together.</b><br />
+  A private, open-source food tracker for Android, built on OpenNutriTracker.
 </p>
 
+<p align="center">
+  <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/license-GPLv3-1f8a4c?style=flat-square" /></a>
+  <a href="https://github.com/Grohle/EatPoint/releases"><img alt="Release" src="https://img.shields.io/github/v/release/Grohle/EatPoint?include_prereleases&style=flat-square&color=1f8a4c" /></a>
+  <img alt="Platform" src="https://img.shields.io/badge/platform-Android-lightgrey?style=flat-square" />
+  <img alt="Languages" src="https://img.shields.io/badge/languages-English%20%7C%20Espa%C3%B1ol-1f8a4c?style=flat-square" />
+  <a href="https://github.com/Grohle/EatPoint/issues"><img alt="Issues" src="https://img.shields.io/github/issues/Grohle/EatPoint?style=flat-square" /></a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/Grohle/EatPoint/releases">Download</a>
+  ·
+  <a href="#what-eatpoint-adds">Features</a>
+  ·
+  <a href="#screenshots">Screenshots</a>
+  ·
+  <a href="https://github.com/Grohle/EatPoint/issues">Report a problem</a>
+</p>
+
+<p align="center">
+  <img alt="EatPoint launch animation: the e appears, its leaf grows and the amber dot pops in" src="docs/screenshots/eatpoint/splash.gif" width="240" />
+</p>
+
+EatPoint counts what you eat in **points**: one point is 100 kcal of carbs, protein or fat.
+You get a daily budget of each, shared out across the meals of your day, and the app turns
+points into grams for your kitchen scale. Plan the week, import menus, build a shopping list
+with the people you live with, and keep everything on your phone.
+
 > [!NOTE]
-> **EatPoint is a fork of [OpenNutriTracker](https://github.com/simonoppowa/OpenNutriTracker)**,
-> created by Simon Oppowa and its contributors, and is distributed under the same
-> [GPLv3 license](LICENSE). The changes this fork makes are described in
-> [What EatPoint adds](#what-eatpoint-adds) and shown in the [Screenshots](#screenshots).
-> Everything else in this README describes the upstream app, which the fork keeps intact.
-> The store links, release and build badges, translation platform and contact details below
-> belong to the upstream project.
+> EatPoint is a fork of [OpenNutriTracker](https://github.com/simonoppowa/OpenNutriTracker) by
+> Simon Oppowa and its contributors, distributed under the same [GPLv3 license](LICENSE).
+> Everything that comes from the original app is described in
+> [About OpenNutriTracker](#about-opennutritracker) at the end of this page.
+
+## What EatPoint adds
+
+> **Status:** preview releases ([Releases](https://github.com/Grohle/EatPoint/releases)). Features marked *in development* are not in them yet.
+
+| | |
+| :-- | :-- |
+| **Points ↔ grams** | One point is 100 kcal from a single macronutrient. Each food carries how its points split between carbs, protein and fat, so a meal can be planned in points and weighed in grams. |
+| **Your meals, your way** | Add as many meals as you eat in a day (mid-morning, afternoon snack, before or after training…), remove the ones you skip, rename and reorder them. Each meal gets its own carb, protein and fat budget, and the meals always add up to the day. |
+| **Suggested starting budget** | During setup the app suggests a daily budget from your weight, height, age, activity and goal (lean-mass method with protein first, or your calorie goal). It is always labelled as **a guide only**, not medical or dietetic advice, and every number can be changed. |
+| **Overspending spread over the day** | If a meal goes over on carbs, protein or fat, the extra can be taken off the meals still ahead that day, so the day stays on budget. What you planned stays as planned; this only applies to what you actually eat. You can turn it off. |
+| **Two-way amount entry** | When you log a food, the grams and points fields stay in sync. Typing points fills in practical grams for a kitchen scale (to 1 g under 30 g, 5 g up to 150 g, 10 g above), and a strip shows how the serving fits the meal. |
+| **Points in the daily summary** | Home shows the points left, each macro against its budget, and each meal's points. The original calorie view is one tap away. |
+| **Weekly menu and calendar** | Plan each day meal by meal from dishes you've logged or saved before, log a planned meal in one tap, copy days and weeks, and see the whole month in a calendar with what was planned and logged. |
+| **Menu and recipe importer** | Paste a menu as text or a table copied from a spreadsheet, open a text or CSV file, or take a photo. EatPoint finds the days, meals and foods (in English or Spanish), matches each food to your own foods or the food databases, and fills in amounts that fit each meal's points. Everything can be checked and changed before it goes into the menu. |
+| **Shopping list** | Built from the week's menus, merged per ingredient and grouped by aisle. Tick items off, add your own, share as text or export as CSV. |
+| **Travel mode** | For days away from home: one tap on Home pauses the menu, the shopping list and their reminders (and, if you like, household sync and per-meal budgets), so you only log what you eat. It can end on a date you choose. |
+| **Nutrition-label scanner** | Photograph a label to create a food. On-device text recognition reads the per-100 g values in Spanish and English, checks the calories against the macros, and opens an editor beside the photo. |
+| **Optional AI assistance** | If you configure an AI provider (Anthropic, OpenAI, OpenRouter or your own server), labels and menus can also be read by it. The app asks before anything is sent, and only that photo or text is sent. |
+| **Shared household** | Link two phones by QR code. You see each other's menu next to yours and share one shopping list. Data syncs through storage you choose (your own Supabase project, a Nextcloud/WebDAV folder or your own Ubuntu server, which the app can set up over SSH), always end-to-end encrypted. |
+| **Agent connector (MCP)** | An optional Model Context Protocol server runs on the phone while the app is open, so AI agents on your Wi‑Fi can read your budget, menus and shopping list and *propose* changes for you to approve. |
+| **Reminders and export** | Optional reminders to plan the week, shop, prepare and log. EatPoint's data exports to and imports from a JSON file. |
+| **English and Spanish** | Every EatPoint screen ships complete in English and Spanish. |
+
+## Install
+
+Download the APK from [Releases](https://github.com/Grohle/EatPoint/releases) and open it on your
+Android phone (Android 8.0 or later). `arm64-v8a` fits almost every recent phone; the
+`universal` build works everywhere. EatPoint is not on Google Play or the App Store yet.
+
+EatPoint installs as its own app (`io.github.grohle.eatpoint`) and doesn't read OpenNutriTracker's
+data. To bring your diary over, export it from OpenNutriTracker and import it in EatPoint.
+
+## Screenshots
+
+<table align="center">
+  <tr>
+    <td align="center" width="25%"><img alt="Today's points card: a ring with the points left, carb, protein and fat points against their budgets, and each meal's points used out of its budget" src="docs/screenshots/eatpoint/1_home_points_en-US.png" /></td>
+    <td align="center" width="25%"><img alt="Onboarding step with the suggested daily points split into carbs, protein and fat, the budget method, and the meals of the day" src="docs/screenshots/eatpoint/2_onboarding_points_en-US.png" /></td>
+    <td align="center" width="25%"><img alt="List of the user's meals, each with its carb, protein and fat points, with buttons to remove and reorder them and to add a meal" src="docs/screenshots/eatpoint/3_meals_screen_en-US.png" /></td>
+    <td align="center" width="25%"><img alt="Weekly menu for one day, each meal with its planned foods, points against the meal budget and a button to log it" src="docs/screenshots/eatpoint/4_planner_week_en-US.png" /></td>
+  </tr>
+  <tr>
+    <td align="center"><sub><b>Today</b><br />points left, meal by meal</sub></td>
+    <td align="center"><sub><b>Your points</b><br />a suggested budget, always a guide</sub></td>
+    <td align="center"><sub><b>Your meals</b><br />as many as you like</sub></td>
+    <td align="center"><sub><b>Weekly menu</b><br />plan with your own meals</sub></td>
+  </tr>
+  <tr>
+    <td align="center" width="25%"><img alt="Month calendar showing the points planned each day and whether it was logged, with a preview of the selected day" src="docs/screenshots/eatpoint/5_planner_calendar_en-US.png" /></td>
+    <td align="center" width="25%"><img alt="Review of an imported menu: days and meals matched to the user's meals, foods with amounts fitted to the points budget" src="docs/screenshots/eatpoint/6_menu_import_review_en-US.png" /></td>
+    <td align="center" width="25%"><img alt="Shopping list for the week grouped by aisle, with quantities and check boxes" src="docs/screenshots/eatpoint/7_shopping_list_en-US.png" /></td>
+    <td align="center" width="25%"><img alt="Travel mode sheet with an end date and switches to pause the menu, shopping list, reminders and household sync" src="docs/screenshots/eatpoint/8_travel_sheet_en-US.png" /></td>
+  </tr>
+  <tr>
+    <td align="center"><sub><b>Calendar</b><br />the month at a glance</sub></td>
+    <td align="center"><sub><b>Import a menu</b><br />text, table, file or photo</sub></td>
+    <td align="center"><sub><b>Shopping list</b><br />by aisle, tick as you go</sub></td>
+    <td align="center"><sub><b>Travel mode</b><br />just log while you're away</sub></td>
+  </tr>
+</table>
+
+<sub>Captured from the app with demo data. Spanish versions are in
+<a href="docs/screenshots/eatpoint">docs/screenshots/eatpoint</a>.</sub>
+
+## Coming next
+
+- **Downloadable food database.** A large, cleaned and normalised database of basic foods and
+  common supermarket products, built from openly licensed sources and adapted to points,
+  downloadable during setup or from Settings.
+- **More languages**, with label and menu reading in each of them.
+- **On-device AI model** for labels and menus, downloaded once and used offline.
+- **More scripts and alphabets** in the scanner: Chinese, Japanese, Korean, Devanagari,
+  Cyrillic, Greek and Arabic.
+- **Google Drive** as another place to keep the household's encrypted data.
+
+## Disclaimer
+
+> [!WARNING]
+> EatPoint is not a medical application. Suggested budgets are a guide only and are not
+> medical or dietetic advice. Consult a professional if you have any health concern; use during
+> illness, pregnancy or lactation is not recommended.
+
+## License and credits
+
+EatPoint is licensed under the [GNU General Public License v3.0](LICENSE), like the app it is
+built on. Thanks to Simon Oppowa and everyone who contributes to OpenNutriTracker.
+
+## About OpenNutriTracker
+
+<details>
+<summary>EatPoint is built on OpenNutriTracker. Expand to read about the original app.</summary>
+
+<br />
+
+The links, badges, store pages, translation platform and contact details in this section
+belong to the original OpenNutriTracker project, not to EatPoint.
 
 <p align="center">
   <b>Free. Open. Cited.</b><br />
@@ -54,74 +175,7 @@ out from your height, weight, age, and activity level, and keeps the record on y
 It is for anyone who wants the numbers without handing their eating history to a company,
 whether that is losing weight, gaining it, managing a condition, or simply knowing.
 
-## What EatPoint adds
-
-> **Status:** first preview release, v0.1.0 ([Releases](https://github.com/Grohle/EatPoint/releases)). Features marked *in development* are not in it yet.
-
-EatPoint adds a portion system on top of OpenNutriTracker's calorie and macro tracking. You
-can plan and log meals in **points** as well as in grams. The new flows are the default; the
-original calorie-first screens stay available from the menu.
-
-| | |
-| :-- | :-- |
-| **Points ↔ grams** | One point is 100 kcal from a single macronutrient. Each food carries how its points split between carbs, protein and fat, so a meal can be planned in points and weighed in grams. Daily and per-meal point budgets come from your calorie and macro targets, with protein set first. |
-| **Point budget per meal** | You give each meal its own budget of carb, protein and fat points (for example breakfast 3 / 0.25 / 2, lunch 3 / 2 / 1), and the meals add up to the day's total. While you plan or log, every meal shows what it has used and what is left. |
-| **Suggested starting budget** | When you enter your weight, height, age, activity and goal (and, optionally, waist and neck measurements for a body-fat estimate), the app suggests a daily point budget and a split across meals. The suggestion is always labelled as **a guide only**: a starting point to adjust as you track your progress, not medical or dietetic advice. You can edit every number. |
-| **Two-way amount entry** | When you log a food, the grams and points fields stay in sync. Typing grams updates the points. Typing points fills in practical grams for a kitchen scale (to 1 g under 30 g, to 5 g up to 150 g, to 10 g above that) and shows the exact value next to it. |
-| **Points in the daily summary** | The day's points used and remaining appear next to calories and macros. |
-| **Nutrition-label scanner** | For products that aren't in the food databases, you can photograph the label. On-device text recognition reads the per-100 g / 100 ml values in Spanish and English, checks the calories against the macros, and opens an editor beside the photo so you can correct anything before saving. |
-| **Optional AI extraction** | If the on-device read doesn't add up, you can retry with the vision model you configured for AI assistance (Anthropic, OpenAI, OpenRouter or your own OpenAI-compatible server). The app asks before each photo is sent, and nothing leaves the phone otherwise. A downloadable on-device model is *in development*. |
-| **Weekly menu planner** | A separate planner lays out the week by day and meal. You can fill it with dishes you've logged or saved before (recipes, favourites, recent meals) and see each day's points against its budget. A planned meal can be logged in one tap. |
-| **Shopping list** | The planner builds a shopping list from the week's menus. Quantities are merged per ingredient and grouped by aisle. Each item can be ticked off, and the list can be shared or exported as text or CSV. Both the planner and the list are one tap away from the home screen. |
-| **Scheduled reminders** | Optional local notifications remind you to plan the week, to do the shopping, and to prepare or log each planned meal, at times you choose. They are off until you turn them on. |
-| **Shared household** | Optionally link your app with another person's. Each person keeps their own weekly menu, diary and point budget. Your menus are merged: you see the other person's menu next to yours, can copy dishes between them, and get one **joint shopping list** that adds up both menus per ingredient and shows who each quantity is for. Ticking an item off shows up on both phones. Data syncs through storage you choose: your own Supabase project (the app can create the database for you), a Nextcloud/WebDAV folder, or your own Ubuntu server, where the app installs a small sync service over SSH. Everything is end-to-end encrypted (AES-256-GCM): the key is exchanged in person by QR code, so the storage only ever holds ciphertext. Google Drive is *in development*. |
-| **Agent connector (MCP)** | An optional [Model Context Protocol](https://modelcontextprotocol.io) server runs on the phone itself while the app is open, so any MCP client on your Wi‑Fi can connect with the address and token the app shows (it copies a ready-made client configuration). Agents can read your points budget, menus, shopping list and dishes; they can only *propose* changes, which wait for your approval in the app. Reading the diary is off unless you allow it. |
-| **Export everything** | EatPoint's data (points settings, menus, shopping lists, reminders) exports to and imports from a JSON file; the shopping list also shares as text or CSV, and the week's menu as text. The diary keeps the upstream JSON/CSV export. |
-| **English and Spanish** | Every new screen, message and export ships in English and Spanish from the start, using the app's existing localization files. Other languages show English until they are translated. |
-| **Isolated from upstream** | The new logic lives in its own modules. Calorie, macro and BMI calculations and the Open Food Facts integration behave as they do upstream. |
-
-### Coming next
-
-- **On-device AI model for labels.** An optional model you download once, so difficult labels can be read offline without sending the photo anywhere. Its settings entry is already in the app, marked *in development*.
-- **More scripts and alphabets in the label scanner.** Today the scanner reads Latin-script labels (Spanish, English and other Latin-alphabet languages). Chinese, Japanese, Korean and Devanagari text recognition is planned, along with Cyrillic, Greek and Arabic labels.
-- **Google Drive** as another place to keep the household's encrypted data.
-
-## Install
-
-<p align="center">
-  <a href="https://apps.apple.com/us/app/opennutritracker/id6451490901"><img alt="Download on the App Store" src="fastlane/metadata/android/en-US/images/appstore_banner.png" height="54" /></a>
-  &nbsp;&nbsp;
-  <a href="https://play.google.com/store/apps/details?id=com.opennutritracker.ont.opennutritracker"><img alt="Get it on Google Play" src="fastlane/metadata/android/en-US/images/playstore_banner.png" height="54" /></a>
-</p>
-
-## Screenshots
-
-<table align="center">
-  <tr>
-    <td align="center" width="33%"><img alt="Today screen with a ring showing 7.5 points left, carb, protein and fat points against their budgets, and each meal's points used out of its budget" src="docs/screenshots/eatpoint/1_en-US.png" /></td>
-    <td align="center" width="33%"><img alt="Adding cooked rice with linked grams and points fields: 2.5 points fills in 190 g, with the exact 187.5 g and 2.53 real points shown below" src="docs/screenshots/eatpoint/2_en-US.png" /></td>
-    <td align="center" width="33%"><img alt="Label scanner showing the photographed nutrition table above editable fields, a check that the calories match the macros, and the resulting points per 100 g" src="docs/screenshots/eatpoint/3_en-US.png" /></td>
-  </tr>
-  <tr>
-    <td align="center"><sub><b>Today</b><br />points left, meal by meal</sub></td>
-    <td align="center"><sub><b>Add food</b><br />grams ↔ points</sub></td>
-    <td align="center"><sub><b>Label scanner</b><br />photo to food in one step</sub></td>
-  </tr>
-  <tr>
-    <td align="center"><img alt="Weekly menu for Tuesday showing both people's planned dishes side by side, with a button to log each one and a joint shopping list button" src="docs/screenshots/eatpoint/4_en-US.png" /></td>
-    <td align="center"><img alt="Joint shopping list grouped by aisle, with quantities split per person, items ticked off by either person, and export options" src="docs/screenshots/eatpoint/5_en-US.png" /></td>
-    <td align="center"><img alt="Sharing screen with the shared household, the sync location, the optional agent connector and an export-everything button" src="docs/screenshots/eatpoint/6_en-US.png" /></td>
-  </tr>
-  <tr>
-    <td align="center"><sub><b>Weekly menu</b><br />yours and theirs, together</sub></td>
-    <td align="center"><sub><b>Shopping list</b><br />one list for the household</sub></td>
-    <td align="center"><sub><b>Share &amp; sync</b><br />private by design</sub></td>
-  </tr>
-</table>
-
-<sub>Design previews of EatPoint's screens with example data. The app is in development, so the final screens may differ.</sub>
-
-## Why OpenNutriTracker
+### Why OpenNutriTracker
 
 |  | |
 | :-- | :-- |
@@ -134,7 +188,7 @@ original calorie-first screens stay available from the menu.
 | **Community driven** | Over 30 developers have already contributed code, and most merged pull requests come from someone other than the maintainer. Features and fixes arrive as user issues and PRs, across the app and its food backend, and every translation is contributed on [Weblate](https://hosted.weblate.org/engage/opennutritracker/), which needs no Dart and no local setup. |
 | **Inclusive** | Non-binary calorie estimation grounded in published trans-health research, eleven languages, kcal or kJ, and screen-reader support treated as a bug when it breaks. |
 
-## Key features
+### Key features
 
 |  | Feature | |
 | :--: | :-- | :-- |
@@ -168,7 +222,7 @@ original calorie-first screens stay available from the menu.
 
 </details>
 
-## Privacy
+### Privacy
 
 No account, no sign-in, no analytics, no ads. Your profile, diary, activities, weight, water and fasting history, custom meals, and recipes live in local [Hive](https://pub.dev/packages/hive_ce) boxes encrypted with AES-256. The key is generated on first launch, kept in the Android Keystore / iOS Keychain, and never transmitted ([source](lib/core/utils/secure_app_storage_provider.dart)). **Settings → Delete all my data** wipes the active profile. Formal policy: [Data Protection](https://www.iubenda.com/privacy-policy/53501884).
 
@@ -247,7 +301,7 @@ The `SHA-256` line in the output should match the value above exactly.
 
 </details>
 
-## Translations
+### Translations
 
 OpenNutriTracker is translated on [Hosted Weblate](https://hosted.weblate.org/engage/opennutritracker/). Translating needs no local setup and no Dart. Pick a language, edit the strings in the browser, and Weblate sends the result back to this repository as pull requests.
 
@@ -257,7 +311,7 @@ OpenNutriTracker is translated on [Hosted Weblate](https://hosted.weblate.org/en
 
 Any language can be started on the [Weblate project page](https://hosted.weblate.org/projects/opennutritracker/); it ships in the app once it is about 90 % translated. The source strings live in [`lib/l10n/intl_en.arb`](lib/l10n/intl_en.arb); see [CONTRIBUTING.md](CONTRIBUTING.md) for how strings and languages are added.
 
-## What people say
+### What people say
 
 > This app has a user-friendly interface and is unburdened by the ridiculous (and constant) cash-grabbing that is chronic across health and wellness apps. As someone suffering from extreme subscription fatigue — I'm not a walking wallet! — this nutrition tracker is a breath of fresh air.
 
@@ -281,7 +335,7 @@ Any language can be started on the [Weblate project page](https://hosted.weblate
 
 Reviews are lightly trimmed for length; the full text is on the [App Store](https://apps.apple.com/us/app/opennutritracker/id6451490901) and [Google Play](https://play.google.com/store/apps/details?id=com.opennutritracker.ont.opennutritracker) listings. Bug reports and feature requests belong in the [issue tracker](https://github.com/simonoppowa/OpenNutriTracker/issues), which gets read faster than a review does.
 
-## Mentions
+### Mentions
 
 > I've got my OpenNutriTracker here, my open-source calorie counter. Support open-source apps. No ads, no subscriptions, and I don't send my data to anyone — everything stays here.
 
@@ -295,7 +349,7 @@ Reviews are lightly trimmed for length; the full text is on the [App Store](http
 
 If you have written or talked about OpenNutriTracker somewhere, open an issue or a pull request and it can go on this list.
 
-## Contributing
+### Contributing
 
 Issues and pull requests are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for the project's conventions, including the requirement to target the `develop` branch and the steps for adding localized strings.
 
@@ -315,7 +369,7 @@ Thanks to all the contributors:
 <img src="https://contrib.rocks/image?repo=simonoppowa/OpenNutriTracker" />
 </a>
 
-## Disclaimer
+### Disclaimer
 
 > [!WARNING]
 > OpenNutriTracker is not a medical application. All data provided is not validated and
@@ -326,17 +380,17 @@ Thanks to all the contributors:
 > [!NOTE]
 > The application is still under construction. Errors, bugs and crashes might occur.
 
-## Acknowledgments
+### Acknowledgments
 
 The food database used in OpenNutriTracker is powered by [Open Food Facts](https://world.openfoodfacts.org/) together with a multi-source reference backend hosted in Supabase: [USDA FoodData Central](https://fdc.nal.usda.gov/) (CC0) and the [Bundeslebensmittelschlüssel](https://www.blsdb.de) 4.0 (CC BY 4.0, © Max Rubner-Institut), with the [Anuvaad INDB](https://anuvaad.org.in) (CC BY 4.0) and [TBCA Brazil](https://www.tbca.net.br) (USP/FoRC) prepared as future sources. The schema and import pipeline live in the [OpenNutriTracker-Backend](https://github.com/simonoppowa/OpenNutriTracker-Backend) repository; self-hosting is documented in [`docs/supabase-self-hosting.md`](docs/supabase-self-hosting.md).
 
 Dietary Reference Intake values for the micronutrient panel come from the U.S. National Academies' Institute of Medicine tables. The in-app Sources & References screen (one tap from the home calorie ring or the profile BMI card) lists the peer-reviewed sources used for energy needs, BMI classification, macro distribution, MET activity calories, and non-binary calorie estimation.
 
-## License
+### License
 
 This project is licensed under the GNU General Public License v3.0. See the [LICENSE](LICENSE) file for more information.
 
-## Contact
+### Contact
 
 For questions, suggestions, or collaborations, contact the maintainer:
 
@@ -344,3 +398,5 @@ For questions, suggestions, or collaborations, contact the maintainer:
 
 - GitHub: [@simonoppowa](https://github.com/simonoppowa)
 - Email: [opennutritracker-dev@pm.me](mailto:opennutritracker-dev@pm.me)
+
+</details>
