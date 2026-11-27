@@ -300,6 +300,133 @@ class _PlannerScreenState extends State<PlannerScreen> {
     }
   }
 
+  /// EatPoint: takes one meal out of the day's menu (and so out of the
+  /// shopping list). A logged meal asks whether its diary entries go too.
+  /// Can be undone from the snack bar.
+  Future<void> _deleteMeal(MealSlot slot) async {
+    final s = S.of(context);
+    final before = _day;
+    if (before.itemsFor(slot.id).isEmpty) return;
+    final mealName = mealSlotLabel(context, slot);
+    var alsoDiary = false;
+    if (before.logged.contains(slot.id)) {
+      final choice = await showDialog<bool>(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(s.plannerDeleteLoggedTitle(mealName)),
+          content: Text(s.plannerDeleteLoggedBody),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: Text(s.plannerDeleteOnlyMenu),
+            ),
+            FilledButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: Text(s.plannerDeleteAlsoDiary),
+            ),
+          ],
+        ),
+      );
+      if (choice == null || !mounted) return;
+      alsoDiary = choice;
+    }
+    final messenger = ScaffoldMessenger.of(context);
+    var next = before;
+    if (alsoDiary) {
+      next = await PlannedMealLogger.app(context).unlog(next, slot);
+      PlannedMealLogger.refreshDiary();
+    }
+    await _save(next.withMeal(slot.id, const []).withLogged(slot.id, false));
+    messenger.showSnackBar(
+      SnackBar(
+        content: Text(s.plannerDeletedMeal(mealName)),
+        action: SnackBarAction(
+          label: s.plannerUndo,
+          // What the diary lost is not put back: the meal returns as
+          // planned, ready to log again.
+          onPressed: () => _save(
+            alsoDiary ? before.withLogged(slot.id, false) : before,
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// EatPoint: empties the selected day's menu after asking, optionally
+  /// taking what was logged from it out of the diary too.
+  Future<void> _deleteDay() async {
+    final s = S.of(context);
+    final before = _day;
+    if (before.isEmpty) return;
+    final locale = Localizations.localeOf(context).toString();
+    final hasLogged = before.logged.isNotEmpty;
+    var alsoDiary = false;
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => StatefulBuilder(
+        builder: (context, setDialogState) => AlertDialog(
+          title: Text(
+            s.plannerDeleteDayTitle(
+              DateFormat.MMMMEEEEd(locale).format(before.date),
+            ),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(s.plannerDeleteDayBody),
+              if (hasLogged)
+                CheckboxListTile(
+                  contentPadding: EdgeInsets.zero,
+                  value: alsoDiary,
+                  title: Text(s.plannerDeleteDayDiary),
+                  onChanged: (v) => setDialogState(() => alsoDiary = v!),
+                ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
+            ),
+            FilledButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: Text(s.plannerDeleteDay),
+            ),
+          ],
+        ),
+      ),
+    );
+    if (confirmed != true || !mounted) return;
+    final messenger = ScaffoldMessenger.of(context);
+    var restore = before;
+    if (alsoDiary) {
+      final logger = PlannedMealLogger.app(context);
+      var day = before;
+      for (final id in before.logged) {
+        final slot = _slotsFor(before).where((s) => s.id == id).firstOrNull;
+        if (slot == null) continue;
+        day = await logger.unlog(day, slot);
+      }
+      restore = day;
+      PlannedMealLogger.refreshDiary();
+    }
+    await _save(DayPlan.empty(before.date));
+    messenger.showSnackBar(
+      SnackBar(
+        content: Text(s.plannerDeletedDay),
+        action: SnackBarAction(
+          label: s.plannerUndo,
+          onPressed: () => _save(restore),
+        ),
+      ),
+    );
+  }
+
   /// EatPoint: takes a meal logged by mistake back out of the diary.
   Future<void> _unlogMeal(MealSlot slot) async {
     final s = S.of(context);
@@ -378,7 +505,7 @@ class _PlannerScreenState extends State<PlannerScreen> {
       case _DayAction.copyDayTo:
         await _copyDayTo();
       case _DayAction.clearDay:
-        await _save(DayPlan.empty(_selected));
+        await _deleteDay();
       case _DayAction.shareWeek:
         await _shareWeek();
       case _DayAction.reminders:
@@ -614,6 +741,21 @@ class _PlannerScreenState extends State<PlannerScreen> {
                   ),
                 for (final slot in _slotsFor(day))
                   _mealCard(context, day, slot),
+                if (!day.isEmpty)
+                  Align(
+                    alignment: Alignment.center,
+                    child: Semantics(
+                      identifier: 'planner-delete-day',
+                      child: TextButton.icon(
+                        style: TextButton.styleFrom(
+                          foregroundColor: Theme.of(context).colorScheme.error,
+                        ),
+                        onPressed: _deleteDay,
+                        icon: const Icon(Icons.delete_sweep_outlined),
+                        label: Text(s.plannerClearDay),
+                      ),
+                    ),
+                  ),
               ],
             ),
           ),
@@ -779,24 +921,42 @@ class _PlannerScreenState extends State<PlannerScreen> {
               children: [
                 Icon(mealSlotIcon(slot), size: 20),
                 const SizedBox(width: Dimens.spacing8),
+                // The points under the name, so the meal's buttons fit.
                 Expanded(
-                  child: Text(
-                    _slotName(context, slot),
-                    style: theme.textTheme.titleSmall,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        _slotName(context, slot),
+                        style: theme.textTheme.titleSmall,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Text(
+                        mealBudget == null
+                            ? '${format.points(points.total)} ${s.pointsShort}'
+                            : '${format.points(points.total)} / '
+                                  '${format.points(mealBudget.total)} ${s.pointsShort}',
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: over ? theme.colorScheme.error : null,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                Text(
-                  mealBudget == null
-                      ? '${format.points(points.total)} ${s.pointsShort}'
-                      : '${format.points(points.total)} / '
-                            '${format.points(mealBudget.total)} ${s.pointsShort}',
-                  style: theme.textTheme.bodyMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
-                    color: over ? theme.colorScheme.error : null,
+                if (items.isNotEmpty)
+                  Semantics(
+                    identifier: 'planner-delete-${slot.id}',
+                    child: IconButton(
+                      tooltip: s.plannerDeleteMeal,
+                      visualDensity: VisualDensity.compact,
+                      icon: const Icon(Icons.delete_outline_rounded),
+                      onPressed: _logging.contains(slot.id)
+                          ? null
+                          : () => _deleteMeal(slot),
+                    ),
                   ),
-                ),
                 Semantics(
                   identifier: 'planner-edit-${slot.id}',
                   child: IconButton(

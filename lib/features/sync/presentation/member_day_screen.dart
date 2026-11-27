@@ -107,6 +107,16 @@ class _MemberDayScreenState extends State<MemberDayScreen> {
       ),
     );
     if (items == null) return;
+    await _send(member, slot, items);
+  }
+
+  /// Gives [member]'s meal these foods (none to delete it); it reaches
+  /// their phone on the next sync.
+  Future<void> _send(
+    MemberSnapshot member,
+    MealSlot slot,
+    List<PlannedItem> items,
+  ) async {
     await _store.editMemberMenu(
       MenuEdit(
         id: IdGenerator.getUniqueID(),
@@ -232,7 +242,16 @@ class _MemberDayScreenState extends State<MemberDayScreen> {
                               visualDensity: VisualDensity.compact,
                             ),
                           )
-                        else if (canEdit)
+                        else if (canEdit) ...[
+                          if (day.itemsFor(slot.id).isNotEmpty)
+                            Semantics(
+                              identifier: 'member-day-delete-${slot.id}',
+                              child: IconButton(
+                                tooltip: s.plannerDeleteMeal,
+                                icon: const Icon(Icons.delete_outline_rounded),
+                                onPressed: () => _send(member, slot, const []),
+                              ),
+                            ),
                           Semantics(
                             identifier: 'member-day-edit-${slot.id}',
                             child: IconButton(
@@ -241,6 +260,7 @@ class _MemberDayScreenState extends State<MemberDayScreen> {
                               onPressed: () => _edit(member, slot, day),
                             ),
                           ),
+                        ],
                       ],
                     ),
                     if (day.itemsFor(slot.id).isEmpty)

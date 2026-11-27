@@ -2191,7 +2191,7 @@
   "@plannerCopyDayTo": {
     "description": "Menu action that copies the selected day to other days."
   },
-  "plannerClearDay": "Clear this day",
+  "plannerClearDay": "Delete this day's menu",
   "@plannerClearDay": {
     "description": "Menu action that removes everything planned for the selected day."
   },
@@ -4915,5 +4915,68 @@
         "type": "String"
       }
     }
+  },
+  "plannerDeleteMeal": "Delete this meal from the menu",
+  "@plannerDeleteMeal": {
+    "description": "Delete one meal's foods"
+  },
+  "plannerDeletedMeal": "{meal} deleted from the menu",
+  "@plannerDeletedMeal": {
+    "description": "After deleting a meal",
+    "placeholders": {
+      "meal": {
+        "type": "String"
+      }
+    }
+  },
+  "plannerDeleteLoggedTitle": "{meal} is logged",
+  "@plannerDeleteLoggedTitle": {
+    "description": "Deleting a logged meal",
+    "placeholders": {
+      "meal": {
+        "type": "String"
+      }
+    }
+  },
+  "plannerDeleteLoggedBody": "Delete it only from the menu, or from your diary too?",
+  "@plannerDeleteLoggedBody": {
+    "description": "Deleting a logged meal"
+  },
+  "plannerDeleteOnlyMenu": "Only the menu",
+  "@plannerDeleteOnlyMenu": {
+    "description": "Keep the diary entries"
+  },
+  "plannerDeleteAlsoDiary": "Diary too",
+  "@plannerDeleteAlsoDiary": {
+    "description": "Remove the diary entries too"
+  },
+  "plannerDeleteDay": "Delete",
+  "@plannerDeleteDay": {
+    "description": "Confirm deleting the day"
+  },
+  "plannerDeleteDayTitle": "Delete the menu of {date}?",
+  "@plannerDeleteDayTitle": {
+    "description": "Confirm deleting a day",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "plannerDeleteDayBody": "All its meals leave the menu and the shopping list.",
+  "@plannerDeleteDayBody": {
+    "description": "Confirm deleting a day"
+  },
+  "plannerDeleteDayDiary": "Also take what was logged out of the diary",
+  "@plannerDeleteDayDiary": {
+    "description": "Checkbox"
+  },
+  "plannerDeletedDay": "Day's menu deleted",
+  "@plannerDeletedDay": {
+    "description": "After deleting a day"
+  },
+  "plannerUndo": "Undo",
+  "@plannerUndo": {
+    "description": "Undo a deletion"
   }
 }

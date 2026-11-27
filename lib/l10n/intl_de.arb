@@ -1568,7 +1568,7 @@
   "plannerCopiedDays": "{count} Tage kopiert",
   "plannerNothingToCopy": "In der vorherigen Woche ist nichts geplant",
   "plannerCopyDayTo": "Diesen Tag kopieren nach…",
-  "plannerClearDay": "Diesen Tag leeren",
+  "plannerClearDay": "Menü dieses Tages löschen",
   "plannerReminders": "Erinnerungen",
   "plannerShoppingButton": "Einkaufsliste · {count} Artikel",
   "plannerPickTitle": "{meal} am {day}",
@@ -2109,5 +2109,17 @@
   "generatorSentTo": "Menü an {name} gesendet",
   "shoppingPacks": "{count} × Packung à {size}",
   "shoppingPackPieces": "{count}",
-  "shoppingPackLeftover": "{amount} übrig"
+  "shoppingPackLeftover": "{amount} übrig",
+  "plannerDeleteMeal": "Diese Mahlzeit aus dem Menü löschen",
+  "plannerDeletedMeal": "{meal} aus dem Menü gelöscht",
+  "plannerDeleteLoggedTitle": "{meal} ist eingetragen",
+  "plannerDeleteLoggedBody": "Nur aus dem Menü löschen oder auch aus dem Tagebuch?",
+  "plannerDeleteOnlyMenu": "Nur Menü",
+  "plannerDeleteAlsoDiary": "Auch Tagebuch",
+  "plannerDeleteDay": "Löschen",
+  "plannerDeleteDayTitle": "Menü vom {date} löschen?",
+  "plannerDeleteDayBody": "Alle Mahlzeiten verlassen das Menü und die Einkaufsliste.",
+  "plannerDeleteDayDiary": "Bereits Eingetragenes auch aus dem Tagebuch nehmen",
+  "plannerDeletedDay": "Tagesmenü gelöscht",
+  "plannerUndo": "Rückgängig"
 }

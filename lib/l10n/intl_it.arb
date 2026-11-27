@@ -1537,7 +1537,7 @@
   "plannerCopiedDays": "{count} giorni copiati",
   "plannerNothingToCopy": "La settimana precedente non ha nulla in programma",
   "plannerCopyDayTo": "Copia questo giorno in…",
-  "plannerClearDay": "Svuota questo giorno",
+  "plannerClearDay": "Elimina il menu di questo giorno",
   "plannerReminders": "Promemoria",
   "plannerShoppingButton": "Lista della spesa · {count} elementi",
   "plannerPickTitle": "{meal} di {day}",
@@ -2078,5 +2078,17 @@
   "generatorSentTo": "Menu inviato a {name}",
   "shoppingPacks": "{count} × confezione da {size}",
   "shoppingPackPieces": "{count}",
-  "shoppingPackLeftover": "avanzano {amount}"
+  "shoppingPackLeftover": "avanzano {amount}",
+  "plannerDeleteMeal": "Elimina questo pasto dal menu",
+  "plannerDeletedMeal": "{meal} eliminato dal menu",
+  "plannerDeleteLoggedTitle": "{meal} è registrato",
+  "plannerDeleteLoggedBody": "Eliminarlo solo dal menu o anche dal diario?",
+  "plannerDeleteOnlyMenu": "Solo il menu",
+  "plannerDeleteAlsoDiary": "Anche il diario",
+  "plannerDeleteDay": "Elimina",
+  "plannerDeleteDayTitle": "Eliminare il menu del {date}?",
+  "plannerDeleteDayBody": "Tutti i suoi pasti escono dal menu e dalla lista della spesa.",
+  "plannerDeleteDayDiary": "Togli anche dal diario ciò che è già registrato",
+  "plannerDeletedDay": "Menu del giorno eliminato",
+  "plannerUndo": "Annulla"
 }
