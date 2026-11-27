@@ -144,4 +144,23 @@ void main() {
     expect(back.url, 'folder1');
     expect(back.user, '123-abc.apps.googleusercontent.com');
   });
+
+  test('sign-in failures say whether the Google setup is wrong', () {
+    expect(GoogleSignInFailure('canceled', null).misconfigured, isFalse);
+    expect(GoogleSignInFailure('canceled', null).canceled, isTrue);
+    // Android reports a wrong SHA-1 or client as a cancel with a reason.
+    expect(
+      GoogleSignInFailure(
+        'canceled',
+        '[16] Account reauth failed.',
+      ).misconfigured,
+      isTrue,
+    );
+    expect(
+      GoogleSignInFailure('providerConfigurationError', null).misconfigured,
+      isTrue,
+    );
+    expect(GoogleSignInFailure('interrupted', null).misconfigured, isFalse);
+    expect(GoogleSignInFailure('canceled', null).authFailed, isFalse);
+  });
 }

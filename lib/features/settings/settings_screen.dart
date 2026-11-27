@@ -60,6 +60,7 @@ import 'package:opennutritracker/features/settings/presentation/widgets/per_meal
 import 'package:opennutritracker/features/settings/presentation/widgets/settings_rows.dart';
 import 'package:opennutritracker/features/points/presentation/meal_slots_screen.dart';
 import 'package:opennutritracker/features/travel/presentation/travel_mode_screen.dart';
+import 'package:opennutritracker/features/updates/presentation/update_prompt.dart';
 
 /// What the settings route was opened *for*.
 ///
@@ -323,6 +324,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           builder: (_) => const ShareHubScreen(),
                         ),
                       ),
+                    ),
+                    SettingsTile(
+                      identifier: 'settings-updates',
+                      palette: palette,
+                      icon: Icons.system_update_rounded,
+                      title: S.of(context).updatesTitle,
+                      subtitle: S.of(context).updatesSubtitle,
+                      onTap: () => UpdateSettingsSheet.show(context),
                     ),
                   ],
                 ),

@@ -31,14 +31,53 @@ class JoinHouseholdScreen extends StatefulWidget {
   State<JoinHouseholdScreen> createState() => _JoinHouseholdScreenState();
 }
 
-class _JoinHouseholdScreenState extends State<JoinHouseholdScreen> {
+class _JoinHouseholdScreenState extends State<JoinHouseholdScreen>
+    with WidgetsBindingObserver {
   late final HouseholdStore _store = widget.store ?? locator<HouseholdStore>();
   bool _busy = false;
+
+  // EatPoint: an owned controller, like the barcode scanner, so the camera
+  // is started (and asks for permission) reliably and stops in background.
+  MobileScannerController? _camera;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.showScanner) {
+      _camera = MobileScannerController(formats: const [BarcodeFormat.qrCode]);
+      WidgetsBinding.instance.addObserver(this);
+    }
+  }
+
+  @override
+  void dispose() {
+    if (_camera != null) {
+      WidgetsBinding.instance.removeObserver(this);
+      _camera!.dispose();
+    }
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    final camera = _camera;
+    if (camera == null || !camera.value.hasCameraPermission) return;
+    switch (state) {
+      case AppLifecycleState.detached:
+      case AppLifecycleState.hidden:
+      case AppLifecycleState.paused:
+        camera.stop();
+      case AppLifecycleState.resumed:
+        camera.start();
+      case AppLifecycleState.inactive:
+        break;
+    }
+  }
 
   Future<void> _handle(String text) async {
     if (_busy) return;
     final s = S.of(context);
-    final invite = HouseholdInvite.decode(text.trim());
+    final invite = _decodeInvite(text);
     if (invite == null) {
       ScaffoldMessenger.of(
         context,
@@ -85,6 +124,18 @@ class _JoinHouseholdScreenState extends State<JoinHouseholdScreen> {
     if (navigator.mounted) navigator.pop(true);
   }
 
+  /// The invite may come inside a longer chat or email message: take the
+  /// JSON object out of it.
+  static HouseholdInvite? _decodeInvite(String text) {
+    final trimmed = text.trim();
+    final direct = HouseholdInvite.decode(trimmed);
+    if (direct != null) return direct;
+    final start = trimmed.indexOf('{');
+    final end = trimmed.lastIndexOf('}');
+    if (start < 0 || end <= start) return null;
+    return HouseholdInvite.decode(trimmed.substring(start, end + 1));
+  }
+
   Future<void> _paste() async {
     final text = await showDialog<String>(
       context: context,
@@ -112,8 +163,15 @@ class _JoinHouseholdScreenState extends State<JoinHouseholdScreen> {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          if (widget.showScanner)
+          if (_camera != null)
             MobileScanner(
+              controller: _camera,
+              errorBuilder: (context, error) => _CameraProblem(
+                message:
+                    error.errorCode == MobileScannerErrorCode.permissionDenied
+                    ? s.householdCameraDenied
+                    : s.householdCameraUnavailable,
+              ),
               onDetect: (capture) {
                 for (final barcode in capture.barcodes) {
                   final raw = barcode.rawValue;
@@ -132,10 +190,24 @@ class _JoinHouseholdScreenState extends State<JoinHouseholdScreen> {
               padding: const EdgeInsets.all(Dimens.spacing16),
               child: SafeArea(
                 top: false,
-                child: Text(
-                  s.householdJoin,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(color: Colors.white),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      s.householdJoinHint,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                    const SizedBox(height: Dimens.spacing12),
+                    Semantics(
+                      identifier: 'household-paste-invite-button',
+                      child: FilledButton.tonalIcon(
+                        onPressed: _paste,
+                        icon: const Icon(Icons.content_paste_rounded),
+                        label: Text(s.householdPasteInvite),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -144,6 +216,35 @@ class _JoinHouseholdScreenState extends State<JoinHouseholdScreen> {
       ),
     );
   }
+}
+
+/// Shown in place of the camera when it can't be used.
+class _CameraProblem extends StatelessWidget {
+  final String message;
+
+  const _CameraProblem({required this.message});
+
+  @override
+  Widget build(BuildContext context) => ColoredBox(
+    color: Colors.black,
+    child: Center(
+      child: Padding(
+        padding: const EdgeInsets.all(Dimens.spacing24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(Icons.no_photography_outlined, color: Colors.white70),
+            const SizedBox(height: Dimens.spacing12),
+            Text(
+              message,
+              textAlign: TextAlign.center,
+              style: const TextStyle(color: Colors.white),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
 }
 
 class _PasteDialog extends StatefulWidget {

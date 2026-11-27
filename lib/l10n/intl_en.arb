@@ -2645,7 +2645,7 @@
   "@householdInvite": {
     "description": "Button that shows the invite QR."
   },
-  "householdInviteBody": "Scan this on the other phone, in person. It contains the household key, so don't share a photo of it.",
+  "householdInviteBody": "Scan this on the other phone, or send the invite privately (it contains the household key: send it only to that person).",
   "@householdInviteBody": {
     "description": "Text under the invite QR."
   },
@@ -4652,5 +4652,137 @@
   "householdDriveFolderName": "EatPoint household",
   "@householdDriveFolderName": {
     "description": "Drive folder name"
+  },
+  "householdDriveErrorSetup": "Google doesn't recognise the app. In Google Cloud, check that the Android client has package io.github.grohle.eatpoint and the SHA-1 from the guide, in the same project as the web client ID, and that your account is a test user. Changes can take a few minutes. ({detail})",
+  "@householdDriveErrorSetup": {
+    "description": "Google sign-in failed because of the Google Cloud setup",
+    "placeholders": {
+      "detail": {
+        "type": "String"
+      }
+    }
+  },
+  "householdDriveErrorCanceled": "Google sign-in was cancelled.",
+  "@householdDriveErrorCanceled": {
+    "description": "The user closed Google's sign-in window"
+  },
+  "householdDriveErrorOther": "Google sign-in failed: {detail}",
+  "@householdDriveErrorOther": {
+    "description": "Any other Google sign-in error",
+    "placeholders": {
+      "detail": {
+        "type": "String"
+      }
+    }
+  },
+  "householdNameNeeded": "Type your name to continue",
+  "@householdNameNeeded": {
+    "description": "Error under the empty name field"
+  },
+  "householdCameraDenied": "EatPoint can't use the camera. Allow it in Android Settings → Apps → EatPoint → Permissions, or paste the invite instead.",
+  "@householdCameraDenied": {
+    "description": "Camera permission refused on the join screen"
+  },
+  "householdCameraUnavailable": "The camera couldn't start. Paste the invite instead.",
+  "@householdCameraUnavailable": {
+    "description": "Camera failed on the join screen"
+  },
+  "householdJoinHint": "Point the camera at the QR on the other phone, or paste the invite you were sent.",
+  "@householdJoinHint": {
+    "description": "Hint at the bottom of the join screen"
+  },
+  "householdPasteInvite": "Paste invite",
+  "@householdPasteInvite": {
+    "description": "Button on the join screen"
+  },
+  "householdInviteShare": "Send",
+  "@householdInviteShare": {
+    "description": "Share the household invite through another app"
+  },
+  "householdInviteShareSubject": "EatPoint household invite",
+  "@householdInviteShareSubject": {
+    "description": "Subject of the shared invite"
+  },
+  "householdInviteShareText": "Join my EatPoint household: copy this whole message, then in EatPoint open Settings → Share and sync, type your name, tap \"Join with a QR code\" and \"Paste invite\". It contains our household key: don't forward it.",
+  "@householdInviteShareText": {
+    "description": "Text sent before the invite code"
+  },
+  "householdInviteCopied": "Invite copied. Send it privately to the other member.",
+  "@householdInviteCopied": {
+    "description": "Snackbar after copying the invite"
+  },
+  "aiAssistGeminiShortcut": "Use Google Gemini (free)",
+  "@aiAssistGeminiShortcut": {
+    "description": "Shortcut that sets the AI provider to Google's Gemini API"
+  },
+  "aiAssistGeminiShortcutHint": "Fills in Google's address and model. You only paste a free key from Google AI Studio.",
+  "@aiAssistGeminiShortcutHint": {
+    "description": "Subtitle of the Gemini shortcut"
+  },
+  "aiAssistGeminiGetKey": "Get a free key in Google AI Studio",
+  "@aiAssistGeminiGetKey": {
+    "description": "Opens Google AI Studio's API key page"
+  },
+  "updatesTitle": "Updates",
+  "@updatesTitle": {
+    "description": "Settings entry and sheet title"
+  },
+  "updatesSubtitle": "Look for a new version of EatPoint",
+  "@updatesSubtitle": {
+    "description": "Settings entry subtitle"
+  },
+  "updateInstalledVersion": "Installed version: {version}",
+  "@updateInstalledVersion": {
+    "description": "Installed version line",
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "updateAutoCheck": "Check when opening the app",
+  "@updateAutoCheck": {
+    "description": "Switch"
+  },
+  "updateAutoCheckHint": "Asks GitHub, where EatPoint is published, for the list of releases. Nothing about you is sent.",
+  "@updateAutoCheckHint": {
+    "description": "Switch subtitle"
+  },
+  "updateCheckNow": "Check now",
+  "@updateCheckNow": {
+    "description": "Button"
+  },
+  "updateUpToDate": "You have the latest version.",
+  "@updateUpToDate": {
+    "description": "Result of a manual check"
+  },
+  "updateCheckFailed": "Couldn't check. Try again with a connection.",
+  "@updateCheckFailed": {
+    "description": "Manual check failed"
+  },
+  "updateAvailableTitle": "EatPoint {version} is available",
+  "@updateAvailableTitle": {
+    "description": "Update dialog title",
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "updateAvailableBody": "Download the APK and open it to install it over this one. Your data stays.",
+  "@updateAvailableBody": {
+    "description": "Update dialog body"
+  },
+  "updateLater": "Later",
+  "@updateLater": {
+    "description": "Dismiss the update"
+  },
+  "updateNotes": "What's new",
+  "@updateNotes": {
+    "description": "Open the release page"
+  },
+  "updateDownload": "Download",
+  "@updateDownload": {
+    "description": "Download the APK"
   }
 }

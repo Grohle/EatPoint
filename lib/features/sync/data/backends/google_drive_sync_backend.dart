@@ -51,10 +51,7 @@ class GoogleDriveAuth {
       _account = account;
       return account.email;
     } on GoogleSignInException catch (e) {
-      throw SyncBackendException(
-        'Google sign-in failed (${e.code.name}): ${e.description ?? ''}',
-        authFailed: true,
-      );
+      throw GoogleSignInFailure(e.code.name, e.description);
     }
   }
 
@@ -85,6 +82,29 @@ class GoogleDriveAuth {
       );
     } catch (_) {}
   }
+}
+
+/// Google refused or could not finish the sign-in. Kept apart from a wrong
+/// password so the setup screen can say what Google actually answered.
+class GoogleSignInFailure extends SyncBackendException {
+  /// A `GoogleSignInExceptionCode` name, e.g. `canceled`.
+  final String code;
+
+  /// Google's own text, if any (e.g. "[16] Account reauth failed.").
+  final String? description;
+
+  GoogleSignInFailure(this.code, this.description)
+    : super('Google sign-in failed ($code): ${description ?? ''}');
+
+  /// The user closed Google's window. On Android, a misconfigured OAuth
+  /// client is also reported as `canceled`, with a description.
+  bool get canceled => code == 'canceled';
+
+  /// The app is not set up in Google Cloud as Google expects.
+  bool get misconfigured =>
+      code == 'clientConfigurationError' ||
+      code == 'providerConfigurationError' ||
+      (canceled && (description ?? '').trim().isNotEmpty);
 }
 
 /// Keeps a household's encrypted blobs as files in a Google Drive folder,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:opennutritracker/core/styles/dimens.dart';
 import 'package:opennutritracker/core/utils/locator.dart';
@@ -12,6 +13,7 @@ import 'package:opennutritracker/features/sync/domain/sync_backend.dart';
 import 'package:opennutritracker/features/sync/data/backends/google_drive_sync_backend.dart';
 import 'package:opennutritracker/generated/l10n.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:share_plus/share_plus.dart';
 
 /// Shared household: create or join one, then sync, invite and leave.
 class HouseholdScreen extends StatefulWidget {
@@ -81,6 +83,7 @@ class _HouseholdScreenState extends State<HouseholdScreen> {
       backendSecret: secret,
     );
     final s = S.of(context);
+    final code = invite.encode();
     await showDialog<void>(
       context: context,
       builder: (context) => AlertDialog(
@@ -92,14 +95,56 @@ class _HouseholdScreenState extends State<HouseholdScreen> {
               Container(
                 color: Colors.white,
                 padding: const EdgeInsets.all(Dimens.spacing8),
-                child: QrImageView(
-                  data: invite.encode(),
-                  size: 240,
-                  backgroundColor: Colors.white,
+                // A tight size: the dialog measures its content, and the
+                // QR's LayoutBuilder can't be measured.
+                child: SizedBox.square(
+                  dimension: 240,
+                  child: QrImageView(
+                    data: code,
+                    size: 240,
+                    backgroundColor: Colors.white,
+                  ),
                 ),
               ),
               const SizedBox(height: Dimens.spacing12),
               Text(s.householdInviteBody),
+              const SizedBox(height: Dimens.spacing12),
+              // EatPoint: when the phones aren't together, send it privately.
+              Wrap(
+                spacing: Dimens.spacing8,
+                alignment: WrapAlignment.center,
+                children: [
+                  Semantics(
+                    identifier: 'household-invite-share',
+                    child: FilledButton.tonalIcon(
+                      onPressed: () => SharePlus.instance.share(
+                        ShareParams(
+                          text: '${s.householdInviteShareText}\n\n$code',
+                          subject: s.householdInviteShareSubject,
+                        ),
+                      ),
+                      icon: const Icon(Icons.share_rounded),
+                      label: Text(s.householdInviteShare),
+                    ),
+                  ),
+                  Semantics(
+                    identifier: 'household-invite-copy',
+                    child: OutlinedButton.icon(
+                      onPressed: () async {
+                        final messenger = ScaffoldMessenger.of(context);
+                        await Clipboard.setData(ClipboardData(text: code));
+                        messenger.showSnackBar(
+                          SnackBar(content: Text(s.householdInviteCopied)),
+                        );
+                      },
+                      icon: const Icon(Icons.copy_rounded),
+                      label: Text(
+                        MaterialLocalizations.of(context).copyButtonLabel,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
@@ -171,7 +216,9 @@ class _HouseholdScreenState extends State<HouseholdScreen> {
               labelText: s.householdYourName,
               border: const OutlineInputBorder(),
             ),
-            validator: (v) => (v == null || v.trim().isEmpty) ? ' ' : null,
+            validator: (v) => (v == null || v.trim().isEmpty)
+                ? S.of(context).householdNameNeeded
+                : null,
           ),
         ),
       ),
