@@ -1,4 +1,6 @@
 import 'package:logging/logging.dart';
+import 'package:opennutritracker/core/utils/locator.dart';
+import 'package:opennutritracker/features/sync/data/household_store.dart';
 import 'package:opennutritracker/core/data/data_source/config_data_source.dart';
 import 'package:opennutritracker/core/utils/ai_credential_storage.dart';
 import 'package:opennutritracker/core/utils/daily_reminder_scheduler.dart';
@@ -68,6 +70,13 @@ class DeleteAllUserDataUsecase {
     // profile records it straight away, in the same locked step as the
     // clear: rows it writes from here on are keyed by it, not by the
     // midnight an unrecorded history is assumed to use (#1317).
+    // EatPoint: the household key and backend secret live in the keystore,
+    // outside the boxes cleared below.
+    if (locator.isRegistered<HouseholdStore>()) {
+      try {
+        await locator<HouseholdStore>().leave();
+      } catch (_) {}
+    }
     await withTrackedDayLock(() async {
       await Future.wait([
         _hiveDBProvider.configBox.clear(),
@@ -79,6 +88,7 @@ class DeleteAllUserDataUsecase {
         _hiveDBProvider.waterIntakeBox.clear(),
         _hiveDBProvider.fastingBox.clear(),
         _hiveDBProvider.favouriteMealBox.clear(),
+        _hiveDBProvider.pointsSettingsBox.clear(),
       ]);
       await recordTrackedDayBoundary(ConfigDataSource(_hiveDBProvider));
     });

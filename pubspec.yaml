@@ -1,5 +1,5 @@
 name: opennutritracker
-description: Open-Source Calories & Activity Tracker
+description: "EatPoint: points-based nutrition tracker. A fork of OpenNutriTracker."
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -15,7 +15,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 2.7.0+69
+version: 0.2.0+2
 
 environment:
   sdk: '>=3.11.0 <4.0.0'
@@ -101,6 +101,9 @@ dependencies:
   # Dictating a meal on the Describe fields. Uses the platform recognizer
   # (Android SpeechRecognizer / iOS SFSpeech); no audio is sent by the app.
   speech_to_text: ^7.5.0
+  google_mlkit_text_recognition: ^0.15.0
+  cryptography: ^2.9.0
+  dartssh2: ^4.2.0
 
 dev_dependencies:
   flutter_test:
@@ -129,13 +132,13 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/icon/ont_logo_square.svg
-    - assets/icon/ont_splash_rings.svg
-    - assets/icon/ont_splash_spoon.svg
-    - assets/icon/ont_logo_square_color_back_1024x1024.png
-    - assets/icon/ont_logo_square_color_white_1024x1024.png
-    - assets/icon/ont_banner_top.png
-    - assets/icon/ont_banner_top_light.png
+    - assets/icon/eatpoint_mark.svg
+    - assets/icon/eatpoint_mark_dark.svg
+    - assets/icon/eatpoint_splash_e.svg
+    - assets/icon/eatpoint_splash_leaf.svg
+    - assets/icon/eatpoint_splash_dot.svg
+    - assets/icon/eatpoint_logo_1024.png
+    - assets/icon/eatpoint_launcher_ios_dark_1024.png
     - assets/icon/nonbinary_symbol.svg
     # Offline demo profile portrait (bundled Unsplash photo; credit in
     # unsplash_attribution.dart). Avoids a hot network download on Try Demo.
@@ -144,6 +147,7 @@ flutter:
     # in unsplash_attribution.dart). Shipping them means Try Demo never
     # contacts Unsplash's CDN, at seed time or at render time.
     - assets/demo/meals/
+    - assets/server/
 
   fonts:
     - family: CustomIcons
@@ -186,19 +190,19 @@ flutter:
 
 flutter_launcher_icons:
   android: true
-  adaptive_icon_foreground: "assets/icon/ont_logo_square_color_back_1024x1024.png"
-  adaptive_icon_background: "#ffffff"
-  adaptive_icon_monochrome: "assets/icon/ont_logo_square_color_white_1024x1024.png"
+  adaptive_icon_foreground: "assets/icon/eatpoint_logo_1024.png"
+  adaptive_icon_background: "#F3FFF5"
+  adaptive_icon_monochrome: "assets/icon/eatpoint_logo_mono_1024.png"
   # The logo PNGs are a tight crop; this inset keeps the artwork inside the
   # 66dp safe zone of the adaptive icon (#1151). The tool's default is 16.
   adaptive_icon_foreground_inset: 23
   ios: true
   remove_alpha_ios: true
-  image_path: "assets/icon/ont_logo_square_color_back_1024x1024.png"
-  # iOS has no inset option, so it gets pre-padded copies of the logo PNGs;
-  # regenerate them with tools/icons/pad_ios_launcher_icon.py.
-  image_path_ios: "assets/icon/ont_launcher_ios_color_back_1024x1024.png"
-  image_path_ios_dark_transparent: "assets/icon/ont_launcher_ios_color_white_1024x1024.png"
-  image_path_ios_tinted_grayscale: "assets/icon/ont_launcher_ios_color_white_1024x1024.png"
+  image_path: "assets/icon/eatpoint_launcher_ios_1024.png"
+  # iOS has no inset option, so it gets pre-padded copies of the logo PNGs
+  # (eatpoint_launcher_ios_*), rendered from the EatPoint logo SVG.
+  image_path_ios: "assets/icon/eatpoint_launcher_ios_1024.png"
+  image_path_ios_dark_transparent: "assets/icon/eatpoint_launcher_ios_dark_1024.png"
+  image_path_ios_tinted_grayscale: "assets/icon/eatpoint_launcher_ios_tinted_1024.png"
   desaturate_tinted_to_grayscale_ios: true
   min_sdk_android: 21

@@ -20,6 +20,7 @@ import 'package:opennutritracker/core/presentation/widgets/delete_dialog.dart';
 import 'package:opennutritracker/core/presentation/widgets/disclaimer_dialog.dart';
 import 'package:opennutritracker/core/domain/usecase/import_workouts_usecase.dart';
 import 'package:opennutritracker/core/utils/locator.dart';
+import 'package:opennutritracker/features/points/presentation/widgets/points_home_switcher.dart';
 import 'package:opennutritracker/features/add_meal/presentation/add_meal_type.dart';
 import 'package:opennutritracker/features/diary/presentation/bloc/calendar_day_bloc.dart';
 import 'package:opennutritracker/features/diary/presentation/bloc/diary_bloc.dart';
@@ -31,6 +32,7 @@ import 'package:opennutritracker/features/home/presentation/widgets/quick_water_
 import 'package:opennutritracker/core/domain/entity/body_weight_unit_entity.dart';
 import 'package:opennutritracker/features/home/presentation/widgets/quick_weight_widget.dart';
 import 'package:opennutritracker/generated/l10n.dart';
+import 'package:opennutritracker/features/points/presentation/widgets/meal_slot_sections.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -202,17 +204,29 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
             ),
             const FastingHomeChip(),
             const SizedBox(height: Dimens.spacing8),
-            DashboardWidget(
-              totalKcalDaily: totalKcalDaily,
-              totalKcalLeft: totalKcalLeft,
-              totalKcalSupplied: totalKcalSupplied,
-              totalKcalBurned: totalKcalBurned,
-              totalCarbsIntake: totalCarbsIntake,
-              totalFatsIntake: totalFatsIntake,
-              totalProteinsIntake: totalProteinsIntake,
-              totalCarbsGoal: totalCarbsGoal,
-              totalFatsGoal: totalFatsGoal,
-              totalProteinsGoal: totalProteinsGoal,
+            // EatPoint: the points card is the default; the original
+            // calorie dashboard stays one tap away.
+            PointsHomeSwitcher(
+              intakes: {
+                IntakeTypeEntity.breakfast: breakfastIntakeList,
+                IntakeTypeEntity.lunch: lunchIntakeList,
+                IntakeTypeEntity.dinner: dinnerIntakeList,
+                IntakeTypeEntity.snack: snackIntakeList,
+              },
+              kcalSupplied: totalKcalSupplied,
+              kcalGoal: totalKcalDaily,
+              caloriesView: DashboardWidget(
+                totalKcalDaily: totalKcalDaily,
+                totalKcalLeft: totalKcalLeft,
+                totalKcalSupplied: totalKcalSupplied,
+                totalKcalBurned: totalKcalBurned,
+                totalCarbsIntake: totalCarbsIntake,
+                totalFatsIntake: totalFatsIntake,
+                totalProteinsIntake: totalProteinsIntake,
+                totalCarbsGoal: totalCarbsGoal,
+                totalFatsGoal: totalFatsGoal,
+                totalProteinsGoal: totalProteinsGoal,
+              ),
             ),
             // Day-one / empty-day guidance: when nothing is logged yet, point
             // the way to the centre + rather than leaving a silent dashboard.
@@ -249,6 +263,30 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
             // empty section so the home view doesn't carry a header the user
             // explicitly opted out of. A section that holds intakes always
             // shows, so they stay editable and deletable (#1305).
+            // EatPoint: the user's own meals replace the four fixed ones.
+            if (MealSlotSections.enabled)
+              MealSlotSections(
+                intakes: [
+                  ...breakfastIntakeList,
+                  ...lunchIntakeList,
+                  ...dinnerIntakeList,
+                  ...snackIntakeList,
+                ],
+                buildSection: (context, section) => IntakeVerticalList(
+                  key: ValueKey('home-meal-${section.key}'),
+                  day: DateTime.now(),
+                  title: section.title,
+                  listIcon: section.icon,
+                  addMealType: section.addMealType,
+                  intakeList: section.intakes,
+                  onDeleteIntakeCallback: onDeleteIntake,
+                  onItemDragCallback: onIntakeItemDrag,
+                  onItemTappedCallback: onIntakeItemTapped,
+                  usesImperialUnits: usesImperialUnits,
+                  showMealMacros: showMealMacros,
+                ),
+              )
+            else ...[
             if (IntakeVerticalList.isShown(
               sharePct: breakfastSharePct,
               intakes: breakfastIntakeList,
@@ -317,6 +355,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                 showMealMacros: showMealMacros,
                 mealKcalTarget: snackKcalTarget,
               ),
+            ],
             const SizedBox(height: 48.0),
           ],
         ),

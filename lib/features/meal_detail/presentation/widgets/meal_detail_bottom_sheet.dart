@@ -9,6 +9,8 @@ import 'package:opennutritracker/core/utils/locator.dart';
 import 'package:opennutritracker/core/utils/serving_label_localizer.dart';
 import 'package:opennutritracker/core/utils/navigation_options.dart';
 import 'package:opennutritracker/core/utils/navigation_predicates.dart';
+import 'package:opennutritracker/features/points/presentation/widgets/points_amount_panel.dart';
+import 'package:opennutritracker/features/points/data/points_settings_data_source.dart';
 import 'package:opennutritracker/features/add_meal/presentation/log_tray.dart';
 import 'package:opennutritracker/features/add_meal/util/portion_unit.dart';
 import 'package:opennutritracker/features/add_meal/domain/entity/meal_entity.dart';
@@ -67,9 +69,39 @@ class _MealDetailBottomSheetState extends State<MealDetailBottomSheet> {
   /// twice.
   bool _submitting = false;
 
+  /// EatPoint: points mode shows the points panel above the grams field.
+  /// Off when EatPoint's services are not registered.
+  bool _pointsMode = locator.isRegistered<PointsSettingsDataSource>();
+
+  /// EatPoint: the sheet can be dragged down to a one-line summary and back.
+  bool _expanded = true;
+
+  Future<void> _loadPointsMode() async {
+    if (!locator.isRegistered<PointsSettingsDataSource>()) return;
+    try {
+      final settings = await locator<PointsSettingsDataSource>().getSettings();
+      if (mounted && settings.pointsModeEnabled != _pointsMode) {
+        setState(() => _pointsMode = settings.pointsModeEnabled);
+      }
+    } catch (_) {
+      // Unreadable settings: keep the default.
+    }
+  }
+
+  void _onHandleDragEnd(DragEndDetails details) {
+    final velocity = details.primaryVelocity ?? 0;
+    if (velocity > 150 && _expanded) {
+      FocusScope.of(context).unfocus();
+      setState(() => _expanded = false);
+    } else if (velocity < -150 && !_expanded) {
+      setState(() => _expanded = true);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
+    _loadPointsMode();
     widget.quantityTextController.addListener(_onQuantityChanged);
     _quantityFocusNode.addListener(_onQuantityFocusChanged);
     // "Add" or "Add to list" follows the list, which a food arriving from
@@ -181,9 +213,56 @@ class _MealDetailBottomSheetState extends State<MealDetailBottomSheet> {
             child: Wrap(
               children: [
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 8.0),
+                  padding: EdgeInsets.fromLTRB(
+                    16.0,
+                    _pointsMode ? 0.0 : 32.0,
+                    16.0,
+                    8.0,
+                  ),
                   child: Column(
                     children: [
+                      if (_pointsMode) ...[
+                        Semantics(
+                          identifier: 'meal-detail-sheet-handle',
+                          button: true,
+                          label: _expanded
+                              ? S.of(context).pointsSheetCollapse
+                              : S.of(context).pointsSheetExpand,
+                          excludeSemantics: true,
+                          child: GestureDetector(
+                            behavior: HitTestBehavior.opaque,
+                            onTap: () => setState(() => _expanded = !_expanded),
+                            onVerticalDragEnd: _onHandleDragEnd,
+                            child: SizedBox(
+                              height: 28,
+                              width: double.infinity,
+                              child: Center(
+                                child: Container(
+                                  width: 36,
+                                  height: 4,
+                                  decoration: BoxDecoration(
+                                    color: palette.border,
+                                    borderRadius: BorderRadius.circular(2),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        if (!productMissingRequiredInfo)
+                          PointsAmountPanel(
+                            product: widget.product,
+                            day: widget.day,
+                            intakeType: widget.intakeTypeEntity,
+                            mealDetailBloc: widget.mealDetailBloc,
+                            quantityController: widget.quantityTextController,
+                            onQuantityOrUnitChanged:
+                                widget.onQuantityOrUnitChanged,
+                            expanded: _expanded,
+                          ),
+                        if (_expanded) const SizedBox(height: Dimens.spacing12),
+                      ],
+                      if (_expanded || !_pointsMode)
                       Row(
                         children: [
                           Expanded(
@@ -256,7 +335,7 @@ class _MealDetailBottomSheetState extends State<MealDetailBottomSheet> {
                           ),
                         ],
                       ),
-                      if (quickOptions.isNotEmpty)
+                      if (quickOptions.isNotEmpty && (_expanded || !_pointsMode))
                         Padding(
                           padding: const EdgeInsets.only(
                             top: Dimens.spacing12,

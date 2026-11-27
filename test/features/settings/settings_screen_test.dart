@@ -16,15 +16,12 @@ import 'package:opennutritracker/features/diary/presentation/bloc/diary_bloc.dar
 import 'package:opennutritracker/features/home/presentation/bloc/home_bloc.dart';
 import 'package:opennutritracker/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:opennutritracker/features/settings/presentation/bloc/settings_bloc.dart';
-import 'package:opennutritracker/features/settings/presentation/bloc/tip_jar_cubit.dart';
-import 'package:opennutritracker/features/settings/presentation/support/support_screen.dart';
 import 'package:opennutritracker/features/settings/presentation/widgets/settings_rows.dart';
 import 'package:opennutritracker/features/settings/presentation/widgets/ai_assist_dialog.dart';
 import 'package:opennutritracker/features/settings/settings_screen.dart';
 import 'package:opennutritracker/features/trends/presentation/bloc/trends_bloc.dart';
 import 'package:opennutritracker/generated/l10n.dart';
 
-import '../../helpers/fake_tip_store.dart';
 import '../../helpers/test_l10n.dart';
 
 /// A loaded settings screen without the config box behind it.
@@ -513,50 +510,28 @@ void main() {
     expect(diaryBloc.added, contains(isA<LoadDiaryYearEvent>()));
   });
 
-  testWidgets('Support OpenNutriTracker is the first About row, with a '
-      'chevron, and opens the Support page (#1536)', (tester) async {
-    final store = FakeTipStore();
-    addTearDown(store.dispose);
-    locator.registerSingleton<TipJarCubit>(TipJarCubit(store, FakeTipConfig()));
+  testWidgets('About credits the upstream project and no longer offers the '
+      'upstream Support page', (tester) async {
     await tester.pumpWidget(_app());
     await tester.pumpAndSettle();
 
-    final support = find.text(l10nEn.settingsSupportLabel);
-    await tester.scrollUntilVisible(support, 300);
+    final credit = find.text(l10nEn.settingsUpstreamCreditTitle);
+    await tester.scrollUntilVisible(credit, 300);
     await tester.pumpAndSettle();
 
-    // In the About card, above what used to be its first row.
+    expect(find.text(l10nEn.settingsUpstreamCreditBody), findsOneWidget);
+    expect(find.text(l10nEn.settingsSupportLabel), findsNothing);
+    // The credit sits in the About card, next to the rows it always had.
     final group = find.ancestor(
-      of: support,
+      of: credit,
       matching: find.byType(SettingsGroup),
     );
-    for (final row in [
-      l10nEn.settingsPrivacySettings,
-      l10nEn.settingsReportErrorLabel,
-      l10nEn.settingAboutLabel,
-    ]) {
-      expect(
-        find.descendant(of: group, matching: find.text(row)),
-        findsOneWidget,
-      );
-    }
     expect(
-      tester.getTopLeft(support).dy,
-      lessThan(tester.getTopLeft(find.text(l10nEn.settingsPrivacySettings)).dy),
+      find.descendant(
+        of: group,
+        matching: find.text(l10nEn.settingAboutLabel),
+      ),
+      findsOneWidget,
     );
-    expect(find.text(l10nEn.settingsSupportSubtitle), findsOneWidget);
-
-    Finder chevronIn(Finder title) => find.descendant(
-      of: find.ancestor(of: title, matching: find.byType(ListTile)),
-      matching: find.byIcon(Icons.chevron_right_rounded),
-    );
-    expect(chevronIn(support), findsOneWidget);
-    // The rest of About is unchanged: no chevrons there.
-    expect(chevronIn(find.text(l10nEn.settingsReportErrorLabel)), findsNothing);
-
-    await tester.tap(support);
-    await tester.pumpAndSettle();
-
-    expect(find.byType(SupportScreen), findsOneWidget);
   });
 }

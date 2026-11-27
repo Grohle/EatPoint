@@ -1,0 +1,177 @@
+# Builds signed EatPoint APKs and publishes them as a GitHub release.
+#
+# Run it from Actions → "EatPoint release" → Run workflow, or through the
+# API (workflow_dispatch). It reads the version from pubspec.yaml, creates
+# the tag `v<version>` on the commit it runs on, and attaches two APKs
+# (arm64-v8a and universal) plus SHA256SUMS.txt. The release text comes
+# from `.github/release-notes/v<version>.md`.
+#
+# REQUIRED SECRETS (Settings → Secrets and variables → Actions):
+#   EATPOINT_KEYSTORE_BASE64  base64 of eatpoint-release.jks
+#   EATPOINT_KEYSTORE_PASSWORD
+#   EATPOINT_KEY_ALIAS        (eatpoint)
+#   EATPOINT_KEY_PASSWORD
+#
+# Like every workflow_dispatch workflow, it only shows up once this file is
+# on the default branch.
+
+name: EatPoint release
+
+on:
+  workflow_dispatch:
+    inputs:
+      prerelease:
+        description: Mark the release as a pre-release
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: eatpoint-release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Read version
+        id: version
+        run: |
+          version="$(sed -n 's/^version: *\([0-9.]*\)+.*/\1/p' pubspec.yaml)"
+          : "${version:?Could not read the version from pubspec.yaml}"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "tag=v$version" >> "$GITHUB_OUTPUT"
+
+      - name: Refuse an existing release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.version.outputs.tag }}
+        run: |
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "::error::Release $TAG already exists. Bump the version in pubspec.yaml first."
+            exit 1
+          fi
+
+      - name: Check release notes
+        env:
+          TAG: ${{ steps.version.outputs.tag }}
+        run: |
+          test -f ".github/release-notes/$TAG.md" || {
+            echo "::error::Missing .github/release-notes/$TAG.md"
+            exit 1
+          }
+
+      - name: Setup Java (Zulu)
+        id: setup_java_zulu
+        uses: actions/setup-java@v6.1.0
+        continue-on-error: true
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Setup Java (Temurin fallback)
+        if: steps.setup_java_zulu.outcome == 'failure'
+        uses: actions/setup-java@v6.1.0
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Flutter + cache packages
+        uses: ./.github/actions/setup-flutter-cache
+
+      - name: Cache Gradle
+        uses: actions/cache@v6
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('android/**/*.gradle*', 'android/**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      # EatPoint ships without the upstream food backend and without crash
+      # reporting, so the .env holds inert placeholders.
+      - name: Write .env
+        run: |
+          cat > .env <<'EOF'
+          SENTRY_DNS=""
+          SUPABASE_PROJECT_URL="https://food-backend.invalid"
+          SUPABASE_PROJECT_ANON_KEY="not-configured"
+          EOF
+
+      - name: Write signing config
+        env:
+          KEYSTORE_BASE64: ${{ secrets.EATPOINT_KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.EATPOINT_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.EATPOINT_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.EATPOINT_KEY_PASSWORD }}
+        run: |
+          : "${KEYSTORE_BASE64:?Missing secret EATPOINT_KEYSTORE_BASE64}"
+          : "${KEYSTORE_PASSWORD:?Missing secret EATPOINT_KEYSTORE_PASSWORD}"
+          : "${KEY_ALIAS:?Missing secret EATPOINT_KEY_ALIAS}"
+          : "${KEY_PASSWORD:?Missing secret EATPOINT_KEY_PASSWORD}"
+          printf '%s' "$KEYSTORE_BASE64" | base64 -d > "$RUNNER_TEMP/eatpoint-release.jks"
+          cat > android/key.properties <<EOF
+          storeFile=$RUNNER_TEMP/eatpoint-release.jks
+          storePassword=$KEYSTORE_PASSWORD
+          keyAlias=$KEY_ALIAS
+          keyPassword=$KEY_PASSWORD
+          EOF
+
+      - name: Install Flutter packages
+        run: flutter pub get
+
+      - name: Generate code
+        run: dart run build_runner build --delete-conflicting-outputs
+
+      - name: Run tests
+        run: flutter test
+
+      - name: Build APKs
+        run: |
+          flutter build apk --flavor full --release
+          flutter build apk --flavor full --release --split-per-abi
+
+      - name: Collect APKs
+        id: apks
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          out="$RUNNER_TEMP/dist"
+          mkdir -p "$out"
+          apk_dir=build/app/outputs/flutter-apk
+          universal="$(ls "$apk_dir"/app-*release.apk | grep -v -e armeabi -e arm64 -e x86 | head -n1)"
+          arm64="$(ls "$apk_dir"/app-arm64-v8a*release.apk | head -n1)"
+          cp "$universal" "$out/EatPoint-$VERSION-universal.apk"
+          cp "$arm64" "$out/EatPoint-$VERSION-arm64-v8a.apk"
+          apksigner="$(ls "$ANDROID_HOME"/build-tools/*/apksigner | sort -V | tail -n1)"
+          "$apksigner" verify --print-certs "$out/EatPoint-$VERSION-arm64-v8a.apk"
+          (cd "$out" && sha256sum *.apk > SHA256SUMS.txt && cat SHA256SUMS.txt)
+          echo "dir=$out" >> "$GITHUB_OUTPUT"
+
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.version.outputs.tag }}
+          VERSION: ${{ steps.version.outputs.version }}
+          DIST: ${{ steps.apks.outputs.dir }}
+          PRERELEASE: ${{ inputs.prerelease }}
+        run: |
+          flags=()
+          if [ "$PRERELEASE" = "true" ]; then flags+=(--prerelease); fi
+          gh release create "$TAG" \
+            --target "$GITHUB_SHA" \
+            --title "EatPoint $VERSION" \
+            --notes-file ".github/release-notes/$TAG.md" \
+            "${flags[@]}" \
+            "$DIST"/*.apk "$DIST"/SHA256SUMS.txt
+
+      - name: Remove signing material
+        if: always()
+        run: rm -f android/key.properties "$RUNNER_TEMP/eatpoint-release.jks"

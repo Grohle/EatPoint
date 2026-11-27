@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.opennutritracker.ont.opennutritracker">
+    package="io.github.grohle.eatpoint">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- Voice input: dictate a meal on the Describe fields. -->

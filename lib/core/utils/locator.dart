@@ -80,6 +80,17 @@ import 'package:opennutritracker/core/utils/tracked_day_reconciler.dart';
 import 'package:opennutritracker/core/utils/env.dart';
 import 'package:http/http.dart' as http;
 import 'package:opennutritracker/core/utils/ai_credential_storage.dart';
+import 'package:opennutritracker/features/planner/data/planner_data_source.dart';
+import 'package:opennutritracker/features/points/data/meal_slot_assignments.dart';
+import 'package:opennutritracker/features/travel/data/travel_mode_store.dart';
+import 'package:opennutritracker/features/planner/data/planner_reminder_service.dart';
+import 'package:opennutritracker/features/mcp/data/mcp_controller.dart';
+import 'package:opennutritracker/features/points/data/points_settings_data_source.dart';
+import 'package:opennutritracker/features/sync/data/backends/sync_backend_factory.dart';
+import 'package:opennutritracker/features/sync/data/household_store.dart';
+import 'package:opennutritracker/features/sync/domain/household_sync_service.dart';
+import 'package:opennutritracker/features/points/domain/usecase/get_meal_points_usage_usecase.dart';
+import 'package:opennutritracker/features/points/domain/usecase/get_points_budget_usecase.dart';
 import 'package:opennutritracker/features/add_meal/data/meal_items_api_factory.dart';
 import 'package:opennutritracker/features/add_meal/data/model_meal_photo_interpreter.dart';
 import 'package:opennutritracker/features/add_meal/data/model_meal_text_interpreter.dart';
@@ -566,6 +577,12 @@ Future<void> initLocator() async {
   );
   locator.registerLazySingleton(() => GetMacroGoalUsecase(locator()));
   locator.registerLazySingleton(
+    () => GetPointsBudgetUsecase(locator(), locator(), locator(), locator()),
+  );
+  locator.registerLazySingleton(
+    () => GetMealPointsUsageUsecase(locator(), locator()),
+  );
+  locator.registerLazySingleton(
     () => ExportDataUsecase(
       locator(),
       locator(),
@@ -711,6 +728,48 @@ Future<void> initLocator() async {
   );
   locator.registerLazySingleton<WaterIntakeDataSource>(
     () => WaterIntakeDataSource(hiveDBProvider),
+  );
+  locator.registerLazySingleton<PointsSettingsDataSource>(
+    () => PointsSettingsDataSource(hiveDBProvider),
+  );
+  locator.registerLazySingleton<PlannerDataSource>(
+    () => PlannerDataSource(hiveDBProvider),
+  );
+  locator.registerLazySingleton<TravelModeStore>(
+    () => TravelModeStore(hiveDBProvider),
+  );
+  final mealSlotAssignments = MealSlotAssignments(hiveDBProvider);
+  locator.registerSingleton<MealSlotAssignments>(mealSlotAssignments);
+  IntakeRepository.onIntakeAdded = (intake) =>
+      MealSlotContext.onIntakeAdded(intake, mealSlotAssignments);
+  locator.registerLazySingleton<PlannerReminderService>(
+    () => PlannerReminderService(locator()),
+  );
+  locator.registerLazySingleton<HouseholdStore>(
+    () => HouseholdStore(hiveDBProvider),
+  );
+  locator.registerLazySingleton<McpController>(
+    () => McpController(
+      hiveDBProvider,
+      locator(),
+      locator(),
+      locator(),
+      locator(),
+      locator(),
+      locator(),
+    ),
+  );
+  locator.registerLazySingleton<HouseholdSyncService>(
+    () => HouseholdSyncService(
+      locator(),
+      locator(),
+      (config, {required householdId, required secret}) => createSyncBackend(
+        http.Client(),
+        config,
+        householdId: householdId,
+        secret: secret,
+      ),
+    ),
   );
   locator.registerLazySingleton(() => CustomMealDataSource(hiveDBProvider));
   locator.registerLazySingleton(() => RecipeDataSource(hiveDBProvider));

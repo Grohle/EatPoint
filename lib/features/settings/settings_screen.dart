@@ -25,6 +25,9 @@ import 'package:opennutritracker/core/utils/locale_provider.dart';
 import 'package:opennutritracker/core/utils/reload_diary_and_trends.dart';
 import 'package:opennutritracker/core/utils/theme_mode_provider.dart';
 import 'package:opennutritracker/core/utils/url_const.dart';
+import 'package:opennutritracker/features/points/presentation/points_settings_screen.dart';
+import 'package:opennutritracker/features/sharing/share_hub_screen.dart';
+import 'package:opennutritracker/features/points/data/points_settings_data_source.dart';
 import 'package:opennutritracker/features/diary/presentation/bloc/calendar_day_bloc.dart';
 import 'package:opennutritracker/features/diary/presentation/bloc/diary_bloc.dart';
 import 'package:opennutritracker/features/home/presentation/bloc/home_bloc.dart';
@@ -44,7 +47,6 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:opennutritracker/core/utils/safe_url_launcher.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:opennutritracker/features/settings/presentation/widgets/diary_day_boundary_dialog.dart';
 import 'package:opennutritracker/features/settings/presentation/widgets/kcal_adjustment_dialog.dart';
 import 'package:opennutritracker/features/settings/presentation/widgets/kcal_goal_info_screen.dart';
@@ -52,7 +54,8 @@ import 'package:opennutritracker/features/settings/presentation/widgets/macro_sp
 import 'package:opennutritracker/features/settings/presentation/widgets/nutrient_goals_screen.dart';
 import 'package:opennutritracker/features/settings/presentation/widgets/per_meal_kcal_share_dialog.dart';
 import 'package:opennutritracker/features/settings/presentation/widgets/settings_rows.dart';
-import 'package:opennutritracker/features/settings/presentation/support/support_screen.dart';
+import 'package:opennutritracker/features/points/presentation/meal_slots_screen.dart';
+import 'package:opennutritracker/features/travel/presentation/travel_mode_screen.dart';
 
 /// What the settings route was opened *for*.
 ///
@@ -234,6 +237,66 @@ class _SettingsScreenState extends State<SettingsScreen> {
           // shrink-wrapped, unscrollable list of fixed children *is* a
           // Column, with a viewport in the way.
           final children = <Widget>[
+              // EatPoint: points settings come first.
+              if (locator.isRegistered<PointsSettingsDataSource>()) ...[
+                SettingsCategoryHeader(
+                  palette: palette,
+                  label: S.of(context).pointsSettingsTitle,
+                ),
+                SettingsGroup(
+                  palette: palette,
+                  tiles: [
+                    SettingsTile(
+                      identifier: 'settings-points',
+                      palette: palette,
+                      icon: Icons.donut_large_rounded,
+                      title: S.of(context).pointsSettingsTitle,
+                      subtitle: S.of(context).pointsSettingsSubtitle,
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => const PointsSettingsScreen(),
+                        ),
+                      ),
+                    ),
+                    SettingsTile(
+                      identifier: 'settings-meals',
+                      palette: palette,
+                      icon: Icons.restaurant_menu_rounded,
+                      title: S.of(context).mealSlotsTitle,
+                      subtitle: S.of(context).mealSlotsEditSubtitle,
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => const MealSlotsScreen(),
+                        ),
+                      ),
+                    ),
+                    SettingsTile(
+                      identifier: 'settings-travel',
+                      palette: palette,
+                      icon: Icons.flight_takeoff_rounded,
+                      title: S.of(context).travelTitle,
+                      subtitle: S.of(context).travelSettingsSubtitle,
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => const TravelModeScreen(),
+                        ),
+                      ),
+                    ),
+                    SettingsTile(
+                      identifier: 'settings-share-sync',
+                      palette: palette,
+                      icon: Icons.sync_rounded,
+                      title: S.of(context).householdEntry,
+                      subtitle: S.of(context).householdEntrySubtitle,
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => const ShareHubScreen(),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
               SettingsCategoryHeader(
                 palette: palette,
                 label: S.of(context).settingsCategoryUnits,
@@ -635,16 +698,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
               SettingsGroup(
                 palette: palette,
                 tiles: [
+                  // The Support page (tip jar, store rating) belongs to the
+                  // upstream project's store listings, so it is not offered
+                  // here; the credit below replaces it.
                   SettingsTile(
-                    identifier: 'settings-support',
+                    identifier: 'settings-upstream-credit',
                     palette: palette,
                     icon: Icons.favorite_rounded,
-                    title: S.of(context).settingsSupportLabel,
-                    subtitle: S.of(context).settingsSupportSubtitle,
-                    showChevron: true,
-                    onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_) => const SupportScreen()),
-                    ),
+                    title: S.of(context).settingsUpstreamCreditTitle,
+                    subtitle: S.of(context).settingsUpstreamCreditBody,
+                    onTap: () =>
+                        openUrlOrShowError(context, AppConst.upstreamUrl),
                   ),
                   SettingsTile(
                     palette: palette,
@@ -1420,18 +1484,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  Future<void> _reportError(BuildContext context) async {
-    final messenger = ScaffoldMessenger.of(context);
-    final errorText = S.of(context).errorOpeningEmail;
-
-    // Cannot open email app: show error snackbar.
-    if (await tryLaunchExternalUrl(
-      "mailto:${AppConst.reportErrorEmail}?subject=Report_Error",
-      mode: LaunchMode.platformDefault,
-    )) {
-      return;
-    }
-    messenger.showSnackBar(SnackBar(content: Text(errorText)));
+  void _reportError(BuildContext context) {
+    // Opens the issue tracker rather than an e-mail composer.
+    openUrlOrShowError(context, AppConst.newIssueUrl);
   }
 
   void _showPrivacyDialog(
@@ -1515,8 +1570,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
           width: 40,
           child: Image.asset(
             Theme.of(context).brightness == Brightness.dark
-                ? 'assets/icon/ont_logo_square_color_white_1024x1024.png'
-                : 'assets/icon/ont_logo_square_color_back_1024x1024.png',
+                ? 'assets/icon/eatpoint_launcher_ios_dark_1024.png'
+                : 'assets/icon/eatpoint_logo_1024.png',
           ),
         ),
         applicationVersion: packageInfo.version,

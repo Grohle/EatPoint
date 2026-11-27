@@ -26,6 +26,8 @@ import 'package:opennutritracker/features/onboarding/presentation/widgets/highli
 import 'package:opennutritracker/features/onboarding/presentation/widgets/onboarding_about_you_page_body.dart';
 import 'package:opennutritracker/features/onboarding/presentation/widgets/onboarding_body_measurements_page_body.dart';
 import 'package:opennutritracker/generated/l10n.dart';
+import 'package:opennutritracker/features/points/data/points_settings_data_source.dart';
+import 'package:opennutritracker/features/points/presentation/onboarding_points_page.dart';
 
 /// The onboarding pages, in the order they are shown.
 ///
@@ -38,6 +40,8 @@ enum _OnboardingPage {
   bodyMeasurements,
   activity,
   goal,
+  // EatPoint: points budget and meals of the day.
+  points,
   otherOptions,
   overview,
 }
@@ -50,6 +54,11 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
+  /// EatPoint's points step is shown when its settings store is available.
+  final bool _pointsStepEnabled =
+      locator.isRegistered<PointsSettingsDataSource>();
+  OnboardingPointsChoice _pointsChoice = const OnboardingPointsChoice();
+
   late OnboardingBloc _onboardingBloc;
   final _introKey = GlobalKey<IntroductionScreenState>();
 
@@ -280,9 +289,29 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ),
           footer: HighlightButton(
             buttonLabel: S.of(context).buttonNextLabel,
-            onButtonPressed: () => _scrollToPage(_OnboardingPage.otherOptions),
+            onButtonPressed: () => _scrollToPage(
+              _pointsStepEnabled
+                  ? _OnboardingPage.points
+                  : _OnboardingPage.otherOptions,
+            ),
             buttonActive: _goalPageButtonActive,
             inactiveMessage: S.of(context).onboardingBlockedGoalSnack,
+          ),
+        ),
+        PageViewModel(
+          titleWidget: const SizedBox(),
+          // empty
+          decoration: _pageDecoration,
+          image: _defaultImageWidget,
+          bodyWidget: OnboardingPointsPageBody(
+            user: selection.toUserEntity(),
+            initialChoice: _pointsChoice,
+            onChanged: (choice) => _pointsChoice = choice,
+          ),
+          footer: HighlightButton(
+            buttonLabel: S.of(context).buttonNextLabel,
+            onButtonPressed: () => _scrollToPage(_OnboardingPage.otherOptions),
+            buttonActive: true,
           ),
         ),
         PageViewModel(
@@ -506,6 +535,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         accentColor: _onboardingBloc.userSelection.accentColor,
       );
       if (!context.mounted) return;
+      if (_pointsStepEnabled) {
+        await _pointsChoice.save(context);
+        if (!context.mounted) return;
+      }
       // Onboarding can run for a profile added after the app has been in
       // use, so the screen-persistent tab BLoCs may still hold the previous
       // profile's data. Refresh them against the now-populated active

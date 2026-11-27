@@ -31,7 +31,7 @@ void main() {
     lastUpdateArgs = {};
     PackageInfo.setMockInitialValues(
       appName: 'OpenNutriTracker',
-      packageName: 'com.opennutritracker.ont.opennutritracker',
+      packageName: 'io.github.grohle.eatpoint',
       version: '2.4.0',
       buildNumber: '66',
       buildSignature: '',
@@ -247,18 +247,18 @@ void main() {
     test('the App Store bundle id gets the production group', () {
       expect(
         CalorieWidgetSnapshot.appGroupIdFor(
-          'com.opennutritracker.ont.opennutritracker',
+          'io.github.grohle.eatpoint',
         ),
-        'group.com.opennutritracker.ont.opennutritracker',
+        'group.io.github.grohle.eatpoint',
       );
     });
 
     test('the develop bundle id gets a group of its own', () {
       expect(
         CalorieWidgetSnapshot.appGroupIdFor(
-          'com.opennutritracker.ont.opennutritracker.develop',
+          'io.github.grohle.eatpoint.develop',
         ),
-        'group.com.opennutritracker.ont.opennutritracker.develop',
+        'group.io.github.grohle.eatpoint.develop',
       );
     });
 
@@ -267,7 +267,7 @@ void main() {
       // its wipe must stay in the develop group.
       final store = HomeWidgetCalorieStore(
         bundleId: () async =>
-            'com.opennutritracker.ont.opennutritracker.develop',
+            'io.github.grohle.eatpoint.develop',
       );
 
       await store.write(snapshot, german);

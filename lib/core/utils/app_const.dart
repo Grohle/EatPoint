@@ -2,12 +2,16 @@ import 'dart:io' show Platform;
 import 'package:package_info_plus/package_info_plus.dart';
 
 class AppConst {
-  static const userAgentAppName = "OpenNutriTracker";
+  /// OS-level app title (MaterialApp.title / task switcher).
+  static const appName = "EatPoint";
+  static const userAgentAppName = "EatPoint";
   static const platformNameAndroid = "Android";
   static const platformNameIOS = "iOS";
-  static const reportErrorEmail = "opennutritracker-dev@pm.me";
-  static const sourceCodeUrl =
-      "https://github.com/simonoppowa/OpenNutriTracker";
+  static const sourceCodeUrl = "https://github.com/Grohle/EatPoint";
+
+  /// The project EatPoint is forked from; only used for the credit in
+  /// Settings -> About.
+  static const upstreamUrl = "https://github.com/simonoppowa/OpenNutriTracker";
 
   // Support page links (#1536). Every one opens outside the app.
   static const appStoreUrl = "https://apps.apple.com/app/id6451490901";

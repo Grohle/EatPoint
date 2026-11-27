@@ -123,9 +123,9 @@
   "ageLabel": "العمر",
   "allItemsLabel": "الكل",
   "alphaVersionName": "[ألفا]",
-  "appDescription": "OpenNutriTracker هو تطبيق مجاني ومفتوح المصدر لتتبّع السعرات الحرارية والعناصر الغذائية، مع احترام خصوصيتك.",
+  "appDescription": "EatPoint هو تطبيق مجاني ومفتوح المصدر لتتبّع السعرات الحرارية والعناصر الغذائية، مع احترام خصوصيتك.",
   "appLicenseLabel": "ترخيص GPL-3.0",
-  "appTitle": "OpenNutriTracker",
+  "appTitle": "EatPoint",
   "appVersionName": "الإصدار {versionNumber}",
   "@appVersionName": {
     "placeholders": {

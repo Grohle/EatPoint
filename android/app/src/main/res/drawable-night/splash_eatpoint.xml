@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Android 12+ splash-screen icon: the EatPoint mark. The leaf crossbar grows
+     out of the "e" and the amber dot pops into place, echoing the Flutter
+     splash (see lib/core/presentation/splash_screen.dart). The mark is scaled to
+     sit inside the 192dp visible circle of the 288dp splash icon slot. -->
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt">
+    <aapt:attr name="android:drawable">
+        <vector
+            android:width="288dp"
+            android:height="288dp"
+            android:viewportWidth="288"
+            android:viewportHeight="288">
+            <group
+                android:scaleX="1.25"
+                android:scaleY="1.25"
+                android:translateX="67.75"
+                android:translateY="69">
+                <group
+                    android:name="leaf"
+                    android:pivotX="22"
+                    android:pivotY="60">
+                    <path
+                        android:fillColor="#3DE07A"
+                        android:pathData="M22,60 C36,44 74,44 88,60 Z" />
+                    <path
+                        android:fillColor="#23C25E"
+                        android:pathData="M22,60 C36,74 74,74 88,60 Z" />
+                </group>
+                <path
+                    android:pathData="M88,60 A32,32 0 1 0 78.6,82.6"
+                    android:strokeColor="#F3FFF5"
+                    android:strokeWidth="14"
+                    android:strokeLineCap="round" />
+                <group
+                    android:name="dot"
+                    android:pivotX="97.6"
+                    android:pivotY="77.2">
+                    <path
+                        android:fillColor="#FFB300"
+                        android:pathData="M90.1,77.2 A7.5,7.5 0 1 1 105.1,77.2 A7.5,7.5 0 1 1 90.1,77.2 Z" />
+                </group>
+            </group>
+        </vector>
+    </aapt:attr>
+    <target android:name="leaf">
+        <aapt:attr name="android:animation">
+            <set android:ordering="together">
+                <objectAnimator
+                    android:propertyName="scaleX"
+                    android:valueFrom="0"
+                    android:valueTo="1"
+                    android:valueType="floatType"
+                    android:startOffset="150"
+                    android:duration="450"
+                    android:interpolator="@android:interpolator/fast_out_slow_in" />
+                <objectAnimator
+                    android:propertyName="scaleY"
+                    android:valueFrom="0"
+                    android:valueTo="1"
+                    android:valueType="floatType"
+                    android:startOffset="150"
+                    android:duration="450"
+                    android:interpolator="@android:interpolator/fast_out_slow_in" />
+            </set>
+        </aapt:attr>
+    </target>
+    <target android:name="dot">
+        <aapt:attr name="android:animation">
+            <set android:ordering="together">
+                <objectAnimator
+                    android:propertyName="scaleX"
+                    android:valueFrom="0"
+                    android:valueTo="1"
+                    android:valueType="floatType"
+                    android:startOffset="450"
+                    android:duration="400"
+                    android:interpolator="@android:interpolator/overshoot" />
+                <objectAnimator
+                    android:propertyName="scaleY"
+                    android:valueFrom="0"
+                    android:valueTo="1"
+                    android:valueType="floatType"
+                    android:startOffset="450"
+                    android:duration="400"
+                    android:interpolator="@android:interpolator/overshoot" />
+            </set>
+        </aapt:attr>
+    </target>
+</animated-vector>

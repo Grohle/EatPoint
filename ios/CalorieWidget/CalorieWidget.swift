@@ -10,7 +10,7 @@ private enum CalorieWidgetKeys {
     /// so a develop install never reads or clears the App Store build's data.
     static let appGroupId =
         Bundle.main.object(forInfoDictionaryKey: "ONTAppGroupId") as? String
-        ?? "group.com.opennutritracker.ont.opennutritracker"
+        ?? "group.io.github.grohle.eatpoint"
     /// The figures and the labels that describe them, as one JSON string
     /// (`CalorieWidgetSnapshot.encode`). One value is one write, so a
     /// reading is either the old snapshot or the new one, never a mix.

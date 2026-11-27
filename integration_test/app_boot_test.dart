@@ -85,7 +85,7 @@ void main() {
       // runs English, which is where this half earns its keep.
       if (S.of(introContext).localeName.startsWith('en')) {
         const appDescriptionEn =
-            'OpenNutriTracker is a free and open-source calorie and '
+            'EatPoint is a free and open-source calorie and '
             'nutrient tracker that respects your privacy.';
         expect(localizedDescription, appDescriptionEn,
             reason: 'the English appDescription copy changed');

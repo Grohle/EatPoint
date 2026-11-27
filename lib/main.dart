@@ -17,6 +17,7 @@ import 'package:opennutritracker/core/presentation/widgets/image_full_screen.dar
 import 'package:opennutritracker/core/presentation/widgets/keyboard_dismisser.dart';
 import 'package:opennutritracker/core/styles/app_palette.dart';
 import 'package:opennutritracker/core/styles/app_theme.dart';
+import 'package:opennutritracker/core/utils/app_const.dart';
 import 'package:opennutritracker/core/utils/app_locale_service.dart';
 import 'package:opennutritracker/core/utils/app_locale_sync.dart';
 import 'package:opennutritracker/core/utils/daily_reminder_scheduler.dart';
@@ -54,6 +55,7 @@ import 'package:opennutritracker/features/settings/presentation/widgets/accent_c
 import 'package:opennutritracker/features/settings/presentation/widgets/health_sync_screen.dart';
 import 'package:opennutritracker/features/settings/settings_screen.dart';
 import 'package:opennutritracker/generated/l10n.dart';
+import 'package:opennutritracker/features/points/data/meal_slot_assignments.dart';
 import 'package:provider/provider.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
@@ -358,13 +360,17 @@ class _OpenNutriTrackerAppState extends State<OpenNutriTrackerApp>
     );
   }
 
+  // EatPoint: forgets the meal being added to once the user leaves the
+  // add-food flow.
+  final _mealSlotRouteObserver = MealSlotRouteObserver();
+
   Widget _buildMaterialApp(
     BuildContext context,
     AppPalette lightPalette,
     AppPalette darkPalette,
   ) {
     return MaterialApp(
-      onGenerateTitle: (context) => S.of(context).appTitle,
+      onGenerateTitle: (context) => AppConst.appName,
       debugShowCheckedModeBanner: false,
       theme: buildAppTheme(lightPalette),
       darkTheme: buildAppTheme(darkPalette),
@@ -380,6 +386,7 @@ class _OpenNutriTrackerAppState extends State<OpenNutriTrackerApp>
       // Above the Navigator, so dialogs and sheets are covered too.
       builder: (context, child) =>
           KeyboardDismisser(child: child ?? const SizedBox.shrink()),
+      navigatorObservers: [_mealSlotRouteObserver],
       initialRoute: NavigationOptions.splashRoute,
       routes: {
         NavigationOptions.splashRoute: (context) =>
