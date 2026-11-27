@@ -71,9 +71,38 @@ class MenuTextParser {
     'sun': 7,
     'domingo': 7,
     'dom': 7,
+    // French, German and Italian.
+    'lundi': 1,
+    'montag': 1,
+    'lunedi': 1,
+    'mardi': 2,
+    'dienstag': 2,
+    'martedi': 2,
+    'mercredi': 3,
+    'mer': 3,
+    'mittwoch': 3,
+    'mercoledi': 3,
+    'jeudi': 4,
+    'jeu': 4,
+    'donnerstag': 4,
+    'giovedi': 4,
+    'gio': 4,
+    'vendredi': 5,
+    'ven': 5,
+    'freitag': 5,
+    'venerdi': 5,
+    'samedi': 6,
+    'sam': 6,
+    'samstag': 6,
+    'sonnabend': 6,
+    'sabato': 6,
+    'dimanche': 7,
+    'dim': 7,
+    'sonntag': 7,
+    'domenica': 7,
   };
 
-  /// Meal words in English and Spanish. The value is only a hint for the
+  /// Meal words in English, Spanish, French, German and Italian. The value is only a hint for the
   /// matcher; the label itself is kept.
   static const mealWords = <String>[
     'breakfast',
@@ -111,10 +140,33 @@ class MenuTextParser {
     'postentreno',
     'post-entreno',
     'despues de entrenar',
+    // French.
+    'petit-dejeuner',
+    'petit dejeuner',
+    'dejeuner',
+    'diner',
+    'gouter',
+    'collation',
+    'en-cas',
+    // German (folded: ü → u).
+    'fruhstuck',
+    'fruehstueck',
+    'mittagessen',
+    'abendessen',
+    'zwischenmahlzeit',
+    'vesper',
+    'jause',
+    // Italian.
+    'colazione',
+    'pranzo',
+    'merenda',
+    'spuntino',
+    'pre-allenamento',
+    'post-allenamento',
   ];
 
   static final _dayNumber = RegExp(
-    r'^(?:day|dia)\s*(\d{1,2})\b',
+    r'^(?:day|dia|jour|tag|giorno)\s*(\d{1,2})\b',
     caseSensitive: false,
   );
   static final _isoDate = RegExp(r'\b(\d{4})-(\d{1,2})-(\d{1,2})\b');
@@ -122,7 +174,7 @@ class MenuTextParser {
     r'\b(\d{1,2})[/.](\d{1,2})(?:[/.](\d{2,4}))?\b',
   );
   static final _points = RegExp(
-    r'\(?\s*(\d+(?:[.,]\d+)?)\s*(?:pts?|puntos?|points?)\b\.?\s*\)?',
+    r'\(?\s*(\d+(?:[.,]\d+)?)\s*(?:pts?|puntos?|points?|punti|punkte?)\b\.?\s*\)?',
     caseSensitive: false,
   );
   static final _bullet = RegExp(r'^\s*(?:[-*•·▪◦–—>]+|\d+[.)]\s+)\s*');

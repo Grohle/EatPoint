@@ -78,7 +78,7 @@ void main() {
 
   tearDown(() => locator.reset());
 
-  for (final locale in const [Locale('en'), Locale('es')]) {
+  for (final locale in screenshotLocales) {
     final tag = locale.languageCode;
     testWidgets('profile tab ($tag)', (tester) async {
       await loadAppFonts();
@@ -109,7 +109,11 @@ void main() {
       );
       await tester.pumpAndSettle();
       final goal = find.bySemanticsIdentifier('profile-goal');
-      await tester.ensureVisible(goal);
+      await tester.scrollUntilVisible(
+        goal,
+        200,
+        scrollable: find.byType(Scrollable).first,
+      );
       await tester.pumpAndSettle();
       await tester.tap(goal);
       await tester.pumpAndSettle();

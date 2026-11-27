@@ -147,6 +147,34 @@ class DietChecker {
 
   static final _rules = <DietTrait, RegExp>{
     DietTrait.gluten: _words([
+      // French, German, Italian.
+      'ble',
+      'froment',
+      'farine',
+      'pain',
+      'pates',
+      'orge',
+      'seigle',
+      'epeautre',
+      'avoine',
+      'weizen',
+      'mehl',
+      'brot',
+      'brotchen',
+      'nudeln',
+      'gerste',
+      'roggen',
+      'dinkel',
+      'hafer',
+      'grano',
+      'frumento',
+      'farina',
+      'pane',
+      'orzo',
+      'segale',
+      'farro',
+      'grissini',
+      'fette biscottate',
       'trigo',
       'wheat',
       'pan',
@@ -215,6 +243,30 @@ class DietChecker {
       'burger',
     ]),
     DietTrait.milk: _words([
+      // French, German, Italian.
+      'lait',
+      'creme fraiche',
+      'beurre',
+      'fromage',
+      'yaourt',
+      'lactoserum',
+      'milch',
+      'sahne',
+      'kase',
+      'kaese',
+      'joghurt',
+      'molke',
+      'rahm',
+      'quark',
+      'latte',
+      'panna',
+      'burro',
+      'formaggio',
+      'siero di latte',
+      'mascarpone',
+      'stracchino',
+      'lattosio',
+      'laktose',
       'leche',
       'milk',
       'yogur',
@@ -250,6 +302,17 @@ class DietChecker {
       'custard',
     ]),
     DietTrait.egg: _words([
+      // French, German, Italian.
+      'oeuf',
+      'oeufs',
+      'œuf',
+      'œufs',
+      'eier',
+      'eigelb',
+      'vollei',
+      'uovo',
+      'uova',
+      'tuorlo',
       'huevo',
       'egg',
       'tortilla',
@@ -266,6 +329,23 @@ class DietChecker {
       'alioli',
     ]),
     DietTrait.fish: _words([
+      // French, German, Italian.
+      'poisson',
+      'saumon',
+      'thon',
+      'morue',
+      'cabillaud',
+      'fisch',
+      'lachs',
+      'thunfisch',
+      'kabeljau',
+      'hering',
+      'pesce',
+      'salmone',
+      'tonno',
+      'merluzzo',
+      'acciughe',
+      'alici',
       'pescado',
       'fish',
       'salmon',
@@ -303,6 +383,20 @@ class DietChecker {
       'herring',
     ]),
     DietTrait.crustacean: _words([
+      // French, German, Italian.
+      'crevette',
+      'crabe',
+      'homard',
+      'langoustine',
+      'garnele',
+      'krabbe',
+      'hummer',
+      'gambero',
+      'gamberi',
+      'gamberetti',
+      'granchio',
+      'aragosta',
+      'scampi',
       'gamba',
       'langostino',
       'shrimp',
@@ -318,6 +412,20 @@ class DietChecker {
       'seafood',
     ]),
     DietTrait.mollusc: _words([
+      // French, German, Italian.
+      'moule',
+      'calmar',
+      'poulpe',
+      'huitre',
+      'muschel',
+      'tintenfisch',
+      'auster',
+      'cozze',
+      'calamari',
+      'polpo',
+      'ostrica',
+      'vongole',
+      'seppia',
       'mejillon',
       'mussel',
       'almeja',
@@ -341,8 +449,35 @@ class DietChecker {
       'marisco',
       'seafood',
     ]),
-    DietTrait.peanut: _words(['cacahuete', 'peanut', 'mani']),
+    DietTrait.peanut: _words([
+      // French, German, Italian.
+      'arachide',
+      'cacahuete',
+      'erdnuss',
+      'erdnusse',
+      'arachidi',
+      'cacahuete', 'peanut', 'mani',
+    ]),
     DietTrait.treeNut: _words([
+      // French, German, Italian.
+      'amande',
+      'noisette',
+      'noix',
+      'pistache',
+      'cajou',
+      'mandel',
+      'mandeln',
+      'haselnuss',
+      'walnuss',
+      'pistazie',
+      'cashew',
+      'mandorla',
+      'mandorle',
+      'nocciola',
+      'nocciole',
+      'noce',
+      'pistacchio',
+      'anacardi',
       'almendra',
       'almond',
       'nuez',
@@ -371,6 +506,8 @@ class DietChecker {
       'nutella',
     ]),
     DietTrait.soy: _words([
+      // French, German, Italian.
+      'soia',
       'soja',
       'soy',
       'soya',
@@ -381,6 +518,9 @@ class DietChecker {
       'tamari',
     ]),
     DietTrait.sesame: _words([
+      // French, German, Italian.
+      'sesam',
+      'sésame',
       'sesamo',
       'sesame',
       'tahini',
@@ -389,9 +529,28 @@ class DietChecker {
       'humus',
       'ajonjoli',
     ]),
-    DietTrait.celery: _words(['apio', 'celery', 'celeriac']),
-    DietTrait.mustard: _words(['mostaza', 'mustard']),
+    DietTrait.celery: _words([
+      // French, German, Italian.
+      'celeri',
+      'sellerie',
+      'sedano',
+      'apio', 'celery', 'celeriac',
+    ]),
+    DietTrait.mustard: _words([
+      // French, German, Italian.
+      'moutarde',
+      'senf',
+      'senape',
+      'mostaza', 'mustard',
+    ]),
     DietTrait.sulphites: _words([
+      // French, German, Italian.
+      'sulfite',
+      'sulfit',
+      'solfiti',
+      'anhydride sulfureux',
+      'schwefeldioxid',
+      'anidride solforosa',
       'vino',
       'wine',
       'vinagre',
@@ -400,8 +559,26 @@ class DietChecker {
       'sidra',
       'cider',
     ]),
-    DietTrait.lupin: _words(['altramuz', 'lupin', 'lupine', 'lupini']),
+    DietTrait.lupin: _words([
+      // French, German, Italian.
+      'lupino',
+      'altramuz', 'lupin', 'lupine', 'lupini',
+    ]),
     DietTrait.pork: _words([
+      // French, German, Italian.
+      'porc',
+      'jambon',
+      'saucisson',
+      'lardons',
+      'schwein',
+      'schweinefleisch',
+      'schinken',
+      'speck',
+      'maiale',
+      'pancetta',
+      'salame',
+      'mortadella',
+      'guanciale',
       'cerdo',
       'pork',
       'jamon',
@@ -426,6 +603,17 @@ class DietChecker {
       'pepperoni',
     ]),
     DietTrait.beef: _words([
+      // French, German, Italian.
+      'boeuf',
+      'bœuf',
+      'veau',
+      'rindfleisch',
+      'rinder',
+      'kalb',
+      'kalbfleisch',
+      'manzo',
+      'vitello',
+      'bresaola',
       'ternera',
       'vacuno',
       'beef',
@@ -442,6 +630,23 @@ class DietChecker {
       'burger',
     ]),
     DietTrait.meat: _words([
+      // French, German, Italian.
+      'viande',
+      'poulet',
+      'dinde',
+      'agneau',
+      'canard',
+      'fleisch',
+      'huhn',
+      'hahnchen',
+      'haehnchen',
+      'pute',
+      'lamm',
+      'ente',
+      'tacchino',
+      'agnello',
+      'anatra',
+      'coniglio',
       'pollo',
       'chicken',
       'pavo',
@@ -480,6 +685,15 @@ class DietChecker {
       'nugget',
     ]),
     DietTrait.alcohol: _words([
+      // French, German, Italian.
+      'alcool',
+      'vin',
+      'biere',
+      'alkohol',
+      'wein',
+      'bier',
+      'alcol',
+      'birra',
       'vino',
       'wine',
       'cerveza',
@@ -503,7 +717,12 @@ class DietChecker {
       'sake',
       'sangria',
     ]),
-    DietTrait.honey: _words(['miel', 'honey']),
+    DietTrait.honey: _words([
+      // French, German, Italian.
+      'honig',
+      'miele',
+      'miel', 'honey',
+    ]),
     DietTrait.gelatin: _words([
       'gelatina',
       'gelatin',
@@ -522,12 +741,17 @@ class DietChecker {
   static final _plantDrink = RegExp(
     r'(leche|bebida|yogur|yogurt|postre|nata|queso) (vegetal|de (soja|avena|almendra|arroz|coco|avellana|anacardo|nuez|guisante))|(soy|oat|almond|rice|coconut|plant|cashew|hazelnut|pea) (milk|drink|yogurt|yoghurt|cream|cheese)',
   );
+  static final _plantDrinkOther = RegExp(
+    r'(lait|boisson|yaourt|dessert) (vegetal|de (soja|riz|avoine|amande|coco))|(hafer|soja|mandel|reis|kokos)(milch|drink|joghurt)|(latte|bevanda|yogurt) (vegetale|di (soia|riso|avena|mandorla|cocco))',
+  );
   static final _plantMeat = RegExp(
     r'(?<![a-z])(vegetal|vegana?|vegan|veggie|plant based|plant-based|heura|beyond|de soja|de tofu|de seitan|texturizad)',
   );
-  static final _glutenFree = RegExp(r'sin gluten|gluten[ -]?free|\bsg\b');
+  static final _glutenFree = RegExp(
+    r'sin gluten|gluten[ -]?free|\bsg\b|sans gluten|glutenfrei|senza glutine',
+  );
   static final _lactoseFree = RegExp(
-    r'sin lactosa|lactose[ -]?free|0 ?% lactosa|deslactosad',
+    r'sin lactosa|lactose[ -]?free|0 ?% lactosa|deslactosad|sans lactose|laktosefrei|senza lattosio|delattosat',
   );
   static final _alcoholFree = RegExp(r'sin alcohol|alcohol[ -]?free|0[.,]0');
   static final _peanutButter = RegExp(
@@ -540,12 +764,34 @@ class DietChecker {
     r'tortilla(s)? (de (trigo|maiz|harina)|mexicana)|(flour|wheat|corn) tortilla|wrap',
   );
 
+  /// German writes compounds ("Weizenmehl", "Haselnüsse"): these stems
+  /// count anywhere in a word. Only stems that are not parts of Spanish,
+  /// English, French or Italian words.
+  static final _germanStems = <DietTrait, RegExp>{
+    DietTrait.gluten: RegExp(r'weizen|roggen|gerste|dinkel|hafer'),
+    DietTrait.milk: RegExp(
+      r'milch|sahne|molke|kaese|(?<![a-z])kase|joghurt|vollmilch',
+    ),
+    DietTrait.egg: RegExp(r'eigelb|eiklar|vollei|huhnerei|eipulver'),
+    DietTrait.treeNut: RegExp(r'haselnuss|walnuss|mandel|pistazie|cashewkern'),
+    DietTrait.peanut: RegExp(r'erdnuss'),
+    DietTrait.fish: RegExp(r'thunfisch|fisch|lachs|kabeljau|hering'),
+    DietTrait.celery: RegExp(r'sellerie'),
+    DietTrait.mustard: RegExp(r'senf'),
+    DietTrait.pork: RegExp(r'schwein|schinken|speck'),
+    DietTrait.beef: RegExp(r'rindfleisch|rinder|kalbfleisch'),
+    DietTrait.meat: RegExp(r'fleisch|hahnchen|haehnchen|huhn|putenbrust'),
+  };
+
   /// What [name] (and the food list's [conceptId], when known) contains.
   static Set<DietTrait> traitsOf(String name, {String? conceptId}) {
     final text = FoodKnowledge.fold(name);
     final concept = conceptId ?? FoodKnowledge.instance?.match(name)?.id ?? '';
     final traits = <DietTrait>{...?_conceptTraits[concept]};
     for (final e in _rules.entries) {
+      if (e.value.hasMatch(text)) traits.add(e.key);
+    }
+    for (final e in _germanStems.entries) {
       if (e.value.hasMatch(text)) traits.add(e.key);
     }
     // What words alone get wrong.
@@ -569,7 +815,9 @@ class DietChecker {
         DietTrait.fish,
       });
     }
-    if (_plantDrink.hasMatch(text) || concept == 'plant_milk') {
+    if (_plantDrink.hasMatch(text) ||
+        _plantDrinkOther.hasMatch(text) ||
+        concept == 'plant_milk') {
       traits.removeAll({
         DietTrait.milk,
         DietTrait.lactose,
@@ -684,7 +932,10 @@ class DietChecker {
     final milkInName = _rules[DietTrait.milk]!.hasMatch(
       FoodKnowledge.fold(name),
     );
-    if (milkInName && !_plantDrink.hasMatch(FoodKnowledge.fold(name))) {
+    final foldedName = FoodKnowledge.fold(name);
+    if (milkInName &&
+        !_plantDrink.hasMatch(foldedName) &&
+        !_plantDrinkOther.hasMatch(foldedName)) {
       traits.add(DietTrait.milk);
     }
     final out = <DietConflict>[];

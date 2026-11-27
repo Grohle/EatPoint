@@ -152,23 +152,27 @@ class IngredientLabelParser {
     caseSensitive: false,
   );
   static final _containsHead = RegExp(
-    r'\b(contiene|contains|alergenos|allergens|al[eé]rgenos)\s*:?',
+    r'\b(contiene|contains|alergenos|allergens|al[eé]rgenos|contient|allerg[eè]nes|enth[aä]lt|allergene|allergeni)\s*:?',
     caseSensitive: false,
   );
   static final _tracesHead = RegExp(
-    r'(puede contener( trazas de)?|trazas de|may contain( traces of)?|traces of|elaborado en (una )?(f[aá]brica|instalaci[oó]n) que (tambi[eé]n )?(utiliza|procesa|manipula)|produced in a factory (that|which) (also )?(handles|uses))\s*:?',
+    r'(puede contener( trazas de)?|trazas de|may contain( traces of)?|traces of|peut contenir( des traces de?)?|traces [ée]ventuelles de|kann spuren( von)?( enthalten)?|spuren von|pu[oò] contenere( tracce di)?|tracce di|elaborado en (una )?(f[aá]brica|instalaci[oó]n) que (tambi[eé]n )?(utiliza|procesa|manipula)|produced in a factory (that|which) (also )?(handles|uses))\s*:?',
     caseSensitive: false,
   );
 
   static final _labelWords = <FoodLabel, RegExp>{
     FoodLabel.vegan: RegExp(
-      r'\b(vegan[oa]?s?|apto para veganos|plant[- ]based)\b',
+      r'\b(vegan[oa]?s?|vegane?|v[ée]g[ée]talien|apto para veganos|plant[- ]based)\b',
     ),
     FoodLabel.vegetarian: RegExp(
-      r'\b(vegetarian[oa]?s?|apto para vegetarianos)\b',
+      r'\b(vegetarian[oa]?[si]?|vegetarisch|v[ée]g[ée]tarien(ne)?|apto para vegetarianos)\b',
     ),
-    FoodLabel.glutenFree: RegExp(r'\b(sin gluten|gluten[ -]free)\b'),
-    FoodLabel.lactoseFree: RegExp(r'\b(sin lactosa|lactose[ -]free)\b'),
+    FoodLabel.glutenFree: RegExp(
+      r'\b(sin gluten|gluten[ -]free|sans gluten|glutenfrei|senza glutine)\b',
+    ),
+    FoodLabel.lactoseFree: RegExp(
+      r'\b(sin lactosa|lactose[ -]free|sans lactose|laktosefrei|senza lattosio)\b',
+    ),
     FoodLabel.halal: RegExp(r'\bhalal\b'),
     FoodLabel.kosher: RegExp(r'\bkosher\b'),
   };

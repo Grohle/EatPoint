@@ -25,6 +25,16 @@ const String screenshotDir = String.fromEnvironment(
   defaultValue: 'build/screenshots',
 );
 
+/// The languages to capture, e.g. `--dart-define=SCREENSHOT_LOCALES=de,fr`.
+const String _screenshotLocales = String.fromEnvironment(
+  'SCREENSHOT_LOCALES',
+  defaultValue: 'en,es',
+);
+final List<Locale> screenshotLocales = [
+  for (final code in _screenshotLocales.split(','))
+    if (code.trim().isNotEmpty) Locale(code.trim()),
+];
+
 /// A phone of 412 x 915 logical pixels, 1080 x 2400 physical.
 const phoneSize = Size(412, 915);
 const phonePixelRatio = 2.625;
@@ -105,7 +115,7 @@ Widget screenshotApp({
       darkTheme: buildAppTheme(AppPalette.dark),
       themeMode: dark ? ThemeMode.dark : ThemeMode.light,
       locale: locale,
-      supportedLocales: const [Locale('en'), Locale('es')],
+      supportedLocales: S.supportedLocales,
       localizationsDelegates: const [
         S.delegate,
         GlobalMaterialLocalizations.delegate,

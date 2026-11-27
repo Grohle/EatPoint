@@ -64,7 +64,7 @@ void main() {
 
   tearDown(() => locator.reset());
 
-  for (final locale in const [Locale('en'), Locale('es')]) {
+  for (final locale in screenshotLocales) {
     final tag = locale.languageCode;
 
     testWidgets('meals screen ($tag)', (tester) async {
