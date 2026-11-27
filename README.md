@@ -1,9 +1,23 @@
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/icon/ont_banner_top_light.png">
-    <img alt="OpenNutriTracker" src="assets/icon/ont_banner_top.png" width="420" />
+    <source media="(prefers-color-scheme: dark)" srcset="assets/icon/eatpoint_banner_top_light.png">
+    <img alt="EatPoint" src="assets/icon/eatpoint_banner_top.png" width="420" />
   </picture>
 </p>
+
+<p align="center">
+  A fork of <a href="https://github.com/simonoppowa/OpenNutriTracker">OpenNutriTracker</a> that adds
+  points ↔ grams tracking, weekly menus with a shared shopping list, and nutrition-label scanning.
+</p>
+
+> [!NOTE]
+> **EatPoint is a fork of [OpenNutriTracker](https://github.com/simonoppowa/OpenNutriTracker)**,
+> created by Simon Oppowa and its contributors, and is distributed under the same
+> [GPLv3 license](LICENSE). The changes this fork makes are described in
+> [What EatPoint adds](#what-eatpoint-adds) and shown in the [Screenshots](#screenshots).
+> Everything else in this README describes the upstream app, which the fork keeps intact.
+> The store links, release and build badges, translation platform and contact details below
+> belong to the upstream project.
 
 <p align="center">
   <b>Free. Open. Cited.</b><br />
@@ -40,6 +54,32 @@ out from your height, weight, age, and activity level, and keeps the record on y
 It is for anyone who wants the numbers without handing their eating history to a company,
 whether that is losing weight, gaining it, managing a condition, or simply knowing.
 
+## What EatPoint adds
+
+> **Status:** in development. None of these features ships in a release yet.
+
+EatPoint adds a portion system on top of OpenNutriTracker's calorie and macro tracking. You
+can plan and log meals in **points** as well as in grams. The new flows are the default; the
+original calorie-first screens stay available from the menu.
+
+| | |
+| :-- | :-- |
+| **Points ↔ grams** | One point is 100 kcal from a single macronutrient. Each food carries how its points split between carbs, protein and fat, so a meal can be planned in points and weighed in grams. Daily and per-meal point budgets come from your calorie and macro targets, with protein set first. |
+| **Point budget per meal** | You give each meal its own budget of carb, protein and fat points (for example breakfast 3 / 0.25 / 2, lunch 3 / 2 / 1), and the meals add up to the day's total. While you plan or log, every meal shows what it has used and what is left. |
+| **Suggested starting budget** | When you enter your weight, height, age, activity and goal (and, optionally, waist and neck measurements for a body-fat estimate), the app suggests a daily point budget and a split across meals. The suggestion is always labelled as **a guide only**: a starting point to adjust as you track your progress, not medical or dietetic advice. You can edit every number. |
+| **Two-way amount entry** | When you log a food, the grams and points fields stay in sync. Typing grams updates the points. Typing points fills in practical grams for a kitchen scale (to 1 g under 30 g, to 5 g up to 150 g, to 10 g above that) and shows the exact value next to it. |
+| **Points in the daily summary** | The day's points used and remaining appear next to calories and macros. |
+| **Nutrition-label scanner** | For products that aren't in the food databases, you can photograph the label. On-device text recognition reads the per-100 g / 100 ml values in Spanish and English, checks the calories against the macros, and opens an editor beside the photo so you can correct anything before saving. |
+| **Optional AI extraction** | If the on-device read fails its check, you can retry with a vision model, either on an OpenAI-compatible endpoint you configure or with an optional model you download to the device. Nothing leaves the phone unless you turn this on. |
+| **Weekly menu planner** | A separate planner lays out the week by day and meal. You can fill it with dishes you've logged or saved before (recipes, favourites, recent meals) and see each day's points against its budget. A planned meal can be logged in one tap. |
+| **Shopping list** | The planner builds a shopping list from the week's menus. Quantities are merged per ingredient and grouped by aisle. Each item can be ticked off, and the list can be shared or exported as text or CSV. Both the planner and the list are one tap away from the home screen. |
+| **Scheduled reminders** | Optional local notifications remind you to plan the week, to do the shopping, and to prepare or log each planned meal, at times you choose. They are off until you turn them on. |
+| **Shared household** | Optionally link your account with another person's. Each person keeps their own weekly menu, diary and point budget. Your menus are merged: you see the other person's menu next to yours, can copy dishes between them, and get one **joint shopping list** that adds up both menus per ingredient and shows who each quantity is for. Ticking an item off shows up on both phones. The data syncs through a sync service you choose and is end-to-end encrypted: the key is exchanged in person by QR code, so the storage provider only ever holds ciphertext. |
+| **Agent connector (MCP)** | An optional [Model Context Protocol](https://modelcontextprotocol.io) server lets an AI agent you run read your menus and shopping lists and propose changes. It is off by default, the diary stays private unless you grant it, and every write needs your approval. |
+| **Export everything** | Menus, shopping lists, plans, custom foods with their point profiles, and the existing diary data export as JSON, CSV or PDF, and can be re-imported. |
+| **English and Spanish** | Every new screen, message and export ships in English and Spanish from the start, using the app's existing localization files. Other languages show English until they are translated. |
+| **Isolated from upstream** | The new logic lives in its own modules. Calorie, macro and BMI calculations and the Open Food Facts integration behave as they do upstream. |
+
 ## Install
 
 <p align="center">
@@ -52,28 +92,28 @@ whether that is losing weight, gaining it, managing a condition, or simply knowi
 
 <table align="center">
   <tr>
-    <td align="center" width="33%"><img alt="Home screen showing calories left on a progress ring, carbs, fat and protein against their targets, and the day's logged activity" src="docs/screenshots/1_en-US.png" /></td>
-    <td align="center" width="33%"><img alt="Adding food to lunch, with recently logged items ready to re-add in one tap and a barcode scanner in the search field" src="docs/screenshots/2_en-US.png" /></td>
-    <td align="center" width="33%"><img alt="Food detail showing the full nutrition table with saturated fat, sugar and fibre, plus an expanded micronutrient panel" src="docs/screenshots/3_en-US.png" /></td>
+    <td align="center" width="33%"><img alt="Today screen with a ring showing 7.5 points left, carb, protein and fat points against their budgets, and each meal's points used out of its budget" src="docs/screenshots/eatpoint/1_en-US.png" /></td>
+    <td align="center" width="33%"><img alt="Adding cooked rice with linked grams and points fields: 2.5 points fills in 190 g, with the exact 187.5 g and 2.53 real points shown below" src="docs/screenshots/eatpoint/2_en-US.png" /></td>
+    <td align="center" width="33%"><img alt="Label scanner showing the photographed nutrition table above editable fields, a check that the calories match the macros, and the resulting points per 100 g" src="docs/screenshots/eatpoint/3_en-US.png" /></td>
   </tr>
   <tr>
-    <td align="center"><sub><b>Home</b><br />where the day stands</sub></td>
-    <td align="center"><sub><b>Add food</b><br />re-log in one tap</sub></td>
-    <td align="center"><sub><b>Food detail</b><br />down to the micronutrient</sub></td>
+    <td align="center"><sub><b>Today</b><br />points left, meal by meal</sub></td>
+    <td align="center"><sub><b>Add food</b><br />grams ↔ points</sub></td>
+    <td align="center"><sub><b>Label scanner</b><br />photo to food in one step</sub></td>
   </tr>
   <tr>
-    <td align="center"><img alt="Diary showing a month calendar with each day marked by how it went, and the selected day's calories and macro rings below" src="docs/screenshots/4_en-US.png" /></td>
-    <td align="center"><img alt="Trends showing a seven-day streak, calories charted against the goal line, and daily macro averages" src="docs/screenshots/5_en-US.png" /></td>
-    <td align="center"><img alt="Profile screen showing BMI, activity level, weight goal and weekly rate" src="docs/screenshots/6_en-US.png" /></td>
+    <td align="center"><img alt="Weekly menu for Tuesday showing both people's planned dishes side by side, with a button to log each one and a joint shopping list button" src="docs/screenshots/eatpoint/4_en-US.png" /></td>
+    <td align="center"><img alt="Joint shopping list grouped by aisle, with quantities split per person, items ticked off by either person, and export options" src="docs/screenshots/eatpoint/5_en-US.png" /></td>
+    <td align="center"><img alt="Sharing screen with the shared household, the sync location, the optional agent connector and an export-everything button" src="docs/screenshots/eatpoint/6_en-US.png" /></td>
   </tr>
   <tr>
-    <td align="center"><sub><b>Diary</b><br />every day you've logged</sub></td>
-    <td align="center"><sub><b>Trends</b><br />calories against your goal</sub></td>
-    <td align="center"><sub><b>You</b><br />goals and body metrics</sub></td>
+    <td align="center"><sub><b>Weekly menu</b><br />yours and theirs, together</sub></td>
+    <td align="center"><sub><b>Shopping list</b><br />one list for the household</sub></td>
+    <td align="center"><sub><b>Share &amp; sync</b><br />private by design</sub></td>
   </tr>
 </table>
 
-<sub>Screenshots show a demo profile with generated data.</sub>
+<sub>Design previews of EatPoint's screens with example data. The app is in development, so the final screens may differ.</sub>
 
 ## Why OpenNutriTracker
 
