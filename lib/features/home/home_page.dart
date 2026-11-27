@@ -20,6 +20,7 @@ import 'package:opennutritracker/core/presentation/widgets/delete_dialog.dart';
 import 'package:opennutritracker/core/presentation/widgets/disclaimer_dialog.dart';
 import 'package:opennutritracker/core/domain/usecase/import_workouts_usecase.dart';
 import 'package:opennutritracker/core/utils/locator.dart';
+import 'package:opennutritracker/features/points/presentation/widgets/points_home_switcher.dart';
 import 'package:opennutritracker/features/add_meal/presentation/add_meal_type.dart';
 import 'package:opennutritracker/features/diary/presentation/bloc/calendar_day_bloc.dart';
 import 'package:opennutritracker/features/diary/presentation/bloc/diary_bloc.dart';
@@ -202,17 +203,29 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
             ),
             const FastingHomeChip(),
             const SizedBox(height: Dimens.spacing8),
-            DashboardWidget(
-              totalKcalDaily: totalKcalDaily,
-              totalKcalLeft: totalKcalLeft,
-              totalKcalSupplied: totalKcalSupplied,
-              totalKcalBurned: totalKcalBurned,
-              totalCarbsIntake: totalCarbsIntake,
-              totalFatsIntake: totalFatsIntake,
-              totalProteinsIntake: totalProteinsIntake,
-              totalCarbsGoal: totalCarbsGoal,
-              totalFatsGoal: totalFatsGoal,
-              totalProteinsGoal: totalProteinsGoal,
+            // EatPoint: the points card is the default; the original
+            // calorie dashboard stays one tap away.
+            PointsHomeSwitcher(
+              intakes: {
+                IntakeTypeEntity.breakfast: breakfastIntakeList,
+                IntakeTypeEntity.lunch: lunchIntakeList,
+                IntakeTypeEntity.dinner: dinnerIntakeList,
+                IntakeTypeEntity.snack: snackIntakeList,
+              },
+              kcalSupplied: totalKcalSupplied,
+              kcalGoal: totalKcalDaily,
+              caloriesView: DashboardWidget(
+                totalKcalDaily: totalKcalDaily,
+                totalKcalLeft: totalKcalLeft,
+                totalKcalSupplied: totalKcalSupplied,
+                totalKcalBurned: totalKcalBurned,
+                totalCarbsIntake: totalCarbsIntake,
+                totalFatsIntake: totalFatsIntake,
+                totalProteinsIntake: totalProteinsIntake,
+                totalCarbsGoal: totalCarbsGoal,
+                totalFatsGoal: totalFatsGoal,
+                totalProteinsGoal: totalProteinsGoal,
+              ),
             ),
             // Day-one / empty-day guidance: when nothing is logged yet, point
             // the way to the centre + rather than leaving a silent dashboard.

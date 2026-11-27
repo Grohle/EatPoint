@@ -25,6 +25,8 @@ import 'package:opennutritracker/core/utils/locale_provider.dart';
 import 'package:opennutritracker/core/utils/reload_diary_and_trends.dart';
 import 'package:opennutritracker/core/utils/theme_mode_provider.dart';
 import 'package:opennutritracker/core/utils/url_const.dart';
+import 'package:opennutritracker/features/points/presentation/points_settings_screen.dart';
+import 'package:opennutritracker/features/points/data/points_settings_data_source.dart';
 import 'package:opennutritracker/features/diary/presentation/bloc/calendar_day_bloc.dart';
 import 'package:opennutritracker/features/diary/presentation/bloc/diary_bloc.dart';
 import 'package:opennutritracker/features/home/presentation/bloc/home_bloc.dart';
@@ -234,6 +236,30 @@ class _SettingsScreenState extends State<SettingsScreen> {
           // shrink-wrapped, unscrollable list of fixed children *is* a
           // Column, with a viewport in the way.
           final children = <Widget>[
+              // EatPoint: points settings come first.
+              if (locator.isRegistered<PointsSettingsDataSource>()) ...[
+                SettingsCategoryHeader(
+                  palette: palette,
+                  label: S.of(context).pointsSettingsTitle,
+                ),
+                SettingsGroup(
+                  palette: palette,
+                  tiles: [
+                    SettingsTile(
+                      identifier: 'settings-points',
+                      palette: palette,
+                      icon: Icons.donut_large_rounded,
+                      title: S.of(context).pointsSettingsTitle,
+                      subtitle: S.of(context).pointsSettingsSubtitle,
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => const PointsSettingsScreen(),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
               SettingsCategoryHeader(
                 palette: palette,
                 label: S.of(context).settingsCategoryUnits,

@@ -149,6 +149,7 @@ class _TestHiveDBProvider extends HiveDBProvider {
   final Box<WaterIntakeDBO> water;
   final Box<FastingSessionDBO> fasting;
   final Box<FavouriteMealDBO> favourites;
+  final Box<String> pointsSettings;
   final Box<ConfigDBO> sharedAppConfig;
 
   _TestHiveDBProvider({
@@ -161,6 +162,7 @@ class _TestHiveDBProvider extends HiveDBProvider {
     required this.water,
     required this.fasting,
     required this.favourites,
+    required this.pointsSettings,
     required this.sharedAppConfig,
   });
 
@@ -182,6 +184,8 @@ class _TestHiveDBProvider extends HiveDBProvider {
   Box<FastingSessionDBO> get fastingBox => fasting;
   @override
   Box<FavouriteMealDBO> get favouriteMealBox => favourites;
+  @override
+  Box<String> get pointsSettingsBox => pointsSettings;
   @override
   Box<ConfigDBO> get appConfigBox => sharedAppConfig;
 }
@@ -218,6 +222,7 @@ void main() {
       favourites: favouriteBox = await Hive.openBox<FavouriteMealDBO>(
         'wipe_favourites_$tag',
       ),
+      pointsSettings: await Hive.openBox<String>('wipe_points_$tag'),
       sharedAppConfig: appConfigBox,
     );
 

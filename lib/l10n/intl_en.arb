@@ -270,7 +270,7 @@
   "alphaVersionName": "[Alpha]",
   "appDescription": "OpenNutriTracker is a free and open-source calorie and nutrient tracker that respects your privacy.",
   "appLicenseLabel": "GPL-3.0 license",
-  "appTitle": "OpenNutriTracker",
+  "appTitle": "EatPoint",
   "appVersionName": "Version {versionNumber}",
   "@appVersionName": {"placeholders": {"versionNumber": {"type": "String"}}},
   "barcodeInvalidEan13CheckDigit": "This 13-digit barcode looks miskeyed: its last digit doesn't match the rest",
@@ -1570,5 +1570,865 @@
   "removeIngredientLabel": "Remove ingredient",
   "@removeIngredientLabel": {
     "description": "Tooltip and screen reader label of the delete button on a recipe ingredient row."
+  },
+  "pointsLabel": "Points",
+  "@pointsLabel": {
+    "description": "Label of the points field and the points view."
+  },
+  "pointsShort": "pts",
+  "@pointsShort": {
+    "description": "Short unit after a number of points, e.g. '2.5 pts'."
+  },
+  "pointsCarbsLabel": "Carbs",
+  "@pointsCarbsLabel": {
+    "description": "Carbohydrate row of the points bars."
+  },
+  "pointsProteinLabel": "Protein",
+  "@pointsProteinLabel": {
+    "description": "Protein row of the points bars."
+  },
+  "pointsFatLabel": "Fat",
+  "@pointsFatLabel": {
+    "description": "Fat row of the points bars."
+  },
+  "pointsPer100Label": "{points} pts / 100 {unit}",
+  "@pointsPer100Label": {
+    "description": "Chip on the amount sheet with a food's points per 100 g or ml.",
+    "placeholders": {
+      "points": {
+        "type": "String",
+        "example": "1.33"
+      },
+      "unit": {
+        "type": "String",
+        "example": "g"
+      }
+    }
+  },
+  "pointsOnePointIs": "1 pt = {amount} {unit}",
+  "@pointsOnePointIs": {
+    "description": "Chip on the amount sheet: how much of the food makes one point.",
+    "placeholders": {
+      "amount": {
+        "type": "String",
+        "example": "75"
+      },
+      "unit": {
+        "type": "String",
+        "example": "g"
+      }
+    }
+  },
+  "pointsStepDown": "Remove a quarter point",
+  "@pointsStepDown": {
+    "description": "Tooltip of the minus button next to the points field."
+  },
+  "pointsStepUp": "Add a quarter point",
+  "@pointsStepUp": {
+    "description": "Tooltip of the plus button next to the points field."
+  },
+  "pointsExactHint": "Exact: {exact} → weigh {rounded} {unit} · {points} real pts",
+  "@pointsExactHint": {
+    "description": "Under the points field after typing points: the exact amount, the rounded amount to weigh, and the points that amount really has.",
+    "placeholders": {
+      "exact": {
+        "type": "String",
+        "example": "187.5"
+      },
+      "rounded": {
+        "type": "String",
+        "example": "190"
+      },
+      "unit": {
+        "type": "String",
+        "example": "g"
+      },
+      "points": {
+        "type": "String",
+        "example": "2.53"
+      }
+    }
+  },
+  "pointsServingSummary": "{points} pts · {per100} pts / 100",
+  "@pointsServingSummary": {
+    "description": "One-line summary when the amount sheet is collapsed.",
+    "placeholders": {
+      "points": {
+        "type": "String",
+        "example": "2.5"
+      },
+      "per100": {
+        "type": "String",
+        "example": "1.33"
+      }
+    }
+  },
+  "pointsFitInMealTitle": "{meal}: how this fits",
+  "@pointsFitInMealTitle": {
+    "description": "Title of the bars that show a meal's points budget, what is already logged and what this serving adds. {meal} is the meal name, e.g. 'Lunch'.",
+    "placeholders": {
+      "meal": {
+        "type": "String",
+        "example": "Lunch"
+      }
+    }
+  },
+  "pointsSheetExpand": "Show more",
+  "@pointsSheetExpand": {
+    "description": "Screen reader label of the handle that expands the amount sheet."
+  },
+  "pointsSheetCollapse": "Show less",
+  "@pointsSheetCollapse": {
+    "description": "Screen reader label of the handle that collapses the amount sheet."
+  },
+  "pointsLeftLabel": "pts left",
+  "@pointsLeftLabel": {
+    "description": "Under the number in the centre of the home points ring."
+  },
+  "pointsOverLabel": "pts over",
+  "@pointsOverLabel": {
+    "description": "Under the number in the centre of the home points ring when the budget is exceeded."
+  },
+  "pointsDayTitle": "Today's points",
+  "@pointsDayTitle": {
+    "description": "Title of the points card on the home screen."
+  },
+  "pointsUsedOfBudget": "{used} / {budget}",
+  "@pointsUsedOfBudget": {
+    "description": "Points used out of a budget, e.g. '6 / 10'.",
+    "placeholders": {
+      "used": {
+        "type": "String",
+        "example": "6"
+      },
+      "budget": {
+        "type": "String",
+        "example": "10"
+      }
+    }
+  },
+  "pointsMealUsage": "{meal}: {used} / {budget} pts",
+  "@pointsMealUsage": {
+    "description": "One line per meal on the home points card.",
+    "placeholders": {
+      "meal": {
+        "type": "String",
+        "example": "Lunch"
+      },
+      "used": {
+        "type": "String",
+        "example": "4.25"
+      },
+      "budget": {
+        "type": "String",
+        "example": "6"
+      }
+    }
+  },
+  "pointsKcalLine": "{kcal} of {goal} kcal",
+  "@pointsKcalLine": {
+    "description": "Calories line under the home points ring.",
+    "placeholders": {
+      "kcal": {
+        "type": "String",
+        "example": "1,268"
+      },
+      "goal": {
+        "type": "String",
+        "example": "2,031"
+      }
+    }
+  },
+  "pointsGuideTitle": "Your suggested points",
+  "@pointsGuideTitle": {
+    "description": "Title of the sheet that shows the suggested daily points budget."
+  },
+  "pointsGuideBody": "This budget is a guide only, worked out from your profile. Use it as a starting point and adjust it as you see how you progress. It is not medical or dietetic advice.",
+  "@pointsGuideBody": {
+    "description": "Disclaimer shown with every suggested points budget."
+  },
+  "pointsGuideShort": "A guide only, adjust it as you progress.",
+  "@pointsGuideShort": {
+    "description": "Short disclaimer under the budget in settings."
+  },
+  "pointsGuideAccept": "Start with this",
+  "@pointsGuideAccept": {
+    "description": "Button that accepts the suggested budget."
+  },
+  "pointsGuideAdjust": "Adjust",
+  "@pointsGuideAdjust": {
+    "description": "Button that opens the points settings from the suggestion sheet."
+  },
+  "pointsSuggestedKcal": "About {kcal} kcal a day",
+  "@pointsSuggestedKcal": {
+    "description": "Line under the suggested budget.",
+    "placeholders": {
+      "kcal": {
+        "type": "String",
+        "example": "2,029"
+      }
+    }
+  },
+  "pointsSettingsTitle": "Points",
+  "@pointsSettingsTitle": {
+    "description": "Title of the points settings screen and its entry in Settings."
+  },
+  "pointsSettingsSubtitle": "Budget, method and meals",
+  "@pointsSettingsSubtitle": {
+    "description": "Subtitle of the points entry in Settings."
+  },
+  "pointsModeLabel": "Use points",
+  "@pointsModeLabel": {
+    "description": "Switch that makes points the main way of logging."
+  },
+  "pointsModeSubtitle": "Turn off to use the original calorie view.",
+  "@pointsModeSubtitle": {
+    "description": "Subtitle of the points switch."
+  },
+  "pointsMethodTitle": "How the budget is worked out",
+  "@pointsMethodTitle": {
+    "description": "Section title in points settings."
+  },
+  "pointsMethodLeanMass": "Lean mass, protein first",
+  "@pointsMethodLeanMass": {
+    "description": "Default budget method."
+  },
+  "pointsMethodLeanMassSubtitle": "Calories from your lean body mass. Protein is set first; the rest is split between carbs and fat.",
+  "@pointsMethodLeanMassSubtitle": {
+    "description": "Explanation of the default budget method."
+  },
+  "pointsMethodAppMacros": "Calorie goal and macros",
+  "@pointsMethodAppMacros": {
+    "description": "Alternative budget method."
+  },
+  "pointsMethodAppMacrosSubtitle": "Uses the calorie goal and macro split from your profile.",
+  "@pointsMethodAppMacrosSubtitle": {
+    "description": "Explanation of the alternative budget method."
+  },
+  "pointsCalorieAdjustmentLabel": "Calories to eat (% of maintenance)",
+  "@pointsCalorieAdjustmentLabel": {
+    "description": "Field in points settings; 75 means a 25 % deficit."
+  },
+  "pointsProteinPerKgLabel": "Protein per kg of lean mass (g)",
+  "@pointsProteinPerKgLabel": {
+    "description": "Field in points settings."
+  },
+  "pointsCarbShareLabel": "Carbs share of the rest (%)",
+  "@pointsCarbShareLabel": {
+    "description": "Field in points settings; the rest of the non-protein calories goes to fat."
+  },
+  "pointsActivityLabel": "Activity multiplier",
+  "@pointsActivityLabel": {
+    "description": "Field in points settings."
+  },
+  "pointsAutomaticHint": "Empty = from your profile",
+  "@pointsAutomaticHint": {
+    "description": "Helper text of optional fields that otherwise come from the profile."
+  },
+  "pointsMeasurementsTitle": "Body measurements (optional)",
+  "@pointsMeasurementsTitle": {
+    "description": "Section title in points settings."
+  },
+  "pointsMeasurementsSubtitle": "For a closer body-fat estimate. Without them it is estimated from your BMI and age.",
+  "@pointsMeasurementsSubtitle": {
+    "description": "Explanation under the measurements section."
+  },
+  "pointsNeckLabel": "Neck (cm)",
+  "@pointsNeckLabel": {
+    "description": "Measurement field."
+  },
+  "pointsWaistLabel": "Waist (cm)",
+  "@pointsWaistLabel": {
+    "description": "Measurement field."
+  },
+  "pointsHipLabel": "Hip (cm)",
+  "@pointsHipLabel": {
+    "description": "Measurement field."
+  },
+  "pointsBodyFatEstimate": "Estimated body fat: {percent} % · lean mass {lean} kg",
+  "@pointsBodyFatEstimate": {
+    "description": "Line in points settings.",
+    "placeholders": {
+      "percent": {
+        "type": "String",
+        "example": "29"
+      },
+      "lean": {
+        "type": "String",
+        "example": "87.2"
+      }
+    }
+  },
+  "pointsDailyBudgetTitle": "Daily points",
+  "@pointsDailyBudgetTitle": {
+    "description": "Section title in points settings."
+  },
+  "pointsUseOwnBudget": "Set my own daily points",
+  "@pointsUseOwnBudget": {
+    "description": "Switch that lets the user type their own daily budget."
+  },
+  "pointsMealSplitTitle": "Points per meal",
+  "@pointsMealSplitTitle": {
+    "description": "Section title listing each meal's budget."
+  },
+  "pointsSaveLabel": "Save",
+  "@pointsSaveLabel": {
+    "description": "Save button in points settings."
+  },
+  "pointsCaloriesViewLabel": "Calorie view",
+  "@pointsCaloriesViewLabel": {
+    "description": "Menu item that switches the home screen to the original calorie view."
+  },
+  "pointsPointsViewLabel": "Points view",
+  "@pointsPointsViewLabel": {
+    "description": "Menu item that switches the home screen to the points view."
+  },
+  "labelScanButton": "Scan nutrition label",
+  "@labelScanButton": {
+    "description": "Button on the custom food form that photographs a nutrition label and fills the values."
+  },
+  "labelScanTakePhoto": "Take a photo",
+  "@labelScanTakePhoto": {
+    "description": "Option to photograph a label with the camera."
+  },
+  "labelScanChooseGallery": "Choose from gallery",
+  "@labelScanChooseGallery": {
+    "description": "Option to pick a label photo from the gallery."
+  },
+  "labelScanTitle": "Check the values",
+  "@labelScanTitle": {
+    "description": "Title of the label review screen."
+  },
+  "labelScanReading": "Reading the label…",
+  "@labelScanReading": {
+    "description": "Shown while the label text is recognised."
+  },
+  "labelScanReadOnDevice": "Read on this phone",
+  "@labelScanReadOnDevice": {
+    "description": "Caption over the photo when the values were read on the device."
+  },
+  "labelScanReadByAi": "Read by {provider}",
+  "@labelScanReadByAi": {
+    "description": "Caption over the photo when an AI model read the values.",
+    "placeholders": {
+      "provider": {
+        "type": "String",
+        "example": "OpenRouter"
+      }
+    }
+  },
+  "labelScanMatches": "Adds up: {label} kcal on the label, {computed} from the macros",
+  "@labelScanMatches": {
+    "description": "Banner when label energy matches the macros.",
+    "placeholders": {
+      "label": {
+        "type": "String",
+        "example": "247"
+      },
+      "computed": {
+        "type": "String",
+        "example": "247"
+      }
+    }
+  },
+  "labelScanMismatch": "Doesn't add up: {label} kcal on the label, {computed} from the macros. Check the highlighted values or retry with AI.",
+  "@labelScanMismatch": {
+    "description": "Banner when label energy does not match the macros.",
+    "placeholders": {
+      "label": {
+        "type": "String",
+        "example": "247"
+      },
+      "computed": {
+        "type": "String",
+        "example": "99"
+      }
+    }
+  },
+  "labelScanIncomplete": "Some values could not be read. Fill them in or retry with AI.",
+  "@labelScanIncomplete": {
+    "description": "Banner when core values are missing."
+  },
+  "labelScanPer100g": "Values per 100 g",
+  "@labelScanPer100g": {
+    "description": "Caption of the fields on the review screen."
+  },
+  "labelScanPer100ml": "Values per 100 ml",
+  "@labelScanPer100ml": {
+    "description": "Caption of the fields when the label is per 100 ml."
+  },
+  "labelScanKcal": "Energy (kcal)",
+  "@labelScanKcal": {
+    "description": "Field label."
+  },
+  "labelScanFat": "Fat (g)",
+  "@labelScanFat": {
+    "description": "Field label."
+  },
+  "labelScanSaturated": "Saturates (g)",
+  "@labelScanSaturated": {
+    "description": "Field label."
+  },
+  "labelScanCarbs": "Carbohydrate (g)",
+  "@labelScanCarbs": {
+    "description": "Field label."
+  },
+  "labelScanSugars": "Sugars (g)",
+  "@labelScanSugars": {
+    "description": "Field label."
+  },
+  "labelScanFiber": "Fibre (g)",
+  "@labelScanFiber": {
+    "description": "Field label."
+  },
+  "labelScanProtein": "Protein (g)",
+  "@labelScanProtein": {
+    "description": "Field label."
+  },
+  "labelScanSalt": "Salt (g)",
+  "@labelScanSalt": {
+    "description": "Field label."
+  },
+  "labelScanCheck": "check",
+  "@labelScanCheck": {
+    "description": "Added to a field label the check suspects."
+  },
+  "labelScanPointsResult": "{points} pts / 100 g · 1 pt = {grams} g",
+  "@labelScanPointsResult": {
+    "description": "Result line on the review screen.",
+    "placeholders": {
+      "points": {
+        "type": "String",
+        "example": "2.47"
+      },
+      "grams": {
+        "type": "String",
+        "example": "40"
+      }
+    }
+  },
+  "labelScanRetryAi": "Retry with AI",
+  "@labelScanRetryAi": {
+    "description": "Button that sends the photo to the configured AI model."
+  },
+  "labelScanUseValues": "Use these values",
+  "@labelScanUseValues": {
+    "description": "Button that fills the food form with the reviewed values."
+  },
+  "labelScanRetakePhoto": "Retake photo",
+  "@labelScanRetakePhoto": {
+    "description": "Button over the photo."
+  },
+  "labelScanAiConfirmTitle": "Send this photo?",
+  "@labelScanAiConfirmTitle": {
+    "description": "Title of the confirmation before a label photo goes to an AI provider."
+  },
+  "labelScanAiConfirmBody": "The label photo will be sent to {provider} to read the values. Nothing else is sent.",
+  "@labelScanAiConfirmBody": {
+    "description": "Body of the confirmation before a label photo goes to an AI provider.",
+    "placeholders": {
+      "provider": {
+        "type": "String",
+        "example": "OpenRouter"
+      }
+    }
+  },
+  "labelScanAiConfirmSend": "Send",
+  "@labelScanAiConfirmSend": {
+    "description": "Confirm button."
+  },
+  "labelScanAiNotConfigured": "Set up AI assistance in Settings to read labels with AI.",
+  "@labelScanAiNotConfigured": {
+    "description": "Shown when retry with AI is tapped without a configured provider."
+  },
+  "labelScanAiFailed": "The AI could not read the label. Check your connection or fill the values in by hand.",
+  "@labelScanAiFailed": {
+    "description": "Shown when the AI request fails."
+  },
+  "labelScanSettingsTitle": "Label reading",
+  "@labelScanSettingsTitle": {
+    "description": "Title of the label reading settings."
+  },
+  "labelScanEngineOnDevice": "Text recognition on this phone",
+  "@labelScanEngineOnDevice": {
+    "description": "First reading engine."
+  },
+  "labelScanEngineOnDeviceSubtitle": "Always on. Works offline; the photo never leaves the phone.",
+  "@labelScanEngineOnDeviceSubtitle": {
+    "description": "Subtitle of the first engine."
+  },
+  "labelScanEngineLocalModel": "Downloadable on-device model",
+  "@labelScanEngineLocalModel": {
+    "description": "Second reading engine."
+  },
+  "labelScanEngineLocalModelSubtitle": "In development. Will read difficult labels offline.",
+  "@labelScanEngineLocalModelSubtitle": {
+    "description": "Subtitle of the second engine."
+  },
+  "labelScanEngineAi": "AI via your provider",
+  "@labelScanEngineAi": {
+    "description": "Third reading engine."
+  },
+  "labelScanEngineAiOn": "Uses {provider}. Asks before sending each photo.",
+  "@labelScanEngineAiOn": {
+    "description": "Subtitle of the AI engine when configured.",
+    "placeholders": {
+      "provider": {
+        "type": "String",
+        "example": "OpenRouter"
+      }
+    }
+  },
+  "labelScanEngineAiOff": "Not set up. Configure AI assistance in Settings.",
+  "@labelScanEngineAiOff": {
+    "description": "Subtitle of the AI engine when not configured."
+  },
+  "labelScanInDevelopment": "In development",
+  "@labelScanInDevelopment": {
+    "description": "Badge on features that are not ready yet."
+  },
+  "labelScanOrder": "Engines are tried in this order; the next one is only used when the previous one doesn't add up.",
+  "@labelScanOrder": {
+    "description": "Explanation at the top of the label reading settings."
+  },
+  "plannerTitle": "Weekly menu",
+  "@plannerTitle": {
+    "description": "Title of the weekly menu planner."
+  },
+  "plannerEntry": "Menu",
+  "@plannerEntry": {
+    "description": "Short label of the home shortcut to the weekly menu."
+  },
+  "shoppingEntry": "Shopping",
+  "@shoppingEntry": {
+    "description": "Short label of the home shortcut to the shopping list."
+  },
+  "plannerPreviousWeek": "Previous week",
+  "@plannerPreviousWeek": {
+    "description": "Tooltip of the previous week arrow."
+  },
+  "plannerNextWeek": "Next week",
+  "@plannerNextWeek": {
+    "description": "Tooltip of the next week arrow."
+  },
+  "plannerDayPoints": "{planned} of {budget} pts planned",
+  "@plannerDayPoints": {
+    "description": "Points planned for the selected day.",
+    "placeholders": {
+      "planned": {
+        "type": "String",
+        "example": "18.5"
+      },
+      "budget": {
+        "type": "String",
+        "example": "20"
+      }
+    }
+  },
+  "plannerMealPoints": "{meal} · {points} pts",
+  "@plannerMealPoints": {
+    "description": "Header of a meal in the planner.",
+    "placeholders": {
+      "meal": {
+        "type": "String",
+        "example": "Lunch"
+      },
+      "points": {
+        "type": "String",
+        "example": "6"
+      }
+    }
+  },
+  "plannerAddDish": "Add dish",
+  "@plannerAddDish": {
+    "description": "Button that adds a dish to a planned meal."
+  },
+  "plannerEmptyMeal": "Nothing planned",
+  "@plannerEmptyMeal": {
+    "description": "Shown under a meal with no planned food."
+  },
+  "plannerLogMeal": "Log",
+  "@plannerLogMeal": {
+    "description": "Button that logs everything planned for a meal."
+  },
+  "plannerLogged": "Logged",
+  "@plannerLogged": {
+    "description": "Shown on a meal already logged from the plan."
+  },
+  "plannerLoggedSnack": "{meal} logged",
+  "@plannerLoggedSnack": {
+    "description": "Snackbar after logging a planned meal.",
+    "placeholders": {
+      "meal": {
+        "type": "String",
+        "example": "Lunch"
+      }
+    }
+  },
+  "plannerRemoveItem": "Remove",
+  "@plannerRemoveItem": {
+    "description": "Tooltip of the button that removes a planned food."
+  },
+  "plannerCopyPreviousWeek": "Copy previous week",
+  "@plannerCopyPreviousWeek": {
+    "description": "Menu action of the planner."
+  },
+  "plannerCopiedDays": "{count} days copied",
+  "@plannerCopiedDays": {
+    "description": "Snackbar after copying the previous week.",
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "example": "5"
+      }
+    }
+  },
+  "plannerNothingToCopy": "The previous week has nothing planned",
+  "@plannerNothingToCopy": {
+    "description": "Snackbar when there is nothing to copy."
+  },
+  "plannerCopyDayTo": "Copy this day to…",
+  "@plannerCopyDayTo": {
+    "description": "Menu action that copies the selected day to other days."
+  },
+  "plannerClearDay": "Clear this day",
+  "@plannerClearDay": {
+    "description": "Menu action that removes everything planned for the selected day."
+  },
+  "plannerReminders": "Reminders",
+  "@plannerReminders": {
+    "description": "Menu action and title of the planner reminders."
+  },
+  "plannerShoppingButton": "Shopping list · {count} items",
+  "@plannerShoppingButton": {
+    "description": "Button from the planner to the shopping list.",
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "example": "23"
+      }
+    }
+  },
+  "plannerPickTitle": "{meal} on {day}",
+  "@plannerPickTitle": {
+    "description": "Title of the dish picker, e.g. 'Lunch on Tuesday'.",
+    "placeholders": {
+      "meal": {
+        "type": "String",
+        "example": "Lunch"
+      },
+      "day": {
+        "type": "String",
+        "example": "Tuesday"
+      }
+    }
+  },
+  "plannerPickLeft": "{points} pts left in this meal",
+  "@plannerPickLeft": {
+    "description": "Subtitle of the dish picker.",
+    "placeholders": {
+      "points": {
+        "type": "String",
+        "example": "1.25"
+      }
+    }
+  },
+  "plannerPickSearch": "Search your dishes",
+  "@plannerPickSearch": {
+    "description": "Search field of the dish picker."
+  },
+  "plannerTabFits": "Fit best",
+  "@plannerTabFits": {
+    "description": "Dish picker tab ordered by fit to the remaining budget."
+  },
+  "plannerTabRecent": "Recent",
+  "@plannerTabRecent": {
+    "description": "Dish picker tab with recently logged foods."
+  },
+  "plannerTabRecipes": "Recipes",
+  "@plannerTabRecipes": {
+    "description": "Dish picker tab with saved recipes."
+  },
+  "plannerTabFavourites": "Favourites",
+  "@plannerTabFavourites": {
+    "description": "Dish picker tab with favourite foods."
+  },
+  "plannerFits": "Fits",
+  "@plannerFits": {
+    "description": "Badge on a dish that fits the remaining budget."
+  },
+  "plannerScaleToFit": "Scale to the points left",
+  "@plannerScaleToFit": {
+    "description": "Switch in the dish picker."
+  },
+  "plannerNoDishes": "No dishes yet. Log a few meals or save recipes and they will appear here.",
+  "@plannerNoDishes": {
+    "description": "Empty state of the dish picker."
+  },
+  "plannerAmountTitle": "How much?",
+  "@plannerAmountTitle": {
+    "description": "Title of the amount dialog when adding a dish."
+  },
+  "plannerAdd": "Add",
+  "@plannerAdd": {
+    "description": "Confirm button of the amount dialog."
+  },
+  "shoppingTitle": "Shopping list",
+  "@shoppingTitle": {
+    "description": "Title of the shopping list."
+  },
+  "shoppingWeek": "Week of {date}",
+  "@shoppingWeek": {
+    "description": "Subtitle of the shopping list.",
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "example": "30 Nov"
+      }
+    }
+  },
+  "shoppingProgress": "{done} of {total} picked",
+  "@shoppingProgress": {
+    "description": "Progress line of the shopping list.",
+    "placeholders": {
+      "done": {
+        "type": "String",
+        "example": "9"
+      },
+      "total": {
+        "type": "String",
+        "example": "23"
+      }
+    }
+  },
+  "shoppingEmpty": "Plan some meals for this week and the list fills itself.",
+  "@shoppingEmpty": {
+    "description": "Empty shopping list."
+  },
+  "shoppingAddItem": "Add item",
+  "@shoppingAddItem": {
+    "description": "Button that adds an item by hand."
+  },
+  "shoppingItemName": "Item",
+  "@shoppingItemName": {
+    "description": "Field label when adding an item by hand."
+  },
+  "shoppingItemAmount": "Amount (optional)",
+  "@shoppingItemAmount": {
+    "description": "Field label when adding an item by hand."
+  },
+  "shoppingExport": "Share or export",
+  "@shoppingExport": {
+    "description": "Button that shares the list."
+  },
+  "shoppingExportText": "Share as text",
+  "@shoppingExportText": {
+    "description": "Export option."
+  },
+  "shoppingExportCsv": "Export CSV",
+  "@shoppingExportCsv": {
+    "description": "Export option."
+  },
+  "shoppingCsvHeader": "Aisle,Item,Amount,Unit,Done",
+  "@shoppingCsvHeader": {
+    "description": "Header row of the exported CSV; keep the commas."
+  },
+  "shoppingAisleProduce": "Fruit and veg",
+  "@shoppingAisleProduce": {
+    "description": "Aisle name."
+  },
+  "shoppingAisleMeatFish": "Meat and fish",
+  "@shoppingAisleMeatFish": {
+    "description": "Aisle name."
+  },
+  "shoppingAisleDairyEggs": "Dairy and eggs",
+  "@shoppingAisleDairyEggs": {
+    "description": "Aisle name."
+  },
+  "shoppingAisleBakery": "Bakery",
+  "@shoppingAisleBakery": {
+    "description": "Aisle name."
+  },
+  "shoppingAislePantry": "Pantry",
+  "@shoppingAislePantry": {
+    "description": "Aisle name."
+  },
+  "shoppingAisleDrinks": "Drinks",
+  "@shoppingAisleDrinks": {
+    "description": "Aisle name."
+  },
+  "shoppingAisleOther": "Other",
+  "@shoppingAisleOther": {
+    "description": "Aisle name."
+  },
+  "shoppingTickedBy": "Ticked by {name}",
+  "@shoppingTickedBy": {
+    "description": "Under an item another household member ticked.",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "M"
+      }
+    }
+  },
+  "remindersOffNote": "All reminders are off until you turn them on. They are local notifications: no account, nothing leaves the phone.",
+  "@remindersOffNote": {
+    "description": "Note at the top of the planner reminders."
+  },
+  "remindersPlanWeek": "Plan the week",
+  "@remindersPlanWeek": {
+    "description": "Reminder name."
+  },
+  "remindersShopping": "Do the shopping",
+  "@remindersShopping": {
+    "description": "Reminder name."
+  },
+  "remindersPrepare": "Prepare tomorrow's food",
+  "@remindersPrepare": {
+    "description": "Reminder name."
+  },
+  "remindersLog": "Log what you planned",
+  "@remindersLog": {
+    "description": "Reminder name."
+  },
+  "remindersLogSubtitle": "{minutes} min after each meal",
+  "@remindersLogSubtitle": {
+    "description": "Subtitle of the log reminder.",
+    "placeholders": {
+      "minutes": {
+        "type": "String",
+        "example": "30"
+      }
+    }
+  },
+  "remindersChannelName": "Planner reminders",
+  "@remindersChannelName": {
+    "description": "Notification channel name shown in system settings."
+  },
+  "remindersChannelDescription": "Reminders to plan the week, shop and log planned meals.",
+  "@remindersChannelDescription": {
+    "description": "Notification channel description."
+  },
+  "remindersPlanWeekBody": "Take five minutes to plan next week's menu.",
+  "@remindersPlanWeekBody": {
+    "description": "Notification body."
+  },
+  "remindersShoppingBody": "Your shopping list is ready.",
+  "@remindersShoppingBody": {
+    "description": "Notification body."
+  },
+  "remindersPrepareBody": "Tomorrow you planned: {dishes}",
+  "@remindersPrepareBody": {
+    "description": "Notification body.",
+    "placeholders": {
+      "dishes": {
+        "type": "String",
+        "example": "Salmon, potato"
+      }
+    }
+  },
+  "remindersLogBody": "Did you have what you planned? Log it in one tap.",
+  "@remindersLogBody": {
+    "description": "Notification body."
   }
 }

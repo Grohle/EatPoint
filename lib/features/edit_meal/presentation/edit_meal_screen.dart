@@ -25,6 +25,7 @@ import 'package:opennutritracker/core/utils/food_name_validator.dart';
 import 'package:opennutritracker/core/utils/locator.dart';
 import 'package:opennutritracker/core/utils/navigation_options.dart';
 import 'package:opennutritracker/core/utils/navigation_predicates.dart';
+import 'package:opennutritracker/features/label_scan/presentation/label_scan_screen.dart';
 import 'package:opennutritracker/features/add_meal/presentation/log_tray.dart';
 import 'package:opennutritracker/features/add_meal/domain/entity/meal_entity.dart';
 import 'package:opennutritracker/features/edit_meal/presentation/bloc/edit_meal_bloc.dart';
@@ -427,6 +428,19 @@ class _EditMealScreenState extends State<EditMealScreen> {
             border: const OutlineInputBorder(borderRadius: Dimens.borderRadiusM),
           ),
           keyboardType: TextInputType.text,
+        ),
+        const SizedBox(height: 16),
+        // EatPoint: read the values off a photo of the nutrition label.
+        Semantics(
+          identifier: 'edit-meal-scan-label',
+          child: OutlinedButton.icon(
+            onPressed: _scanLabelIntoForm,
+            icon: const Icon(Icons.document_scanner_outlined),
+            label: Text(S.of(context).labelScanButton),
+            style: OutlinedButton.styleFrom(
+              minimumSize: const Size.fromHeight(Dimens.minTouchTarget),
+            ),
+          ),
         ),
         const SizedBox(height: 16),
         // Optional barcode (#167). Lets the user attach a code to a custom
@@ -958,6 +972,42 @@ class _EditMealScreenState extends State<EditMealScreen> {
   /// scan-time validator on the field handles bad codes (8–14 digits,
   /// EAN-13 check digit) — we don't double-validate here so the user can
   /// see and edit the raw scanned value before saving.
+  /// EatPoint: fills the nutrition fields from a reviewed label scan. The
+  /// label gives values per 100 g / ml, so advanced mode switches to a
+  /// base quantity of 100 and per-quantity values; simple mode already
+  /// reads its fields per 100.
+  Future<void> _scanLabelIntoForm() async {
+    final values = await LabelScanFlow.start(context);
+    if (values == null || !mounted) return;
+    final usesKj =
+        Provider.of<EnergyUnitProvider>(context, listen: false).usesKilojoules;
+    String text(double? v) => v == null ? '' : v.toStringOrEmpty();
+    setState(() {
+      if (_formMode != CustomMealFormMode.simple) {
+        _baseQuantityTextController.text = '100';
+        _isTotal = false;
+      }
+      if (values.kcal != null) {
+        _kcalTextController.text = _formatStoredKcalForDisplay(
+          values.kcal,
+          usesKj,
+        );
+      }
+      if (values.carbs != null) _carbsTextController.text = text(values.carbs);
+      if (values.fat != null) _fatTextController.text = text(values.fat);
+      if (values.protein != null) {
+        _proteinTextController.text = text(values.protein);
+      }
+      if (values.fiber != null) _fiberTextController.text = text(values.fiber);
+      if (values.saturatedFat != null) {
+        _saturatedFatTextController.text = text(values.saturatedFat);
+      }
+      if (values.sugars != null) {
+        _sugarsTextController.text = text(values.sugars);
+      }
+    });
+  }
+
   Future<void> _scanBarcodeIntoField() async {
     log.fine('Opening edit-meal barcode scanner');
     final navigator = Navigator.of(context);

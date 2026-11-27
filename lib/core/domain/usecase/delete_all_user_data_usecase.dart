@@ -79,6 +79,7 @@ class DeleteAllUserDataUsecase {
         _hiveDBProvider.waterIntakeBox.clear(),
         _hiveDBProvider.fastingBox.clear(),
         _hiveDBProvider.favouriteMealBox.clear(),
+        _hiveDBProvider.pointsSettingsBox.clear(),
       ]);
       await recordTrackedDayBoundary(ConfigDataSource(_hiveDBProvider));
     });
