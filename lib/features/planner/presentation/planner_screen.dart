@@ -31,6 +31,7 @@ import 'package:opennutritracker/features/travel/data/travel_mode_store.dart';
 import 'package:opennutritracker/features/travel/presentation/travel_mode_banner.dart';
 import 'package:opennutritracker/core/utils/id_generator.dart';
 import 'package:opennutritracker/features/diet_profile/presentation/diet_warning.dart';
+import 'package:opennutritracker/features/menu_generator/presentation/menu_generator_screen.dart';
 import 'package:opennutritracker/generated/l10n.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -47,6 +48,7 @@ class PlannerScreen extends StatefulWidget {
 }
 
 enum _DayAction {
+  generateMenu,
   importMenu,
   copyPreviousWeek,
   copyDayTo,
@@ -266,6 +268,18 @@ class _PlannerScreenState extends State<PlannerScreen> {
     final s = S.of(context);
     final messenger = ScaffoldMessenger.of(context);
     switch (action) {
+      case _DayAction.generateMenu:
+        final days = await Navigator.of(context).push<int>(
+          MaterialPageRoute(
+            builder: (_) => MenuGeneratorScreen(initialDay: _weekStart),
+          ),
+        );
+        if (days != null && days > 0) {
+          await _rescheduleReminders();
+          messenger.showSnackBar(
+            SnackBar(content: Text(s.generatorDone(days.toString()))),
+          );
+        }
       case _DayAction.importMenu:
         final days = await Navigator.of(context).push<int>(
           MaterialPageRoute(
@@ -433,6 +447,10 @@ class _PlannerScreenState extends State<PlannerScreen> {
             child: PopupMenuButton<_DayAction>(
               onSelected: _onAction,
               itemBuilder: (context) => [
+                PopupMenuItem(
+                  value: _DayAction.generateMenu,
+                  child: Text(s.generatorTitle),
+                ),
                 PopupMenuItem(
                   value: _DayAction.importMenu,
                   child: Text(s.menuImportTitle),

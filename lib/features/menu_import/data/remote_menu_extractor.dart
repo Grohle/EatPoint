@@ -37,6 +37,20 @@ class RemoteMenuExtractor {
       '}]}]}]}. Do not invent foods or amounts that are not in the source; '
       'use null for missing amounts.';
 
+  /// EatPoint: asks the AI to write a meal plan to [brief] instead of
+  /// reading one, answering in the same JSON as [prompt].
+  static String generatePrompt(List<String> mealNames) =>
+      'Write a varied, healthy meal plan that follows the BRIEF below '
+      'exactly. Answer with one JSON object and nothing else: {"days":[{'
+      '"day": the date "YYYY-MM-DD" from the brief, "meals":[{"meal": one '
+      'of ${mealNames.map((n) => '"$n"').join(', ')}, "dish": dish name or '
+      'null, "foods":[{"name": a simple food name in the language the '
+      'brief asks for (one ingredient per entry, e.g. "Pechuga de pollo", '
+      'not a whole recipe), "grams": grams for one person (ml for drinks), '
+      '"count": pieces or null, "points": null, "kcal100", "carbs100", '
+      '"protein100", "fat100": your best estimate per 100 g}]}]}]}. Fill '
+      'every meal of every day.';
+
   final _log = Logger('RemoteMenuExtractor');
   final http.Client _client;
   final AiCredentialStorage _credentials;
@@ -52,10 +66,15 @@ class RemoteMenuExtractor {
   Future<ImportedMenu> fromPhoto(String imagePath, List<String> mealNames) =>
       _extract(mealNames, imagePath: imagePath);
 
+  /// A new meal plan written by the AI to [brief].
+  Future<ImportedMenu> generate(String brief, List<String> mealNames) =>
+      _extract(mealNames, text: brief, generate: true);
+
   Future<ImportedMenu> _extract(
     List<String> mealNames, {
     String? text,
     String? imagePath,
+    bool generate = false,
   }) async {
     final selection = await _credentials.readSelection();
     if (selection == null) {
@@ -82,8 +101,8 @@ class RemoteMenuExtractor {
       image = (mediaType: photo.mediaType, data: base64Encode(photo.bytes));
     }
     final instruction = [
-      prompt(mealNames),
-      if (text != null) '\n\nSOURCE:\n$text',
+      generate ? generatePrompt(mealNames) : prompt(mealNames),
+      if (text != null) generate ? '\n\nBRIEF:\n$text' : '\n\nSOURCE:\n$text',
     ].join();
     final String answer;
     try {

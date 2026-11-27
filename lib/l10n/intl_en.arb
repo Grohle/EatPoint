@@ -4251,5 +4251,152 @@
   "traitGelatin": "gelatine",
   "@traitGelatin": {
     "description": "Food trait"
+  },
+  "generatorTitle": "Generate menu",
+  "@generatorTitle": {
+    "description": "Screen and menu action"
+  },
+  "generatorIntro": "A varied menu for your meals and points, following your diet. You can review and change everything before it is saved.",
+  "@generatorIntro": {
+    "description": "Intro"
+  },
+  "generatorDietCard": "Your diet",
+  "@generatorDietCard": {
+    "description": "Card title"
+  },
+  "generatorDietNone": "No restrictions or preferences yet.",
+  "@generatorDietNone": {
+    "description": "Profile empty"
+  },
+  "generatorDietEdit": "Edit",
+  "@generatorDietEdit": {
+    "description": "Button"
+  },
+  "generatorAllergies": "Allergies: {list}",
+  "@generatorAllergies": {
+    "description": "Summary",
+    "placeholders": {
+      "list": {
+        "type": "String"
+      }
+    }
+  },
+  "generatorIntolerances": "Intolerances: {list}",
+  "@generatorIntolerances": {
+    "description": "Summary",
+    "placeholders": {
+      "list": {
+        "type": "String"
+      }
+    }
+  },
+  "generatorLikes": "Likes: {list}",
+  "@generatorLikes": {
+    "description": "Summary",
+    "placeholders": {
+      "list": {
+        "type": "String"
+      }
+    }
+  },
+  "generatorDislikes": "Not wanted: {list}",
+  "@generatorDislikes": {
+    "description": "Summary",
+    "placeholders": {
+      "list": {
+        "type": "String"
+      }
+    }
+  },
+  "generatorDaysTitle": "Days",
+  "@generatorDaysTitle": {
+    "description": "Section"
+  },
+  "generatorFrom": "From {date}",
+  "@generatorFrom": {
+    "description": "Start date button",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "generatorDays": "{count} days",
+  "@generatorDays": {
+    "description": "Days chip",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "generatorOneDay": "1 day",
+  "@generatorOneDay": {
+    "description": "Days chip"
+  },
+  "generatorPreferOwn": "Use your dishes and recipes first",
+  "@generatorPreferOwn": {
+    "description": "Switch"
+  },
+  "generatorPreferOwnHelp": "Otherwise it picks from EatPoint's basic foods.",
+  "@generatorPreferOwnHelp": {
+    "description": "Switch help"
+  },
+  "generatorEngineTitle": "How",
+  "@generatorEngineTitle": {
+    "description": "Section"
+  },
+  "generatorEnginePhone": "On this phone",
+  "@generatorEnginePhone": {
+    "description": "Engine"
+  },
+  "generatorEngineAi": "With AI",
+  "@generatorEngineAi": {
+    "description": "Engine"
+  },
+  "generatorEnginePhoneHelp": "Private and offline: simple meals from your foods and the basic foods, following healthy-eating guides.",
+  "@generatorEnginePhoneHelp": {
+    "description": "Engine help"
+  },
+  "generatorEngineAiHelp": "Your AI provider writes more varied dishes. Your meals, points and diet are sent to it (not your name).",
+  "@generatorEngineAiHelp": {
+    "description": "Engine help"
+  },
+  "generatorAiNotSet": "Set up an AI provider in Settings to use it.",
+  "@generatorAiNotSet": {
+    "description": "AI unavailable"
+  },
+  "generatorGenerate": "Generate",
+  "@generatorGenerate": {
+    "description": "Button"
+  },
+  "generatorGenerating": "Generating…",
+  "@generatorGenerating": {
+    "description": "Busy"
+  },
+  "generatorAiConfirmTitle": "Send to your AI provider?",
+  "@generatorAiConfirmTitle": {
+    "description": "Dialog"
+  },
+  "generatorAiConfirmBody": "Your meals and their points, your diet (allergies, intolerances, likes) and the names of some of your dishes will be sent to write the menu. Nothing else.",
+  "@generatorAiConfirmBody": {
+    "description": "Dialog body"
+  },
+  "generatorAiFailed": "The AI could not write the menu. Try again or generate it on the phone.",
+  "@generatorAiFailed": {
+    "description": "Error"
+  },
+  "generatorNothing": "No menu could be made with these settings. Try allowing more foods.",
+  "@generatorNothing": {
+    "description": "Error"
+  },
+  "generatorDone": "Menu saved for {count} days",
+  "@generatorDone": {
+    "description": "Snackbar",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
   }
 }

@@ -407,31 +407,40 @@ class _MenuImportReviewScreenState extends State<MenuImportReviewScreen> {
             children: [
               Icon(mealSlotIcon(meal.slot), size: 18),
               const SizedBox(width: Dimens.spacing8),
-              PopupMenuButton<MealSlot>(
-                tooltip: s.menuImportChangeMeal,
-                onSelected: (slot) => setState(() {
-                  _slotEdits[key] = slot;
-                  _rebuild();
-                }),
-                itemBuilder: (context) => [
-                  for (final slot in widget.slots)
-                    PopupMenuItem(
-                      value: slot,
-                      child: Text(mealSlotLabel(context, slot)),
+              // The meal's name gives way to the points on narrow screens.
+              Expanded(
+                child: Align(
+                  alignment: AlignmentDirectional.centerStart,
+                  child: PopupMenuButton<MealSlot>(
+                    tooltip: s.menuImportChangeMeal,
+                    onSelected: (slot) => setState(() {
+                      _slotEdits[key] = slot;
+                      _rebuild();
+                    }),
+                    itemBuilder: (context) => [
+                      for (final slot in widget.slots)
+                        PopupMenuItem(
+                          value: slot,
+                          child: Text(mealSlotLabel(context, slot)),
+                        ),
+                    ],
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Flexible(
+                          child: Text(
+                            mealSlotLabel(context, meal.slot),
+                            style: theme.textTheme.titleSmall,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        const Icon(Icons.arrow_drop_down_rounded),
+                      ],
                     ),
-                ],
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      mealSlotLabel(context, meal.slot),
-                      style: theme.textTheme.titleSmall,
-                    ),
-                    const Icon(Icons.arrow_drop_down_rounded),
-                  ],
+                  ),
                 ),
               ),
-              const Spacer(),
               Text(
                 budget == null
                     ? '${format.points(meal.points.total)} ${s.pointsShort}'

@@ -124,6 +124,10 @@ class MenuFoodMatcher {
     return shared / longer;
   }
 
+  static final _freeFrom = RegExp(
+    r'\bsin (gluten|lactosa)\b|\b(gluten|lactose) free\b|\bsin alcohol\b',
+  );
+
   static String _stem(String w) =>
       w.length > 4 ? w.replaceAll(RegExp(r'(es|s)$'), '') : w;
 
@@ -150,9 +154,11 @@ class MenuFoodMatcher {
     // EatPoint's own food list, with full nutrition and no network.
     final core = FoodKnowledge.instance?.matchFood(food.name);
     if (core != null) {
+      final meal = core.toMealEntity(languageCode);
       return MatchedFood(
         food,
-        core.toMealEntity(languageCode),
+        // A free-from version keeps its name ("Leche sin lactosa").
+        _freeFrom.hasMatch(key(food.name)) ? meal.withName(food.name) : meal,
         MatchOrigin.database,
       );
     }
