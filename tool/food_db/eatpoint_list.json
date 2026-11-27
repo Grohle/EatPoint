@@ -1,0 +1,1882 @@
+[
+{
+"name": "Aceite de oliva virgen extra (u otros aceites)",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 92.6,
+"kcal": 833,
+"liquid": false
+},
+{
+"name": "Aceitunas con hueso",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 9.3,
+"kcal": 83,
+"liquid": false
+},
+{
+"name": "Aceitunas sin hueso",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 18.5,
+"kcal": 167,
+"liquid": false
+},
+{
+"name": "Aguacate / guacamole",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 18.5,
+"kcal": 167,
+"liquid": false
+},
+{
+"name": "Arroz / pasta / quinoa / couscous / tapioca / bulgur cocido",
+"carbs": 33.3,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 133,
+"liquid": false
+},
+{
+"name": "Arroz / pasta / quinoa / couscous / tapioca / bulgur en crudo",
+"carbs": 83.3,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 333,
+"liquid": false
+},
+{
+"name": "Arroz con leche",
+"carbs": 33.3,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 133,
+"liquid": false
+},
+{
+"name": "Arroz negro marisco congelado Lidl",
+"carbs": 27.8,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 111,
+"liquid": false
+},
+{
+"name": "Arándanos frescos",
+"carbs": 14.7,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 59,
+"liquid": false
+},
+{
+"name": "Atún claro en lata al natural escurrido",
+"carbs": 0.0,
+"protein": 25.0,
+"fat": 0.0,
+"kcal": 100,
+"liquid": false
+},
+{
+"name": "Atún vegano con tomate (Aldi)",
+"carbs": 0.0,
+"protein": 25.0,
+"fat": 11.1,
+"kcal": 200,
+"liquid": false
+},
+{
+"name": "Atún vegano en aceite vegetal (Aldi)",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 27.8,
+"kcal": 250,
+"liquid": false
+},
+{
+"name": "Azúcar, panela",
+"carbs": 100.0,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 400,
+"liquid": false
+},
+{
+"name": "Base de masa pizza Casa Tarradellas",
+"carbs": 67.6,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 270,
+"liquid": false
+},
+{
+"name": "Base de pizza congelada",
+"carbs": 71.4,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 286,
+"liquid": false
+},
+{
+"name": "Bebida de Soja sin azúcar / Soja calcio",
+"carbs": 0.0,
+"protein": 4.2,
+"fat": 1.9,
+"kcal": 33,
+"liquid": true
+},
+{
+"name": "Bebida de almendras / avellanas",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 4.0,
+"kcal": 36,
+"liquid": true
+},
+{
+"name": "Bebida de almendras / avellanas Zero",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 1.9,
+"kcal": 17,
+"liquid": true
+},
+{
+"name": "Bebida de almendras o de avellanas zero",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 1.9,
+"kcal": 17,
+"liquid": true
+},
+{
+"name": "Bebida de arroz y coco",
+"carbs": 15.6,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 62,
+"liquid": false
+},
+{
+"name": "Bebida de avena / arroz",
+"carbs": 11.4,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 45,
+"liquid": false
+},
+{
+"name": "Bebida de avena/ arroz",
+"carbs": 11.4,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 45,
+"liquid": false
+},
+{
+"name": "Beyond Burguer",
+"carbs": 0.0,
+"protein": 62.5,
+"fat": 0.0,
+"kcal": 250,
+"liquid": false
+},
+{
+"name": "Bifidus Milbona natural",
+"carbs": 4.2,
+"protein": 4.2,
+"fat": 3.7,
+"kcal": 67,
+"liquid": false
+},
+{
+"name": "Bocados o Tiras de Heura",
+"carbs": 0.0,
+"protein": 33.3,
+"fat": 0.0,
+"kcal": 133,
+"liquid": false
+},
+{
+"name": "Boniato / patata (pesados en crudo y cocido)",
+"carbs": 20.8,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 83,
+"liquid": false
+},
+{
+"name": "Boniato / patata (pesados tanto crudo como cocido)",
+"carbs": 20.8,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 83,
+"liquid": false
+},
+{
+"name": "Braseado verduras y pollo congelado Mercadona",
+"carbs": 12.5,
+"protein": 6.2,
+"fat": 2.8,
+"kcal": 100,
+"liquid": false
+},
+{
+"name": "Burguer Beyond Meat",
+"carbs": 0.0,
+"protein": 31.2,
+"fat": 13.9,
+"kcal": 250,
+"liquid": false
+},
+{
+"name": "Burguer de Heura",
+"carbs": 0.0,
+"protein": 20.8,
+"fat": 9.3,
+"kcal": 167,
+"liquid": false
+},
+{
+"name": "Burguer de salmón y merluza",
+"carbs": 0.0,
+"protein": 31.2,
+"fat": 13.9,
+"kcal": 250,
+"liquid": false
+},
+{
+"name": "Cacahuete en polvo desgrasado Mercadona",
+"carbs": 25.0,
+"protein": 50.0,
+"fat": 11.1,
+"kcal": 400,
+"liquid": false
+},
+{
+"name": "Cacao puro desgrasado en polvo",
+"carbs": 25.0,
+"protein": 50.0,
+"fat": 11.1,
+"kcal": 400,
+"liquid": false
+},
+{
+"name": "Calabaza cocida",
+"carbs": 5.6,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 22,
+"liquid": false
+},
+{
+"name": "Caldo de verduras",
+"carbs": 2.0,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 8,
+"liquid": true
+},
+{
+"name": "Carne blanca sin piel: pollo, pavo, conejo",
+"carbs": 0.0,
+"protein": 25.0,
+"fat": 0.0,
+"kcal": 100,
+"liquid": false
+},
+{
+"name": "Carne roja grasa: cordero, ternera, caballo, cerdo",
+"carbs": 0.0,
+"protein": 25.0,
+"fat": 11.1,
+"kcal": 200,
+"liquid": false
+},
+{
+"name": "Carne roja magra: cordero, ternera, caballo, cerdo",
+"carbs": 0.0,
+"protein": 27.8,
+"fat": 0.0,
+"kcal": 111,
+"liquid": false
+},
+{
+"name": "Castañas",
+"carbs": 89.3,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 357,
+"liquid": false
+},
+{
+"name": "Cebolletas, pepinillos",
+"carbs": 4.5,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 18,
+"liquid": false
+},
+{
+"name": "Cereales: avena, corn flakes, cereales hinchados...",
+"carbs": 83.3,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 333,
+"liquid": false
+},
+{
+"name": "Cereales: avena, corn flakes, copos de maiz, copos de espelta, cereales hinchados...",
+"carbs": 83.3,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 333,
+"liquid": false
+},
+{
+"name": "Cerezas, Uvas",
+"carbs": 16.7,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 67,
+"liquid": false
+},
+{
+"name": "Cerveza sin alcohol",
+"carbs": 7.6,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 30,
+"liquid": true
+},
+{
+"name": "Chili con carne lata Hacendado",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 12.3,
+"kcal": 111,
+"liquid": false
+},
+{
+"name": "Chili con carne lata Mercadona",
+"carbs": 6.9,
+"protein": 13.9,
+"fat": 3.1,
+"kcal": 111,
+"liquid": false
+},
+{
+"name": "Chocolate >85% (sin azúcar añadido)",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 55.6,
+"kcal": 500,
+"liquid": false
+},
+{
+"name": "Chocolate con leche",
+"carbs": 62.5,
+"protein": 0.0,
+"fat": 27.8,
+"kcal": 500,
+"liquid": false
+},
+{
+"name": "Choriburguer de Heura",
+"carbs": 0.0,
+"protein": 19.2,
+"fat": 8.5,
+"kcal": 154,
+"liquid": false
+},
+{
+"name": "Chorizo, salchichón, fuet, tocino",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 55.6,
+"kcal": 500,
+"liquid": false
+},
+{
+"name": "Claras de huevo",
+"carbs": 0.0,
+"protein": 10.9,
+"fat": 0.0,
+"kcal": 43,
+"liquid": false
+},
+{
+"name": "Coco (fruta)",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 37.0,
+"kcal": 333,
+"liquid": false
+},
+{
+"name": "Coco al natural",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 37.0,
+"kcal": 333,
+"liquid": false
+},
+{
+"name": "Coco rallado",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 74.1,
+"kcal": 667,
+"liquid": false
+},
+{
+"name": "Crema de arroz / multicereales hidrolizada (para papilla de bebé)",
+"carbs": 100.0,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 400,
+"liquid": false
+},
+{
+"name": "Crema de frutos secos: cacahuete, avellanas, anacardos, pistacho...",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 74.1,
+"kcal": 667,
+"liquid": false
+},
+{
+"name": "Crema de pollo con verduras Mercadona",
+"carbs": 6.2,
+"protein": 0.0,
+"fat": 2.8,
+"kcal": 50,
+"liquid": false
+},
+{
+"name": "Crema de verduras Mercadona",
+"carbs": 7.1,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 29,
+"liquid": false
+},
+{
+"name": "Dátiles/ pasas/ fruta desecada",
+"carbs": 83.3,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 333,
+"liquid": false
+},
+{
+"name": "Edamame",
+"carbs": 0.0,
+"protein": 16.7,
+"fat": 7.4,
+"kcal": 133,
+"liquid": false
+},
+{
+"name": "Embutido de lomo de pavo",
+"carbs": 0.0,
+"protein": 50.0,
+"fat": 0.0,
+"kcal": 200,
+"liquid": false
+},
+{
+"name": "Ensaladilla rusa",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 24.7,
+"kcal": 222,
+"liquid": false
+},
+{
+"name": "Filetes de merluza Heura",
+"carbs": 0.0,
+"protein": 25.0,
+"fat": 11.1,
+"kcal": 200,
+"liquid": false
+},
+{
+"name": "Fresas",
+"carbs": 8.3,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 33,
+"liquid": false
+},
+{
+"name": "Frutos rojos congelados",
+"carbs": 10.0,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 40,
+"liquid": false
+},
+{
+"name": "Frutos secos: avellanas, almendras, cacahuetes, almendras, pistachos, nueces, anacardos…",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 74.1,
+"kcal": 667,
+"liquid": false
+},
+{
+"name": "Garbanzos tostados snack",
+"carbs": 50.0,
+"protein": 50.0,
+"fat": 0.0,
+"kcal": 400,
+"liquid": false
+},
+{
+"name": "Gazpacho tradicional (SIN PAN)",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 3.7,
+"kcal": 33,
+"liquid": true
+},
+{
+"name": "Gnocchi con pollo y verduras congelado Hacendado",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 17.1,
+"kcal": 154,
+"liquid": false
+},
+{
+"name": "Gnocchi con pollo y verduras congelado Mercadona",
+"carbs": 19.2,
+"protein": 9.6,
+"fat": 4.3,
+"kcal": 154,
+"liquid": false
+},
+{
+"name": "Gnocchi de patata",
+"carbs": 41.7,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 167,
+"liquid": false
+},
+{
+"name": "Guisantes",
+"carbs": 20.8,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 83,
+"liquid": false
+},
+{
+"name": "Hamburguesa de cerdo, carne picada de cerdo",
+"carbs": 0.0,
+"protein": 22.7,
+"fat": 10.1,
+"kcal": 182,
+"liquid": false
+},
+{
+"name": "Hamburguesa de pollo, carne picada de pollo, contramuslo de pollo",
+"carbs": 0.0,
+"protein": 20.8,
+"fat": 9.3,
+"kcal": 167,
+"liquid": false
+},
+{
+"name": "Hamburguesa de ternera, carne picada de ternera",
+"carbs": 0.0,
+"protein": 25.0,
+"fat": 11.1,
+"kcal": 200,
+"liquid": false
+},
+{
+"name": "Harina (de trigo, centeno, tapioca, maíz, espelta, avena, arroz...)",
+"carbs": 83.3,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 333,
+"liquid": false
+},
+{
+"name": "Horchata de chufa",
+"carbs": 17.9,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 71,
+"liquid": true
+},
+{
+"name": "Hummus de garbanzos",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 31.7,
+"kcal": 286,
+"liquid": false
+},
+{
+"name": "Jamón serrano graso",
+"carbs": 0.0,
+"protein": 31.2,
+"fat": 13.9,
+"kcal": 250,
+"liquid": false
+},
+{
+"name": "Jamón serrano magro, cabecero de lomo",
+"carbs": 0.0,
+"protein": 25.0,
+"fat": 11.1,
+"kcal": 200,
+"liquid": false
+},
+{
+"name": "Jamón york o dulce, lacón",
+"carbs": 0.0,
+"protein": 17.9,
+"fat": 7.9,
+"kcal": 143,
+"liquid": false
+},
+{
+"name": "KnowEats Albóndigas en salsa chipotle",
+"carbs": 7.5,
+"protein": 15.1,
+"fat": 3.3,
+"kcal": 120,
+"liquid": false
+},
+{
+"name": "KnowEats Arroz negro de sepia y alcachofa",
+"carbs": 8.4,
+"protein": 16.9,
+"fat": 3.8,
+"kcal": 135,
+"liquid": false
+},
+{
+"name": "KnowEats Canelones de pollo trufados",
+"carbs": 8.2,
+"protein": 8.2,
+"fat": 7.3,
+"kcal": 132,
+"liquid": false
+},
+{
+"name": "KnowEats Carrillera de ternera en salsa shiitake con puré de patata",
+"carbs": 0.0,
+"protein": 17.6,
+"fat": 7.8,
+"kcal": 141,
+"liquid": false
+},
+{
+"name": "KnowEats Cerdo en salsa agridulce",
+"carbs": 22.7,
+"protein": 11.4,
+"fat": 5.1,
+"kcal": 182,
+"liquid": false
+},
+{
+"name": "KnowEats Fabada",
+"carbs": 8.9,
+"protein": 8.9,
+"fat": 7.9,
+"kcal": 143,
+"liquid": false
+},
+{
+"name": "KnowEats Lasaña boloñesa",
+"carbs": 9.9,
+"protein": 9.9,
+"fat": 8.8,
+"kcal": 159,
+"liquid": false
+},
+{
+"name": "KnowEats Merluza en salsa al suquet",
+"carbs": 7.7,
+"protein": 7.7,
+"fat": 6.9,
+"kcal": 123,
+"liquid": false
+},
+{
+"name": "KnowEats Milanesa de pollo",
+"carbs": 10.6,
+"protein": 10.6,
+"fat": 9.4,
+"kcal": 169,
+"liquid": false
+},
+{
+"name": "KnowEats Noodles Singapore",
+"carbs": 23.6,
+"protein": 0.0,
+"fat": 10.5,
+"kcal": 189,
+"liquid": false
+},
+{
+"name": "KnowEats Pavo en salsa bacon",
+"carbs": 6.4,
+"protein": 6.4,
+"fat": 5.7,
+"kcal": 103,
+"liquid": false
+},
+{
+"name": "KnowEats Pavo en salsa de mostaza",
+"carbs": 6.7,
+"protein": 13.4,
+"fat": 3.0,
+"kcal": 108,
+"liquid": false
+},
+{
+"name": "KnowEats Penne rigate al romescu con longaniza catalana",
+"carbs": 26.0,
+"protein": 0.0,
+"fat": 11.6,
+"kcal": 208,
+"liquid": false
+},
+{
+"name": "KnowEats Pollo en salsa de soja, cebolla y shiitake con arroz",
+"carbs": 16.2,
+"protein": 8.1,
+"fat": 3.6,
+"kcal": 130,
+"liquid": false
+},
+{
+"name": "KnowEats Pollo encebollado",
+"carbs": 7.4,
+"protein": 7.4,
+"fat": 6.6,
+"kcal": 119,
+"liquid": false
+},
+{
+"name": "KnowEats Risotto de gorgonzola y pollo",
+"carbs": 20.2,
+"protein": 0.0,
+"fat": 9.0,
+"kcal": 161,
+"liquid": false
+},
+{
+"name": "KnowEats Rissotto de setas y ajetes",
+"carbs": 15.6,
+"protein": 0.0,
+"fat": 6.9,
+"kcal": 125,
+"liquid": false
+},
+{
+"name": "KnowEats Salmón con salsa teriyaki",
+"carbs": 7.1,
+"protein": 7.1,
+"fat": 6.3,
+"kcal": 114,
+"liquid": false
+},
+{
+"name": "KnowEats Salmón en salsa de eneldo",
+"carbs": 6.4,
+"protein": 6.4,
+"fat": 5.7,
+"kcal": 102,
+"liquid": false
+},
+{
+"name": "KnowEats Solomillo de cerdo en salsa funghi",
+"carbs": 7.1,
+"protein": 7.1,
+"fat": 6.3,
+"kcal": 114,
+"liquid": false
+},
+{
+"name": "KnowEats Tagliatelle con gamnas a la siciliana",
+"carbs": 12.5,
+"protein": 6.2,
+"fat": 2.8,
+"kcal": 100,
+"liquid": false
+},
+{
+"name": "Kéfir",
+"carbs": 4.2,
+"protein": 4.2,
+"fat": 3.7,
+"kcal": 67,
+"liquid": false
+},
+{
+"name": "Leche desnatada",
+"carbs": 4.3,
+"protein": 4.3,
+"fat": 0.0,
+"kcal": 34,
+"liquid": true
+},
+{
+"name": "Leche desnatada + Proteínas Hacendado",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 4.8,
+"kcal": 43,
+"liquid": true
+},
+{
+"name": "Leche desnatada + Proteínas Mercadona",
+"carbs": 5.4,
+"protein": 5.4,
+"fat": 0.0,
+"kcal": 43,
+"liquid": true
+},
+{
+"name": "Leche entera",
+"carbs": 3.8,
+"protein": 3.8,
+"fat": 3.4,
+"kcal": 61,
+"liquid": true
+},
+{
+"name": "Leche semidesnatada",
+"carbs": 5.7,
+"protein": 2.8,
+"fat": 1.3,
+"kcal": 45,
+"liquid": true
+},
+{
+"name": "Legumbres cocidas",
+"carbs": 11.4,
+"protein": 11.4,
+"fat": 0.0,
+"kcal": 91,
+"liquid": false
+},
+{
+"name": "Legumbres pesadas en crudo",
+"carbs": 41.7,
+"protein": 41.7,
+"fat": 0.0,
+"kcal": 333,
+"liquid": false
+},
+{
+"name": "Levadura nutricional",
+"carbs": 0.0,
+"protein": 71.4,
+"fat": 0.0,
+"kcal": 286,
+"liquid": false
+},
+{
+"name": "Lomo embuchado de cerdo",
+"carbs": 0.0,
+"protein": 50.0,
+"fat": 0.0,
+"kcal": 200,
+"liquid": false
+},
+{
+"name": "Lomo embuchado de pavo / pollo",
+"carbs": 0.0,
+"protein": 50.0,
+"fat": 0.0,
+"kcal": 200,
+"liquid": false
+},
+{
+"name": "Lonchas pechuga de pavo / pollo bajos en grasa",
+"carbs": 0.0,
+"protein": 19.2,
+"fat": 0.0,
+"kcal": 77,
+"liquid": false
+},
+{
+"name": "Lonchas pechuga de pavo/ pollo bajos en grasa",
+"carbs": 0.0,
+"protein": 25.0,
+"fat": 0.0,
+"kcal": 100,
+"liquid": false
+},
+{
+"name": "Maltodextrina, ciclodextrina, dextrosa...",
+"carbs": 83.3,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 333,
+"liquid": false
+},
+{
+"name": "Mango",
+"carbs": 12.5,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 50,
+"liquid": false
+},
+{
+"name": "Mantequilla",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 74.1,
+"kcal": 667,
+"liquid": false
+},
+{
+"name": "Margarina",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 74.1,
+"kcal": 667,
+"liquid": false
+},
+{
+"name": "Mariscos bivalvos: almejas, mejillones, ostras, navajas...",
+"carbs": 0.0,
+"protein": 12.5,
+"fat": 0.0,
+"kcal": 50,
+"liquid": false
+},
+{
+"name": "Mariscos cefalópodos: sepia, calamar, pulpo",
+"carbs": 0.0,
+"protein": 20.8,
+"fat": 0.0,
+"kcal": 83,
+"liquid": false
+},
+{
+"name": "Mariscos crustáceos: langostino, gamba, bogavante, cigala, cangrejo, centollo, nécora...",
+"carbs": 0.0,
+"protein": 22.7,
+"fat": 0.0,
+"kcal": 91,
+"liquid": false
+},
+{
+"name": "Mayonesa",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 55.6,
+"kcal": 500,
+"liquid": false
+},
+{
+"name": "Mayonesa light tipo Ligeresa",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 31.7,
+"kcal": 286,
+"liquid": false
+},
+{
+"name": "Maíz dulce (lata)",
+"carbs": 20.8,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 83,
+"liquid": false
+},
+{
+"name": "Maíz dulce en lata",
+"carbs": 20.8,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 83,
+"liquid": false
+},
+{
+"name": "Maíz en mazorca",
+"carbs": 27.8,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 111,
+"liquid": false
+},
+{
+"name": "Maíz para palomitas",
+"carbs": 100.0,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 400,
+"liquid": false
+},
+{
+"name": "Mejillones en escabeche",
+"carbs": 0.0,
+"protein": 19.2,
+"fat": 8.5,
+"kcal": 154,
+"liquid": false
+},
+{
+"name": "Melón",
+"carbs": 12.5,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 50,
+"liquid": false
+},
+{
+"name": "Mermelada",
+"carbs": 62.5,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 250,
+"liquid": false
+},
+{
+"name": "Miel",
+"carbs": 83.3,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 333,
+"liquid": false
+},
+{
+"name": "Mini taquitos",
+"carbs": 0.0,
+"protein": 31.2,
+"fat": 13.9,
+"kcal": 250,
+"liquid": false
+},
+{
+"name": "Monster, Red Bull",
+"carbs": 12.5,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 50,
+"liquid": true
+},
+{
+"name": "Mozzarella fresca",
+"carbs": 0.0,
+"protein": 27.8,
+"fat": 12.3,
+"kcal": 222,
+"liquid": false
+},
+{
+"name": "Mozzarella light",
+"carbs": 0.0,
+"protein": 19.2,
+"fat": 8.5,
+"kcal": 154,
+"liquid": false
+},
+{
+"name": "Muesli Crujiente sin Azúcares Añadidos Hacendado",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 44.4,
+"kcal": 400,
+"liquid": false
+},
+{
+"name": "Muesli Crujiente sin Azúcares Añadidos Mercadona",
+"carbs": 50.0,
+"protein": 0.0,
+"fat": 22.2,
+"kcal": 400,
+"liquid": false
+},
+{
+"name": "Nachos Mercadona",
+"carbs": 62.5,
+"protein": 0.0,
+"fat": 27.8,
+"kcal": 500,
+"liquid": false
+},
+{
+"name": "Nata para cocinar (18% MG)",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 22.2,
+"kcal": 200,
+"liquid": false
+},
+{
+"name": "Nata para montar (35% MG)",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 37.0,
+"kcal": 333,
+"liquid": false
+},
+{
+"name": "Natillas vainilla proteína Milbona",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 8.9,
+"kcal": 80,
+"liquid": false
+},
+{
+"name": "Nibs de cacao",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 74.1,
+"kcal": 667,
+"liquid": false
+},
+{
+"name": "Palitos de pan crujiente con semillas de girasol ￼",
+"carbs": 62.5,
+"protein": 0.0,
+"fat": 27.8,
+"kcal": 500,
+"liquid": false
+},
+{
+"name": "Pan 55% centeno Hacendado",
+"carbs": 33.8,
+"protein": 16.9,
+"fat": 7.5,
+"kcal": 270,
+"liquid": false
+},
+{
+"name": "Pan brioche, wasa, de semillas, de nueces...",
+"carbs": 62.5,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 250,
+"liquid": false
+},
+{
+"name": "Pan brioche, wasa, de semillas...",
+"carbs": 83.3,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 333,
+"liquid": false
+},
+{
+"name": "Pan integral, blanco, molde, baghette, chapata, campesina, payés, de maíz…",
+"carbs": 100.0,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 400,
+"liquid": false
+},
+{
+"name": "Pan tipo Bimbo proteínas",
+"carbs": 0.0,
+"protein": 15.6,
+"fat": 6.9,
+"kcal": 125,
+"liquid": false
+},
+{
+"name": "Pan tostado proteínas",
+"carbs": 0.0,
+"protein": 54.3,
+"fat": 24.2,
+"kcal": 435,
+"liquid": false
+},
+{
+"name": "Pan tostado tipo Recondo",
+"carbs": 100.0,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 400,
+"liquid": false
+},
+{
+"name": "Panceta de cerdo, morcilla",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 44.4,
+"kcal": 400,
+"liquid": false
+},
+{
+"name": "Panceta de cerdo, morcilla, salchichas",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 44.4,
+"kcal": 400,
+"liquid": false
+},
+{
+"name": "Papaya",
+"carbs": 12.5,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 50,
+"liquid": false
+},
+{
+"name": "Pasta de lentejas rojas cocidas",
+"carbs": 13.9,
+"protein": 13.9,
+"fat": 0.0,
+"kcal": 111,
+"liquid": false
+},
+{
+"name": "Pasta de lentejas rojas pesadas en crudo, harina de garbanzo",
+"carbs": 35.7,
+"protein": 35.7,
+"fat": 0.0,
+"kcal": 286,
+"liquid": false
+},
+{
+"name": "Pasta pollo al pesto Hacendado￼",
+"carbs": 20.2,
+"protein": 10.1,
+"fat": 4.5,
+"kcal": 161,
+"liquid": false
+},
+{
+"name": "Patata de bote cocida",
+"carbs": 13.9,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 56,
+"liquid": false
+},
+{
+"name": "Patata en bote cocida",
+"carbs": 13.9,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 56,
+"liquid": false
+},
+{
+"name": "Patatas Horno Air Fryer",
+"carbs": 38.5,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 154,
+"liquid": false
+},
+{
+"name": "Pescado azul en aceite de oliva escurrido (atún, anchoas, ventresca, caballa...)",
+"carbs": 0.0,
+"protein": 19.2,
+"fat": 8.5,
+"kcal": 154,
+"liquid": false
+},
+{
+"name": "Pescado azul: atún, bonito, salmón, trucha, pez espada, sardina, boquerón...",
+"carbs": 0.0,
+"protein": 19.2,
+"fat": 8.5,
+"kcal": 154,
+"liquid": false
+},
+{
+"name": "Pescado blanco: lubina, dorada, lenguado, rape, merluza, gallo, bacalao...",
+"carbs": 0.0,
+"protein": 20.8,
+"fat": 0.0,
+"kcal": 83,
+"liquid": false
+},
+{
+"name": "Pipas de calabaza, de girasol...",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 55.6,
+"kcal": 500,
+"liquid": false
+},
+{
+"name": "Pizza estilo Casa Tarradellas (4 quesos, jamón y queso, atún y bacon, pollo y pimientos...)",
+"carbs": 35.7,
+"protein": 0.0,
+"fat": 15.9,
+"kcal": 286,
+"liquid": false
+},
+{
+"name": "Piña",
+"carbs": 12.5,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 50,
+"liquid": false
+},
+{
+"name": "Plátano frito",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 27.8,
+"kcal": 250,
+"liquid": false
+},
+{
+"name": "Plátano macho",
+"carbs": 31.2,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 125,
+"liquid": false
+},
+{
+"name": "Poke preparado de Salmón de Mercadona",
+"carbs": 17.9,
+"protein": 8.9,
+"fat": 4.0,
+"kcal": 143,
+"liquid": false
+},
+{
+"name": "Proteína en polvo Whey / Caseína",
+"carbs": 0.0,
+"protein": 100.0,
+"fat": 0.0,
+"kcal": 400,
+"liquid": false
+},
+{
+"name": "Proteína en polvo vegetal",
+"carbs": 0.0,
+"protein": 100.0,
+"fat": 0.0,
+"kcal": 400,
+"liquid": false
+},
+{
+"name": "Pudding Vainilla Eroski",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 7.9,
+"kcal": 71,
+"liquid": false
+},
+{
+"name": "Puré preparado en polvo",
+"carbs": 83.3,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 333,
+"liquid": false
+},
+{
+"name": "Puré verduras casero",
+"carbs": 8.6,
+"protein": 0.0,
+"fat": 3.8,
+"kcal": 69,
+"liquid": false
+},
+{
+"name": "Pátano frito",
+"carbs": 31.2,
+"protein": 0.0,
+"fat": 13.9,
+"kcal": 250,
+"liquid": false
+},
+{
+"name": "Queso Arla alto en proteína",
+"carbs": 0.0,
+"protein": 50.0,
+"fat": 0.0,
+"kcal": 200,
+"liquid": false
+},
+{
+"name": "Queso Ricotta",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 20.2,
+"kcal": 182,
+"liquid": false
+},
+{
+"name": "Queso cottage",
+"carbs": 0.0,
+"protein": 12.5,
+"fat": 5.6,
+"kcal": 100,
+"liquid": false
+},
+{
+"name": "Queso curado, semicurado, tierno o en lonchas",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 44.4,
+"kcal": 400,
+"liquid": false
+},
+{
+"name": "Queso de cabra, queso feta",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 37.0,
+"kcal": 333,
+"liquid": false
+},
+{
+"name": "Queso de fundir",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 31.7,
+"kcal": 286,
+"liquid": false
+},
+{
+"name": "Queso de untar Philadelphia",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 27.8,
+"kcal": 250,
+"liquid": false
+},
+{
+"name": "Queso de untar Philadelphia Light",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 17.1,
+"kcal": 154,
+"liquid": false
+},
+{
+"name": "Queso en lonchas light",
+"carbs": 0.0,
+"protein": 55.6,
+"fat": 0.0,
+"kcal": 222,
+"liquid": false
+},
+{
+"name": "Queso en lonchas light havarti, gouda...",
+"carbs": 0.0,
+"protein": 35.7,
+"fat": 15.9,
+"kcal": 286,
+"liquid": false
+},
+{
+"name": "Queso fresco 0% Burgos",
+"carbs": 0.0,
+"protein": 16.7,
+"fat": 0.0,
+"kcal": 67,
+"liquid": false
+},
+{
+"name": "Queso fresco batido 0% Hacendado",
+"carbs": 0.0,
+"protein": 11.4,
+"fat": 0.0,
+"kcal": 45,
+"liquid": false
+},
+{
+"name": "Queso fresco batido 0% Mercadona",
+"carbs": 0.0,
+"protein": 11.4,
+"fat": 0.0,
+"kcal": 45,
+"liquid": false
+},
+{
+"name": "Queso fresco tipo Burgos (entero)",
+"carbs": 0.0,
+"protein": 20.8,
+"fat": 9.3,
+"kcal": 167,
+"liquid": false
+},
+{
+"name": "Queso proteínico Eatlean",
+"carbs": 0.0,
+"protein": 41.7,
+"fat": 0.0,
+"kcal": 167,
+"liquid": false
+},
+{
+"name": "Remolacha",
+"carbs": 10.9,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 43,
+"liquid": false
+},
+{
+"name": "Salmorejo con aceite de oliva",
+"carbs": 10.4,
+"protein": 0.0,
+"fat": 4.6,
+"kcal": 83,
+"liquid": false
+},
+{
+"name": "Salsa barbacoa/ teriyaki/ ketchup",
+"carbs": 50.0,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 200,
+"liquid": false
+},
+{
+"name": "Salsa cheddar, salsa argentina Hacendado",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 31.7,
+"kcal": 286,
+"liquid": false
+},
+{
+"name": "Salsa cheddar, salsa argentina Mercadona",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 31.7,
+"kcal": 286,
+"liquid": false
+},
+{
+"name": "Salsa de soja",
+"carbs": 8.9,
+"protein": 8.9,
+"fat": 0.0,
+"kcal": 71,
+"liquid": false
+},
+{
+"name": "Salteado de gambas Mercadona",
+"carbs": 2.5,
+"protein": 5.0,
+"fat": 1.1,
+"kcal": 40,
+"liquid": false
+},
+{
+"name": "Salteado rústico congelado Mercadona",
+"carbs": 19.2,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 77,
+"liquid": false
+},
+{
+"name": "Sandía",
+"carbs": 7.1,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 29,
+"liquid": false
+},
+{
+"name": "Seitán",
+"carbs": 0.0,
+"protein": 31.2,
+"fat": 0.0,
+"kcal": 125,
+"liquid": false
+},
+{
+"name": "Semillas de lino, chía, sésamo...",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 55.6,
+"kcal": 500,
+"liquid": false
+},
+{
+"name": "Sirope de agave",
+"carbs": 71.4,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 286,
+"liquid": false
+},
+{
+"name": "Snack tostado edamame y soja",
+"carbs": 0.0,
+"protein": 50.0,
+"fat": 22.2,
+"kcal": 400,
+"liquid": false
+},
+{
+"name": "Soja texturizada",
+"carbs": 0.0,
+"protein": 83.3,
+"fat": 0.0,
+"kcal": 333,
+"liquid": false
+},
+{
+"name": "Surimi, palitos de cangrejo",
+"carbs": 12.5,
+"protein": 6.2,
+"fat": 2.8,
+"kcal": 100,
+"liquid": false
+},
+{
+"name": "Tahini",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 74.1,
+"kcal": 667,
+"liquid": false
+},
+{
+"name": "Tempeh de soja",
+"carbs": 0.0,
+"protein": 20.8,
+"fat": 9.3,
+"kcal": 167,
+"liquid": false
+},
+{
+"name": "Tiras vegetarianas Vemondo",
+"carbs": 0.0,
+"protein": 20.8,
+"fat": 9.3,
+"kcal": 167,
+"liquid": false
+},
+{
+"name": "Tofu",
+"carbs": 0.0,
+"protein": 13.9,
+"fat": 6.2,
+"kcal": 111,
+"liquid": false
+},
+{
+"name": "Tomate frito (en aceite de oliva (>4gr Grasa cada 100gr)",
+"carbs": 9.6,
+"protein": 0.0,
+"fat": 4.3,
+"kcal": 77,
+"liquid": false
+},
+{
+"name": "Tortilla integral para fajita",
+"carbs": 62.5,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 250,
+"liquid": false
+},
+{
+"name": "Tortilla patata c/cebolla",
+"carbs": 7.8,
+"protein": 7.8,
+"fat": 6.9,
+"kcal": 125,
+"liquid": false
+},
+{
+"name": "Tortilla patata s/cebolla",
+"carbs": 10.4,
+"protein": 10.4,
+"fat": 9.3,
+"kcal": 167,
+"liquid": false
+},
+{
+"name": "Tortita de arroz/ maíz de chocolate/ yogur",
+"carbs": 104.2,
+"protein": 0.0,
+"fat": 46.3,
+"kcal": 833,
+"liquid": false
+},
+{
+"name": "Tortita de arroz/ maíz de jamón, queso, pizza...",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 92.6,
+"kcal": 833,
+"liquid": false
+},
+{
+"name": "Tortitas de arroz, maíz, avena, legumbre",
+"carbs": 104.2,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 417,
+"liquid": false
+},
+{
+"name": "Verduras, hortalizas, brotes, hongos...",
+"carbs": 7.1,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 29,
+"liquid": false
+},
+{
+"name": "Weetaca Contramuslo con salsa sorrento, patatas y mix de verduras",
+"carbs": 7.1,
+"protein": 14.2,
+"fat": 3.2,
+"kcal": 114,
+"liquid": false
+},
+{
+"name": "Weetaca Merluza a la guipuzcoana, patatas panaderas y verduras",
+"carbs": 5.4,
+"protein": 10.9,
+"fat": 2.4,
+"kcal": 87,
+"liquid": false
+},
+{
+"name": "Weetaca Pavo con salsa cusqueña, arroz largo y mix de verdura",
+"carbs": 17.6,
+"protein": 8.8,
+"fat": 3.9,
+"kcal": 141,
+"liquid": false
+},
+{
+"name": "Weetaca Pavo con salsa marsella, patatas, champiñones, tomatitos y cebollas",
+"carbs": 8.0,
+"protein": 16.0,
+"fat": 3.6,
+"kcal": 128,
+"liquid": false
+},
+{
+"name": "Weetaca Pechuga de pollo a la florentina, panaderas, brócoli y zanahorias",
+"carbs": 7.2,
+"protein": 14.4,
+"fat": 3.2,
+"kcal": 115,
+"liquid": false
+},
+{
+"name": "Yogur + Proteínas Hacendado Natural",
+"carbs": 0.0,
+"protein": 13.2,
+"fat": 0.0,
+"kcal": 53,
+"liquid": false
+},
+{
+"name": "Yogur + Proteínas Hacendado sabor Chocolate / Caramelo",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 9.3,
+"kcal": 83,
+"liquid": false
+},
+{
+"name": "Yogur + Proteínas Hacendado sabor Fresa / Arándanos",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 6.2,
+"kcal": 56,
+"liquid": false
+},
+{
+"name": "Yogur + Proteínas Mercadona Natural",
+"carbs": 0.0,
+"protein": 13.2,
+"fat": 0.0,
+"kcal": 53,
+"liquid": false
+},
+{
+"name": "Yogur Alpro sabor coco / avena",
+"carbs": 3.5,
+"protein": 3.5,
+"fat": 3.1,
+"kcal": 56,
+"liquid": false
+},
+{
+"name": "Yogur Alpro sabor vainilla / arándanos / mango / frutos rojos / fresa",
+"carbs": 6.9,
+"protein": 3.5,
+"fat": 1.5,
+"kcal": 56,
+"liquid": false
+},
+{
+"name": "Yogur Alpro tipo Skyr",
+"carbs": 0.0,
+"protein": 8.3,
+"fat": 3.7,
+"kcal": 67,
+"liquid": false
+},
+{
+"name": "Yogur desnatado",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 4.4,
+"kcal": 40,
+"liquid": false
+},
+{
+"name": "Yogur griego",
+"carbs": 0.0,
+"protein": 0.0,
+"fat": 13.9,
+"kcal": 125,
+"liquid": false
+},
+{
+"name": "Yogur griego desnatado o ligero",
+"carbs": 7.4,
+"protein": 7.4,
+"fat": 0.0,
+"kcal": 59,
+"liquid": false
+},
+{
+"name": "Yogur natural (sin azúcares)",
+"carbs": 3.8,
+"protein": 3.8,
+"fat": 3.4,
+"kcal": 61,
+"liquid": false
+},
+{
+"name": "Yuca (pesados tanto crudo como cocido)",
+"carbs": 41.7,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 167,
+"liquid": false
+},
+{
+"name": "Zumo naranja natural o en brick 100%",
+"carbs": 12.5,
+"protein": 0.0,
+"fat": 0.0,
+"kcal": 50,
+"liquid": true
+}
+]

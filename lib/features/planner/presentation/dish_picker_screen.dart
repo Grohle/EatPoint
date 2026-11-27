@@ -14,6 +14,7 @@ import 'package:opennutritracker/core/utils/id_generator.dart';
 import 'package:opennutritracker/core/utils/locator.dart';
 import 'package:opennutritracker/features/add_meal/domain/entity/meal_entity.dart';
 import 'package:opennutritracker/core/utils/navigation_options.dart';
+import 'package:opennutritracker/features/food_db/domain/food_database.dart';
 import 'package:opennutritracker/features/food_knowledge/domain/food_knowledge.dart';
 import 'package:opennutritracker/features/food_knowledge/domain/portion_formatter.dart';
 import 'package:opennutritracker/features/planner/domain/entity/planner_entities.dart';
@@ -583,6 +584,20 @@ class _DishPickerScreenState extends State<DishPickerScreen> {
     final query = _search.text.trim();
     final own = _matching(_dishes ?? const [], query, 30);
     final basics = _matching(_basics, query, 12);
+    final lang = Localizations.localeOf(context).languageCode;
+    final fromDb = [
+      for (final f in FoodDatabase.instance?.search(
+            query,
+            languageCode: lang,
+            limit: 15,
+          ) ??
+          const <FoodDbEntry>[])
+        PastDish(
+          f.toMealEntity(lang),
+          f.servingGrams ?? 100,
+          PastDishSource.database,
+        ),
+    ];
     Widget header(String text) => Padding(
       padding: const EdgeInsets.fromLTRB(
         0,
@@ -619,7 +634,14 @@ class _DishPickerScreenState extends State<DishPickerScreen> {
             const SizedBox(height: Dimens.spacing8),
           ],
         ],
-        if (own.isEmpty && basics.isEmpty)
+        if (fromDb.isNotEmpty) ...[
+          header(s.foodDbTitle),
+          for (final dish in fromDb) ...[
+            _dishCard(context, dish),
+            const SizedBox(height: Dimens.spacing8),
+          ],
+        ],
+        if (own.isEmpty && basics.isEmpty && fromDb.isEmpty)
           Padding(
             padding: const EdgeInsets.all(Dimens.spacing16),
             child: Text(

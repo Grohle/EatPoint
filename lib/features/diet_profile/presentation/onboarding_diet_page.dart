@@ -10,10 +10,17 @@ class OnboardingDietPageBody extends StatefulWidget {
   final DietProfile initialProfile;
   final ValueChanged<DietProfile> onChanged;
 
+  /// Whether to download the food database once onboarding ends; null
+  /// hides the switch.
+  final bool? initialDownloadFoodDb;
+  final ValueChanged<bool>? onDownloadFoodDbChanged;
+
   const OnboardingDietPageBody({
     super.key,
     this.initialProfile = DietProfile.empty,
     required this.onChanged,
+    this.initialDownloadFoodDb,
+    this.onDownloadFoodDbChanged,
   });
 
   @override
@@ -22,6 +29,7 @@ class OnboardingDietPageBody extends StatefulWidget {
 
 class _OnboardingDietPageBodyState extends State<OnboardingDietPageBody> {
   late DietProfile _profile = widget.initialProfile;
+  late bool? _downloadFoodDb = widget.initialDownloadFoodDb;
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +50,23 @@ class _OnboardingDietPageBodyState extends State<OnboardingDietPageBody> {
               widget.onChanged(next);
             },
           ),
+          if (_downloadFoodDb case final download?) ...[
+            const SizedBox(height: Dimens.spacing16),
+            Semantics(
+              identifier: 'onboarding-food-db',
+              child: SwitchListTile(
+                contentPadding: EdgeInsets.zero,
+                secondary: const Icon(Icons.storage_rounded),
+                title: Text(s.foodDbOnboardingTitle),
+                subtitle: Text(s.foodDbOnboardingBody),
+                value: download,
+                onChanged: (v) {
+                  setState(() => _downloadFoodDb = v);
+                  widget.onDownloadFoodDbChanged?.call(v);
+                },
+              ),
+            ),
+          ],
         ],
       ),
     );

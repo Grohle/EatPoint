@@ -4,6 +4,7 @@ import 'package:logging/logging.dart';
 import 'package:opennutritracker/core/utils/hive_db_provider.dart';
 import 'package:opennutritracker/core/utils/locator.dart';
 import 'package:opennutritracker/features/diet_profile/domain/food_facts.dart';
+import 'package:opennutritracker/features/food_db/domain/food_database.dart';
 
 /// Keeps what labels and Open Food Facts said about foods, by the food's
 /// code (barcode or custom food id), so the diet check can use it every
@@ -48,11 +49,14 @@ class FoodFactsStore {
     );
   }
 
-  /// The facts stored for [code], when the store is set up.
-  static FoodFacts? lookup(String? code) =>
-      locator.isRegistered<FoodFactsStore>()
-      ? locator<FoodFactsStore>().get(code)
-      : null;
+  /// The facts stored for [code], when the store is set up, else what the
+  /// downloaded food database says about it.
+  static FoodFacts? lookup(String? code) {
+    final stored = locator.isRegistered<FoodFactsStore>()
+        ? locator<FoodFactsStore>().get(code)
+        : null;
+    return stored ?? FoodDatabase.instance?.byCode(code)?.facts;
+  }
 
   /// Stores [facts] for [code] when the store is set up; never throws.
   static Future<void> record(String? code, FoodFacts facts) async {
