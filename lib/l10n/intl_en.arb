@@ -3637,5 +3637,98 @@
   "profileWeeklyPaceFollowsGoal": "Weekly pace adjusted to match your new goal. You can change it below.",
   "@profileWeeklyPaceFollowsGoal": {
     "description": "Snackbar after the goal changed and the pace was adjusted"
+  },
+  "goalBuildMuscle": "Build muscle",
+  "@goalBuildMuscle": {
+    "description": "Body goal: build muscle with a small surplus"
+  },
+  "goalGainWeightAndMuscle": "Gain weight and muscle",
+  "@goalGainWeightAndMuscle": {
+    "description": "Body goal"
+  },
+  "goalLoseWeightBuildMuscle": "Lose weight and build muscle",
+  "@goalLoseWeightBuildMuscle": {
+    "description": "Body goal: recomposition"
+  },
+  "goalLoseWeightDescription": "A deficit of about 550 kcal a day: around half a kilo a week.",
+  "@goalLoseWeightDescription": {
+    "description": "Goal explanation"
+  },
+  "goalLoseWeightBuildMuscleDescription": "A gentle deficit (about 275 kcal a day) with high protein, to lose fat while keeping and building muscle. Best with strength training.",
+  "@goalLoseWeightBuildMuscleDescription": {
+    "description": "Goal explanation"
+  },
+  "goalMaintainWeightDescription": "Eat what you burn, to keep your weight steady.",
+  "@goalMaintainWeightDescription": {
+    "description": "Goal explanation"
+  },
+  "goalBuildMuscleDescription": "A small surplus (about 275 kcal a day) with high protein, to build muscle with little fat. Best with strength training.",
+  "@goalBuildMuscleDescription": {
+    "description": "Goal explanation"
+  },
+  "goalGainWeightAndMuscleDescription": "A larger surplus (about 550 kcal a day) with high protein, to gain weight faster while building muscle.",
+  "@goalGainWeightAndMuscleDescription": {
+    "description": "Goal explanation"
+  },
+  "goalGainWeightDescription": "A surplus of about 550 kcal a day: around half a kilo a week.",
+  "@goalGainWeightDescription": {
+    "description": "Goal explanation"
+  },
+  "goalProteinNote": "Muscle goals raise protein to at least {leanMass} g per kg of lean mass ({bodyWeight} g per kg of body weight with the calorie-goal method).",
+  "@goalProteinNote": {
+    "description": "Note in the goal dialog",
+    "placeholders": {
+      "leanMass": {
+        "type": "String"
+      },
+      "bodyWeight": {
+        "type": "String"
+      }
+    }
+  },
+  "goalPaceSetTo": "Weekly pace set to {pace} for this goal. You can change it below.",
+  "@goalPaceSetTo": {
+    "description": "Snackbar after choosing a goal",
+    "placeholders": {
+      "pace": {
+        "type": "String"
+      }
+    }
+  },
+  "budgetInfoTooltip": "How it works",
+  "@budgetInfoTooltip": {
+    "description": "Tooltip of the info buttons"
+  },
+  "budgetInfoPointsTitle": "Points or calories",
+  "@budgetInfoPointsTitle": {
+    "description": "Info sheet title"
+  },
+  "budgetInfoPointsBody": "With points, every food counts as points of carbohydrate, protein and fat: one point is 100 kcal of that macro. You get a daily budget of each, split across your meals, and the app turns points into grams for your scale. It is a way to balance a meal at a glance, not only its calories.\n\nTurn points off to see the classic view with calories and macro grams. Your diary, menus and goals stay the same; only how they are shown changes.",
+  "@budgetInfoPointsBody": {
+    "description": "Info sheet body"
+  },
+  "budgetInfoLeanMassTitle": "Lean mass, protein first",
+  "@budgetInfoLeanMassTitle": {
+    "description": "Info sheet title"
+  },
+  "budgetInfoLeanMassBody": "1. Lean mass: your weight minus your body fat. Fat is estimated from your BMI and age, or from your tape measurements (neck, waist, hip) if you enter them, which is more accurate.\n2. Resting energy with the Cunningham equation (370 + 21.6 × lean mass in kg), times your activity level.\n3. Your goal adjusts it: for example 75 % to lose weight, 105 % to build muscle, 110 % to gain weight.\n4. Protein is fixed first: 1.5 g per kg of lean mass (at least 2.2 g, or 2.4 g in a deficit, with a muscle goal).\n5. The calories left are split between carbs (65 %) and fat (35 %).\n\nBest when you train or care about body composition: protein follows your muscle, not your total weight.",
+  "@budgetInfoLeanMassBody": {
+    "description": "Info sheet body"
+  },
+  "budgetInfoCaloriesTitle": "Calorie goal",
+  "@budgetInfoCaloriesTitle": {
+    "description": "Info sheet title"
+  },
+  "budgetInfoCaloriesBody": "1. Your daily energy use is worked out from your sex, age, height, weight and activity level (the IOM 2005 equations).\n2. Your weekly pace is added: about 1,100 kcal a day for each kilo a week (−0.5 kg a week ≈ −550 kcal a day). Without a pace, the goal adds −500, 0 or +500 kcal.\n3. Activities you log add their calories that day, so your deficit or surplus stays the same.\n4. The calories are split by your macro percentages (60 % carbs, 25 % fat, 15 % protein by default, changeable in Settings), and with points each 100 kcal of a macro is one point. A muscle goal raises protein to at least 1.8 g per kg of body weight (2 g in a deficit).\n\nSimple and familiar; the Home screen's calorie goal shows every number it uses.",
+  "@budgetInfoCaloriesBody": {
+    "description": "Info sheet body"
+  },
+  "budgetInfoGuideOnly": "These are general estimates, not medical advice. You can change every number.",
+  "@budgetInfoGuideOnly": {
+    "description": "Footer of the info sheets"
+  },
+  "budgetInfoSeeCalorieBreakdown": "See today's numbers",
+  "@budgetInfoSeeCalorieBreakdown": {
+    "description": "Button opening the calorie goal breakdown"
   }
 }

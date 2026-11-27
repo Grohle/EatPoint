@@ -57,6 +57,10 @@ class PointsSettings {
 
   static const defaultFibreTargetGrams = 25.0;
 
+  /// The user also wants to build muscle (see `BodyGoal`): more protein and
+  /// the gentler calorie changes of the muscle goals.
+  final bool buildMuscle;
+
   const PointsSettings({
     this.pointsModeEnabled = true,
     this.budgetMethod = PointsBudgetMethod.leanMass,
@@ -73,6 +77,7 @@ class PointsSettings {
     this.budgetGuideAcknowledged = false,
     this.rebalanceOverspend = true,
     this.fibreTargetGrams = defaultFibreTargetGrams,
+    this.buildMuscle = false,
   });
 
   static const defaults = PointsSettings();
@@ -103,6 +108,7 @@ class PointsSettings {
     bool? budgetGuideAcknowledged,
     bool? rebalanceOverspend,
     double? fibreTargetGrams,
+    bool? buildMuscle,
   }) => PointsSettings(
     pointsModeEnabled: pointsModeEnabled ?? this.pointsModeEnabled,
     budgetMethod: budgetMethod ?? this.budgetMethod,
@@ -127,6 +133,7 @@ class PointsSettings {
         budgetGuideAcknowledged ?? this.budgetGuideAcknowledged,
     rebalanceOverspend: rebalanceOverspend ?? this.rebalanceOverspend,
     fibreTargetGrams: fibreTargetGrams ?? this.fibreTargetGrams,
+    buildMuscle: buildMuscle ?? this.buildMuscle,
   );
 
   Map<String, dynamic> toJson() => {
@@ -151,6 +158,7 @@ class PointsSettings {
     'budgetGuideAcknowledged': budgetGuideAcknowledged,
     'rebalanceOverspend': rebalanceOverspend,
     'fibreTargetGrams': fibreTargetGrams,
+    'buildMuscle': buildMuscle,
   };
 
   /// Reads settings written by [toJson]. Unknown or malformed values fall
@@ -202,6 +210,7 @@ class PointsSettings {
         final double g when g >= 0 && g <= 150 => g,
         _ => defaultFibreTargetGrams,
       },
+      buildMuscle: _toBool(json['buildMuscle']) ?? false,
     );
   }
 

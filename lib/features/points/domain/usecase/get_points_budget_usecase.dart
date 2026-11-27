@@ -9,6 +9,7 @@ import 'package:opennutritracker/core/domain/usecase/get_kcal_goal_usecase.dart'
 import 'package:opennutritracker/core/utils/calc/macro_calc.dart';
 import 'package:opennutritracker/core/utils/calc/points_budget_calc.dart';
 import 'package:opennutritracker/core/utils/calc/points_calc.dart';
+import 'package:opennutritracker/features/goals/domain/body_goal.dart';
 import 'package:opennutritracker/features/points/data/points_settings_data_source.dart';
 import 'package:opennutritracker/features/points/domain/entity/meal_slot.dart';
 import 'package:opennutritracker/features/points/domain/entity/points_settings.dart';
@@ -113,6 +114,8 @@ class GetPointsBudgetUsecase {
   Future<PointsBudget> suggest(UserEntity user, PointsSettings settings) async {
     switch (settings.budgetMethod) {
       case PointsBudgetMethod.leanMass:
+        final goal = bodyGoalFor(user, settings);
+        final minProtein = goal.minProteinPerKgLeanMass;
         return PointsBudgetCalc.leanMassBudget(
           weightKg: user.weightKG,
           bodyFatPercent: bodyFatPercentFor(user, settings),
@@ -120,8 +123,12 @@ class GetPointsBudgetUsecase {
               settings.activityMultiplier ?? activityMultiplierFor(user.pal),
           settings: LeanMassBudgetSettings(
             calorieAdjustment:
-                settings.calorieAdjustment ?? calorieAdjustmentFor(user.goal),
-            proteinGramsPerKgLeanMass: settings.proteinGramsPerKgLeanMass,
+                settings.calorieAdjustment ?? goal.leanMassCalorieAdjustment,
+            proteinGramsPerKgLeanMass:
+                minProtein != null &&
+                    minProtein > settings.proteinGramsPerKgLeanMass
+                ? minProtein
+                : settings.proteinGramsPerKgLeanMass,
             carbShareOfRemainder: settings.carbShareOfRemainder,
           ),
         );
@@ -130,15 +137,21 @@ class GetPointsBudgetUsecase {
         final kcalGoal = await _getKcalGoalUsecase.getKcalGoal(
           userEntity: user,
         );
-        return PointsBudgetCalc.appMacrosBudget(
+        final percents = musclePercents(
+          goal: bodyGoalFor(user, settings),
+          weightKg: user.weightKG,
           kcalGoal: kcalGoal,
-          carbsPercent:
-              config.userCarbGoalPct ?? MacroCalc.defaultCarbsPercentageGoal,
-          proteinPercent:
+          carbs: config.userCarbGoalPct ?? MacroCalc.defaultCarbsPercentageGoal,
+          protein:
               config.userProteinGoalPct ??
               MacroCalc.defaultProteinsPercentageGoal,
-          fatPercent:
-              config.userFatGoalPct ?? MacroCalc.defaultFatsPercentageGoal,
+          fat: config.userFatGoalPct ?? MacroCalc.defaultFatsPercentageGoal,
+        );
+        return PointsBudgetCalc.appMacrosBudget(
+          kcalGoal: kcalGoal,
+          carbsPercent: percents.carbs,
+          proteinPercent: percents.protein,
+          fatPercent: percents.fat,
         );
     }
   }
@@ -189,6 +202,46 @@ class GetPointsBudgetUsecase {
       case UserPALEntity.veryActive:
         return PointsBudgetCalc.veryActiveMultiplier;
     }
+  }
+
+  /// The user's goal, muscle included.
+  static BodyGoal bodyGoalFor(UserEntity user, PointsSettings settings) =>
+      BodyGoal.of(
+        user.goal,
+        buildMuscle: settings.buildMuscle,
+        weeklyPaceKg: user.weeklyWeightGoalKg,
+      );
+
+  /// The macro percentages of the calorie-goal method, with protein raised
+  /// to what a muscle goal asks for (grams per kg of body weight) and the
+  /// difference taken from carbs and fat in proportion. Unchanged for the
+  /// other goals or when protein is already high enough.
+  static ({double carbs, double protein, double fat}) musclePercents({
+    required BodyGoal goal,
+    required double weightKg,
+    required double kcalGoal,
+    required double carbs,
+    required double protein,
+    required double fat,
+  }) {
+    final perKg = goal.minProteinPerKgBodyWeight;
+    if (perKg == null || kcalGoal <= 0) {
+      return (carbs: carbs, protein: protein, fat: fat);
+    }
+    // The percentages may be stored as 0..1 or 0..100.
+    final scale = carbs + protein + fat > 2 ? 100.0 : 1.0;
+    final wanted = perKg * weightKg * 4 / kcalGoal * scale;
+    final rest = carbs + fat;
+    if (wanted <= protein || rest <= 0) {
+      return (carbs: carbs, protein: protein, fat: fat);
+    }
+    final capped = wanted > 0.4 * scale ? 0.4 * scale : wanted;
+    final left = carbs + protein + fat - capped;
+    return (
+      carbs: carbs / rest * left,
+      protein: capped,
+      fat: fat / rest * left,
+    );
   }
 
   static double calorieAdjustmentFor(UserWeightGoalEntity goal) {

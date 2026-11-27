@@ -13,6 +13,7 @@ import 'package:opennutritracker/features/points/presentation/meal_type_label.da
 import 'package:opennutritracker/features/points/presentation/meal_slots_screen.dart';
 import 'package:opennutritracker/features/points/domain/entity/meal_slot.dart';
 import 'package:opennutritracker/features/points/presentation/points_format.dart';
+import 'package:opennutritracker/features/goals/presentation/budget_info.dart';
 import 'package:opennutritracker/generated/l10n.dart';
 
 /// Points settings: points mode, how the budget is worked out, optional
@@ -202,6 +203,7 @@ class _PointsSettingsScreenState extends State<PointsSettingsScreen> {
                 Semantics(
                   identifier: 'points-settings-mode',
                   child: SwitchListTile(
+                    secondary: const BudgetInfoButton(BudgetInfoTopic.points),
                     title: Text(s.pointsModeLabel),
                     subtitle: Text(s.pointsModeSubtitle),
                     value: draft.pointsModeEnabled,
@@ -307,6 +309,9 @@ class _PointsSettingsScreenState extends State<PointsSettingsScreen> {
                           value: PointsBudgetMethod.leanMass,
                           title: Text(s.pointsMethodLeanMass),
                           subtitle: Text(s.pointsMethodLeanMassSubtitle),
+                          secondary: const BudgetInfoButton(
+                            BudgetInfoTopic.leanMass,
+                          ),
                         ),
                       ),
                       Semantics(
@@ -315,6 +320,9 @@ class _PointsSettingsScreenState extends State<PointsSettingsScreen> {
                           value: PointsBudgetMethod.appMacros,
                           title: Text(s.pointsMethodAppMacros),
                           subtitle: Text(s.pointsMethodAppMacrosSubtitle),
+                          secondary: const BudgetInfoButton(
+                            BudgetInfoTopic.calories,
+                          ),
                         ),
                       ),
                     ],

@@ -286,6 +286,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             heightCm: selection.height,
             weightKg: selection.weight,
             targetWeightKg: selection.targetWeight,
+            initialBuildMuscle: _pointsChoice.buildMuscle,
+            onBodyGoalChanged: (goal) {
+              // EatPoint: the muscle goals keep their own pace and protein.
+              selection.weeklyWeightGoalKg = goal.buildsMuscle
+                  ? goal.defaultWeeklyPaceKg
+                  : null;
+              _pointsChoice = _pointsChoice.copyWith(
+                buildMuscle: goal.buildsMuscle,
+              );
+            },
           ),
           footer: HighlightButton(
             buttonLabel: S.of(context).buttonNextLabel,

@@ -6,6 +6,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:opennutritracker/features/goals/domain/body_goal.dart';
 import 'package:opennutritracker/core/domain/entity/body_weight_unit_entity.dart';
 import 'package:opennutritracker/features/onboarding/domain/entity/user_activity_selection_entity.dart';
 import 'package:opennutritracker/features/onboarding/domain/entity/user_gender_selection_entity.dart';
@@ -160,10 +161,46 @@ void main() {
 
       final chips =
           tester.widgetList<ChoiceChip>(find.byType(ChoiceChip)).toList();
-      // Order is loseWeight, maintainWeight, gainWeight.
-      expect(chips[0].selected, isFalse);
-      expect(chips[1].selected, isFalse);
-      expect(chips[2].selected, isTrue);
+      // Order: lose, lose + muscle, maintain, muscle, gain + muscle, gain.
+      expect(chips, hasLength(6));
+      expect([for (final c in chips) c.selected], [
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+      ]);
+    });
+
+    testWidgets('a muscle goal is restored with its muscle chip',
+        (tester) async {
+      await tester.pumpWidget(wrap(OnboardingGoalPageBody(
+        setButtonContent: (_, _) {},
+        initialGoal: UserGoalSelectionEntity.loseWeight,
+        initialBuildMuscle: true,
+      )));
+      await tester.pumpAndSettle();
+
+      final chips =
+          tester.widgetList<ChoiceChip>(find.byType(ChoiceChip)).toList();
+      expect(chips[1].selected, isTrue);
+      expect(chips.where((c) => c.selected), hasLength(1));
+    });
+
+    testWidgets('choosing a muscle goal reports the weight goal and muscle',
+        (tester) async {
+      UserGoalSelectionEntity? reported;
+      BodyGoal? body;
+      await tester.pumpWidget(wrap(OnboardingGoalPageBody(
+        setButtonContent: (_, goal) => reported = goal,
+        onBodyGoalChanged: (goal) => body = goal,
+      )));
+      await tester.pumpAndSettle();
+      await tester.tap(find.bySemanticsIdentifier('onboarding-goal-muscle'));
+      await tester.pumpAndSettle();
+      expect(reported, UserGoalSelectionEntity.gainWeigh);
+      expect(body, BodyGoal.buildMuscle);
     });
   });
 

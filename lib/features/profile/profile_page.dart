@@ -6,7 +6,6 @@ import 'package:opennutritracker/core/domain/entity/user_bmi_entity.dart';
 import 'package:opennutritracker/core/domain/entity/user_entity.dart';
 import 'package:opennutritracker/core/domain/entity/user_gender_entity.dart';
 import 'package:opennutritracker/core/domain/entity/user_pal_entity.dart';
-import 'package:opennutritracker/core/domain/entity/user_weight_goal_entity.dart';
 import 'package:opennutritracker/core/domain/entity/weight_log_entity.dart';
 import 'package:opennutritracker/core/domain/usecase/add_weight_log_usecase.dart';
 import 'package:opennutritracker/core/domain/usecase/get_user_usecase.dart';
@@ -18,13 +17,15 @@ import 'package:opennutritracker/core/utils/bounds/validator.dart';
 import 'package:opennutritracker/core/utils/calc/unit_calc.dart';
 import 'package:opennutritracker/core/utils/locator.dart';
 import 'package:opennutritracker/core/utils/navigation_options.dart';
+import 'package:opennutritracker/features/goals/domain/body_goal.dart';
+import 'package:opennutritracker/features/goals/presentation/body_goal_dialog.dart';
+import 'package:opennutritracker/features/goals/presentation/body_goal_text.dart';
 import 'package:opennutritracker/features/profile/domain/weekly_pace_for_goal.dart';
 import 'package:opennutritracker/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:opennutritracker/features/profile/presentation/utils/profile_display_format.dart';
 import 'package:opennutritracker/features/profile/presentation/widgets/bmi_overview.dart';
 import 'package:opennutritracker/features/profile/presentation/widgets/profile_switcher_header.dart';
 import 'package:opennutritracker/features/profile/presentation/widgets/set_gender_dialog.dart';
-import 'package:opennutritracker/features/profile/presentation/widgets/set_goal_dialog.dart';
 import 'package:opennutritracker/features/profile/presentation/widgets/set_height_dialog.dart';
 import 'package:opennutritracker/features/profile/presentation/widgets/set_weekly_weight_goal_dialog.dart';
 import 'package:opennutritracker/features/profile/presentation/widgets/set_pal_category_dialog.dart';
@@ -55,11 +56,34 @@ class _ProfilePageState extends State<ProfilePage> {
 
   late ProfileBloc _profileBloc;
 
+  /// EatPoint: whether the goal includes building muscle, from the points
+  /// settings, and the user it was read for (re-read after a profile
+  /// switch).
+  bool _buildMuscle = false;
+  UserEntity? _buildMuscleReadFor;
+
   @override
   void initState() {
     _profileBloc = locator<ProfileBloc>();
     super.initState();
   }
+
+  void _readBuildMuscle(UserEntity user) {
+    if (identical(_buildMuscleReadFor, user)) return;
+    _buildMuscleReadFor = user;
+    if (!locator.isRegistered<PointsSettingsDataSource>()) return;
+    locator<PointsSettingsDataSource>().getSettings().then((settings) {
+      if (mounted && settings.buildMuscle != _buildMuscle) {
+        setState(() => _buildMuscle = settings.buildMuscle);
+      }
+    });
+  }
+
+  BodyGoal _bodyGoalOf(UserEntity user) => BodyGoal.of(
+    user.goal,
+    buildMuscle: _buildMuscle,
+    weeklyPaceKg: user.weeklyWeightGoalKg,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -101,6 +125,7 @@ class _ProfilePageState extends State<ProfilePage> {
     int effectiveWaterGoalMl,
     bool usesImperialFoodUnits,
   ) {
+    _readBuildMuscle(user);
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final palette = isDark ? AppPalette.dark : AppPalette.light;
     return ListView(
@@ -192,7 +217,7 @@ class _ProfilePageState extends State<ProfilePage> {
               palette: palette,
               icon: Icons.flag_rounded,
               title: S.of(context).goalLabel,
-              subtitle: user.goal.getName(context),
+              subtitle: _bodyGoalOf(user).name(context),
               onTap: () => _showSetGoalDialog(context, user),
             ),
             _ProfileTile(
@@ -474,30 +499,40 @@ class _ProfilePageState extends State<ProfilePage> {
     BuildContext context,
     UserEntity userEntity,
   ) async {
-    final selectedGoal = await showDialog<UserWeightGoalEntity>(
+    // EatPoint: six goals (three of them with muscle), each explained.
+    final previous = _bodyGoalOf(userEntity);
+    final selected = await showDialog<BodyGoal>(
       context: context,
-      builder: (BuildContext context) => const SetWeightGoalDialog(),
+      builder: (BuildContext context) => BodyGoalDialog(current: previous),
     );
-    if (selectedGoal != null) {
-      userEntity.goal = selectedGoal;
-      // EatPoint: a pace pointing the other way would win over the goal.
-      final contradicts = WeeklyPaceForGoal.contradicts(
-        selectedGoal,
-        userEntity.weeklyWeightGoalKg,
+    if (selected == null) return;
+    userEntity.goal = selected.weightGoal;
+    // A pace pointing the other way would win over the goal, and the
+    // muscle goals differ from the others in their pace.
+    final oldPace = userEntity.weeklyWeightGoalKg;
+    final newPace = WeeklyPaceForGoal.adjustBodyGoal(
+      previous,
+      selected,
+      oldPace,
+    );
+    userEntity.weeklyWeightGoalKg = newPace;
+    if (locator.isRegistered<PointsSettingsDataSource>()) {
+      final source = locator<PointsSettingsDataSource>();
+      final settings = await source.getSettings();
+      await source.saveSettings(
+        settings.copyWith(buildMuscle: selected.buildsMuscle),
       );
-      if (contradicts) {
-        userEntity.weeklyWeightGoalKg = WeeklyPaceForGoal.defaultKg(
-          selectedGoal,
-        );
-      }
-      await _profileBloc.updateUser(userEntity);
-      if (contradicts && context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(S.of(context).profileWeeklyPaceFollowsGoal),
-          ),
-        );
-      }
+    }
+    if (mounted) setState(() => _buildMuscle = selected.buildsMuscle);
+    await _profileBloc.updateUser(userEntity);
+    if (newPace != oldPace && newPace != null && context.mounted) {
+      final pace = newPace == 0
+          ? S.of(context).goalMaintainWeight
+          : '${newPace > 0 ? '+' : ''}'
+                '${newPace.toStringAsFixed(2)} kg';
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(S.of(context).goalPaceSetTo(pace))),
+      );
     }
   }
 
