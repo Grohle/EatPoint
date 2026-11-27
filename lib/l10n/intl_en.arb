@@ -4722,5 +4722,67 @@
   "aiAssistGeminiGetKey": "Get a free key in Google AI Studio",
   "@aiAssistGeminiGetKey": {
     "description": "Opens Google AI Studio's API key page"
+  },
+  "updatesTitle": "Updates",
+  "@updatesTitle": {
+    "description": "Settings entry and sheet title"
+  },
+  "updatesSubtitle": "Look for a new version of EatPoint",
+  "@updatesSubtitle": {
+    "description": "Settings entry subtitle"
+  },
+  "updateInstalledVersion": "Installed version: {version}",
+  "@updateInstalledVersion": {
+    "description": "Installed version line",
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "updateAutoCheck": "Check when opening the app",
+  "@updateAutoCheck": {
+    "description": "Switch"
+  },
+  "updateAutoCheckHint": "Asks GitHub, where EatPoint is published, for the list of releases. Nothing about you is sent.",
+  "@updateAutoCheckHint": {
+    "description": "Switch subtitle"
+  },
+  "updateCheckNow": "Check now",
+  "@updateCheckNow": {
+    "description": "Button"
+  },
+  "updateUpToDate": "You have the latest version.",
+  "@updateUpToDate": {
+    "description": "Result of a manual check"
+  },
+  "updateCheckFailed": "Couldn't check. Try again with a connection.",
+  "@updateCheckFailed": {
+    "description": "Manual check failed"
+  },
+  "updateAvailableTitle": "EatPoint {version} is available",
+  "@updateAvailableTitle": {
+    "description": "Update dialog title",
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "updateAvailableBody": "Download the APK and open it to install it over this one. Your data stays.",
+  "@updateAvailableBody": {
+    "description": "Update dialog body"
+  },
+  "updateLater": "Later",
+  "@updateLater": {
+    "description": "Dismiss the update"
+  },
+  "updateNotes": "What's new",
+  "@updateNotes": {
+    "description": "Open the release page"
+  },
+  "updateDownload": "Download",
+  "@updateDownload": {
+    "description": "Download the APK"
   }
 }

@@ -2043,5 +2043,18 @@
   "householdInviteCopied": "Invito copiato. Invialo in privato all'altro membro.",
   "aiAssistGeminiShortcut": "Usa Google Gemini (gratis)",
   "aiAssistGeminiShortcutHint": "Compila indirizzo e modello di Google. Devi solo incollare una chiave gratuita di Google AI Studio.",
-  "aiAssistGeminiGetKey": "Ottieni una chiave gratis in Google AI Studio"
+  "aiAssistGeminiGetKey": "Ottieni una chiave gratis in Google AI Studio",
+  "updatesTitle": "Aggiornamenti",
+  "updatesSubtitle": "Cerca una nuova versione di EatPoint",
+  "updateInstalledVersion": "Versione installata: {version}",
+  "updateAutoCheck": "Controlla all'apertura dell'app",
+  "updateAutoCheckHint": "Chiede a GitHub, dove EatPoint è pubblicata, l'elenco delle versioni. Non viene inviato nulla su di te.",
+  "updateCheckNow": "Controlla ora",
+  "updateUpToDate": "Hai l'ultima versione.",
+  "updateCheckFailed": "Impossibile controllare. Riprova con una connessione.",
+  "updateAvailableTitle": "È disponibile EatPoint {version}",
+  "updateAvailableBody": "Scarica l'APK e aprila per installarla sopra questa. I tuoi dati restano.",
+  "updateLater": "Più tardi",
+  "updateNotes": "Novità",
+  "updateDownload": "Scarica"
 }

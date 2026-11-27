@@ -88,6 +88,7 @@ import 'package:opennutritracker/features/diet_profile/data/diet_profile_store.d
 import 'package:opennutritracker/features/food_db/data/food_db_service.dart';
 import 'package:opennutritracker/features/diet_profile/data/food_facts_store.dart';
 import 'package:opennutritracker/features/travel/data/travel_mode_store.dart';
+import 'package:opennutritracker/features/updates/data/update_store.dart';
 import 'package:opennutritracker/features/planner/data/planner_reminder_service.dart';
 import 'package:opennutritracker/features/mcp/data/mcp_controller.dart';
 import 'package:opennutritracker/features/points/data/points_settings_data_source.dart';
@@ -252,9 +253,7 @@ Future<void> initLocator() async {
   // The iOS home-screen widget's App Group copy. One instance for Home,
   // the language picker, delete-all and the profile switch, so they share
   // the App Group it resolves once from the bundle id.
-  locator.registerLazySingleton<CalorieWidgetStore>(
-    HomeWidgetCalorieStore.new,
-  );
+  locator.registerLazySingleton<CalorieWidgetStore>(HomeWidgetCalorieStore.new);
 
   // Cache manager
   locator.registerLazySingleton<CacheManager>(
@@ -352,15 +351,14 @@ Future<void> initLocator() async {
   // create-from-popup flow on the same tab — both must mutate / observe the
   // same instance so the list refreshes after a new entry is created.
   locator.registerLazySingleton<CustomMealsBloc>(
-    () =>
-        CustomMealsBloc(
-          locator(),
-          locator(),
-          locator(),
-          locator(),
-          locator(),
-          locator(),
-        ),
+    () => CustomMealsBloc(
+      locator(),
+      locator(),
+      locator(),
+      locator(),
+      locator(),
+      locator(),
+    ),
   );
 
   locator.registerFactory<ActivitiesBloc>(() => ActivitiesBloc(locator()));
@@ -749,6 +747,8 @@ Future<void> initLocator() async {
   locator.registerLazySingleton<TravelModeStore>(
     () => TravelModeStore(hiveDBProvider),
   );
+  // EatPoint: checking GitHub for newer releases.
+  locator.registerLazySingleton<UpdateStore>(() => UpdateStore(hiveDBProvider));
   // EatPoint's everyday-food catalogue (household portions, food kinds).
   unawaited(FoodKnowledge.load());
   // EatPoint's downloadable food database, when the user downloaded it.

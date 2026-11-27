@@ -13,6 +13,7 @@ import 'package:opennutritracker/features/home/home_page.dart';
 import 'package:opennutritracker/core/presentation/widgets/main_appbar.dart';
 import 'package:opennutritracker/features/profile/profile_page.dart';
 import 'package:opennutritracker/features/trends/presentation/trends_page.dart';
+import 'package:opennutritracker/features/updates/presentation/update_prompt.dart';
 import 'package:opennutritracker/generated/l10n.dart';
 
 class MainScreen extends StatefulWidget {
@@ -77,6 +78,8 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
     if (!mounted) return;
     setState(() => _isDemoData = config.isDemoData);
     await _maybeOpenHealthRationale();
+    // EatPoint: offer a newer release, if any (off in demo mode).
+    if (mounted && !config.isDemoData) await maybeOfferUpdate(context);
   }
 
   /// Opens the health-sync screen when Health Connect asked the app to explain
