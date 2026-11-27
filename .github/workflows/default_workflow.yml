@@ -8,10 +8,22 @@ on:
   # `pull_request` (against `main` and `develop`). The `push: main` trigger
   # only catches post-merge runs on `main`. A direct push to `develop`
   # does not run this workflow — prefer PRs into `develop` (see CONTRIBUTING.md).
+  # EatPoint: changes that only touch the downloadable food database, the
+  # build tools or documentation run no CI, to save Actions minutes.
   push:
     branches:
       - main
+    paths-ignore:
+      - 'data/**'
+      - 'tool/**'
+      - '**/*.md'
+      - 'docs/**'
   pull_request:
+    paths-ignore:
+      - 'data/**'
+      - 'tool/**'
+      - '**/*.md'
+      - 'docs/**'
     branches:
       - main
       - develop
@@ -129,6 +141,10 @@ jobs:
               - 'ios/Podfile'
 
   linux-checks:
+    # EatPoint: on pull requests and manual runs. A merge to `main` already
+    # passed this on its pull request, so it is not repeated (Actions minutes),
+    # unless the store deploy chain (which needs it) is turned on.
+    if: github.event_name != 'push' || vars.EATPOINT_STORE_DEPLOY == 'true'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -526,6 +542,8 @@ jobs:
           fi
 
   android-build:
+    # EatPoint: same as linux-checks: not repeated on the merge to `main`.
+    if: github.event_name != 'push' || vars.EATPOINT_STORE_DEPLOY == 'true'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -589,6 +607,10 @@ jobs:
         run: flutter build apk --flavor full --debug
 
   android-integration-tests:
+    # EatPoint: the emulator run (about 12 minutes) happens once a change is
+    # merged to `main` (and on manual runs), not on every push to a pull
+    # request, to save Actions minutes.
+    if: github.event_name != 'pull_request'
     # Same as iOS: runs in parallel from the start, gated on neither
     # android-build (it rebuilds the app itself) nor a file-discovery job.
     runs-on: ubuntu-latest
