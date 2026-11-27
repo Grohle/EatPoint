@@ -2041,5 +2041,8 @@
   "insightSweetsTitle": "Menos dulces",
   "insightSweetsBody": "{count} dulces esta semana. La fruta, el yogur o un puñado de frutos secos pueden sustituirlos de vez en cuando.",
   "insightCalciumTitle": "Calcio",
-  "insightCalciumBody": "Pocos alimentos ricos en calcio. La leche, el yogur, el queso, el tofu, las sardinas con espina, las almendras o el brócoli ayudan; unos dos o tres al día."
+  "insightCalciumBody": "Pocos alimentos ricos en calcio. La leche, el yogur, el queso, el tofu, las sardinas con espina, las almendras o el brócoli ayudan; unos dos o tres al día.",
+  "profileAppSettingsLabel": "Ajustes de la app",
+  "profileAppSettingsSubtitle": "Unidades, idioma, tema, datos y más",
+  "profileWeeklyPaceFollowsGoal": "Ritmo semanal ajustado a tu nuevo objetivo. Puedes cambiarlo abajo."
 }

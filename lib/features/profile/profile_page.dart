@@ -10,7 +10,6 @@ import 'package:opennutritracker/core/domain/entity/user_weight_goal_entity.dart
 import 'package:opennutritracker/core/domain/entity/weight_log_entity.dart';
 import 'package:opennutritracker/core/domain/usecase/add_weight_log_usecase.dart';
 import 'package:opennutritracker/core/domain/usecase/get_user_usecase.dart';
-import 'package:opennutritracker/core/presentation/widgets/app_card.dart';
 import 'package:opennutritracker/core/presentation/widgets/section_group.dart';
 import 'package:opennutritracker/core/presentation/widgets/calories_profile_info_dialog.dart';
 import 'package:opennutritracker/core/styles/app_palette.dart';
@@ -19,6 +18,7 @@ import 'package:opennutritracker/core/utils/bounds/validator.dart';
 import 'package:opennutritracker/core/utils/calc/unit_calc.dart';
 import 'package:opennutritracker/core/utils/locator.dart';
 import 'package:opennutritracker/core/utils/navigation_options.dart';
+import 'package:opennutritracker/features/profile/domain/weekly_pace_for_goal.dart';
 import 'package:opennutritracker/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:opennutritracker/features/profile/presentation/utils/profile_display_format.dart';
 import 'package:opennutritracker/features/profile/presentation/widgets/bmi_overview.dart';
@@ -32,8 +32,11 @@ import 'package:opennutritracker/features/profile/presentation/widgets/set_targe
 import 'package:opennutritracker/features/profile/presentation/widgets/set_weight_dialog.dart';
 import 'package:opennutritracker/features/home/presentation/bloc/home_bloc.dart';
 import 'package:opennutritracker/features/settings/presentation/bloc/settings_bloc.dart';
-import 'package:opennutritracker/features/settings/settings_screen.dart';
 import 'package:opennutritracker/features/settings/presentation/widgets/water_goal_dialog.dart';
+import 'package:opennutritracker/features/points/data/points_settings_data_source.dart';
+import 'package:opennutritracker/features/points/presentation/meal_slots_screen.dart';
+import 'package:opennutritracker/features/points/presentation/points_settings_screen.dart';
+import 'package:opennutritracker/features/travel/presentation/travel_mode_screen.dart';
 import 'package:opennutritracker/generated/l10n.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -115,6 +118,62 @@ class _ProfilePageState extends State<ProfilePage> {
           nutritionalStatus: userBMIEntity.nutritionalStatus,
         ),
         const SizedBox(height: Dimens.spacing32),
+        // EatPoint: settings get their own panel above the goal, each entry
+        // opening its own screen.
+        SectionHeader(label: S.of(context).settingsLabel, palette: palette),
+        const SizedBox(height: Dimens.spacing12),
+        SectionGroup(
+          palette: palette,
+          tiles: [
+            _ProfileTile(
+              identifier: 'profile-settings',
+              palette: palette,
+              icon: Icons.settings_rounded,
+              title: S.of(context).profileAppSettingsLabel,
+              subtitle: S.of(context).profileAppSettingsSubtitle,
+              showChevron: true,
+              onTap: () => Navigator.of(
+                context,
+              ).pushNamed(NavigationOptions.settingsRoute),
+            ),
+            if (locator.isRegistered<PointsSettingsDataSource>()) ...[
+              _ProfileTile(
+                identifier: 'profile-points',
+                palette: palette,
+                icon: Icons.donut_large_rounded,
+                title: S.of(context).pointsSettingsTitle,
+                subtitle: S.of(context).pointsSettingsSubtitle,
+                showChevron: true,
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const PointsSettingsScreen()),
+                ),
+              ),
+              _ProfileTile(
+                identifier: 'profile-meals',
+                palette: palette,
+                icon: Icons.restaurant_menu_rounded,
+                title: S.of(context).mealSlotsTitle,
+                subtitle: S.of(context).mealSlotsEditSubtitle,
+                showChevron: true,
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const MealSlotsScreen()),
+                ),
+              ),
+              _ProfileTile(
+                identifier: 'profile-travel',
+                palette: palette,
+                icon: Icons.flight_takeoff_rounded,
+                title: S.of(context).travelTitle,
+                subtitle: S.of(context).travelSettingsSubtitle,
+                showChevron: true,
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const TravelModeScreen()),
+                ),
+              ),
+            ],
+          ],
+        ),
+        const SizedBox(height: Dimens.spacing24),
         SectionHeader(label: S.of(context).goalLabel, palette: palette),
         const SizedBox(height: Dimens.spacing12),
         SectionGroup(
@@ -343,32 +402,6 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           ],
         ),
-        const SizedBox(height: Dimens.spacing24),
-        // The full settings surface lives inline so You is the single home for
-        // identity, goals and app preferences — but collapsed by default so the
-        // tab stays scannable. Reuses SettingsScreen unchanged; the pushed route
-        // still works for any other caller.
-        AppCard(
-          padding: EdgeInsets.zero,
-          child: Theme(
-            data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-            child: ExpansionTile(
-              shape: const Border(),
-              collapsedShape: const Border(),
-              tilePadding: const EdgeInsets.symmetric(
-                horizontal: Dimens.spacing16,
-                vertical: Dimens.spacing4,
-              ),
-              leading: Icon(Icons.settings_rounded, color: palette.textMuted),
-              title: Text(
-                S.of(context).settingsLabel,
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-              childrenPadding: const EdgeInsets.only(bottom: Dimens.spacing8),
-              children: const [SettingsScreen(embedded: true)],
-            ),
-          ),
-        ),
       ],
     );
   }
@@ -447,7 +480,24 @@ class _ProfilePageState extends State<ProfilePage> {
     );
     if (selectedGoal != null) {
       userEntity.goal = selectedGoal;
-      _profileBloc.updateUser(userEntity);
+      // EatPoint: a pace pointing the other way would win over the goal.
+      final contradicts = WeeklyPaceForGoal.contradicts(
+        selectedGoal,
+        userEntity.weeklyWeightGoalKg,
+      );
+      if (contradicts) {
+        userEntity.weeklyWeightGoalKg = WeeklyPaceForGoal.defaultKg(
+          selectedGoal,
+        );
+      }
+      await _profileBloc.updateUser(userEntity);
+      if (contradicts && context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(S.of(context).profileWeeklyPaceFollowsGoal),
+          ),
+        );
+      }
     }
   }
 

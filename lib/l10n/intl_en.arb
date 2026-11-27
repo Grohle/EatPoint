@@ -3625,5 +3625,17 @@
   "insightCalciumBody": "Few calcium-rich foods. Milk, yogurt, cheese, tofu, sardines with their bones, almonds or broccoli help; about two to three a day.",
   "@insightCalciumBody": {
     "description": "Insight body"
+  },
+  "profileAppSettingsLabel": "App settings",
+  "@profileAppSettingsLabel": {
+    "description": "Profile tab tile opening the settings screen"
+  },
+  "profileAppSettingsSubtitle": "Units, language, theme, data and more",
+  "@profileAppSettingsSubtitle": {
+    "description": "Subtitle of the app settings tile"
+  },
+  "profileWeeklyPaceFollowsGoal": "Weekly pace adjusted to match your new goal. You can change it below.",
+  "@profileWeeklyPaceFollowsGoal": {
+    "description": "Snackbar after the goal changed and the pace was adjusted"
   }
 }

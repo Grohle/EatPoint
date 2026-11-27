@@ -119,8 +119,9 @@ void main() {
     position.jumpTo(position.maxScrollExtent);
     await tester.pumpAndSettle();
 
-    // Collapsed, the Settings row is the last thing in the list.
-    final lastRow = tester.getRect(find.byType(ExpansionTile));
+    // The last row of the list (Settings now sits in its own panel at the
+    // top, so the list ends with the last profile row).
+    final lastRow = tester.getRect(find.byType(ListTile).last);
     final fab = tester.getRect(find.byType(FloatingActionButton));
 
     expect(
