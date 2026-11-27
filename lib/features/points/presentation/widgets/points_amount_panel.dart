@@ -7,6 +7,8 @@ import 'package:opennutritracker/core/styles/dimens.dart';
 import 'package:opennutritracker/core/utils/calc/points_calc.dart';
 import 'package:opennutritracker/core/utils/locator.dart';
 import 'package:opennutritracker/features/add_meal/domain/entity/meal_entity.dart';
+import 'package:opennutritracker/features/food_knowledge/domain/food_knowledge.dart';
+import 'package:opennutritracker/features/food_knowledge/domain/portion_formatter.dart';
 import 'package:opennutritracker/features/meal_detail/presentation/bloc/meal_detail_bloc.dart';
 import 'package:opennutritracker/features/points/data/meal_slot_assignments.dart';
 import 'package:opennutritracker/features/points/domain/entity/meal_slot.dart';
@@ -155,6 +157,53 @@ class _PointsAmountPanelState extends State<PointsAmountPanel> {
 
   PointsFormat get _format => PointsFormat.of(context);
 
+  /// Sets the amount to [grams], as typing it in the grams field would.
+  void _applyGrams(double grams) {
+    setState(() => _lastConversion = null);
+    final rounded = PointsCalc.roundPracticalGrams(grams);
+    final text = _format.grams(rounded).replaceAll(',', '.');
+    widget.quantityController.text = text;
+    widget.onQuantityOrUnitChanged(text, _baseUnit);
+  }
+
+  /// "≈ 1½ filetes" for the amount entered, and quick choices in the
+  /// food's household unit, when EatPoint knows the food.
+  List<Widget> _portionRow(BuildContext context, double grams) {
+    final concept = FoodKnowledge.instance?.match(widget.product.name ?? '');
+    final portion = concept?.mainPortion;
+    if (portion == null) return const [];
+    final language = Localizations.localeOf(context).languageCode;
+    final current = PortionFormatter.describe(grams, portion);
+    final theme = Theme.of(context);
+    return [
+      const SizedBox(height: Dimens.spacing8),
+      Wrap(
+        spacing: Dimens.spacing8,
+        runSpacing: Dimens.spacing4,
+        crossAxisAlignment: WrapCrossAlignment.center,
+        children: [
+          if (current != null)
+            Text(
+              '≈ ${current.label(language)}',
+              style: theme.textTheme.bodyMedium?.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          for (final count in PortionFormatter.quickCounts(portion))
+            Semantics(
+              identifier:
+                  'portion-quick-${count.toString().replaceAll('.', '-')}',
+              child: ActionChip(
+                visualDensity: VisualDensity.compact,
+                label: Text(PortionAmount(portion, count).label(language)),
+                onPressed: () => _applyGrams(portion.grams * count),
+              ),
+            ),
+        ],
+      ),
+    ];
+  }
+
   /// Fibre points of the amount entered, from the serving's energy.
   double _servingFibre(MacroPoints serving) {
     final per100 = _per100;
@@ -277,6 +326,7 @@ class _PointsAmountPanelState extends State<PointsAmountPanel> {
             ),
           ],
         ),
+        ..._portionRow(context, serving.total * 100 / per100),
         const SizedBox(height: Dimens.spacing12),
         Row(
           children: [

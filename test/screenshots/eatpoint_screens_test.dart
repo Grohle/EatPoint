@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:opennutritracker/core/domain/entity/intake_type_entity.dart';
@@ -5,6 +7,7 @@ import 'package:opennutritracker/core/utils/calc/points_calc.dart';
 import 'package:opennutritracker/core/utils/locator.dart';
 import 'package:opennutritracker/features/add_meal/domain/entity/meal_entity.dart';
 import 'package:opennutritracker/features/add_meal/domain/entity/meal_nutriments_entity.dart';
+import 'package:opennutritracker/features/food_knowledge/domain/food_knowledge.dart';
 import 'package:opennutritracker/features/menu_import/data/menu_food_matcher.dart';
 import 'package:opennutritracker/features/menu_import/domain/imported_menu.dart';
 import 'package:opennutritracker/features/menu_import/domain/menu_text_parser.dart';
@@ -38,6 +41,9 @@ void main() {
   final today = DateTime.now();
 
   setUp(() async {
+    FoodKnowledge.setInstance(
+      FoodKnowledge.parse(File(FoodKnowledge.assetPath).readAsStringSync()),
+    );
     await locator.reset();
     box = MemoryStringBox();
     final source = registerPointsLocator(box: box);
@@ -290,6 +296,7 @@ MealEntity food(
   required double carbs,
   required double protein,
   required double fat,
+  double? fibre,
   bool liquid = false,
 }) => MealEntity(
   code: name,
@@ -307,7 +314,7 @@ MealEntity food(
     proteins100: protein,
     sugars100: null,
     saturatedFat100: null,
-    fiber100: null,
+    fiber100: fibre,
   ),
   source: MealSourceEntity.custom,
 );
@@ -319,7 +326,14 @@ PlannedItem item(MealEntity meal, double amount) => PlannedItem(
   unit: meal.isLiquid ? 'ml' : 'g',
 );
 
-final oats = food('Oat flakes', kcal: 372, carbs: 59, protein: 13, fat: 7);
+final oats = food(
+  'Oat flakes',
+  kcal: 372,
+  carbs: 59,
+  protein: 13,
+  fat: 7,
+  fibre: 10,
+);
 final milk = food(
   'Semi-skimmed milk',
   kcal: 46,
@@ -329,7 +343,14 @@ final milk = food(
   liquid: true,
 );
 final yogurt = food('Greek yogurt', kcal: 97, carbs: 3.6, protein: 9, fat: 5);
-final banana = food('Banana', kcal: 89, carbs: 23, protein: 1.1, fat: 0.3);
+final banana = food(
+  'Banana',
+  kcal: 89,
+  carbs: 23,
+  protein: 1.1,
+  fat: 0.3,
+  fibre: 2.6,
+);
 final chicken = food(
   'Chicken breast',
   kcal: 120,
@@ -343,6 +364,7 @@ final rice = food(
   carbs: 26,
   protein: 2.7,
   fat: 1,
+  fibre: 1.8,
 );
 final salmon = food('Salmon', kcal: 208, carbs: 0, protein: 20, fat: 13);
 final potato = food(
@@ -351,8 +373,16 @@ final potato = food(
   carbs: 21,
   protein: 2.5,
   fat: 0.1,
+  fibre: 2.2,
 );
-final salad = food('Mixed salad', kcal: 20, carbs: 3, protein: 1.3, fat: 0.2);
+final salad = food(
+  'Mixed salad',
+  kcal: 20,
+  carbs: 3,
+  protein: 1.3,
+  fat: 0.2,
+  fibre: 1.8,
+);
 final oil = food('Olive oil', kcal: 884, carbs: 0, protein: 0, fat: 100);
 final toast = food(
   'Whole-wheat toast',
@@ -360,8 +390,16 @@ final toast = food(
   carbs: 41,
   protein: 13,
   fat: 3.4,
+  fibre: 6.8,
 );
-final almonds = food('Almonds', kcal: 579, carbs: 22, protein: 21, fat: 50);
+final almonds = food(
+  'Almonds',
+  kcal: 579,
+  carbs: 22,
+  protein: 21,
+  fat: 50,
+  fibre: 12.5,
+);
 
 Future<void> seedMonth(PlannerDataSource planner, DateTime today) async {
   final first = DateTime(today.year, today.month);

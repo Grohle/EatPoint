@@ -88,6 +88,10 @@ class FakeGetPointsBudgetUsecase extends Fake
       ),
       slots: slots,
       perSlot: slots.budgets(daily),
+      fibreDaily: PointsCalc.fibrePoints(settings.fibreTargetGrams),
+      fibrePerSlot: slots.fibreTargets(
+        PointsCalc.fibrePoints(settings.fibreTargetGrams),
+      ),
       isOverridden: settings.dailyBudgetOverride != null,
       settings: settings,
     );

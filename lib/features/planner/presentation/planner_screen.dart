@@ -8,6 +8,7 @@ import 'package:opennutritracker/features/diary/presentation/bloc/calendar_day_b
 import 'package:opennutritracker/features/diary/presentation/bloc/diary_bloc.dart';
 import 'package:opennutritracker/features/home/presentation/bloc/home_bloc.dart';
 import 'package:opennutritracker/features/meal_detail/presentation/bloc/meal_detail_bloc.dart';
+import 'package:opennutritracker/features/food_knowledge/domain/portion_formatter.dart';
 import 'package:opennutritracker/features/menu_import/presentation/menu_import_screen.dart';
 import 'package:opennutritracker/features/planner/data/planner_data_source.dart';
 import 'package:opennutritracker/features/planner/data/planner_reminder_service.dart';
@@ -747,9 +748,18 @@ class _PlannerScreenState extends State<PlannerScreen> {
                 ),
                 subtitle: Row(
                   children: [
-                    Text(
-                      '${format.grams(item.amount)} ${item.unit} · '
-                      '${format.points(item.points.total)} ${s.pointsShort}',
+                    Flexible(
+                      child: Text(
+                        [
+                          '${format.grams(item.amount)} ${item.unit}',
+                          if (PortionFormatter.forFood(item.name, item.amount)
+                              case final portion?)
+                            '≈ ${portion.label(Localizations.localeOf(context).languageCode)}',
+                          '${format.points(item.points.total)} ${s.pointsShort}',
+                        ].join(' · '),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                     const SizedBox(width: Dimens.spacing8),
                     _MiniSplit(

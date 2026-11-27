@@ -1,0 +1,3525 @@
+{
+ "format": "eatpoint-food-knowledge",
+ "version": 1,
+ "sources": {
+  "usda_sr_legacy": "USDA FoodData Central, SR Legacy (April 2018), public domain (CC0 1.0), https://fdc.nal.usda.gov",
+  "estimate": "Typical European pack or household size, rounded; not a measured value."
+ },
+ "concepts": [
+  {
+   "id": "egg",
+   "names": {
+    "es": [
+     "huevo entero",
+     "huevos",
+     "huevo",
+     "clara"
+    ],
+    "en": [
+     "eggs",
+     "egg"
+    ]
+   },
+   "tags": [
+    "protein",
+    "b12"
+   ],
+   "portions": [
+    {
+     "unit": "egg",
+     "es": [
+      "huevo",
+      "huevos"
+     ],
+     "en": [
+      "egg",
+      "eggs"
+     ],
+     "grams": 50.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 171287,
+      "food": "Egg, whole, raw, fresh",
+      "portion": "large",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "chicken_breast",
+   "names": {
+    "es": [
+     "pechuga de pollo",
+     "filete de pollo",
+     "pollo pechuga",
+     "pollo"
+    ],
+    "en": [
+     "chicken breast",
+     "chicken fillet",
+     "chicken"
+    ]
+   },
+   "tags": [
+    "protein",
+    "b12"
+   ],
+   "portions": [
+    {
+     "unit": "fillet",
+     "es": [
+      "filete",
+      "filetes"
+     ],
+     "en": [
+      "fillet",
+      "fillets"
+     ],
+     "grams": 136.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 171077,
+      "food": "Chicken, broiler or fryers, breast, skinless, boneless, meat only, raw",
+      "portion": "piece",
+      "factor": 0.5
+     }
+    }
+   ]
+  },
+  {
+   "id": "chicken_thigh",
+   "names": {
+    "es": [
+     "muslo de pollo",
+     "contramuslo"
+    ],
+    "en": [
+     "chicken thigh"
+    ]
+   },
+   "tags": [
+    "protein",
+    "b12"
+   ],
+   "portions": [
+    {
+     "unit": "thigh",
+     "es": [
+      "contramuslo",
+      "contramuslos"
+     ],
+     "en": [
+      "thigh",
+      "thighs"
+     ],
+     "grams": 149.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 173627,
+      "food": "Chicken, broilers or fryers, dark meat, thigh, meat only, raw",
+      "portion": "thigh without skin",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "turkey_breast",
+   "names": {
+    "es": [
+     "pechuga de pavo",
+     "pavo"
+    ],
+    "en": [
+     "turkey breast",
+     "turkey"
+    ]
+   },
+   "tags": [
+    "protein",
+    "b12"
+   ],
+   "portions": [
+    {
+     "unit": "fillet",
+     "es": [
+      "filete",
+      "filetes"
+     ],
+     "en": [
+      "fillet",
+      "fillets"
+     ],
+     "grams": 120,
+     "default": true,
+     "source": {
+      "kind": "estimate"
+     }
+    }
+   ]
+  },
+  {
+   "id": "pork_loin",
+   "names": {
+    "es": [
+     "chuleta de cerdo",
+     "cinta de lomo",
+     "lomo de cerdo",
+     "lomo"
+    ],
+    "en": [
+     "pork chop",
+     "pork loin"
+    ]
+   },
+   "tags": [
+    "protein",
+    "b12"
+   ],
+   "portions": [
+    {
+     "unit": "steak",
+     "es": [
+      "filete",
+      "filetes"
+     ],
+     "en": [
+      "steak",
+      "steaks"
+     ],
+     "grams": 102.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 168263,
+      "food": "Pork, fresh, loin, center loin (chops), boneless, separable lean only, raw",
+      "portion": "chop",
+      "factor": 0.6
+     }
+    }
+   ]
+  },
+  {
+   "id": "beef_steak",
+   "names": {
+    "es": [
+     "filete de ternera",
+     "solomillo",
+     "entrecot",
+     "ternera",
+     "bistec"
+    ],
+    "en": [
+     "beef steak",
+     "sirloin",
+     "steak",
+     "beef"
+    ]
+   },
+   "tags": [
+    "protein",
+    "b12",
+    "iron"
+   ],
+   "portions": [
+    {
+     "unit": "steak",
+     "es": [
+      "filete",
+      "filetes"
+     ],
+     "en": [
+      "steak",
+      "steaks"
+     ],
+     "grams": 150,
+     "default": true,
+     "source": {
+      "kind": "estimate"
+     }
+    }
+   ]
+  },
+  {
+   "id": "minced_meat",
+   "names": {
+    "es": [
+     "carne picada",
+     "hamburguesa"
+    ],
+    "en": [
+     "minced meat",
+     "ground beef",
+     "burger"
+    ]
+   },
+   "tags": [
+    "protein",
+    "b12",
+    "iron"
+   ],
+   "portions": [
+    {
+     "unit": "unit",
+     "es": [
+      "hamburguesa",
+      "hamburguesas"
+     ],
+     "en": [
+      "burger",
+      "burgers"
+     ],
+     "grams": 125,
+     "default": true,
+     "source": {
+      "kind": "estimate"
+     }
+    }
+   ]
+  },
+  {
+   "id": "salmon",
+   "names": {
+    "es": [
+     "salmon"
+    ],
+    "en": [
+     "salmon"
+    ]
+   },
+   "tags": [
+    "protein",
+    "fish",
+    "oily_fish",
+    "b12"
+   ],
+   "portions": [
+    {
+     "unit": "fillet",
+     "es": [
+      "filete",
+      "filetes"
+     ],
+     "en": [
+      "fillet",
+      "fillets"
+     ],
+     "grams": 138.6,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 175167,
+      "food": "Fish, salmon, Atlantic, farmed, raw",
+      "portion": "fillet",
+      "factor": 0.35
+     }
+    }
+   ]
+  },
+  {
+   "id": "white_fish",
+   "names": {
+    "es": [
+     "pescado blanco",
+     "lenguado",
+     "merluza",
+     "bacalao",
+     "abadejo",
+     "lubina",
+     "dorada",
+     "gallo"
+    ],
+    "en": [
+     "white fish",
+     "sea bream",
+     "sea bass",
+     "haddock",
+     "sole",
+     "hake",
+     "cod"
+    ]
+   },
+   "tags": [
+    "protein",
+    "fish",
+    "b12"
+   ],
+   "portions": [
+    {
+     "unit": "fillet",
+     "es": [
+      "filete",
+      "filetes"
+     ],
+     "en": [
+      "fillet",
+      "fillets"
+     ],
+     "grams": 125.5,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 171964,
+      "food": "Fish, haddock, raw",
+      "portion": "fillet",
+      "factor": 0.65
+     }
+    }
+   ]
+  },
+  {
+   "id": "tuna_can",
+   "names": {
+    "es": [
+     "atun en lata",
+     "lata de atun",
+     "atun"
+    ],
+    "en": [
+     "canned tuna",
+     "tuna"
+    ]
+   },
+   "tags": [
+    "protein",
+    "fish",
+    "oily_fish",
+    "b12"
+   ],
+   "portions": [
+    {
+     "unit": "can",
+     "es": [
+      "lata",
+      "latas"
+     ],
+     "en": [
+      "can",
+      "cans"
+     ],
+     "grams": 56,
+     "default": true,
+     "source": {
+      "kind": "estimate"
+     }
+    }
+   ]
+  },
+  {
+   "id": "sardines_can",
+   "names": {
+    "es": [
+     "sardinas",
+     "sardina"
+    ],
+    "en": [
+     "sardines",
+     "sardine"
+    ]
+   },
+   "tags": [
+    "protein",
+    "fish",
+    "oily_fish",
+    "b12",
+    "calcium"
+   ],
+   "portions": [
+    {
+     "unit": "can",
+     "es": [
+      "lata",
+      "latas"
+     ],
+     "en": [
+      "can",
+      "cans"
+     ],
+     "grams": 92.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 175139,
+      "food": "Fish, sardine, Atlantic, canned in oil, drained solids with bone",
+      "portion": "can (3.75 oz)",
+      "factor": 1.0
+     }
+    },
+    {
+     "unit": "unit",
+     "es": [
+      "sardina",
+      "sardinas"
+     ],
+     "en": [
+      "sardine",
+      "sardines"
+     ],
+     "grams": 12.0,
+     "default": false,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 175139,
+      "food": "Fish, sardine, Atlantic, canned in oil, drained solids with bone",
+      "portion": "small (2-2/3\" x 1/2\" x 1/4\")",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "mackerel",
+   "names": {
+    "es": [
+     "caballa",
+     "melva"
+    ],
+    "en": [
+     "mackerel"
+    ]
+   },
+   "tags": [
+    "protein",
+    "fish",
+    "oily_fish",
+    "b12"
+   ],
+   "portions": [
+    {
+     "unit": "can",
+     "es": [
+      "lata",
+      "latas"
+     ],
+     "en": [
+      "can",
+      "cans"
+     ],
+     "grams": 85,
+     "default": true,
+     "source": {
+      "kind": "estimate"
+     }
+    }
+   ]
+  },
+  {
+   "id": "ham",
+   "names": {
+    "es": [
+     "fiambre de pavo",
+     "jamon serrano",
+     "jamon cocido",
+     "jamon york",
+     "jamon"
+    ],
+    "en": [
+     "turkey slices",
+     "ham"
+    ]
+   },
+   "tags": [
+    "protein",
+    "processed_meat",
+    "b12"
+   ],
+   "portions": [
+    {
+     "unit": "slice_thin",
+     "es": [
+      "loncha",
+      "lonchas"
+     ],
+     "en": [
+      "slice",
+      "slices"
+     ],
+     "grams": 16.8,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 168295,
+      "food": "Pork, cured, ham, boneless, extra lean and regular, unheated",
+      "portion": "slice (6-1/4\" x 4\" x 1/16\") (1 oz)",
+      "factor": 0.6
+     }
+    }
+   ]
+  },
+  {
+   "id": "chorizo",
+   "names": {
+    "es": [
+     "salchichon",
+     "salchicha",
+     "chorizo",
+     "fuet"
+    ],
+    "en": [
+     "chorizo",
+     "sausage"
+    ]
+   },
+   "tags": [
+    "protein",
+    "processed_meat",
+    "fat"
+   ],
+   "portions": [
+    {
+     "unit": "link",
+     "es": [
+      "chorizo",
+      "chorizos"
+     ],
+     "en": [
+      "link",
+      "links"
+     ],
+     "grams": 60.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 173859,
+      "food": "Sausage, pork, chorizo, link or ground, raw",
+      "portion": "link (4\" long)",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "tofu",
+   "names": {
+    "es": [
+     "tofu"
+    ],
+    "en": [
+     "tofu"
+    ]
+   },
+   "tags": [
+    "protein",
+    "calcium",
+    "iron"
+   ],
+   "portions": [
+    {
+     "unit": "unit",
+     "es": [
+      "bloque",
+      "bloques"
+     ],
+     "en": [
+      "block",
+      "blocks"
+     ],
+     "grams": 125,
+     "default": true,
+     "source": {
+      "kind": "estimate"
+     }
+    }
+   ]
+  },
+  {
+   "id": "milk",
+   "names": {
+    "es": [
+     "leche semidesnatada",
+     "leche desnatada",
+     "leche entera",
+     "leche"
+    ],
+    "en": [
+     "semi-skimmed milk",
+     "skimmed milk",
+     "whole milk",
+     "milk"
+    ]
+   },
+   "tags": [
+    "dairy",
+    "calcium",
+    "b12"
+   ],
+   "portions": [
+    {
+     "unit": "glass",
+     "es": [
+      "vaso",
+      "vasos"
+     ],
+     "en": [
+      "glass",
+      "glasses"
+     ],
+     "grams": 250,
+     "default": true,
+     "source": {
+      "kind": "estimate"
+     }
+    },
+    {
+     "unit": "cup",
+     "es": [
+      "taza",
+      "tazas"
+     ],
+     "en": [
+      "cup",
+      "cups"
+     ],
+     "grams": 244.0,
+     "default": false,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 171265,
+      "food": "Milk, whole, 3.25% milkfat, with added vitamin D",
+      "portion": "cup",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "plant_milk",
+   "names": {
+    "es": [
+     "bebida de almendra",
+     "bebida de avena",
+     "leche de avena",
+     "bebida de soja",
+     "leche de soja"
+    ],
+    "en": [
+     "almond milk",
+     "oat drink",
+     "soy drink",
+     "oat milk",
+     "soy milk"
+    ]
+   },
+   "tags": [
+    "dairy"
+   ],
+   "portions": [
+    {
+     "unit": "glass",
+     "es": [
+      "vaso",
+      "vasos"
+     ],
+     "en": [
+      "glass",
+      "glasses"
+     ],
+     "grams": 250,
+     "default": true,
+     "source": {
+      "kind": "estimate"
+     }
+    }
+   ]
+  },
+  {
+   "id": "yogurt",
+   "names": {
+    "es": [
+     "yogur natural",
+     "yogur griego",
+     "kefir",
+     "yogur",
+     "skyr"
+    ],
+    "en": [
+     "greek yogurt",
+     "yoghurt",
+     "yogurt",
+     "kefir",
+     "skyr"
+    ]
+   },
+   "tags": [
+    "dairy",
+    "protein",
+    "calcium",
+    "b12"
+   ],
+   "portions": [
+    {
+     "unit": "yogurt",
+     "es": [
+      "yogur",
+      "yogures"
+     ],
+     "en": [
+      "yogurt",
+      "yogurts"
+     ],
+     "grams": 125,
+     "default": true,
+     "source": {
+      "kind": "estimate"
+     }
+    }
+   ]
+  },
+  {
+   "id": "cheese_slice",
+   "names": {
+    "es": [
+     "queso semicurado",
+     "queso en lonchas",
+     "queso curado",
+     "queso"
+    ],
+    "en": [
+     "cheese slice",
+     "cheddar",
+     "cheese"
+    ]
+   },
+   "tags": [
+    "dairy",
+    "fat",
+    "calcium",
+    "b12"
+   ],
+   "portions": [
+    {
+     "unit": "slice_thin",
+     "es": [
+      "loncha",
+      "lonchas"
+     ],
+     "en": [
+      "slice",
+      "slices"
+     ],
+     "grams": 21.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 170899,
+      "food": "Cheese, cheddar, sharp, sliced",
+      "portion": "slice (3/4 oz)",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "fresh_cheese",
+   "names": {
+    "es": [
+     "queso de burgos",
+     "queso fresco",
+     "mozzarella",
+     "requeson"
+    ],
+    "en": [
+     "cottage cheese",
+     "fresh cheese",
+     "mozzarella"
+    ]
+   },
+   "tags": [
+    "dairy",
+    "protein",
+    "calcium"
+   ],
+   "portions": [
+    {
+     "unit": "unit",
+     "es": [
+      "tarrina",
+      "tarrinas"
+     ],
+     "en": [
+      "tub",
+      "tubs"
+     ],
+     "grams": 62,
+     "default": true,
+     "source": {
+      "kind": "estimate"
+     }
+    }
+   ]
+  },
+  {
+   "id": "parmesan",
+   "names": {
+    "es": [
+     "queso rallado",
+     "parmesano"
+    ],
+    "en": [
+     "grated cheese",
+     "parmesan"
+    ]
+   },
+   "tags": [
+    "dairy",
+    "calcium"
+   ],
+   "portions": [
+    {
+     "unit": "tbsp",
+     "es": [
+      "cucharada",
+      "cucharadas"
+     ],
+     "en": [
+      "tablespoon",
+      "tablespoons"
+     ],
+     "grams": 5.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 171247,
+      "food": "Cheese, parmesan, grated",
+      "portion": "tbsp",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "bread_slice",
+   "names": {
+    "es": [
+     "pan de centeno",
+     "pan de molde",
+     "pan integral",
+     "tostada",
+     "pan"
+    ],
+    "en": [
+     "whole-wheat bread",
+     "wholemeal bread",
+     "rye bread",
+     "toast",
+     "bread"
+    ]
+   },
+   "tags": [
+    "carb"
+   ],
+   "portions": [
+    {
+     "unit": "slice",
+     "es": [
+      "rebanada",
+      "rebanadas"
+     ],
+     "en": [
+      "slice",
+      "slices"
+     ],
+     "grams": 32.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 172688,
+      "food": "Bread, whole-wheat, commercially prepared",
+      "portion": "slice",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "baguette",
+   "names": {
+    "es": [
+     "pan de barra",
+     "barra de pan",
+     "bocadillo",
+     "baguette"
+    ],
+    "en": [
+     "french bread",
+     "baguette"
+    ]
+   },
+   "tags": [
+    "carb"
+   ],
+   "portions": [
+    {
+     "unit": "bun",
+     "es": [
+      "pieza",
+      "piezas"
+     ],
+     "en": [
+      "piece",
+      "pieces"
+     ],
+     "grams": 60,
+     "default": true,
+     "source": {
+      "kind": "estimate"
+     }
+    }
+   ]
+  },
+  {
+   "id": "tortilla_wrap",
+   "names": {
+    "es": [
+     "tortilla de trigo",
+     "fajita",
+     "wrap"
+    ],
+    "en": [
+     "tortilla",
+     "wrap"
+    ]
+   },
+   "tags": [
+    "carb"
+   ],
+   "portions": [
+    {
+     "unit": "tortilla",
+     "es": [
+      "tortita",
+      "tortitas"
+     ],
+     "en": [
+      "tortilla",
+      "tortillas"
+     ],
+     "grams": 49.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 173242,
+      "food": "Tortillas, ready-to-bake or -fry, flour, without added calcium",
+      "portion": "tortilla (approx 7-8\" dia)",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "oats",
+   "names": {
+    "es": [
+     "copos de avena",
+     "gachas",
+     "avena"
+    ],
+    "en": [
+     "oat flakes",
+     "porridge",
+     "oatmeal",
+     "oats"
+    ]
+   },
+   "tags": [
+    "carb",
+    "wholegrain"
+   ],
+   "portions": [
+    {
+     "unit": "tbsp",
+     "es": [
+      "cucharada",
+      "cucharadas"
+     ],
+     "en": [
+      "tablespoon",
+      "tablespoons"
+     ],
+     "grams": 10,
+     "default": false,
+     "source": {
+      "kind": "estimate"
+     }
+    },
+    {
+     "unit": "cup",
+     "es": [
+      "taza",
+      "tazas"
+     ],
+     "en": [
+      "cup",
+      "cups"
+     ],
+     "grams": 81.0,
+     "default": false,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 173904,
+      "food": "Cereals, oats, regular and quick, not fortified, dry",
+      "portion": "cup",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "rice",
+   "names": {
+    "es": [
+     "arroz integral",
+     "arroz blanco",
+     "arroz"
+    ],
+    "en": [
+     "white rice",
+     "brown rice",
+     "rice"
+    ]
+   },
+   "tags": [
+    "carb"
+   ],
+   "portions": []
+  },
+  {
+   "id": "pasta",
+   "names": {
+    "es": [
+     "macarrones",
+     "espaguetis",
+     "tallarines",
+     "fideos",
+     "pasta"
+    ],
+    "en": [
+     "spaghetti",
+     "macaroni",
+     "noodles",
+     "pasta"
+    ]
+   },
+   "tags": [
+    "carb"
+   ],
+   "portions": []
+  },
+  {
+   "id": "potato",
+   "names": {
+    "es": [
+     "patatas",
+     "patata",
+     "papa"
+    ],
+    "en": [
+     "potatoes",
+     "potato"
+    ]
+   },
+   "tags": [
+    "carb",
+    "vitc"
+   ],
+   "portions": [
+    {
+     "unit": "unit",
+     "es": [
+      "patata",
+      "patatas"
+     ],
+     "en": [
+      "potato",
+      "potatoes"
+     ],
+     "grams": 213.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 170026,
+      "food": "Potatoes, flesh and skin, raw",
+      "portion": "Potato medium (2-1/4\" to 3-1/4\" dia)",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "sweet_potato",
+   "names": {
+    "es": [
+     "boniato",
+     "batata"
+    ],
+    "en": [
+     "sweet potato"
+    ]
+   },
+   "tags": [
+    "carb",
+    "veg"
+   ],
+   "portions": [
+    {
+     "unit": "unit",
+     "es": [
+      "boniato",
+      "boniatos"
+     ],
+     "en": [
+      "sweet potato",
+      "sweet potatoes"
+     ],
+     "grams": 130.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 168482,
+      "food": "Sweet potato, raw, unprepared (Includes foods for USDA's Food Distribution Program)",
+      "portion": "sweetpotato, 5\" long",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "rice_cake",
+   "names": {
+    "es": [
+     "tortitas de arroz",
+     "tortita de arroz",
+     "tortita de maiz"
+    ],
+    "en": [
+     "rice cakes",
+     "rice cake"
+    ]
+   },
+   "tags": [
+    "carb"
+   ],
+   "portions": [
+    {
+     "unit": "cake",
+     "es": [
+      "tortita",
+      "tortitas"
+     ],
+     "en": [
+      "rice cake",
+      "rice cakes"
+     ],
+     "grams": 9.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 170250,
+      "food": "Snacks, rice cakes, brown rice, plain, unsalted",
+      "portion": "cake",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "biscuit",
+   "names": {
+    "es": [
+     "galleta maria",
+     "galletas",
+     "galleta"
+    ],
+    "en": [
+     "biscuit",
+     "cookie"
+    ]
+   },
+   "tags": [
+    "carb",
+    "sweet"
+   ],
+   "portions": [
+    {
+     "unit": "cookie",
+     "es": [
+      "galleta",
+      "galletas"
+     ],
+     "en": [
+      "biscuit",
+      "biscuits"
+     ],
+     "grams": 5.6,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 171867,
+      "food": "Cookies, Marie biscuit",
+      "portion": "cookie",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "lentils",
+   "names": {
+    "es": [
+     "lentejas",
+     "lenteja"
+    ],
+    "en": [
+     "lentils",
+     "lentil"
+    ]
+   },
+   "tags": [
+    "legume",
+    "protein",
+    "carb",
+    "iron"
+   ],
+   "portions": []
+  },
+  {
+   "id": "chickpeas",
+   "names": {
+    "es": [
+     "garbanzos",
+     "garbanzo",
+     "hummus"
+    ],
+    "en": [
+     "chickpeas",
+     "chickpea",
+     "hummus"
+    ]
+   },
+   "tags": [
+    "legume",
+    "protein",
+    "carb",
+    "iron"
+   ],
+   "portions": [
+    {
+     "unit": "jar",
+     "es": [
+      "bote",
+      "botes"
+     ],
+     "en": [
+      "jar",
+      "jars"
+     ],
+     "grams": 250,
+     "default": true,
+     "source": {
+      "kind": "estimate"
+     }
+    }
+   ]
+  },
+  {
+   "id": "beans",
+   "names": {
+    "es": [
+     "judias blancas",
+     "habichuelas",
+     "frijoles",
+     "alubias"
+    ],
+    "en": [
+     "kidney beans",
+     "white beans",
+     "beans"
+    ]
+   },
+   "tags": [
+    "legume",
+    "protein",
+    "carb",
+    "iron"
+   ],
+   "portions": [
+    {
+     "unit": "jar",
+     "es": [
+      "bote",
+      "botes"
+     ],
+     "en": [
+      "jar",
+      "jars"
+     ],
+     "grams": 250,
+     "default": true,
+     "source": {
+      "kind": "estimate"
+     }
+    }
+   ]
+  },
+  {
+   "id": "peas",
+   "names": {
+    "es": [
+     "guisantes"
+    ],
+    "en": [
+     "peas"
+    ]
+   },
+   "tags": [
+    "legume",
+    "veg"
+   ],
+   "portions": [
+    {
+     "unit": "cup",
+     "es": [
+      "taza",
+      "tazas"
+     ],
+     "en": [
+      "cup",
+      "cups"
+     ],
+     "grams": 134.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 170016,
+      "food": "Peas, green, frozen, unprepared (Includes foods for USDA's Food Distribution Program)",
+      "portion": "cup",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "tomato",
+   "names": {
+    "es": [
+     "tomates",
+     "tomate"
+    ],
+    "en": [
+     "tomatoes",
+     "tomato"
+    ]
+   },
+   "tags": [
+    "veg",
+    "vitc"
+   ],
+   "portions": [
+    {
+     "unit": "unit",
+     "es": [
+      "tomate",
+      "tomates"
+     ],
+     "en": [
+      "tomato",
+      "tomatoes"
+     ],
+     "grams": 123.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 170457,
+      "food": "Tomatoes, red, ripe, raw, year round average",
+      "portion": "medium whole (2-3/5\" dia)",
+      "factor": 1.0
+     }
+    },
+    {
+     "unit": "slice",
+     "es": [
+      "rebanada",
+      "rebanadas"
+     ],
+     "en": [
+      "slice",
+      "slices"
+     ],
+     "grams": 20.0,
+     "default": false,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 170457,
+      "food": "Tomatoes, red, ripe, raw, year round average",
+      "portion": "slice, medium (1/4\" thick)",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "cherry_tomato",
+   "names": {
+    "es": [
+     "tomates cherry",
+     "tomate cherry"
+    ],
+    "en": [
+     "cherry tomatoes",
+     "cherry tomato"
+    ]
+   },
+   "tags": [
+    "veg",
+    "vitc"
+   ],
+   "portions": [
+    {
+     "unit": "unit",
+     "es": [
+      "tomate cherry",
+      "tomates cherry"
+     ],
+     "en": [
+      "cherry tomato",
+      "cherry tomatoes"
+     ],
+     "grams": 17.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 170457,
+      "food": "Tomatoes, red, ripe, raw, year round average",
+      "portion": "cherry",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "carrot",
+   "names": {
+    "es": [
+     "zanahoria"
+    ],
+    "en": [
+     "carrot"
+    ]
+   },
+   "tags": [
+    "veg"
+   ],
+   "portions": [
+    {
+     "unit": "unit",
+     "es": [
+      "zanahoria",
+      "zanahorias"
+     ],
+     "en": [
+      "carrot",
+      "carrots"
+     ],
+     "grams": 61.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 170393,
+      "food": "Carrots, raw",
+      "portion": "medium",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "onion",
+   "names": {
+    "es": [
+     "cebolla"
+    ],
+    "en": [
+     "onion"
+    ]
+   },
+   "tags": [
+    "veg"
+   ],
+   "portions": [
+    {
+     "unit": "unit",
+     "es": [
+      "cebolla",
+      "cebollas"
+     ],
+     "en": [
+      "onion",
+      "onions"
+     ],
+     "grams": 110.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 170000,
+      "food": "Onions, raw",
+      "portion": "medium (2-1/2\" dia)",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "pepper",
+   "names": {
+    "es": [
+     "pimiento"
+    ],
+    "en": [
+     "bell pepper",
+     "pepper"
+    ]
+   },
+   "tags": [
+    "veg",
+    "vitc"
+   ],
+   "portions": [
+    {
+     "unit": "unit",
+     "es": [
+      "pimiento",
+      "pimientos"
+     ],
+     "en": [
+      "pepper",
+      "peppers"
+     ],
+     "grams": 119.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 170108,
+      "food": "Peppers, sweet, red, raw",
+      "portion": "medium (approx 2-3/4\" long, 2-1/2 dia.)",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "zucchini",
+   "names": {
+    "es": [
+     "calabacin"
+    ],
+    "en": [
+     "courgette",
+     "zucchini"
+    ]
+   },
+   "tags": [
+    "veg"
+   ],
+   "portions": [
+    {
+     "unit": "unit",
+     "es": [
+      "calabacín",
+      "calabacines"
+     ],
+     "en": [
+      "courgette",
+      "courgettes"
+     ],
+     "grams": 196.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 169291,
+      "food": "Squash, summer, zucchini, includes skin, raw",
+      "portion": "medium",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "cucumber",
+   "names": {
+    "es": [
+     "pepino"
+    ],
+    "en": [
+     "cucumber"
+    ]
+   },
+   "tags": [
+    "veg"
+   ],
+   "portions": [
+    {
+     "unit": "unit",
+     "es": [
+      "pepino",
+      "pepinos"
+     ],
+     "en": [
+      "cucumber",
+      "cucumbers"
+     ],
+     "grams": 301.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 168409,
+      "food": "Cucumber, with peel, raw",
+      "portion": "cucumber (8-1/4\")",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "lettuce",
+   "names": {
+    "es": [
+     "canonigos",
+     "ensalada",
+     "lechuga",
+     "brotes",
+     "rucula"
+    ],
+    "en": [
+     "mixed salad",
+     "lettuce",
+     "rocket",
+     "salad"
+    ]
+   },
+   "tags": [
+    "veg"
+   ],
+   "portions": [
+    {
+     "unit": "leaf",
+     "es": [
+      "hoja",
+      "hojas"
+     ],
+     "en": [
+      "leaf",
+      "leaves"
+     ],
+     "grams": 8.0,
+     "default": false,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 169248,
+      "food": "Lettuce, iceberg (includes crisphead types), raw",
+      "portion": "leaf, medium",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "spinach",
+   "names": {
+    "es": [
+     "espinacas",
+     "espinaca",
+     "acelgas"
+    ],
+    "en": [
+     "spinach",
+     "chard"
+    ]
+   },
+   "tags": [
+    "veg",
+    "iron",
+    "calcium"
+   ],
+   "portions": [
+    {
+     "unit": "handful",
+     "es": [
+      "puñado",
+      "puñados"
+     ],
+     "en": [
+      "handful",
+      "handfuls"
+     ],
+     "grams": 30,
+     "default": true,
+     "source": {
+      "kind": "estimate"
+     }
+    }
+   ]
+  },
+  {
+   "id": "broccoli",
+   "names": {
+    "es": [
+     "brocoli"
+    ],
+    "en": [
+     "broccoli"
+    ]
+   },
+   "tags": [
+    "veg",
+    "vitc",
+    "calcium"
+   ],
+   "portions": [
+    {
+     "unit": "floret",
+     "es": [
+      "ramillete",
+      "ramilletes"
+     ],
+     "en": [
+      "floret",
+      "florets"
+     ],
+     "grams": 15,
+     "default": true,
+     "source": {
+      "kind": "estimate"
+     }
+    }
+   ]
+  },
+  {
+   "id": "cauliflower",
+   "names": {
+    "es": [
+     "coliflor"
+    ],
+    "en": [
+     "cauliflower"
+    ]
+   },
+   "tags": [
+    "veg",
+    "vitc"
+   ],
+   "portions": [
+    {
+     "unit": "floret",
+     "es": [
+      "ramillete",
+      "ramilletes"
+     ],
+     "en": [
+      "floret",
+      "florets"
+     ],
+     "grams": 13.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 169986,
+      "food": "Cauliflower, raw",
+      "portion": "floweret",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "mushrooms",
+   "names": {
+    "es": [
+     "champinones",
+     "champinon",
+     "setas"
+    ],
+    "en": [
+     "mushrooms",
+     "mushroom"
+    ]
+   },
+   "tags": [
+    "veg"
+   ],
+   "portions": [
+    {
+     "unit": "unit",
+     "es": [
+      "champiñón",
+      "champiñones"
+     ],
+     "en": [
+      "mushroom",
+      "mushrooms"
+     ],
+     "grams": 18.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 169251,
+      "food": "Mushrooms, white, raw",
+      "portion": "medium",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "green_beans",
+   "names": {
+    "es": [
+     "judias verdes",
+     "vainas"
+    ],
+    "en": [
+     "green beans"
+    ]
+   },
+   "tags": [
+    "veg"
+   ],
+   "portions": [
+    {
+     "unit": "handful",
+     "es": [
+      "puñado",
+      "puñados"
+     ],
+     "en": [
+      "handful",
+      "handfuls"
+     ],
+     "grams": 50,
+     "default": true,
+     "source": {
+      "kind": "estimate"
+     }
+    }
+   ]
+  },
+  {
+   "id": "asparagus",
+   "names": {
+    "es": [
+     "esparragos",
+     "esparrago"
+    ],
+    "en": [
+     "asparagus"
+    ]
+   },
+   "tags": [
+    "veg"
+   ],
+   "portions": [
+    {
+     "unit": "spear",
+     "es": [
+      "espárrago",
+      "espárragos"
+     ],
+     "en": [
+      "spear",
+      "spears"
+     ],
+     "grams": 16.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 168389,
+      "food": "Asparagus, raw",
+      "portion": "spear, medium (5-1/4\" to 7\" long)",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "eggplant",
+   "names": {
+    "es": [
+     "berenjena"
+    ],
+    "en": [
+     "aubergine",
+     "eggplant"
+    ]
+   },
+   "tags": [
+    "veg"
+   ],
+   "portions": [
+    {
+     "unit": "unit",
+     "es": [
+      "berenjena",
+      "berenjenas"
+     ],
+     "en": [
+      "aubergine",
+      "aubergines"
+     ],
+     "grams": 328.8,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 169228,
+      "food": "Eggplant, raw",
+      "portion": "eggplant, unpeeled (approx 1-1/4 lb)",
+      "factor": 0.6
+     }
+    }
+   ]
+  },
+  {
+   "id": "leek",
+   "names": {
+    "es": [
+     "puerro"
+    ],
+    "en": [
+     "leek"
+    ]
+   },
+   "tags": [
+    "veg"
+   ],
+   "portions": [
+    {
+     "unit": "unit",
+     "es": [
+      "puerro",
+      "puerros"
+     ],
+     "en": [
+      "leek",
+      "leeks"
+     ],
+     "grams": 124.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 168426,
+      "food": "Leeks, (bulb and lower leaf-portion), cooked, boiled, drained, without salt",
+      "portion": "leek",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "garlic",
+   "names": {
+    "es": [
+     "ajos",
+     "ajo"
+    ],
+    "en": [
+     "garlic"
+    ]
+   },
+   "tags": [
+    "veg"
+   ],
+   "portions": [
+    {
+     "unit": "clove",
+     "es": [
+      "diente",
+      "dientes"
+     ],
+     "en": [
+      "clove",
+      "cloves"
+     ],
+     "grams": 3.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 169230,
+      "food": "Garlic, raw",
+      "portion": "clove",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "corn",
+   "names": {
+    "es": [
+     "maiz"
+    ],
+    "en": [
+     "sweetcorn",
+     "corn"
+    ]
+   },
+   "tags": [
+    "carb",
+    "veg"
+   ],
+   "portions": [
+    {
+     "unit": "can",
+     "es": [
+      "lata",
+      "latas"
+     ],
+     "en": [
+      "can",
+      "cans"
+     ],
+     "grams": 140,
+     "default": true,
+     "source": {
+      "kind": "estimate"
+     }
+    }
+   ]
+  },
+  {
+   "id": "avocado",
+   "names": {
+    "es": [
+     "aguacate"
+    ],
+    "en": [
+     "avocado"
+    ]
+   },
+   "tags": [
+    "fat",
+    "fruit"
+   ],
+   "portions": [
+    {
+     "unit": "unit",
+     "es": [
+      "aguacate",
+      "aguacates"
+     ],
+     "en": [
+      "avocado",
+      "avocados"
+     ],
+     "grams": 201.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 171705,
+      "food": "Avocados, raw, all commercial varieties",
+      "portion": "avocado, NS as to Florida or California",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "olives",
+   "names": {
+    "es": [
+     "aceitunas",
+     "aceituna"
+    ],
+    "en": [
+     "olives",
+     "olive"
+    ]
+   },
+   "tags": [
+    "fat"
+   ],
+   "portions": [
+    {
+     "unit": "unit",
+     "es": [
+      "aceituna",
+      "aceitunas"
+     ],
+     "en": [
+      "olive",
+      "olives"
+     ],
+     "grams": 4.4,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 169094,
+      "food": "Olives, ripe, canned (small-extra large)",
+      "portion": "large",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "apple",
+   "names": {
+    "es": [
+     "manzana"
+    ],
+    "en": [
+     "apple"
+    ]
+   },
+   "tags": [
+    "fruit"
+   ],
+   "portions": [
+    {
+     "unit": "unit",
+     "es": [
+      "manzana",
+      "manzanas"
+     ],
+     "en": [
+      "apple",
+      "apples"
+     ],
+     "grams": 182.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 171688,
+      "food": "Apples, raw, with skin (Includes foods for USDA's Food Distribution Program)",
+      "portion": "medium (3\" dia)",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "banana",
+   "names": {
+    "es": [
+     "platano",
+     "banana"
+    ],
+    "en": [
+     "banana"
+    ]
+   },
+   "tags": [
+    "fruit"
+   ],
+   "portions": [
+    {
+     "unit": "unit",
+     "es": [
+      "plátano",
+      "plátanos"
+     ],
+     "en": [
+      "banana",
+      "bananas"
+     ],
+     "grams": 118.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 173944,
+      "food": "Bananas, raw",
+      "portion": "medium (7\" to 7-7/8\" long)",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "orange",
+   "names": {
+    "es": [
+     "naranja"
+    ],
+    "en": [
+     "orange"
+    ]
+   },
+   "tags": [
+    "fruit",
+    "vitc"
+   ],
+   "portions": [
+    {
+     "unit": "unit",
+     "es": [
+      "naranja",
+      "naranjas"
+     ],
+     "en": [
+      "orange",
+      "oranges"
+     ],
+     "grams": 131.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 169097,
+      "food": "Oranges, raw, all commercial varieties",
+      "portion": "fruit (2-5/8\" dia)",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "mandarin",
+   "names": {
+    "es": [
+     "clementina",
+     "mandarina"
+    ],
+    "en": [
+     "clementine",
+     "tangerine",
+     "mandarin"
+    ]
+   },
+   "tags": [
+    "fruit",
+    "vitc"
+   ],
+   "portions": [
+    {
+     "unit": "unit",
+     "es": [
+      "mandarina",
+      "mandarinas"
+     ],
+     "en": [
+      "mandarin",
+      "mandarins"
+     ],
+     "grams": 88.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 169105,
+      "food": "Tangerines, (mandarin oranges), raw",
+      "portion": "medium (2-1/2\" dia)",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "pear",
+   "names": {
+    "es": [
+     "pera"
+    ],
+    "en": [
+     "pear"
+    ]
+   },
+   "tags": [
+    "fruit"
+   ],
+   "portions": [
+    {
+     "unit": "unit",
+     "es": [
+      "pera",
+      "peras"
+     ],
+     "en": [
+      "pear",
+      "pears"
+     ],
+     "grams": 157.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 167777,
+      "food": "Pears, raw, red anjou",
+      "portion": "medium",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "kiwi",
+   "names": {
+    "es": [
+     "kiwi"
+    ],
+    "en": [
+     "kiwifruit",
+     "kiwi"
+    ]
+   },
+   "tags": [
+    "fruit",
+    "vitc"
+   ],
+   "portions": [
+    {
+     "unit": "unit",
+     "es": [
+      "kiwi",
+      "kiwis"
+     ],
+     "en": [
+      "kiwi",
+      "kiwis"
+     ],
+     "grams": 69.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 168153,
+      "food": "Kiwifruit, green, raw",
+      "portion": "fruit (2\" dia)",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "strawberries",
+   "names": {
+    "es": [
+     "freson",
+     "fresas",
+     "fresa"
+    ],
+    "en": [
+     "strawberries",
+     "strawberry"
+    ]
+   },
+   "tags": [
+    "fruit",
+    "vitc"
+   ],
+   "portions": [
+    {
+     "unit": "unit",
+     "es": [
+      "fresa",
+      "fresas"
+     ],
+     "en": [
+      "strawberry",
+      "strawberries"
+     ],
+     "grams": 18.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 167762,
+      "food": "Strawberries, raw",
+      "portion": "large (1-3/8\" dia)",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "grapes",
+   "names": {
+    "es": [
+     "uvas",
+     "uva"
+    ],
+    "en": [
+     "grapes",
+     "grape"
+    ]
+   },
+   "tags": [
+    "fruit"
+   ],
+   "portions": [
+    {
+     "unit": "unit",
+     "es": [
+      "uva",
+      "uvas"
+     ],
+     "en": [
+      "grape",
+      "grapes"
+     ],
+     "grams": 4.9,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 174683,
+      "food": "Grapes, red or green (European type, such as Thompson seedless), raw",
+      "portion": "grapes",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "peach",
+   "names": {
+    "es": [
+     "melocoton",
+     "nectarina",
+     "paraguayo"
+    ],
+    "en": [
+     "nectarine",
+     "peach"
+    ]
+   },
+   "tags": [
+    "fruit"
+   ],
+   "portions": [
+    {
+     "unit": "unit",
+     "es": [
+      "melocotón",
+      "melocotones"
+     ],
+     "en": [
+      "peach",
+      "peaches"
+     ],
+     "grams": 150.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 169928,
+      "food": "Peaches, yellow, raw",
+      "portion": "medium (2-2/3\" dia)",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "plum",
+   "names": {
+    "es": [
+     "ciruela"
+    ],
+    "en": [
+     "plum"
+    ]
+   },
+   "tags": [
+    "fruit"
+   ],
+   "portions": [
+    {
+     "unit": "unit",
+     "es": [
+      "ciruela",
+      "ciruelas"
+     ],
+     "en": [
+      "plum",
+      "plums"
+     ],
+     "grams": 66.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 169949,
+      "food": "Plums, raw",
+      "portion": "fruit (2-1/8\" dia)",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "apricot",
+   "names": {
+    "es": [
+     "albaricoque"
+    ],
+    "en": [
+     "apricot"
+    ]
+   },
+   "tags": [
+    "fruit"
+   ],
+   "portions": [
+    {
+     "unit": "unit",
+     "es": [
+      "albaricoque",
+      "albaricoques"
+     ],
+     "en": [
+      "apricot",
+      "apricots"
+     ],
+     "grams": 35.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 171697,
+      "food": "Apricots, raw",
+      "portion": "apricot",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "cherries",
+   "names": {
+    "es": [
+     "cerezas",
+     "cereza"
+    ],
+    "en": [
+     "cherries",
+     "cherry"
+    ]
+   },
+   "tags": [
+    "fruit"
+   ],
+   "portions": [
+    {
+     "unit": "unit",
+     "es": [
+      "cereza",
+      "cerezas"
+     ],
+     "en": [
+      "cherry",
+      "cherries"
+     ],
+     "grams": 8.2,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 171719,
+      "food": "Cherries, sweet, raw",
+      "portion": "cherry",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "melon",
+   "names": {
+    "es": [
+     "melon"
+    ],
+    "en": [
+     "cantaloupe",
+     "melon"
+    ]
+   },
+   "tags": [
+    "fruit"
+   ],
+   "portions": [
+    {
+     "unit": "wedge",
+     "es": [
+      "tajada",
+      "tajadas"
+     ],
+     "en": [
+      "wedge",
+      "wedges"
+     ],
+     "grams": 153.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 169092,
+      "food": "Melons, cantaloupe, raw",
+      "portion": "wedge, large (1/8 of large melon)",
+      "factor": 1.5
+     }
+    }
+   ]
+  },
+  {
+   "id": "watermelon",
+   "names": {
+    "es": [
+     "sandia"
+    ],
+    "en": [
+     "watermelon"
+    ]
+   },
+   "tags": [
+    "fruit"
+   ],
+   "portions": [
+    {
+     "unit": "wedge",
+     "es": [
+      "tajada",
+      "tajadas"
+     ],
+     "en": [
+      "wedge",
+      "wedges"
+     ],
+     "grams": 286.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 167765,
+      "food": "Watermelon, raw",
+      "portion": "wedge (approx 1/16 of melon)",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "pineapple",
+   "names": {
+    "es": [
+     "pina"
+    ],
+    "en": [
+     "pineapple"
+    ]
+   },
+   "tags": [
+    "fruit",
+    "vitc"
+   ],
+   "portions": [
+    {
+     "unit": "slice",
+     "es": [
+      "rebanada",
+      "rebanadas"
+     ],
+     "en": [
+      "slice",
+      "slices"
+     ],
+     "grams": 84.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 169124,
+      "food": "Pineapple, raw, all varieties",
+      "portion": "slice (3-1/2\" dia x 3/4\" thick)",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "mango",
+   "names": {
+    "es": [
+     "mango"
+    ],
+    "en": [
+     "mango"
+    ]
+   },
+   "tags": [
+    "fruit",
+    "vitc"
+   ],
+   "portions": [
+    {
+     "unit": "unit",
+     "es": [
+      "mango",
+      "mangos"
+     ],
+     "en": [
+      "mango",
+      "mangoes"
+     ],
+     "grams": 336.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 169910,
+      "food": "Mangos, raw",
+      "portion": "fruit without refuse",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "figs",
+   "names": {
+    "es": [
+     "higos",
+     "higo"
+    ],
+    "en": [
+     "figs",
+     "fig"
+    ]
+   },
+   "tags": [
+    "fruit"
+   ],
+   "portions": [
+    {
+     "unit": "unit",
+     "es": [
+      "higo",
+      "higos"
+     ],
+     "en": [
+      "fig",
+      "figs"
+     ],
+     "grams": 50.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 173021,
+      "food": "Figs, raw",
+      "portion": "medium (2-1/4\" dia)",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "blueberries",
+   "names": {
+    "es": [
+     "arandanos"
+    ],
+    "en": [
+     "blueberries"
+    ]
+   },
+   "tags": [
+    "fruit"
+   ],
+   "portions": [
+    {
+     "unit": "handful",
+     "es": [
+      "puñado",
+      "puñados"
+     ],
+     "en": [
+      "handful",
+      "handfuls"
+     ],
+     "grams": 70,
+     "default": true,
+     "source": {
+      "kind": "estimate"
+     }
+    }
+   ]
+  },
+  {
+   "id": "raspberries",
+   "names": {
+    "es": [
+     "frambuesas"
+    ],
+    "en": [
+     "raspberries"
+    ]
+   },
+   "tags": [
+    "fruit",
+    "vitc"
+   ],
+   "portions": [
+    {
+     "unit": "handful",
+     "es": [
+      "puñado",
+      "puñados"
+     ],
+     "en": [
+      "handful",
+      "handfuls"
+     ],
+     "grams": 60,
+     "default": true,
+     "source": {
+      "kind": "estimate"
+     }
+    }
+   ]
+  },
+  {
+   "id": "pomegranate",
+   "names": {
+    "es": [
+     "granada"
+    ],
+    "en": [
+     "pomegranate"
+    ]
+   },
+   "tags": [
+    "fruit"
+   ],
+   "portions": [
+    {
+     "unit": "unit",
+     "es": [
+      "granada",
+      "granadas"
+     ],
+     "en": [
+      "pomegranate",
+      "pomegranates"
+     ],
+     "grams": 282.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 169134,
+      "food": "Pomegranates, raw",
+      "portion": "pomegranate (4\" dia)",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "lemon",
+   "names": {
+    "es": [
+     "limon"
+    ],
+    "en": [
+     "lemon"
+    ]
+   },
+   "tags": [
+    "fruit",
+    "vitc"
+   ],
+   "portions": [
+    {
+     "unit": "unit",
+     "es": [
+      "limón",
+      "limones"
+     ],
+     "en": [
+      "lemon",
+      "lemons"
+     ],
+     "grams": 58.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 167746,
+      "food": "Lemons, raw, without peel",
+      "portion": "fruit (2-1/8\" dia)",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "olive_oil",
+   "names": {
+    "es": [
+     "aceite de oliva virgen extra",
+     "aceite de oliva",
+     "aceite",
+     "aove"
+    ],
+    "en": [
+     "olive oil",
+     "oil"
+    ]
+   },
+   "tags": [
+    "fat"
+   ],
+   "portions": [
+    {
+     "unit": "tbsp",
+     "es": [
+      "cucharada",
+      "cucharadas"
+     ],
+     "en": [
+      "tablespoon",
+      "tablespoons"
+     ],
+     "grams": 10.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 171413,
+      "food": "Oil, olive, salad or cooking",
+      "portion": "tablespoon",
+      "factor": 0.7407407407407407
+     }
+    },
+    {
+     "unit": "tsp",
+     "es": [
+      "cucharadita",
+      "cucharaditas"
+     ],
+     "en": [
+      "teaspoon",
+      "teaspoons"
+     ],
+     "grams": 4.5,
+     "default": false,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 171413,
+      "food": "Oil, olive, salad or cooking",
+      "portion": "tsp",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "butter",
+   "names": {
+    "es": [
+     "mantequilla"
+    ],
+    "en": [
+     "butter"
+    ]
+   },
+   "tags": [
+    "fat",
+    "dairy"
+   ],
+   "portions": [
+    {
+     "unit": "tsp",
+     "es": [
+      "cucharadita",
+      "cucharaditas"
+     ],
+     "en": [
+      "teaspoon",
+      "teaspoons"
+     ],
+     "grams": 5.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 173410,
+      "food": "Butter, salted",
+      "portion": "pat (1\" sq, 1/3\" high)",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "almonds",
+   "names": {
+    "es": [
+     "almendras",
+     "almendra"
+    ],
+    "en": [
+     "almonds",
+     "almond"
+    ]
+   },
+   "tags": [
+    "nuts",
+    "fat",
+    "calcium"
+   ],
+   "portions": [
+    {
+     "unit": "handful",
+     "es": [
+      "puñado",
+      "puñados"
+     ],
+     "en": [
+      "handful",
+      "handfuls"
+     ],
+     "grams": 25,
+     "default": true,
+     "source": {
+      "kind": "estimate"
+     }
+    },
+    {
+     "unit": "unit",
+     "es": [
+      "almendra",
+      "almendras"
+     ],
+     "en": [
+      "almond",
+      "almonds"
+     ],
+     "grams": 1.2,
+     "default": false,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 170567,
+      "food": "Nuts, almonds",
+      "portion": "almond",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "walnuts",
+   "names": {
+    "es": [
+     "nueces",
+     "nuez"
+    ],
+    "en": [
+     "walnuts",
+     "walnut"
+    ]
+   },
+   "tags": [
+    "nuts",
+    "fat",
+    "omega3_ala"
+   ],
+   "portions": [
+    {
+     "unit": "handful",
+     "es": [
+      "puñado",
+      "puñados"
+     ],
+     "en": [
+      "handful",
+      "handfuls"
+     ],
+     "grams": 25,
+     "default": true,
+     "source": {
+      "kind": "estimate"
+     }
+    },
+    {
+     "unit": "unit",
+     "es": [
+      "nuez",
+      "nueces"
+     ],
+     "en": [
+      "walnut",
+      "walnuts"
+     ],
+     "grams": 4.0,
+     "default": false,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 170187,
+      "food": "Nuts, walnuts, english",
+      "portion": "oz (14 halves)",
+      "factor": 0.14285714285714285
+     }
+    }
+   ]
+  },
+  {
+   "id": "pistachios",
+   "names": {
+    "es": [
+     "pistachos"
+    ],
+    "en": [
+     "pistachios"
+    ]
+   },
+   "tags": [
+    "nuts",
+    "fat"
+   ],
+   "portions": [
+    {
+     "unit": "handful",
+     "es": [
+      "puñado",
+      "puñados"
+     ],
+     "en": [
+      "handful",
+      "handfuls"
+     ],
+     "grams": 25,
+     "default": true,
+     "source": {
+      "kind": "estimate"
+     }
+    },
+    {
+     "unit": "unit",
+     "es": [
+      "pistacho",
+      "pistachos"
+     ],
+     "en": [
+      "pistachio",
+      "pistachios"
+     ],
+     "grams": 0.7,
+     "default": false,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 170184,
+      "food": "Nuts, pistachio nuts, raw",
+      "portion": "kernel",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "peanuts",
+   "names": {
+    "es": [
+     "cacahuetes",
+     "mani"
+    ],
+    "en": [
+     "peanuts"
+    ]
+   },
+   "tags": [
+    "nuts",
+    "fat",
+    "protein"
+   ],
+   "portions": [
+    {
+     "unit": "handful",
+     "es": [
+      "puñado",
+      "puñados"
+     ],
+     "en": [
+      "handful",
+      "handfuls"
+     ],
+     "grams": 25,
+     "default": true,
+     "source": {
+      "kind": "estimate"
+     }
+    }
+   ]
+  },
+  {
+   "id": "peanut_butter",
+   "names": {
+    "es": [
+     "mantequilla de cacahuete",
+     "crema de cacahuete"
+    ],
+    "en": [
+     "peanut butter"
+    ]
+   },
+   "tags": [
+    "nuts",
+    "fat"
+   ],
+   "portions": [
+    {
+     "unit": "tbsp",
+     "es": [
+      "cucharada",
+      "cucharadas"
+     ],
+     "en": [
+      "tablespoon",
+      "tablespoons"
+     ],
+     "grams": 16.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 172470,
+      "food": "Peanut butter, smooth style, without salt",
+      "portion": "tbsp",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "chia",
+   "names": {
+    "es": [
+     "semillas de chia",
+     "chia"
+    ],
+    "en": [
+     "chia seeds",
+     "chia"
+    ]
+   },
+   "tags": [
+    "fat",
+    "omega3_ala"
+   ],
+   "portions": [
+    {
+     "unit": "tbsp",
+     "es": [
+      "cucharada",
+      "cucharadas"
+     ],
+     "en": [
+      "tablespoon",
+      "tablespoons"
+     ],
+     "grams": 12,
+     "default": true,
+     "source": {
+      "kind": "estimate"
+     }
+    }
+   ]
+  },
+  {
+   "id": "flax",
+   "names": {
+    "es": [
+     "semillas de lino",
+     "linaza",
+     "lino"
+    ],
+    "en": [
+     "flaxseed",
+     "linseed"
+    ]
+   },
+   "tags": [
+    "fat",
+    "omega3_ala"
+   ],
+   "portions": [
+    {
+     "unit": "tbsp",
+     "es": [
+      "cucharada",
+      "cucharadas"
+     ],
+     "en": [
+      "tablespoon",
+      "tablespoons"
+     ],
+     "grams": 10,
+     "default": true,
+     "source": {
+      "kind": "estimate"
+     }
+    }
+   ]
+  },
+  {
+   "id": "dark_chocolate",
+   "names": {
+    "es": [
+     "chocolate negro",
+     "chocolate"
+    ],
+    "en": [
+     "dark chocolate",
+     "chocolate"
+    ]
+   },
+   "tags": [
+    "sweet",
+    "fat"
+   ],
+   "portions": [
+    {
+     "unit": "square",
+     "es": [
+      "onza",
+      "onzas"
+     ],
+     "en": [
+      "square",
+      "squares"
+     ],
+     "grams": 10,
+     "default": true,
+     "source": {
+      "kind": "estimate"
+     }
+    },
+    {
+     "unit": "bar",
+     "es": [
+      "tableta",
+      "tabletas"
+     ],
+     "en": [
+      "bar",
+      "bars"
+     ],
+     "grams": 100,
+     "default": false,
+     "source": {
+      "kind": "estimate"
+     }
+    }
+   ]
+  },
+  {
+   "id": "honey",
+   "names": {
+    "es": [
+     "miel"
+    ],
+    "en": [
+     "honey"
+    ]
+   },
+   "tags": [
+    "sweet"
+   ],
+   "portions": [
+    {
+     "unit": "tsp",
+     "es": [
+      "cucharadita",
+      "cucharaditas"
+     ],
+     "en": [
+      "teaspoon",
+      "teaspoons"
+     ],
+     "grams": 7.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 169640,
+      "food": "Honey",
+      "portion": "tbsp",
+      "factor": 0.3333333333333333
+     }
+    },
+    {
+     "unit": "tbsp",
+     "es": [
+      "cucharada",
+      "cucharadas"
+     ],
+     "en": [
+      "tablespoon",
+      "tablespoons"
+     ],
+     "grams": 21.0,
+     "default": false,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 169640,
+      "food": "Honey",
+      "portion": "tbsp",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "jam",
+   "names": {
+    "es": [
+     "mermelada"
+    ],
+    "en": [
+     "jam"
+    ]
+   },
+   "tags": [
+    "sweet"
+   ],
+   "portions": [
+    {
+     "unit": "tbsp",
+     "es": [
+      "cucharada",
+      "cucharadas"
+     ],
+     "en": [
+      "tablespoon",
+      "tablespoons"
+     ],
+     "grams": 20.0,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 169641,
+      "food": "Jams and preserves",
+      "portion": "tbsp",
+      "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "sugar",
+   "names": {
+    "es": [
+     "azucar"
+    ],
+    "en": [
+     "sugar"
+    ]
+   },
+   "tags": [
+    "sweet"
+   ],
+   "portions": [
+    {
+     "unit": "tsp",
+     "es": [
+      "cucharadita",
+      "cucharaditas"
+     ],
+     "en": [
+      "teaspoon",
+      "teaspoons"
+     ],
+     "grams": 4.2,
+     "default": true,
+     "source": {
+      "kind": "usda_sr_legacy",
+      "fdc_id": 169655,
+      "food": "Sugars, granulated",
+      "portion": "tsp",
+      "factor": 1.0
+     }
+    }
+   ]
+  }
+ ]
+}
