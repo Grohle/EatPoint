@@ -8,6 +8,7 @@ import 'package:opennutritracker/core/domain/entity/user_entity.dart';
 import 'package:opennutritracker/core/domain/entity/user_weight_goal_entity.dart';
 import 'package:opennutritracker/core/domain/usecase/get_profiles_usecase.dart';
 import 'package:opennutritracker/core/utils/locator.dart';
+import 'package:opennutritracker/features/goals/presentation/budget_info.dart';
 import 'package:opennutritracker/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:opennutritracker/features/profile/profile_page.dart';
 
@@ -96,5 +97,48 @@ void main() {
       await settleAssets(tester);
       await capture(tester, '$tag/profile_tab');
     }, skip: !screenshotsEnabled);
+
+    testWidgets('goal picker ($tag)', (tester) async {
+      await loadAppFonts();
+      usePhone(tester);
+      await tester.pumpWidget(
+        screenshotApp(
+          locale: locale,
+          home: const Scaffold(body: ProfilePage()),
+        ),
+      );
+      await tester.pumpAndSettle();
+      final goal = find.bySemanticsIdentifier('profile-goal');
+      await tester.ensureVisible(goal);
+      await tester.pumpAndSettle();
+      await tester.tap(goal);
+      await tester.pumpAndSettle();
+      await capture(tester, '$tag/goal_picker');
+    }, skip: !screenshotsEnabled);
+
+    for (final topic in BudgetInfoTopic.values) {
+      testWidgets('budget info ${topic.name} ($tag)', (tester) async {
+        await loadAppFonts();
+        usePhone(tester);
+        await tester.pumpWidget(
+          screenshotApp(
+            locale: locale,
+            home: Scaffold(
+              body: Builder(
+                builder: (context) => Center(
+                  child: TextButton(
+                    onPressed: () => showBudgetInfo(context, topic),
+                    child: const Text('open'),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+        await tester.tap(find.text('open'));
+        await tester.pumpAndSettle();
+        await capture(tester, '$tag/budget_info_${topic.name}');
+      }, skip: !screenshotsEnabled);
+    }
   }
 }

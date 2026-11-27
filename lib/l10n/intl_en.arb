@@ -3780,5 +3780,113 @@
   "plannerEmptyBody": "Create a recipe to plan it in your menus, or find a food. You can also type above to search the basic foods.",
   "@plannerEmptyBody": {
     "description": "Empty state body"
+  },
+  "closerMissing": "Still missing: {list}",
+  "@closerMissing": {
+    "description": "What a meal still lacks",
+    "placeholders": {
+      "list": {
+        "type": "String"
+      }
+    }
+  },
+  "closerMissingAfter": "After this, still missing: {list}",
+  "@closerMissingAfter": {
+    "description": "What a meal lacks after the food being logged",
+    "placeholders": {
+      "list": {
+        "type": "String"
+      }
+    }
+  },
+  "closerCarbs": "{points} carbs",
+  "@closerCarbs": {
+    "description": "Missing carbs points",
+    "placeholders": {
+      "points": {
+        "type": "String"
+      }
+    }
+  },
+  "closerProtein": "{points} protein",
+  "@closerProtein": {
+    "description": "Missing protein points",
+    "placeholders": {
+      "points": {
+        "type": "String"
+      }
+    }
+  },
+  "closerFat": "{points} fat",
+  "@closerFat": {
+    "description": "Missing fat points",
+    "placeholders": {
+      "points": {
+        "type": "String"
+      }
+    }
+  },
+  "closerFibre": "{points} fibre",
+  "@closerFibre": {
+    "description": "Missing fibre points",
+    "placeholders": {
+      "points": {
+        "type": "String"
+      }
+    }
+  },
+  "closerClosed": "This meal is complete: it fits its budget.",
+  "@closerClosed": {
+    "description": "Meal closed"
+  },
+  "closerSuggestionsTitle": "To complete it you could add",
+  "@closerSuggestionsTitle": {
+    "description": "Header of food suggestions"
+  },
+  "closerHomeButton": "What am I missing?",
+  "@closerHomeButton": {
+    "description": "Home button opening the meal completion sheet"
+  },
+  "closerSheetTitle": "Complete your meals",
+  "@closerSheetTitle": {
+    "description": "Sheet title"
+  },
+  "closerSheetEmpty": "Every meal you logged today is complete.",
+  "@closerSheetEmpty": {
+    "description": "Sheet empty state"
+  },
+  "closerSheetHint": "Tap a food to log it in that meal with the suggested amount.",
+  "@closerSheetHint": {
+    "description": "Sheet hint"
+  },
+  "closerRecipeTitle": "Balance per serving",
+  "@closerRecipeTitle": {
+    "description": "Recipe builder panel title"
+  },
+  "closerRecipeAgainst": "Compared with your meal",
+  "@closerRecipeAgainst": {
+    "description": "Label of the meal chooser in the recipe builder"
+  },
+  "closerRecipeHint": "Tap a food to add it to the recipe (the amount is for all servings).",
+  "@closerRecipeHint": {
+    "description": "Recipe builder hint"
+  },
+  "closerRecipeOver": "Over the meal by: {list}",
+  "@closerRecipeOver": {
+    "description": "Recipe per serving exceeds the meal budget",
+    "placeholders": {
+      "list": {
+        "type": "String"
+      }
+    }
+  },
+  "closerAdds": "+{points}",
+  "@closerAdds": {
+    "description": "Points a suggestion adds",
+    "placeholders": {
+      "points": {
+        "type": "String"
+      }
+    }
   }
 }

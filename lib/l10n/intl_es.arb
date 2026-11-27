@@ -2074,5 +2074,22 @@
   "plannerFindFood": "Buscar un alimento",
   "plannerEmptyTitle": "Aún no tienes recetas ni platos",
   "plannerNoRecipesTitle": "Aún no tienes recetas",
-  "plannerEmptyBody": "Crea una receta para planificarla en tus menús, o busca un alimento. También puedes escribir arriba para buscar entre los alimentos básicos."
+  "plannerEmptyBody": "Crea una receta para planificarla en tus menús, o busca un alimento. También puedes escribir arriba para buscar entre los alimentos básicos.",
+  "closerMissing": "Te faltan: {list}",
+  "closerMissingAfter": "Después de esto te faltan: {list}",
+  "closerCarbs": "{points} de hidratos",
+  "closerProtein": "{points} de proteína",
+  "closerFat": "{points} de grasa",
+  "closerFibre": "{points} de fibra",
+  "closerClosed": "Esta comida está completa: encaja en su presupuesto.",
+  "closerSuggestionsTitle": "Para completarla podrías añadir",
+  "closerHomeButton": "¿Qué me falta?",
+  "closerSheetTitle": "Completa tus comidas",
+  "closerSheetEmpty": "Todas las comidas que has registrado hoy están completas.",
+  "closerSheetHint": "Toca un alimento para registrarlo en esa comida con la cantidad sugerida.",
+  "closerRecipeTitle": "Equilibrio por ración",
+  "closerRecipeAgainst": "Comparado con tu comida",
+  "closerRecipeHint": "Toca un alimento para añadirlo a la receta (la cantidad es para todas las raciones).",
+  "closerRecipeOver": "Se pasa de la comida en: {list}",
+  "closerAdds": "+{points}"
 }

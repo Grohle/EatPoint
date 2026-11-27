@@ -19,6 +19,8 @@ import 'package:opennutritracker/features/points/domain/usecase/get_points_budge
 import 'package:opennutritracker/features/points/presentation/meal_type_label.dart';
 import 'package:opennutritracker/features/points/presentation/points_colors.dart';
 import 'package:opennutritracker/features/points/presentation/points_format.dart';
+import 'package:opennutritracker/features/meal_closer/domain/meal_closer.dart';
+import 'package:opennutritracker/features/meal_closer/presentation/meal_closer_panel.dart';
 import 'package:opennutritracker/generated/l10n.dart';
 
 /// The points half of the amount sheet: a points field kept in sync with
@@ -444,6 +446,26 @@ class _PointsAmountPanelState extends State<PointsAmountPanel> {
                 ),
               ),
             ),
+          // What the meal still lacks once this is logged, and foods that
+          // would complete it.
+          if (_mealSlot != null) ...[
+            const SizedBox(height: Dimens.spacing12),
+            MealCloserPanel(
+              gap: MealGap.of(
+                budget: _mealBudget!,
+                used: _mealUsed,
+                adding: serving,
+                fibreTarget: _fibreTarget,
+                fibreUsed: _fibreUsed,
+                fibreAdding: _servingFibre(serving),
+              ),
+              afterServing: true,
+              limit: 3,
+              excludeConcepts: {
+                ?FoodKnowledge.instance?.match(widget.product.name ?? '')?.id,
+              },
+            ),
+          ],
         ],
       ],
     );

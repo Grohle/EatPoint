@@ -25,6 +25,7 @@ import 'package:opennutritracker/features/travel/data/travel_mode_store.dart';
 import 'package:opennutritracker/features/travel/presentation/travel_mode_actions.dart';
 import 'package:opennutritracker/features/travel/presentation/travel_mode_banner.dart';
 import 'package:opennutritracker/features/travel/presentation/travel_mode_screen.dart';
+import 'package:opennutritracker/features/meal_closer/presentation/meal_closer_sheet.dart';
 import 'package:opennutritracker/generated/l10n.dart';
 
 /// Shows the points card on the home screen while points mode is on, and
@@ -464,6 +465,34 @@ class _PointsDayCard extends StatelessWidget {
                             loweredLabel: s.pointsMealLoweredTooltip,
                           ),
                     ],
+                  ),
+                // What the logged meals still lack, with foods to fill it.
+                if (!dailyOnly && used.total > 0)
+                  Align(
+                    alignment: AlignmentDirectional.centerStart,
+                    child: Semantics(
+                      identifier: 'points-home-closer',
+                      child: TextButton.icon(
+                        icon: const Icon(
+                          Icons.lightbulb_outline_rounded,
+                          size: 18,
+                        ),
+                        label: Text(s.closerHomeButton),
+                        onPressed: () => showMealCloserSheet(
+                          context,
+                          slots: slots,
+                          budgets: perSlot,
+                          used: usedPerSlot,
+                          fibreTargets: budget.fibrePerSlot,
+                          intakes: {
+                            for (final slot in slots)
+                              slot.id:
+                                  grouping?.bySlot[slot.id] ??
+                                  const <IntakeEntity>[],
+                          },
+                        ),
+                      ),
+                    ),
                   ),
               ],
             ),

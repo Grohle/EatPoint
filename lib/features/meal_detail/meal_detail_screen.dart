@@ -62,6 +62,9 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
   String _initialUnit = "";
   String _initialQuantity = "";
 
+  /// EatPoint: a suggested amount in grams to start with.
+  double? _suggestedGrams;
+
   // Set on the first didChangeDependencies pass, which is the only one that
   // reads the route arguments and requests hydration (see there).
   bool _argumentsRead = false;
@@ -148,6 +151,7 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
       intakeTypeEntity = args.intakeTypeEntity;
       _usesImperialUnits = args.usesImperialUnits;
       _logTray = args.logTray;
+      _suggestedGrams = args.initialGrams;
       _argumentsRead = true;
 
       // Thin OFF search results get hydrated to the full product record
@@ -210,8 +214,11 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
           _initialQuantity = _initialQuantityImperial;
           quantityTextController.text = _initialQuantityImperial;
         } else {
-          _initialQuantity = _initialQuantityMetric;
-          quantityTextController.text = _initialQuantityMetric;
+          final suggested = _suggestedGrams;
+          _initialQuantity = suggested != null && suggested > 0
+              ? suggested.round().toString()
+              : _initialQuantityMetric;
+          quantityTextController.text = _initialQuantity;
         }
         // The unit rides along, not just the quantity: on the re-pick after
         // hydration the bottom sheet is already listening to the controller,
@@ -558,12 +565,16 @@ class MealDetailScreenArguments {
   /// to it and returns there instead of logging.
   final LogTray? logTray;
 
+  /// EatPoint: grams to start with instead of 100 g (a suggested amount).
+  final double? initialGrams;
+
   MealDetailScreenArguments(
     this.mealEntity,
     this.intakeTypeEntity,
     this.day,
     this.usesImperialUnits, {
     this.logTray,
+    this.initialGrams,
   });
 }
 

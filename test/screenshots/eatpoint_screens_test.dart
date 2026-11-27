@@ -20,6 +20,7 @@ import 'package:opennutritracker/features/planner/presentation/shopping_list_scr
 import 'package:opennutritracker/features/points/data/meal_slot_assignments.dart';
 import 'package:opennutritracker/features/points/presentation/widgets/points_home_switcher.dart';
 import 'package:opennutritracker/features/planner/domain/entity/planner_entities.dart';
+import 'package:opennutritracker/features/planner/presentation/dish_picker_screen.dart';
 import 'package:opennutritracker/features/planner/presentation/planner_calendar_screen.dart';
 import 'package:opennutritracker/features/planner/presentation/planner_screen.dart';
 import 'package:opennutritracker/features/points/domain/entity/meal_slot.dart';
@@ -222,6 +223,36 @@ void main() {
       );
       await tester.pumpAndSettle();
       await capture(tester, '$tag/home_points');
+      // What the logged meals still lack.
+      await tester.tap(find.bySemanticsIdentifier('points-home-closer'));
+      await tester.pumpAndSettle();
+      await capture(tester, '$tag/home_closer');
+    }, skip: !screenshotsEnabled);
+
+    testWidgets('dish picker ($tag)', (tester) async {
+      await loadAppFonts();
+      usePhone(tester);
+      await tester.pumpWidget(
+        screenshotApp(
+          locale: locale,
+          home: DishPickerScreen(
+            day: today,
+            mealType: IntakeTypeEntity.lunch,
+            remaining: const MacroPoints(carbs: 3, protein: 2.5, fat: 1.5),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      await capture(tester, '$tag/dish_picker_empty');
+      await tester.enterText(
+        find.descendant(
+          of: find.bySemanticsIdentifier('planner-pick-search'),
+          matching: find.byType(TextField),
+        ),
+        tag == 'es' ? 'pollo' : 'chicken',
+      );
+      await tester.pumpAndSettle();
+      await capture(tester, '$tag/dish_picker_search');
     }, skip: !screenshotsEnabled);
 
     testWidgets('shopping list ($tag)', (tester) async {
