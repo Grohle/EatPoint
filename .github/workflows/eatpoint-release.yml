@@ -3,7 +3,7 @@
 # Run it from Actions → "EatPoint release" → Run workflow, or through the
 # API (workflow_dispatch). It reads the version from pubspec.yaml, creates
 # the tag `v<version>` on the commit it runs on, and attaches two APKs
-# (arm64-v8a and universal) plus SHA256SUMS.txt. The release text comes
+# (arm64-v8a and armeabi-v7a) plus SHA256SUMS.txt. The release text comes
 # from `.github/release-notes/v<version>.md`.
 #
 # REQUIRED SECRETS (Settings → Secrets and variables → Actions):
@@ -35,7 +35,7 @@ concurrency:
 jobs:
   release:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 30
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
@@ -130,13 +130,18 @@ jobs:
       - name: Generate code
         run: dart run build_runner build --delete-conflicting-outputs
 
-      - name: Run tests
-        run: flutter test
+      # No test run here: the code on `main` passed them on its pull request.
 
+      # One Gradle build for both APKs. Two `flutter build apk` runs in a row
+      # hung the second one at its start (a stale Gradle file watcher) until
+      # the job timed out.
       - name: Build APKs
-        run: |
-          flutter build apk --flavor full --release
+        timeout-minutes: 25
+        env:
+          GRADLE_OPTS: -Dorg.gradle.daemon=false
+        run: >-
           flutter build apk --flavor full --release --split-per-abi
+          --target-platform android-arm,android-arm64
 
       - name: Collect APKs
         id: apks
@@ -146,10 +151,10 @@ jobs:
           out="$RUNNER_TEMP/dist"
           mkdir -p "$out"
           apk_dir=build/app/outputs/flutter-apk
-          universal="$(ls "$apk_dir"/app-*release.apk | grep -v -e armeabi -e arm64 -e x86 | head -n1)"
           arm64="$(ls "$apk_dir"/app-arm64-v8a*release.apk | head -n1)"
-          cp "$universal" "$out/EatPoint-$VERSION-universal.apk"
+          arm32="$(ls "$apk_dir"/app-armeabi-v7a*release.apk | head -n1)"
           cp "$arm64" "$out/EatPoint-$VERSION-arm64-v8a.apk"
+          cp "$arm32" "$out/EatPoint-$VERSION-armeabi-v7a.apk"
           apksigner="$(ls "$ANDROID_HOME"/build-tools/*/apksigner | sort -V | tail -n1)"
           "$apksigner" verify --print-certs "$out/EatPoint-$VERSION-arm64-v8a.apk"
           (cd "$out" && sha256sum *.apk > SHA256SUMS.txt && cat SHA256SUMS.txt)

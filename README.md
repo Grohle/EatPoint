@@ -69,8 +69,8 @@ with the people you live with, and keep everything on your phone.
 ## Install
 
 Download the APK from [Releases](https://github.com/Grohle/EatPoint/releases) and open it on your
-Android phone (Android 8.0 or later). `arm64-v8a` fits almost every recent phone; the
-`universal` build works everywhere. EatPoint is not on Google Play or the App Store yet.
+Android phone (Android 8.0 or later). `arm64-v8a` fits almost every recent phone;
+`armeabi-v7a` is for older 32-bit phones. EatPoint is not on Google Play or the App Store yet.
 
 The iOS version is parked for now; its project files are kept up to date in the repository
 (see [docs/ios.md](docs/ios.md)).
