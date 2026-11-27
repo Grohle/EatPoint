@@ -17,6 +17,7 @@ import 'package:opennutritracker/core/presentation/widgets/image_full_screen.dar
 import 'package:opennutritracker/core/presentation/widgets/keyboard_dismisser.dart';
 import 'package:opennutritracker/core/styles/app_palette.dart';
 import 'package:opennutritracker/core/styles/app_theme.dart';
+import 'package:opennutritracker/core/utils/app_const.dart';
 import 'package:opennutritracker/core/utils/app_locale_service.dart';
 import 'package:opennutritracker/core/utils/app_locale_sync.dart';
 import 'package:opennutritracker/core/utils/daily_reminder_scheduler.dart';
@@ -364,7 +365,7 @@ class _OpenNutriTrackerAppState extends State<OpenNutriTrackerApp>
     AppPalette darkPalette,
   ) {
     return MaterialApp(
-      onGenerateTitle: (context) => S.of(context).appTitle,
+      onGenerateTitle: (context) => AppConst.appName,
       debugShowCheckedModeBanner: false,
       theme: buildAppTheme(lightPalette),
       darkTheme: buildAppTheme(darkPalette),

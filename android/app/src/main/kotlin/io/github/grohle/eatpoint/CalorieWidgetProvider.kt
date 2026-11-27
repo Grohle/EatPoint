@@ -1,4 +1,4 @@
-package com.opennutritracker.ont.opennutritracker
+package io.github.grohle.eatpoint
 
 import android.app.AlarmManager
 import android.app.PendingIntent

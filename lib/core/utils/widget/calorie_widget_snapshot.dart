@@ -91,9 +91,9 @@ class CalorieWidgetSnapshot {
   /// are the stored unit. The in-app kilojoule display preference is not
   /// applied here.
 
-  static const appGroupId = 'group.com.opennutritracker.ont.opennutritracker';
+  static const appGroupId = 'group.io.github.grohle.eatpoint';
   static const developAppGroupId =
-      'group.com.opennutritracker.ont.opennutritracker.develop';
+      'group.io.github.grohle.eatpoint.develop';
   static const iosWidgetKind = 'CalorieProgressWidget';
   /// The Android `AppWidgetProvider`, as its fully qualified source class
   /// name. The plugin's `androidName` would resolve against the running
@@ -101,7 +101,7 @@ class CalorieWidgetSnapshot {
   /// suffix while the class does not — so the qualified name is what is
   /// passed, and it is identical for both flavours.
   static const androidWidgetQualifiedName =
-      'com.opennutritracker.ont.opennutritracker.CalorieWidgetProvider';
+      'io.github.grohle.eatpoint.CalorieWidgetProvider';
 
   /// The App Group key the snapshot lives under: the figures and the
   /// labels that describe them, as one JSON string. One key is one platform

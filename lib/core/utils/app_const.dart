@@ -2,6 +2,8 @@ import 'dart:io' show Platform;
 import 'package:package_info_plus/package_info_plus.dart';
 
 class AppConst {
+  /// OS-level app title (MaterialApp.title / task switcher).
+  static const appName = "EatPoint";
   static const userAgentAppName = "OpenNutriTracker";
   static const platformNameAndroid = "Android";
   static const platformNameIOS = "iOS";

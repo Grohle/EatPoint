@@ -1,4 +1,4 @@
-package com.opennutritracker.ont.opennutritracker
+package io.github.grohle.eatpoint
 
 import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.permission.HealthPermission

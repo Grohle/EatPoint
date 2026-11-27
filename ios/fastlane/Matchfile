@@ -6,8 +6,8 @@ type('appstore')
 # The CalorieWidget extension is signed separately and needs its own
 # App Store profile; see docs/ios-calorie-widget.md.
 app_identifier([
-  'com.opennutritracker.ont.opennutritracker',
-  'com.opennutritracker.ont.opennutritracker.widget'
+  'io.github.grohle.eatpoint',
+  'io.github.grohle.eatpoint.widget'
 ])
 team_id('79AJPC6DP3')
 readonly(true)

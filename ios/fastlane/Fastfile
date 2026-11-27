@@ -82,11 +82,11 @@ platform :ios do
       use_automatic_signing: false,
       path: 'Runner.xcodeproj',
       team_id: '79AJPC6DP3',
-      bundle_identifier: 'com.opennutritracker.ont.opennutritracker',
+      bundle_identifier: 'io.github.grohle.eatpoint',
       targets: ['Runner'],
       build_configurations: ['Release-full', 'Profile-full'],
       code_sign_identity: 'Apple Distribution',
-      profile_name: 'match AppStore com.opennutritracker.ont.opennutritracker'
+      profile_name: 'match AppStore io.github.grohle.eatpoint'
     )
     # The widget extension is embedded in Runner but signed on its own, so
     # it needs its own App Store profile from match.
@@ -94,11 +94,11 @@ platform :ios do
       use_automatic_signing: false,
       path: 'Runner.xcodeproj',
       team_id: '79AJPC6DP3',
-      bundle_identifier: 'com.opennutritracker.ont.opennutritracker.widget',
+      bundle_identifier: 'io.github.grohle.eatpoint.widget',
       targets: ['CalorieWidget'],
       build_configurations: ['Release-full', 'Profile-full'],
       code_sign_identity: 'Apple Distribution',
-      profile_name: 'match AppStore com.opennutritracker.ont.opennutritracker.widget'
+      profile_name: 'match AppStore io.github.grohle.eatpoint.widget'
     )
   end
 

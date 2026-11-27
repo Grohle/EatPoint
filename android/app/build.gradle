@@ -32,7 +32,7 @@ if (flutterVersionName == null) {
 }
 
 android {
-    namespace "com.opennutritracker.ont.opennutritracker"
+    namespace "io.github.grohle.eatpoint"
     compileSdkVersion 36
     ndkVersion flutter.ndkVersion
 
@@ -59,7 +59,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.opennutritracker.ont.opennutritracker"
+        applicationId "io.github.grohle.eatpoint"
         // The health package's Health Connect client requires API 26; Flutter's
         // default is 24, so the floor is pinned here.
         //

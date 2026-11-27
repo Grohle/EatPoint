@@ -21,10 +21,10 @@
 	<string>Apple Distribution</string>
 	<key>provisioningProfiles</key>
 	<dict>
-		<key>com.opennutritracker.ont.opennutritracker</key>
-		<string>match AppStore com.opennutritracker.ont.opennutritracker</string>
-		<key>com.opennutritracker.ont.opennutritracker.widget</key>
-		<string>match AppStore com.opennutritracker.ont.opennutritracker.widget</string>
+		<key>io.github.grohle.eatpoint</key>
+		<string>match AppStore io.github.grohle.eatpoint</string>
+		<key>io.github.grohle.eatpoint.widget</key>
+		<string>match AppStore io.github.grohle.eatpoint.widget</string>
 	</dict>
 </dict>
 </plist>
