@@ -6,7 +6,9 @@ import 'package:opennutritracker/core/presentation/ai_assist_summary.dart';
 import 'package:opennutritracker/core/utils/ai_credential_storage.dart';
 import 'package:opennutritracker/core/utils/ai_model_catalogue.dart';
 import 'package:opennutritracker/core/utils/ai_model_list_api.dart';
+import 'package:opennutritracker/core/utils/gemini_endpoint.dart';
 import 'package:opennutritracker/core/utils/plaintext_destination_guard.dart';
+import 'package:opennutritracker/core/utils/safe_url_launcher.dart';
 import 'package:opennutritracker/features/add_meal/domain/usecase/probe_ai_endpoint_usecase.dart';
 import 'package:opennutritracker/features/add_meal/domain/usecase/run_ai_endpoint_probe_usecase.dart';
 import 'package:opennutritracker/features/settings/presentation/widgets/ai_consent_screen.dart';
@@ -656,6 +658,25 @@ class _AiAssistDialogState extends State<AiAssistDialog> {
     });
   }
 
+  /// EatPoint: Google's free Gemini API is reached as an OpenAI-compatible
+  /// server, so the shortcut is that provider with Google's address and a
+  /// current model filled in. The user only pastes their key.
+  Future<void> _useGemini() async {
+    await _selectProvider(AiProvider.ownServer);
+    if (!mounted) return;
+    _endpointController.text = geminiOpenAiBase;
+    if (_modelController.text.trim().isEmpty) {
+      _modelController.text = geminiDefaultModel;
+    }
+    _endpointChanged();
+  }
+
+  bool get _onGemini {
+    if (_provider != AiProvider.ownServer) return false;
+    final uri = Uri.tryParse(_endpointController.text.trim());
+    return uri != null && isGeminiEndpoint(uri);
+  }
+
   Future<void> _selectProvider(AiProvider provider) async {
     if (provider == _provider) return;
     // Written before the reload so the reload sees the new active provider.
@@ -978,8 +999,10 @@ class _AiAssistDialogState extends State<AiAssistDialog> {
     return literal != null && !isPrivateDestination(literal);
   }
 
-  String _providerName(BuildContext context, AiProvider provider) =>
-      switch (provider) {
+  String _providerName(
+    BuildContext context,
+    AiProvider provider,
+  ) => switch (provider) {
     // Brand names, deliberately not localized.
     AiProvider.anthropic => 'Anthropic',
     AiProvider.openrouter => 'OpenRouter',
@@ -1048,6 +1071,19 @@ class _AiAssistDialogState extends State<AiAssistDialog> {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    // EatPoint: one tap to Google's free Gemini API.
+                    Semantics(
+                      identifier: 'ai-assist-use-gemini',
+                      child: ListTile(
+                        contentPadding: EdgeInsets.zero,
+                        dense: true,
+                        leading: const Icon(Icons.auto_awesome_rounded),
+                        title: Text(s.aiAssistGeminiShortcut),
+                        subtitle: Text(s.aiAssistGeminiShortcutHint),
+                        selected: _onGemini,
+                        onTap: _useGemini,
+                      ),
+                    ),
                     _label(theme, s.aiAssistProviderLabel),
                     // Per-tile groupValue/onChanged rather than a RadioGroup
                     // ancestor, matching CaloriesProfileInfoDialog: inside a
@@ -1108,6 +1144,15 @@ class _AiAssistDialogState extends State<AiAssistDialog> {
                           onChanged: (_) => _endpointChanged(),
                         ),
                       ),
+                      if (_onGemini)
+                        Align(
+                          alignment: AlignmentDirectional.centerStart,
+                          child: TextButton.icon(
+                            icon: const Icon(Icons.key_rounded),
+                            label: Text(s.aiAssistGeminiGetKey),
+                            onPressed: () => tryLaunchExternalUrl(geminiKeyUrl),
+                          ),
+                        ),
                       const SizedBox(height: 12),
                     ],
                     // The credential block sits above the disclosure, which
@@ -1342,9 +1387,10 @@ class _AiAssistDialogState extends State<AiAssistDialog> {
       AiModelListFailure.rejected => s.aiAssistModelsRejectedLabel(host),
       // A list did come back. Only its being empty is worth a sentence — a
       // list with entries in it speaks for itself, in the picker below.
-      null => _modelIds != null && _modelIds!.isEmpty
-          ? s.aiAssistModelsEmptyLabel(host)
-          : null,
+      null =>
+        _modelIds != null && _modelIds!.isEmpty
+            ? s.aiAssistModelsEmptyLabel(host)
+            : null,
     };
   }
 
@@ -1451,9 +1497,8 @@ class _AiAssistDialogState extends State<AiAssistDialog> {
   _ProbeRowState _rowStateFor(AiCapability capability) => switch (capability) {
     AiCapability.passed => _ProbeRowState.passed,
     AiCapability.failed => _ProbeRowState.failed,
-    AiCapability.unknown => _probe.checked
-        ? _ProbeRowState.noAnswer
-        : _ProbeRowState.neverChecked,
+    AiCapability.unknown =>
+      _probe.checked ? _ProbeRowState.noAnswer : _ProbeRowState.neverChecked,
   };
 
   /// One capability, its verdict, and what that verdict means for the user.

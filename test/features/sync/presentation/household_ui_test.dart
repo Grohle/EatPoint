@@ -140,10 +140,11 @@ void main() {
     expect(find.text(s.householdCreate), findsOneWidget);
     expect(find.text(s.householdJoin), findsOneWidget);
 
-    // Name is required.
+    // Name is required, and the screen says so.
     await tester.tap(find.text(s.householdCreate));
     await tester.pumpAndSettle();
     expect(find.byType(BackendSetupScreen), findsNothing);
+    expect(find.text(s.householdNameNeeded), findsOneWidget);
 
     await tester.enterText(find.byType(TextFormField), 'Ann');
     await tester.tap(find.text(s.householdCreate));
@@ -246,6 +247,49 @@ void main() {
     expect((await _store.readKey())?.toBase64(), invite.key.toBase64());
     expect(_sync.calls, 1);
     expect(find.text(s.householdInvalidInvite), findsNothing);
+  });
+
+  testWidgets('an invite pasted from a chat message still joins', (
+    tester,
+  ) async {
+    final invite = _invite();
+    await tester.pumpWidget(
+      _app(JoinHouseholdScreen(memberName: 'Bo', showScanner: false)),
+    );
+    final s = _s(tester);
+    // The big button on the screen, besides the app-bar one.
+    await tester.tap(find.text(s.householdPasteInvite));
+    await tester.pumpAndSettle();
+    await tester.enterText(
+      find.byType(TextField),
+      '${s.householdInviteShareText}\n\n${invite.encode()}\n',
+    );
+    await tester.tap(find.text(_m(tester).okButtonLabel));
+    await tester.pumpAndSettle();
+    expect(_store.getHousehold()?.householdId, invite.householdId);
+  });
+
+  testWidgets('the invite can be sent or copied as well as scanned', (
+    tester,
+  ) async {
+    await _store.writeKey(HouseholdKey.generate());
+    await _store.saveHousehold(
+      Household(
+        householdId: Household.randomHexId(),
+        memberId: Household.randomHexId(8),
+        memberName: 'Ann',
+        backend: const SyncBackendConfig(
+          kind: SyncBackendKind.webdav,
+          url: 'https://cloud.example/dav',
+        ),
+      ),
+    );
+    await tester.pumpWidget(_app(const HouseholdScreen()));
+    final s = _s(tester);
+    await tester.tap(find.text(s.householdInvite));
+    await tester.pumpAndSettle();
+    expect(find.text(s.householdInviteShare), findsOneWidget);
+    expect(find.text(_m(tester).copyButtonLabel), findsOneWidget);
   });
 
   testWidgets('pasting garbage shows the invalid-invite message', (

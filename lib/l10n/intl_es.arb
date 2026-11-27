@@ -1855,7 +1855,7 @@
   "householdSyncNow": "Sincronizar ahora",
   "householdSynced": "Sincronizado con {count} miembros más",
   "householdInvite": "Invitar con QR",
-  "householdInviteBody": "Escanéalo con el otro móvil, en persona. Contiene la clave del hogar: no compartas una foto.",
+  "householdInviteBody": "Escanéalo con el otro móvil, o envíale la invitación en privado (contiene la clave del hogar: mándasela solo a esa persona).",
   "householdInvalidInvite": "Ese código no es una invitación a un hogar de EatPoint",
   "householdLeave": "Salir del hogar",
   "householdLeaveConfirm": "Este móvil deja de sincronizar y olvida los menús de los demás. Tus datos se quedan.",
@@ -2360,5 +2360,17 @@
   "householdDriveFolderName": "Hogar EatPoint",
   "householdDriveErrorSetup": "Google no reconoce la app. En Google Cloud comprueba que el cliente Android tiene el paquete io.github.grohle.eatpoint y el SHA-1 de la guía, en el mismo proyecto que el ID de cliente web, y que tu cuenta es usuario de prueba. Los cambios pueden tardar unos minutos. ({detail})",
   "householdDriveErrorCanceled": "Se canceló el inicio de sesión con Google.",
-  "householdDriveErrorOther": "No se pudo iniciar sesión con Google: {detail}"
+  "householdDriveErrorOther": "No se pudo iniciar sesión con Google: {detail}",
+  "householdNameNeeded": "Escribe tu nombre para continuar",
+  "householdCameraDenied": "EatPoint no puede usar la cámara. Dale permiso en Ajustes de Android → Aplicaciones → EatPoint → Permisos, o pega la invitación.",
+  "householdCameraUnavailable": "No se ha podido abrir la cámara. Pega la invitación.",
+  "householdJoinHint": "Apunta la cámara al QR del otro móvil, o pega la invitación que te han enviado.",
+  "householdPasteInvite": "Pegar invitación",
+  "householdInviteShare": "Enviar",
+  "householdInviteShareSubject": "Invitación al hogar de EatPoint",
+  "householdInviteShareText": "Únete a mi hogar de EatPoint: copia este mensaje entero y en EatPoint abre Ajustes → Compartir y sincronizar, escribe tu nombre, pulsa \"Unirme con un código QR\" y \"Pegar invitación\". Contiene la clave del hogar: no lo reenvíes.",
+  "householdInviteCopied": "Invitación copiada. Envíasela en privado al otro miembro.",
+  "aiAssistGeminiShortcut": "Usar Google Gemini (gratis)",
+  "aiAssistGeminiShortcutHint": "Rellena la dirección y el modelo de Google. Solo tienes que pegar una clave gratuita de Google AI Studio.",
+  "aiAssistGeminiGetKey": "Conseguir una clave gratis en Google AI Studio"
 }

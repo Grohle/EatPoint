@@ -2,6 +2,18 @@
 /// "your own server" (#1253, #1257).
 const geminiOpenAiCompatibleHost = 'generativelanguage.googleapis.com';
 
+/// EatPoint: the base address the "Google Gemini (free)" shortcut fills in,
+/// as Google documents it.
+const geminiOpenAiBase =
+    'https://generativelanguage.googleapis.com/v1beta/openai/';
+
+/// Google's rolling alias for its current Flash model: on the free tier, reads
+/// photos, and doesn't need updating when Google retires a version.
+const geminiDefaultModel = 'gemini-flash-latest';
+
+/// Where a free Gemini API key is created.
+const geminiKeyUrl = 'https://aistudio.google.com/apikey';
+
 /// Whether [endpoint] is Google's hosted Gemini API rather than a server the
 /// user runs.
 ///

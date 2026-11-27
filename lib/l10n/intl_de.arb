@@ -1660,7 +1660,7 @@
   "householdSyncNow": "Jetzt synchronisieren",
   "householdSynced": "Mit {count} weiteren Mitgliedern synchronisiert",
   "householdInvite": "Per QR-Code einladen",
-  "householdInviteBody": "Scanne das persönlich mit dem anderen Handy. Es enthält den Haushaltsschlüssel, also teile kein Foto davon.",
+  "householdInviteBody": "Scanne ihn mit dem anderen Handy oder sende die Einladung privat (sie enthält den Haushaltsschlüssel: nur an diese Person senden).",
   "householdInvalidInvite": "Dieser Code ist keine EatPoint-Haushaltseinladung",
   "householdLeave": "Haushalt verlassen",
   "householdLeaveConfirm": "Dieses Handy hört auf zu synchronisieren und vergisst die Menüs der anderen Mitglieder. Deine eigenen Daten bleiben erhalten.",
@@ -2062,5 +2062,17 @@
   "householdDriveFolderName": "EatPoint-Haushalt",
   "householdDriveErrorSetup": "Google erkennt die App nicht. Prüfe in Google Cloud, dass der Android-Client das Paket io.github.grohle.eatpoint und den SHA-1 aus der Anleitung hat, im selben Projekt wie die Web-Client-ID, und dass dein Konto Testnutzer ist. Änderungen können einige Minuten dauern. ({detail})",
   "householdDriveErrorCanceled": "Google-Anmeldung abgebrochen.",
-  "householdDriveErrorOther": "Google-Anmeldung fehlgeschlagen: {detail}"
+  "householdDriveErrorOther": "Google-Anmeldung fehlgeschlagen: {detail}",
+  "householdNameNeeded": "Gib deinen Namen ein, um fortzufahren",
+  "householdCameraDenied": "EatPoint darf die Kamera nicht nutzen. Erlaube sie in den Android-Einstellungen → Apps → EatPoint → Berechtigungen oder füge die Einladung ein.",
+  "householdCameraUnavailable": "Die Kamera konnte nicht starten. Füge die Einladung ein.",
+  "householdJoinHint": "Richte die Kamera auf den QR-Code des anderen Handys oder füge die erhaltene Einladung ein.",
+  "householdPasteInvite": "Einladung einfügen",
+  "householdInviteShare": "Senden",
+  "householdInviteShareSubject": "Einladung zum EatPoint-Haushalt",
+  "householdInviteShareText": "Tritt meinem EatPoint-Haushalt bei: Kopiere diese ganze Nachricht, öffne in EatPoint Einstellungen → Teilen und synchronisieren, gib deinen Namen ein, tippe auf „Mit QR-Code beitreten“ und „Einladung einfügen“. Sie enthält unseren Haushaltsschlüssel: nicht weiterleiten.",
+  "householdInviteCopied": "Einladung kopiert. Sende sie privat an das andere Mitglied.",
+  "aiAssistGeminiShortcut": "Google Gemini nutzen (kostenlos)",
+  "aiAssistGeminiShortcutHint": "Trägt Googles Adresse und Modell ein. Du fügst nur einen kostenlosen Schlüssel aus Google AI Studio ein.",
+  "aiAssistGeminiGetKey": "Kostenlosen Schlüssel in Google AI Studio holen"
 }
