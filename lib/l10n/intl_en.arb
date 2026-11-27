@@ -3403,5 +3403,227 @@
         "type": "String"
       }
     }
+  },
+  "insightCardTitle": "{count} suggestions for this week",
+  "@insightCardTitle": {
+    "description": "Card in the weekly menu",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "insightCardAllGood": "Your week looks well balanced",
+  "@insightCardAllGood": {
+    "description": "Card when there is nothing to suggest"
+  },
+  "insightSheetTitle": "Suggestions for your week",
+  "@insightSheetTitle": {
+    "description": "Title of the suggestions sheet"
+  },
+  "insightGuideOnly": "General healthy-eating guides, not medical advice. If you have a condition, follow a special diet or think you may be short of a nutrient, ask a health professional.",
+  "@insightGuideOnly": {
+    "description": "Disclaimer under the suggestions"
+  },
+  "insightNeedMoreDays": "Plan at least {days} days to get suggestions for your week.",
+  "@insightNeedMoreDays": {
+    "description": "Shown when too few days are planned",
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "insightFibreLowTitle": "Add some fibre",
+  "@insightFibreLowTitle": {
+    "description": "Insight title"
+  },
+  "insightFibreLowBody": "Your days average {avg} of {target} fibre points. Vegetables, fruit with its skin, pulses, wholegrain bread and oats are easy ways to get there.",
+  "@insightFibreLowBody": {
+    "description": "Insight body",
+    "placeholders": {
+      "avg": {
+        "type": "String"
+      },
+      "target": {
+        "type": "String"
+      }
+    }
+  },
+  "insightFibreGoodTitle": "Fibre on track",
+  "@insightFibreGoodTitle": {
+    "description": "Insight title"
+  },
+  "insightFibreGoodBody": "{avg} fibre points a day on average.",
+  "@insightFibreGoodBody": {
+    "description": "Insight body",
+    "placeholders": {
+      "avg": {
+        "type": "String"
+      }
+    }
+  },
+  "insightOilyFishTitle": "Oily fish for omega-3",
+  "@insightOilyFishTitle": {
+    "description": "Insight title"
+  },
+  "insightOilyFishBody": "There's no oily fish this week ({fish} fish meals in total). Salmon, sardines, mackerel or tuna once or twice a week give you the omega-3 fats EPA and DHA.",
+  "@insightOilyFishBody": {
+    "description": "Insight body",
+    "placeholders": {
+      "fish": {
+        "type": "String"
+      }
+    }
+  },
+  "insightOilyFishGoodTitle": "Good on fish",
+  "@insightOilyFishGoodTitle": {
+    "description": "Insight title"
+  },
+  "insightOilyFishGoodBody": "{fish} fish meals this week, including oily fish.",
+  "@insightOilyFishGoodBody": {
+    "description": "Insight body",
+    "placeholders": {
+      "fish": {
+        "type": "String"
+      }
+    }
+  },
+  "insightPlantOmega3Title": "Plant omega-3",
+  "@insightPlantOmega3Title": {
+    "description": "Insight title"
+  },
+  "insightPlantOmega3Body": "Without fish, walnuts, chia or ground flaxseed add the plant omega-3 ALA. The body turns little of it into EPA and DHA, so ask a professional if you never eat fish.",
+  "@insightPlantOmega3Body": {
+    "description": "Insight body"
+  },
+  "insightB12Title": "No vitamin B12 source",
+  "@insightB12Title": {
+    "description": "Insight title"
+  },
+  "insightB12Body": "Nothing this week has vitamin B12, which comes from meat, fish, eggs and dairy. On a plant-based diet you need fortified foods or a supplement: ask a health professional.",
+  "@insightB12Body": {
+    "description": "Insight body"
+  },
+  "insightLegumesTitle": "More pulses",
+  "@insightLegumesTitle": {
+    "description": "Insight title"
+  },
+  "insightLegumesBody": "{count} meals with pulses this week. Lentils, chickpeas or beans two to four times a week add protein, fibre and iron.",
+  "@insightLegumesBody": {
+    "description": "Insight body",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "insightLegumesGoodTitle": "Pulses on the menu",
+  "@insightLegumesGoodTitle": {
+    "description": "Insight title"
+  },
+  "insightLegumesGoodBody": "{count} meals with pulses this week.",
+  "@insightLegumesGoodBody": {
+    "description": "Insight body",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "insightFruitVegTitle": "More fruit and vegetables",
+  "@insightFruitVegTitle": {
+    "description": "Insight title"
+  },
+  "insightFruitVegBody": "About {grams} g a day ({servings} servings). Aim for around 400 g, five servings: a piece of fruit and some vegetables with each main meal.",
+  "@insightFruitVegBody": {
+    "description": "Insight body",
+    "placeholders": {
+      "grams": {
+        "type": "String"
+      },
+      "servings": {
+        "type": "String"
+      }
+    }
+  },
+  "insightFruitVegGoodTitle": "Plenty of fruit and vegetables",
+  "@insightFruitVegGoodTitle": {
+    "description": "Insight title"
+  },
+  "insightFruitVegGoodBody": "About {grams} g a day.",
+  "@insightFruitVegGoodBody": {
+    "description": "Insight body",
+    "placeholders": {
+      "grams": {
+        "type": "String"
+      }
+    }
+  },
+  "insightWholegrainTitle": "Choose wholegrain",
+  "@insightWholegrainTitle": {
+    "description": "Insight title"
+  },
+  "insightWholegrainBody": "{whole} of {total} servings of bread, pasta, rice or cereals are wholegrain. The wholegrain version has more fibre for the same points.",
+  "@insightWholegrainBody": {
+    "description": "Insight body",
+    "placeholders": {
+      "whole": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "insightVarietyTitle": "A bit more variety",
+  "@insightVarietyTitle": {
+    "description": "Insight title"
+  },
+  "insightVarietyBody": "{food} is on the menu {days} days. Swapping it now and then for something similar gives you a wider range of nutrients.",
+  "@insightVarietyBody": {
+    "description": "Insight body",
+    "placeholders": {
+      "food": {
+        "type": "String"
+      },
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "insightProcessedMeatTitle": "Less processed meat",
+  "@insightProcessedMeatTitle": {
+    "description": "Insight title"
+  },
+  "insightProcessedMeatBody": "{count} servings of ham, sausages or cured meats this week. Fresh meat, fish, eggs or pulses are good swaps.",
+  "@insightProcessedMeatBody": {
+    "description": "Insight body",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "insightSweetsTitle": "Fewer sweets",
+  "@insightSweetsTitle": {
+    "description": "Insight title"
+  },
+  "insightSweetsBody": "{count} sweet foods this week. Fruit, yogurt or a few nuts can take their place now and then.",
+  "@insightSweetsBody": {
+    "description": "Insight body",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "insightCalciumTitle": "Calcium",
+  "@insightCalciumTitle": {
+    "description": "Insight title"
+  },
+  "insightCalciumBody": "Few calcium-rich foods. Milk, yogurt, cheese, tofu, sardines with their bones, almonds or broccoli help; about two to three a day.",
+  "@insightCalciumBody": {
+    "description": "Insight body"
   }
 }

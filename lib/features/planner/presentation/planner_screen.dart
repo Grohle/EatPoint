@@ -9,6 +9,7 @@ import 'package:opennutritracker/features/diary/presentation/bloc/diary_bloc.dar
 import 'package:opennutritracker/features/home/presentation/bloc/home_bloc.dart';
 import 'package:opennutritracker/features/meal_detail/presentation/bloc/meal_detail_bloc.dart';
 import 'package:opennutritracker/features/food_knowledge/domain/portion_formatter.dart';
+import 'package:opennutritracker/features/insights/presentation/week_insights_card.dart';
 import 'package:opennutritracker/features/menu_import/presentation/menu_import_screen.dart';
 import 'package:opennutritracker/features/planner/data/planner_data_source.dart';
 import 'package:opennutritracker/features/planner/data/planner_reminder_service.dart';
@@ -497,6 +498,10 @@ class _PlannerScreenState extends State<PlannerScreen> {
                       ),
                     ),
                   ),
+                WeekInsightsCard(
+                  week: _week,
+                  fibreTargetPoints: budget?.fibreDaily ?? 5,
+                ),
                 if (budget != null)
                   Padding(
                     padding: const EdgeInsets.symmetric(

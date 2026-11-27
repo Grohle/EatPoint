@@ -257,6 +257,10 @@ void main() {
       );
       await tester.pumpAndSettle();
       await capture(tester, '$tag/planner_week');
+
+      await tester.tap(find.byIcon(Icons.lightbulb_outline_rounded));
+      await tester.pumpAndSettle();
+      await capture(tester, '$tag/week_insights');
     }, skip: !screenshotsEnabled);
 
     testWidgets('menu calendar ($tag)', (tester) async {
