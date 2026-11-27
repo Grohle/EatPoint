@@ -2,12 +2,13 @@
   "format": "eatpoint-foods-manifest",
   "version": 1,
   "file": "eatpoint-foods-v1.json.gz",
-  "bytes": 199865,
-  "sha256": "2bfb64943bddc88813abadb9e18a1c5a2b1c5257e84f0e2420382bfff128600a",
-  "count": 4667,
+  "bytes": 326749,
+  "sha256": "e8e7d45ac3bd937b8f8f0984f952555842816ae9881ce609dd1dbe69613d4269",
+  "count": 7514,
   "counts": {
     "eatpoint": 235,
-    "usda": 4432
+    "usda": 4432,
+    "off": 2847
   },
   "generated": "2026-11-27",
   "sources": [
