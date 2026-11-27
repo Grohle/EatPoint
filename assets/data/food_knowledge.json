@@ -1,6 +1,6 @@
 {
  "format": "eatpoint-food-knowledge",
- "version": 1,
+ "version": 2,
  "sources": {
   "usda_sr_legacy": "USDA FoodData Central, SR Legacy (April 2018), public domain (CC0 1.0), https://fdc.nal.usda.gov",
   "estimate": "Typical European pack or household size, rounded; not a measured value."
@@ -12,8 +12,8 @@
     "es": [
      "huevo entero",
      "huevos",
-     "huevo",
-     "clara"
+     "clara",
+     "huevo"
     ],
     "en": [
      "eggs",
@@ -252,8 +252,8 @@
      "hamburguesa"
     ],
     "en": [
-     "minced meat",
      "ground beef",
+     "minced meat",
      "burger"
     ]
    },
@@ -329,8 +329,8 @@
      "merluza",
      "bacalao",
      "abadejo",
-     "lubina",
      "dorada",
+     "lubina",
      "gallo"
     ],
     "en": [
@@ -338,8 +338,8 @@
      "sea bream",
      "sea bass",
      "haddock",
-     "sole",
      "hake",
+     "sole",
      "cod"
     ]
    },
@@ -375,8 +375,8 @@
    "id": "tuna_can",
    "names": {
     "es": [
-     "atun en lata",
      "lata de atun",
+     "atun en lata",
      "atun"
     ],
     "en": [
@@ -560,8 +560,8 @@
      "fuet"
     ],
     "en": [
-     "chorizo",
-     "sausage"
+     "sausage",
+     "chorizo"
     ]
    },
    "tags": [
@@ -698,10 +698,10 @@
     ],
     "en": [
      "almond milk",
-     "oat drink",
      "soy drink",
-     "oat milk",
-     "soy milk"
+     "oat drink",
+     "soy milk",
+     "oat milk"
     ]
    },
    "tags": [
@@ -732,8 +732,8 @@
     "es": [
      "yogur natural",
      "yogur griego",
-     "kefir",
      "yogur",
+     "kefir",
      "skyr"
     ],
     "en": [
@@ -773,8 +773,8 @@
    "id": "cheese_slice",
    "names": {
     "es": [
-     "queso semicurado",
      "queso en lonchas",
+     "queso semicurado",
      "queso curado",
      "queso"
     ],
@@ -939,8 +939,8 @@
    "id": "baguette",
    "names": {
     "es": [
-     "pan de barra",
      "barra de pan",
+     "pan de barra",
      "bocadillo",
      "baguette"
     ],
@@ -1091,8 +1091,8 @@
    "id": "pasta",
    "names": {
     "es": [
-     "macarrones",
      "espaguetis",
+     "macarrones",
      "tallarines",
      "fideos",
      "pasta"
@@ -2468,9 +2468,9 @@
    "id": "peach",
    "names": {
     "es": [
+     "paraguayo",
      "melocoton",
-     "nectarina",
-     "paraguayo"
+     "nectarina"
     ],
     "en": [
      "nectarine",
@@ -3520,6 +3520,3105 @@
      }
     }
    ]
+  }
+ ],
+ "foods": [
+  {
+   "id": "egg",
+   "concept": "egg",
+   "names": {
+    "es": "Huevo",
+    "en": "Egg"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.036,
+    "calciumMg": 56.0,
+    "carbs": 0.72,
+    "dhaG": 0.058,
+    "epaG": 0.0,
+    "fat": 9.51,
+    "fibre": 0.0,
+    "folateUg": 47.0,
+    "ironMg": 1.75,
+    "kcal": 143.0,
+    "magnesiumMg": 12.0,
+    "potassiumMg": 138.0,
+    "protein": 12.56,
+    "saturatedFat": 3.126,
+    "sodiumMg": 142.0,
+    "sugars": 0.37,
+    "vitaminB12Ug": 0.89,
+    "vitaminCMg": 0.0,
+    "vitaminDUg": 2.0,
+    "zincMg": 1.29
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 171287,
+    "food": "Egg, whole, raw, fresh"
+   }
+  },
+  {
+   "id": "chicken_breast",
+   "concept": "chicken_breast",
+   "names": {
+    "es": "Pechuga de pollo",
+    "en": "Chicken breast"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.013,
+    "calciumMg": 5.0,
+    "carbs": 0.0,
+    "dhaG": 0.004,
+    "epaG": 0.003,
+    "fat": 2.62,
+    "fibre": 0.0,
+    "folateUg": 9.0,
+    "ironMg": 0.37,
+    "kcal": 120.0,
+    "magnesiumMg": 28.0,
+    "potassiumMg": 334.0,
+    "protein": 22.5,
+    "saturatedFat": 0.563,
+    "sodiumMg": 45.0,
+    "sugars": 0.0,
+    "vitaminB12Ug": 0.21,
+    "vitaminCMg": 0.0,
+    "vitaminDUg": 0.0,
+    "zincMg": 0.68
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 171077,
+    "food": "Chicken, broiler or fryers, breast, skinless, boneless, meat only, raw"
+   }
+  },
+  {
+   "id": "chicken_thigh",
+   "concept": "chicken_thigh",
+   "names": {
+    "es": "Contramuslo de pollo",
+    "en": "Chicken thigh"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.03,
+    "calciumMg": 7.0,
+    "carbs": 0.0,
+    "dhaG": 0.007,
+    "epaG": 0.002,
+    "fat": 4.12,
+    "fibre": 0.0,
+    "folateUg": 4.0,
+    "ironMg": 0.81,
+    "kcal": 121.0,
+    "magnesiumMg": 23.0,
+    "potassiumMg": 242.0,
+    "protein": 19.66,
+    "saturatedFat": 1.097,
+    "sodiumMg": 95.0,
+    "sugars": 0.0,
+    "vitaminB12Ug": 0.61,
+    "vitaminCMg": 0.0,
+    "vitaminDUg": 0.0,
+    "zincMg": 1.58
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 173627,
+    "food": "Chicken, broilers or fryers, dark meat, thigh, meat only, raw"
+   }
+  },
+  {
+   "id": "turkey_breast",
+   "concept": "turkey_breast",
+   "names": {
+    "es": "Pechuga de pavo",
+    "en": "Turkey breast"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.015,
+    "calciumMg": 9.0,
+    "carbs": 0.0,
+    "dhaG": 0.002,
+    "epaG": 0.001,
+    "fat": 2.33,
+    "fibre": 0.0,
+    "ironMg": 0.76,
+    "kcal": 114.0,
+    "magnesiumMg": 27.0,
+    "potassiumMg": 267.0,
+    "protein": 23.34,
+    "saturatedFat": 0.344,
+    "sodiumMg": 74.0,
+    "sugars": 0.0,
+    "vitaminB12Ug": 1.35,
+    "vitaminCMg": 0.0,
+    "vitaminDUg": 0.2,
+    "zincMg": 1.16
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 174515,
+    "food": "Turkey, retail parts, breast, meat only, raw"
+   }
+  },
+  {
+   "id": "pork_loin",
+   "concept": "pork_loin",
+   "names": {
+    "es": "Lomo de cerdo",
+    "en": "Pork loin"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.007,
+    "calciumMg": 6.0,
+    "carbs": 0.0,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 3.09,
+    "fibre": 0.0,
+    "folateUg": 0.0,
+    "ironMg": 0.48,
+    "kcal": 123.0,
+    "magnesiumMg": 26.0,
+    "potassiumMg": 386.0,
+    "protein": 23.75,
+    "saturatedFat": 0.801,
+    "sodiumMg": 87.0,
+    "sugars": 0.0,
+    "vitaminB12Ug": 0.41,
+    "vitaminCMg": 0.0,
+    "vitaminDUg": 0.6,
+    "zincMg": 1.42
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 168263,
+    "food": "Pork, fresh, loin, center loin (chops), boneless, separable lean only, raw"
+   }
+  },
+  {
+   "id": "beef_steak",
+   "concept": "beef_steak",
+   "names": {
+    "es": "Filete de ternera",
+    "en": "Beef steak"
+   },
+   "tags": [
+    "red_meat"
+   ],
+   "per100": {
+    "alaG": 0.01,
+    "calciumMg": 28.0,
+    "carbs": 0.0,
+    "dhaG": 0.001,
+    "epaG": 0.002,
+    "fat": 4.62,
+    "fibre": 0.0,
+    "folateUg": 13.0,
+    "ironMg": 1.63,
+    "kcal": 135.0,
+    "magnesiumMg": 23.0,
+    "potassiumMg": 342.0,
+    "protein": 21.91,
+    "saturatedFat": 1.709,
+    "sodiumMg": 57.0,
+    "sugars": 0.0,
+    "vitaminB12Ug": 1.19,
+    "vitaminCMg": 0.0,
+    "vitaminDUg": 0.1,
+    "zincMg": 4.14
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 174763,
+    "food": "Beef, top sirloin, steak, separable lean only, trimmed to 1/8\" fat, choice, raw"
+   }
+  },
+  {
+   "id": "minced_beef",
+   "concept": "minced_meat",
+   "names": {
+    "es": "Carne picada de ternera",
+    "en": "Minced beef"
+   },
+   "tags": [
+    "red_meat"
+   ],
+   "per100": {
+    "alaG": 0.042,
+    "calciumMg": 15.0,
+    "carbs": 0.0,
+    "dhaG": 0.001,
+    "epaG": 0.002,
+    "fat": 15.0,
+    "fibre": 0.0,
+    "folateUg": 6.0,
+    "ironMg": 2.09,
+    "kcal": 215.0,
+    "magnesiumMg": 18.0,
+    "potassiumMg": 295.0,
+    "protein": 18.59,
+    "saturatedFat": 5.715,
+    "sodiumMg": 66.0,
+    "sugars": 0.0,
+    "vitaminB12Ug": 2.17,
+    "vitaminCMg": 0.0,
+    "vitaminDUg": 0.1,
+    "zincMg": 4.48
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 171796,
+    "food": "Beef, ground, 85% lean meat / 15% fat, raw (Includes foods for USDA's Food Distribution Program)"
+   }
+  },
+  {
+   "id": "salmon",
+   "concept": "salmon",
+   "names": {
+    "es": "Salmón",
+    "en": "Salmon"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.148,
+    "calciumMg": 9.0,
+    "carbs": 0.0,
+    "dhaG": 1.104,
+    "epaG": 0.862,
+    "fat": 13.42,
+    "fibre": 0.0,
+    "folateUg": 26.0,
+    "ironMg": 0.34,
+    "kcal": 208.0,
+    "magnesiumMg": 27.0,
+    "potassiumMg": 363.0,
+    "protein": 20.42,
+    "saturatedFat": 3.05,
+    "sodiumMg": 59.0,
+    "sugars": 0.0,
+    "vitaminB12Ug": 3.23,
+    "vitaminCMg": 3.9,
+    "vitaminDUg": 11.0,
+    "zincMg": 0.36
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 175167,
+    "food": "Fish, salmon, Atlantic, farmed, raw"
+   }
+  },
+  {
+   "id": "cod",
+   "concept": "white_fish",
+   "names": {
+    "es": "Bacalao fresco",
+    "en": "Cod"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.001,
+    "calciumMg": 16.0,
+    "carbs": 0.0,
+    "dhaG": 0.12,
+    "epaG": 0.064,
+    "fat": 0.67,
+    "fibre": 0.0,
+    "folateUg": 7.0,
+    "ironMg": 0.38,
+    "kcal": 82.0,
+    "magnesiumMg": 32.0,
+    "potassiumMg": 413.0,
+    "protein": 17.81,
+    "saturatedFat": 0.131,
+    "sodiumMg": 54.0,
+    "sugars": 0.0,
+    "vitaminB12Ug": 0.91,
+    "vitaminCMg": 1.0,
+    "vitaminDUg": 0.9,
+    "zincMg": 0.45
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 171955,
+    "food": "Fish, cod, Atlantic, raw"
+   }
+  },
+  {
+   "id": "tuna_can",
+   "concept": "tuna_can",
+   "names": {
+    "es": "Atún al natural (lata)",
+    "en": "Tuna in water (tin)"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.002,
+    "calciumMg": 17.0,
+    "carbs": 0.0,
+    "dhaG": 0.196,
+    "epaG": 0.028,
+    "fat": 0.96,
+    "fibre": 0.0,
+    "folateUg": 4.0,
+    "ironMg": 1.63,
+    "kcal": 86.0,
+    "magnesiumMg": 23.0,
+    "potassiumMg": 179.0,
+    "protein": 19.44,
+    "saturatedFat": 0.211,
+    "sodiumMg": 247.0,
+    "sugars": 0.0,
+    "vitaminB12Ug": 2.55,
+    "vitaminCMg": 0.0,
+    "vitaminDUg": 1.2,
+    "zincMg": 0.69
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 173709,
+    "food": "Fish, tuna, light, canned in water, drained solids (Includes foods for USDA's Food Distribution Program)"
+   }
+  },
+  {
+   "id": "sardines_can",
+   "concept": "sardines_can",
+   "names": {
+    "es": "Sardinas en aceite (lata)",
+    "en": "Sardines in oil (tin)"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.498,
+    "calciumMg": 382.0,
+    "carbs": 0.0,
+    "dhaG": 0.509,
+    "epaG": 0.473,
+    "fat": 11.45,
+    "fibre": 0.0,
+    "folateUg": 10.0,
+    "ironMg": 2.92,
+    "kcal": 208.0,
+    "magnesiumMg": 39.0,
+    "potassiumMg": 397.0,
+    "protein": 24.62,
+    "saturatedFat": 1.528,
+    "sodiumMg": 307.0,
+    "sugars": 0.0,
+    "vitaminB12Ug": 8.94,
+    "vitaminCMg": 0.0,
+    "vitaminDUg": 4.8,
+    "zincMg": 1.31
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 175139,
+    "food": "Fish, sardine, Atlantic, canned in oil, drained solids with bone"
+   }
+  },
+  {
+   "id": "mackerel",
+   "concept": "mackerel",
+   "names": {
+    "es": "Caballa (lata)",
+    "en": "Mackerel (tin)"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.043,
+    "calciumMg": 241.0,
+    "carbs": 0.0,
+    "dhaG": 0.796,
+    "epaG": 0.434,
+    "fat": 6.3,
+    "fibre": 0.0,
+    "folateUg": 5.0,
+    "ironMg": 2.04,
+    "kcal": 156.0,
+    "magnesiumMg": 37.0,
+    "potassiumMg": 194.0,
+    "protein": 23.19,
+    "saturatedFat": 1.857,
+    "sodiumMg": 379.0,
+    "sugars": 0.0,
+    "vitaminB12Ug": 6.94,
+    "vitaminCMg": 0.9,
+    "vitaminDUg": 7.3,
+    "zincMg": 1.02
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 175121,
+    "food": "Fish, mackerel, jack, canned, drained solids"
+   }
+  },
+  {
+   "id": "ham",
+   "concept": "ham",
+   "names": {
+    "es": "Jamón cocido",
+    "en": "Cooked ham"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.12,
+    "calciumMg": 7.0,
+    "carbs": 2.28,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 8.39,
+    "fibre": 0.0,
+    "folateUg": 3.0,
+    "ironMg": 0.9,
+    "kcal": 162.0,
+    "magnesiumMg": 18.0,
+    "potassiumMg": 297.0,
+    "protein": 18.26,
+    "saturatedFat": 2.7,
+    "sodiumMg": 1278.0,
+    "sugars": 0.0,
+    "vitaminB12Ug": 0.8,
+    "vitaminCMg": 0.0,
+    "vitaminDUg": 0.6,
+    "zincMg": 2.05
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 168295,
+    "food": "Pork, cured, ham, boneless, extra lean and regular, unheated"
+   }
+  },
+  {
+   "id": "chorizo",
+   "concept": "chorizo",
+   "names": {
+    "es": "Chorizo",
+    "en": "Chorizo"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.156,
+    "calciumMg": 19.0,
+    "carbs": 3.78,
+    "dhaG": 0.003,
+    "epaG": 0.002,
+    "fat": 25.1,
+    "fibre": 0.0,
+    "folateUg": 0.0,
+    "ironMg": 1.41,
+    "kcal": 296.0,
+    "magnesiumMg": 20.0,
+    "potassiumMg": 308.0,
+    "protein": 13.63,
+    "saturatedFat": 8.595,
+    "sodiumMg": 788.0,
+    "sugars": 0.0,
+    "vitaminB12Ug": 2.0,
+    "vitaminCMg": 0.0,
+    "vitaminDUg": 1.5,
+    "zincMg": 1.68
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 173859,
+    "food": "Sausage, pork, chorizo, link or ground, raw"
+   }
+  },
+  {
+   "id": "tofu",
+   "concept": "tofu",
+   "names": {
+    "es": "Tofu firme",
+    "en": "Firm tofu"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.582,
+    "calciumMg": 683.0,
+    "carbs": 0.48,
+    "fat": 8.72,
+    "fibre": 2.3,
+    "folateUg": 29.0,
+    "ironMg": 2.66,
+    "kcal": 144.0,
+    "magnesiumMg": 58.0,
+    "potassiumMg": 237.0,
+    "protein": 17.27,
+    "saturatedFat": 1.261,
+    "sodiumMg": 14.0,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 0.2,
+    "vitaminDUg": 0.0,
+    "zincMg": 1.57
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 172475,
+    "food": "Tofu, raw, firm, prepared with calcium sulfate"
+   }
+  },
+  {
+   "id": "milk_semi",
+   "concept": "milk",
+   "names": {
+    "es": "Leche semidesnatada",
+    "en": "Semi-skimmed milk"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.004,
+    "calciumMg": 125.0,
+    "carbs": 4.99,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 0.97,
+    "fibre": 0.0,
+    "folateUg": 5.0,
+    "ironMg": 0.03,
+    "kcal": 42.0,
+    "magnesiumMg": 11.0,
+    "potassiumMg": 150.0,
+    "protein": 3.37,
+    "saturatedFat": 0.633,
+    "sodiumMg": 44.0,
+    "sugars": 5.2,
+    "vitaminB12Ug": 0.47,
+    "vitaminCMg": 0.0,
+    "vitaminDUg": 1.2,
+    "zincMg": 0.42
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 170872,
+    "food": "Milk, lowfat, fluid, 1% milkfat, with added vitamin A and vitamin D"
+   }
+  },
+  {
+   "id": "soy_drink",
+   "concept": "plant_milk",
+   "names": {
+    "es": "Bebida de soja enriquecida",
+    "en": "Fortified soy drink"
+   },
+   "tags": [
+    "calcium",
+    "b12",
+    "protein"
+   ],
+   "per100": {
+    "alaG": 0.075,
+    "calciumMg": 123.0,
+    "carbs": 4.72,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 1.47,
+    "fibre": 0.2,
+    "folateUg": 9.0,
+    "ironMg": 0.42,
+    "kcal": 43.0,
+    "magnesiumMg": 15.0,
+    "potassiumMg": 122.0,
+    "protein": 2.6,
+    "saturatedFat": 0.205,
+    "sodiumMg": 47.0,
+    "sugars": 3.65,
+    "vitaminB12Ug": 0.85,
+    "vitaminCMg": 0.0,
+    "vitaminDUg": 1.1,
+    "zincMg": 0.26
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 172456,
+    "food": "Soymilk, original and vanilla, with added calcium, vitamins A and D"
+   }
+  },
+  {
+   "id": "yogurt",
+   "concept": "yogurt",
+   "names": {
+    "es": "Yogur natural",
+    "en": "Plain yogurt"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.027,
+    "calciumMg": 121.0,
+    "carbs": 4.66,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 3.25,
+    "fibre": 0.0,
+    "folateUg": 7.0,
+    "ironMg": 0.05,
+    "kcal": 61.0,
+    "magnesiumMg": 12.0,
+    "potassiumMg": 155.0,
+    "protein": 3.47,
+    "saturatedFat": 2.096,
+    "sodiumMg": 46.0,
+    "sugars": 4.66,
+    "vitaminB12Ug": 0.37,
+    "vitaminCMg": 0.5,
+    "vitaminDUg": 0.1,
+    "zincMg": 0.59
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 171284,
+    "food": "Yogurt, plain, whole milk"
+   }
+  },
+  {
+   "id": "greek_yogurt",
+   "concept": "yogurt",
+   "names": {
+    "es": "Yogur griego desnatado",
+    "en": "Fat-free Greek yogurt"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.001,
+    "calciumMg": 110.0,
+    "carbs": 3.6,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 0.39,
+    "fibre": 0.0,
+    "folateUg": 7.0,
+    "ironMg": 0.07,
+    "kcal": 59.0,
+    "magnesiumMg": 11.0,
+    "potassiumMg": 141.0,
+    "protein": 10.19,
+    "saturatedFat": 0.117,
+    "sodiumMg": 36.0,
+    "sugars": 3.24,
+    "vitaminB12Ug": 0.75,
+    "vitaminCMg": 0.0,
+    "vitaminDUg": 0.0,
+    "zincMg": 0.52
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 170894,
+    "food": "Yogurt, Greek, plain, nonfat (Includes foods for USDA's Food Distribution Program)"
+   }
+  },
+  {
+   "id": "cheese",
+   "concept": "cheese_slice",
+   "names": {
+    "es": "Queso semicurado",
+    "en": "Semi-cured cheese"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.394,
+    "calciumMg": 700.0,
+    "carbs": 2.22,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 27.44,
+    "fibre": 0.0,
+    "folateUg": 21.0,
+    "ironMg": 0.24,
+    "kcal": 356.0,
+    "magnesiumMg": 29.0,
+    "potassiumMg": 121.0,
+    "protein": 24.94,
+    "saturatedFat": 17.614,
+    "sodiumMg": 819.0,
+    "sugars": 2.22,
+    "vitaminB12Ug": 1.54,
+    "vitaminCMg": 0.0,
+    "vitaminDUg": 0.5,
+    "zincMg": 3.9
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 171241,
+    "food": "Cheese, gouda"
+   }
+  },
+  {
+   "id": "fresh_cheese",
+   "concept": "fresh_cheese",
+   "names": {
+    "es": "Queso fresco",
+    "en": "Fresh cheese"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.099,
+    "calciumMg": 566.0,
+    "carbs": 2.98,
+    "dhaG": 0.003,
+    "epaG": 0.008,
+    "fat": 23.82,
+    "fibre": 0.0,
+    "folateUg": 7.0,
+    "ironMg": 0.2,
+    "kcal": 299.0,
+    "magnesiumMg": 24.0,
+    "potassiumMg": 129.0,
+    "protein": 18.09,
+    "saturatedFat": 12.94,
+    "sodiumMg": 751.0,
+    "sugars": 2.32,
+    "vitaminB12Ug": 1.68,
+    "vitaminCMg": 0.0,
+    "vitaminDUg": 2.7,
+    "zincMg": 2.58
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 172223,
+    "food": "Cheese, fresh, queso fresco"
+   }
+  },
+  {
+   "id": "mozzarella",
+   "concept": "fresh_cheese",
+   "names": {
+    "es": "Mozzarella",
+    "en": "Mozzarella"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.372,
+    "calciumMg": 505.0,
+    "carbs": 2.4,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 22.14,
+    "fibre": 0.0,
+    "folateUg": 7.0,
+    "ironMg": 0.44,
+    "kcal": 299.0,
+    "magnesiumMg": 20.0,
+    "potassiumMg": 76.0,
+    "protein": 22.17,
+    "saturatedFat": 13.9,
+    "sodiumMg": 486.0,
+    "sugars": 0.0,
+    "vitaminB12Ug": 2.28,
+    "vitaminCMg": 0.0,
+    "vitaminDUg": 0.4,
+    "zincMg": 2.92
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 170845,
+    "food": "Cheese, mozzarella, whole milk"
+   }
+  },
+  {
+   "id": "wholemeal_bread",
+   "concept": "bread_slice",
+   "names": {
+    "es": "Pan integral",
+    "en": "Wholemeal bread"
+   },
+   "tags": [
+    "wholegrain"
+   ],
+   "per100": {
+    "alaG": 0.137,
+    "calciumMg": 161.0,
+    "carbs": 36.71,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 3.5,
+    "fibre": 6.0,
+    "folateUg": 42.0,
+    "ironMg": 2.47,
+    "kcal": 252.0,
+    "magnesiumMg": 75.0,
+    "potassiumMg": 254.0,
+    "protein": 12.45,
+    "saturatedFat": 0.722,
+    "sodiumMg": 455.0,
+    "sugars": 4.34,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 0.0,
+    "vitaminDUg": 0.0,
+    "zincMg": 1.77
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 172688,
+    "food": "Bread, whole-wheat, commercially prepared"
+   }
+  },
+  {
+   "id": "baguette",
+   "concept": "baguette",
+   "names": {
+    "es": "Pan de barra",
+    "en": "Baguette"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.063,
+    "calciumMg": 52.0,
+    "carbs": 49.68,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 2.42,
+    "fibre": 2.2,
+    "folateUg": 170.0,
+    "ironMg": 3.91,
+    "kcal": 272.0,
+    "magnesiumMg": 32.0,
+    "potassiumMg": 117.0,
+    "protein": 10.75,
+    "saturatedFat": 0.529,
+    "sodiumMg": 602.0,
+    "sugars": 4.62,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 0.0,
+    "vitaminDUg": 0.0,
+    "zincMg": 1.04
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 172675,
+    "food": "Bread, french or vienna (includes sourdough)"
+   }
+  },
+  {
+   "id": "wrap",
+   "concept": "tortilla_wrap",
+   "names": {
+    "es": "Tortilla de trigo",
+    "en": "Wheat tortilla"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.054,
+    "calciumMg": 39.0,
+    "carbs": 52.3,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 7.1,
+    "fibre": 3.3,
+    "folateUg": 201.0,
+    "ironMg": 3.3,
+    "kcal": 325.0,
+    "magnesiumMg": 26.0,
+    "potassiumMg": 131.0,
+    "protein": 8.7,
+    "saturatedFat": 1.745,
+    "sodiumMg": 478.0,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 0.0,
+    "zincMg": 0.71
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 173242,
+    "food": "Tortillas, ready-to-bake or -fry, flour, without added calcium"
+   }
+  },
+  {
+   "id": "oats",
+   "concept": "oats",
+   "names": {
+    "es": "Copos de avena",
+    "en": "Oat flakes"
+   },
+   "tags": [
+    "wholegrain"
+   ],
+   "per100": {
+    "alaG": 0.1,
+    "calciumMg": 52.0,
+    "carbs": 57.6,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 6.52,
+    "fibre": 10.1,
+    "folateUg": 32.0,
+    "ironMg": 4.25,
+    "kcal": 379.0,
+    "magnesiumMg": 138.0,
+    "potassiumMg": 362.0,
+    "protein": 13.15,
+    "saturatedFat": 1.11,
+    "sodiumMg": 6.0,
+    "sugars": 0.99,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 0.0,
+    "vitaminDUg": 0.0,
+    "zincMg": 3.64
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 173904,
+    "food": "Cereals, oats, regular and quick, not fortified, dry"
+   }
+  },
+  {
+   "id": "rice_white",
+   "concept": "rice",
+   "names": {
+    "es": "Arroz blanco (crudo)",
+    "en": "White rice (raw)"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.031,
+    "calciumMg": 28.0,
+    "carbs": 78.65,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 0.66,
+    "fibre": 1.3,
+    "folateUg": 387.0,
+    "ironMg": 4.31,
+    "kcal": 365.0,
+    "magnesiumMg": 25.0,
+    "potassiumMg": 115.0,
+    "protein": 7.13,
+    "saturatedFat": 0.18,
+    "sodiumMg": 5.0,
+    "sugars": 0.12,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 0.0,
+    "vitaminDUg": 0.0,
+    "zincMg": 1.09
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 168877,
+    "food": "Rice, white, long-grain, regular, raw, enriched"
+   }
+  },
+  {
+   "id": "rice_brown",
+   "concept": "rice",
+   "names": {
+    "es": "Arroz integral (crudo)",
+    "en": "Brown rice (raw)"
+   },
+   "tags": [
+    "wholegrain"
+   ],
+   "per100": {
+    "alaG": 0.032,
+    "calciumMg": 9.0,
+    "carbs": 72.65,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 3.2,
+    "fibre": 3.6,
+    "folateUg": 23.0,
+    "ironMg": 1.29,
+    "kcal": 367.0,
+    "magnesiumMg": 116.0,
+    "potassiumMg": 250.0,
+    "protein": 7.54,
+    "saturatedFat": 0.591,
+    "sodiumMg": 5.0,
+    "sugars": 0.66,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 0.0,
+    "vitaminDUg": 0.0,
+    "zincMg": 2.13
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 169703,
+    "food": "Rice, brown, long-grain, raw (Includes foods for USDA's Food Distribution Program)"
+   }
+  },
+  {
+   "id": "pasta",
+   "concept": "pasta",
+   "names": {
+    "es": "Pasta (cruda)",
+    "en": "Pasta (dry)"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.024,
+    "calciumMg": 21.0,
+    "carbs": 71.47,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 1.51,
+    "fibre": 3.2,
+    "folateUg": 391.0,
+    "ironMg": 3.3,
+    "kcal": 371.0,
+    "magnesiumMg": 53.0,
+    "potassiumMg": 223.0,
+    "protein": 13.04,
+    "saturatedFat": 0.277,
+    "sodiumMg": 6.0,
+    "sugars": 2.67,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 0.0,
+    "vitaminDUg": 0.0,
+    "zincMg": 1.41
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 169736,
+    "food": "Pasta, dry, enriched"
+   }
+  },
+  {
+   "id": "pasta_wholewheat",
+   "concept": "pasta",
+   "names": {
+    "es": "Pasta integral (cruda)",
+    "en": "Wholewheat pasta (dry)"
+   },
+   "tags": [
+    "wholegrain"
+   ],
+   "per100": {
+    "alaG": 0.07,
+    "calciumMg": 29.0,
+    "carbs": 64.17,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 2.93,
+    "fibre": 9.2,
+    "folateUg": 69.0,
+    "ironMg": 3.62,
+    "kcal": 352.0,
+    "magnesiumMg": 128.0,
+    "potassiumMg": 434.0,
+    "protein": 13.87,
+    "saturatedFat": 0.428,
+    "sodiumMg": 6.0,
+    "sugars": 2.74,
+    "vitaminB12Ug": 0.0,
+    "vitaminDUg": 0.0,
+    "zincMg": 2.97
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 169738,
+    "food": "Pasta, whole-wheat, dry (Includes foods for USDA's Food Distribution Program)"
+   }
+  },
+  {
+   "id": "potato",
+   "concept": "potato",
+   "names": {
+    "es": "Patata",
+    "en": "Potato"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.01,
+    "calciumMg": 12.0,
+    "carbs": 15.39,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 0.09,
+    "fibre": 2.1,
+    "folateUg": 15.0,
+    "ironMg": 0.81,
+    "kcal": 77.0,
+    "magnesiumMg": 23.0,
+    "potassiumMg": 425.0,
+    "protein": 2.05,
+    "saturatedFat": 0.025,
+    "sodiumMg": 6.0,
+    "sugars": 0.82,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 19.7,
+    "vitaminDUg": 0.0,
+    "zincMg": 0.3
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 170026,
+    "food": "Potatoes, flesh and skin, raw"
+   }
+  },
+  {
+   "id": "sweet_potato",
+   "concept": "sweet_potato",
+   "names": {
+    "es": "Boniato",
+    "en": "Sweet potato"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.001,
+    "calciumMg": 30.0,
+    "carbs": 17.12,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 0.05,
+    "fibre": 3.0,
+    "folateUg": 11.0,
+    "ironMg": 0.61,
+    "kcal": 86.0,
+    "magnesiumMg": 25.0,
+    "potassiumMg": 337.0,
+    "protein": 1.57,
+    "saturatedFat": 0.018,
+    "sodiumMg": 55.0,
+    "sugars": 4.18,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 2.4,
+    "vitaminDUg": 0.0,
+    "zincMg": 0.3
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 168482,
+    "food": "Sweet potato, raw, unprepared (Includes foods for USDA's Food Distribution Program)"
+   }
+  },
+  {
+   "id": "rice_cake",
+   "concept": "rice_cake",
+   "names": {
+    "es": "Tortitas de arroz integral",
+    "en": "Brown rice cakes"
+   },
+   "tags": [
+    "wholegrain"
+   ],
+   "per100": {
+    "alaG": 0.01,
+    "calciumMg": 11.0,
+    "carbs": 77.3,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 2.8,
+    "fibre": 4.2,
+    "folateUg": 21.0,
+    "ironMg": 1.49,
+    "kcal": 387.0,
+    "magnesiumMg": 131.0,
+    "potassiumMg": 290.0,
+    "protein": 8.2,
+    "saturatedFat": 0.57,
+    "sodiumMg": 26.0,
+    "sugars": 0.88,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 0.0,
+    "vitaminDUg": 0.0,
+    "zincMg": 3.0
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 170250,
+    "food": "Snacks, rice cakes, brown rice, plain, unsalted"
+   }
+  },
+  {
+   "id": "lentils",
+   "concept": "lentils",
+   "names": {
+    "es": "Lentejas (crudas)",
+    "en": "Lentils (raw)"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.112,
+    "calciumMg": 35.0,
+    "carbs": 52.65,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 1.06,
+    "fibre": 10.7,
+    "folateUg": 479.0,
+    "ironMg": 6.51,
+    "kcal": 352.0,
+    "magnesiumMg": 47.0,
+    "potassiumMg": 677.0,
+    "protein": 24.63,
+    "saturatedFat": 0.154,
+    "sodiumMg": 6.0,
+    "sugars": 2.03,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 4.5,
+    "vitaminDUg": 0.0,
+    "zincMg": 3.27
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 172420,
+    "food": "Lentils, raw"
+   }
+  },
+  {
+   "id": "chickpeas",
+   "concept": "chickpeas",
+   "names": {
+    "es": "Garbanzos cocidos (bote)",
+    "en": "Chickpeas (jar, drained)"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.036,
+    "calciumMg": 45.0,
+    "carbs": 16.13,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 2.77,
+    "fibre": 6.4,
+    "folateUg": 48.0,
+    "ironMg": 1.07,
+    "kcal": 139.0,
+    "magnesiumMg": 26.0,
+    "potassiumMg": 126.0,
+    "protein": 7.05,
+    "saturatedFat": 0.214,
+    "sodiumMg": 246.0,
+    "sugars": 4.01,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 0.1,
+    "vitaminDUg": 0.0,
+    "zincMg": 0.63
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 173800,
+    "food": "Chickpeas (garbanzo beans, bengal gram), mature seeds, canned, drained solids"
+   }
+  },
+  {
+   "id": "white_beans",
+   "concept": "beans",
+   "names": {
+    "es": "Alubias blancas cocidas (bote)",
+    "en": "White beans (jar)"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.056,
+    "calciumMg": 73.0,
+    "carbs": 16.4,
+    "fat": 0.29,
+    "fibre": 4.8,
+    "folateUg": 65.0,
+    "ironMg": 2.99,
+    "kcal": 114.0,
+    "magnesiumMg": 51.0,
+    "potassiumMg": 454.0,
+    "protein": 7.26,
+    "saturatedFat": 0.074,
+    "sodiumMg": 340.0,
+    "sugars": 0.29,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 0.0,
+    "vitaminDUg": 0.0,
+    "zincMg": 1.12
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 175204,
+    "food": "Beans, white, mature seeds, canned"
+   }
+  },
+  {
+   "id": "hummus",
+   "concept": "chickpeas",
+   "names": {
+    "es": "Hummus",
+    "en": "Hummus"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.711,
+    "calciumMg": 47.0,
+    "carbs": 9.5,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 17.82,
+    "fibre": 5.5,
+    "folateUg": 48.0,
+    "ironMg": 2.54,
+    "kcal": 237.0,
+    "magnesiumMg": 75.0,
+    "potassiumMg": 312.0,
+    "protein": 7.78,
+    "saturatedFat": 2.562,
+    "sodiumMg": 426.0,
+    "sugars": 0.62,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 0.0,
+    "vitaminDUg": 0.0,
+    "zincMg": 1.44
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 174289,
+    "food": "Hummus, commercial"
+   }
+  },
+  {
+   "id": "peas",
+   "concept": "peas",
+   "names": {
+    "es": "Guisantes",
+    "en": "Peas"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.033,
+    "calciumMg": 22.0,
+    "carbs": 9.12,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 0.4,
+    "fibre": 4.5,
+    "folateUg": 53.0,
+    "ironMg": 1.53,
+    "kcal": 77.0,
+    "magnesiumMg": 26.0,
+    "potassiumMg": 153.0,
+    "protein": 5.22,
+    "saturatedFat": 0.066,
+    "sodiumMg": 108.0,
+    "sugars": 5.0,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 18.0,
+    "vitaminDUg": 0.0,
+    "zincMg": 0.82
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 170016,
+    "food": "Peas, green, frozen, unprepared (Includes foods for USDA's Food Distribution Program)"
+   }
+  },
+  {
+   "id": "tomato",
+   "concept": "tomato",
+   "names": {
+    "es": "Tomate",
+    "en": "Tomato"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.003,
+    "calciumMg": 10.0,
+    "carbs": 2.69,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 0.2,
+    "fibre": 1.2,
+    "folateUg": 15.0,
+    "ironMg": 0.27,
+    "kcal": 18.0,
+    "magnesiumMg": 11.0,
+    "potassiumMg": 237.0,
+    "protein": 0.88,
+    "saturatedFat": 0.028,
+    "sodiumMg": 5.0,
+    "sugars": 2.63,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 13.7,
+    "vitaminDUg": 0.0,
+    "zincMg": 0.17
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 170457,
+    "food": "Tomatoes, red, ripe, raw, year round average"
+   }
+  },
+  {
+   "id": "cherry_tomato",
+   "concept": "cherry_tomato",
+   "names": {
+    "es": "Tomates cherry",
+    "en": "Cherry tomatoes"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.003,
+    "calciumMg": 10.0,
+    "carbs": 2.69,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 0.2,
+    "fibre": 1.2,
+    "folateUg": 15.0,
+    "ironMg": 0.27,
+    "kcal": 18.0,
+    "magnesiumMg": 11.0,
+    "potassiumMg": 237.0,
+    "protein": 0.88,
+    "saturatedFat": 0.028,
+    "sodiumMg": 5.0,
+    "sugars": 2.63,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 13.7,
+    "vitaminDUg": 0.0,
+    "zincMg": 0.17
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 170457,
+    "food": "Tomatoes, red, ripe, raw, year round average"
+   }
+  },
+  {
+   "id": "carrot",
+   "concept": "carrot",
+   "names": {
+    "es": "Zanahoria",
+    "en": "Carrot"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.002,
+    "calciumMg": 33.0,
+    "carbs": 6.78,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 0.24,
+    "fibre": 2.8,
+    "folateUg": 19.0,
+    "ironMg": 0.3,
+    "kcal": 41.0,
+    "magnesiumMg": 12.0,
+    "potassiumMg": 320.0,
+    "protein": 0.93,
+    "saturatedFat": 0.032,
+    "sodiumMg": 69.0,
+    "sugars": 4.74,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 5.9,
+    "vitaminDUg": 0.0,
+    "zincMg": 0.24
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 170393,
+    "food": "Carrots, raw"
+   }
+  },
+  {
+   "id": "onion",
+   "concept": "onion",
+   "names": {
+    "es": "Cebolla",
+    "en": "Onion"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.004,
+    "calciumMg": 23.0,
+    "carbs": 7.64,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 0.1,
+    "fibre": 1.7,
+    "folateUg": 19.0,
+    "ironMg": 0.21,
+    "kcal": 40.0,
+    "magnesiumMg": 10.0,
+    "potassiumMg": 146.0,
+    "protein": 1.1,
+    "saturatedFat": 0.042,
+    "sodiumMg": 4.0,
+    "sugars": 4.24,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 7.4,
+    "vitaminDUg": 0.0,
+    "zincMg": 0.17
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 170000,
+    "food": "Onions, raw"
+   }
+  },
+  {
+   "id": "pepper",
+   "concept": "pepper",
+   "names": {
+    "es": "Pimiento rojo",
+    "en": "Red pepper"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.056,
+    "calciumMg": 7.0,
+    "carbs": 3.93,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 0.3,
+    "fibre": 2.1,
+    "folateUg": 46.0,
+    "ironMg": 0.43,
+    "kcal": 26.0,
+    "magnesiumMg": 12.0,
+    "potassiumMg": 211.0,
+    "protein": 0.99,
+    "saturatedFat": 0.059,
+    "sodiumMg": 4.0,
+    "sugars": 4.2,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 127.7,
+    "vitaminDUg": 0.0,
+    "zincMg": 0.25
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 170108,
+    "food": "Peppers, sweet, red, raw"
+   }
+  },
+  {
+   "id": "zucchini",
+   "concept": "zucchini",
+   "names": {
+    "es": "Calabacín",
+    "en": "Courgette"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.061,
+    "calciumMg": 16.0,
+    "carbs": 2.11,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 0.32,
+    "fibre": 1.0,
+    "folateUg": 24.0,
+    "ironMg": 0.37,
+    "kcal": 17.0,
+    "magnesiumMg": 18.0,
+    "potassiumMg": 261.0,
+    "protein": 1.21,
+    "saturatedFat": 0.084,
+    "sodiumMg": 8.0,
+    "sugars": 2.5,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 17.9,
+    "vitaminDUg": 0.0,
+    "zincMg": 0.32
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 169291,
+    "food": "Squash, summer, zucchini, includes skin, raw"
+   }
+  },
+  {
+   "id": "cucumber",
+   "concept": "cucumber",
+   "names": {
+    "es": "Pepino",
+    "en": "Cucumber"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.005,
+    "calciumMg": 16.0,
+    "carbs": 3.13,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 0.11,
+    "fibre": 0.5,
+    "folateUg": 7.0,
+    "ironMg": 0.28,
+    "kcal": 15.0,
+    "magnesiumMg": 13.0,
+    "potassiumMg": 147.0,
+    "protein": 0.65,
+    "saturatedFat": 0.037,
+    "sodiumMg": 2.0,
+    "sugars": 1.67,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 2.8,
+    "vitaminDUg": 0.0,
+    "zincMg": 0.2
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 168409,
+    "food": "Cucumber, with peel, raw"
+   }
+  },
+  {
+   "id": "lettuce",
+   "concept": "lettuce",
+   "names": {
+    "es": "Lechuga romana",
+    "en": "Romaine lettuce"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.113,
+    "calciumMg": 33.0,
+    "carbs": 1.19,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 0.3,
+    "fibre": 2.1,
+    "folateUg": 136.0,
+    "ironMg": 0.97,
+    "kcal": 17.0,
+    "magnesiumMg": 14.0,
+    "potassiumMg": 247.0,
+    "protein": 1.23,
+    "saturatedFat": 0.039,
+    "sodiumMg": 8.0,
+    "sugars": 1.19,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 4.0,
+    "vitaminDUg": 0.0,
+    "zincMg": 0.23
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 169247,
+    "food": "Lettuce, cos or romaine, raw"
+   }
+  },
+  {
+   "id": "spinach",
+   "concept": "spinach",
+   "names": {
+    "es": "Espinacas",
+    "en": "Spinach"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.138,
+    "calciumMg": 99.0,
+    "carbs": 1.43,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 0.39,
+    "fibre": 2.2,
+    "folateUg": 194.0,
+    "ironMg": 2.71,
+    "kcal": 23.0,
+    "magnesiumMg": 79.0,
+    "potassiumMg": 558.0,
+    "protein": 2.86,
+    "saturatedFat": 0.063,
+    "sodiumMg": 79.0,
+    "sugars": 0.42,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 28.1,
+    "vitaminDUg": 0.0,
+    "zincMg": 0.53
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 168462,
+    "food": "Spinach, raw"
+   }
+  },
+  {
+   "id": "broccoli",
+   "concept": "broccoli",
+   "names": {
+    "es": "Brócoli",
+    "en": "Broccoli"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.063,
+    "calciumMg": 47.0,
+    "carbs": 4.04,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 0.37,
+    "fibre": 2.6,
+    "folateUg": 63.0,
+    "ironMg": 0.73,
+    "kcal": 34.0,
+    "magnesiumMg": 21.0,
+    "potassiumMg": 316.0,
+    "protein": 2.82,
+    "saturatedFat": 0.114,
+    "sodiumMg": 33.0,
+    "sugars": 1.7,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 89.2,
+    "vitaminDUg": 0.0,
+    "zincMg": 0.41
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 170379,
+    "food": "Broccoli, raw"
+   }
+  },
+  {
+   "id": "cauliflower",
+   "concept": "cauliflower",
+   "names": {
+    "es": "Coliflor",
+    "en": "Cauliflower"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.015,
+    "calciumMg": 22.0,
+    "carbs": 2.97,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 0.28,
+    "fibre": 2.0,
+    "folateUg": 57.0,
+    "ironMg": 0.42,
+    "kcal": 25.0,
+    "magnesiumMg": 15.0,
+    "potassiumMg": 299.0,
+    "protein": 1.92,
+    "saturatedFat": 0.13,
+    "sodiumMg": 30.0,
+    "sugars": 1.91,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 48.2,
+    "vitaminDUg": 0.0,
+    "zincMg": 0.27
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 169986,
+    "food": "Cauliflower, raw"
+   }
+  },
+  {
+   "id": "mushrooms",
+   "concept": "mushrooms",
+   "names": {
+    "es": "Champiñones",
+    "en": "Mushrooms"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.0,
+    "calciumMg": 3.0,
+    "carbs": 2.26,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 0.34,
+    "fibre": 1.0,
+    "folateUg": 17.0,
+    "ironMg": 0.5,
+    "kcal": 22.0,
+    "magnesiumMg": 9.0,
+    "potassiumMg": 318.0,
+    "protein": 3.09,
+    "saturatedFat": 0.05,
+    "sodiumMg": 5.0,
+    "sugars": 1.98,
+    "vitaminB12Ug": 0.04,
+    "vitaminCMg": 2.1,
+    "vitaminDUg": 0.2,
+    "zincMg": 0.52
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 169251,
+    "food": "Mushrooms, white, raw"
+   }
+  },
+  {
+   "id": "green_beans",
+   "concept": "green_beans",
+   "names": {
+    "es": "Judías verdes",
+    "en": "Green beans"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.069,
+    "calciumMg": 37.0,
+    "carbs": 4.27,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 0.22,
+    "fibre": 2.7,
+    "folateUg": 33.0,
+    "ironMg": 1.03,
+    "kcal": 31.0,
+    "magnesiumMg": 25.0,
+    "potassiumMg": 211.0,
+    "protein": 1.83,
+    "saturatedFat": 0.05,
+    "sodiumMg": 6.0,
+    "sugars": 3.26,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 12.2,
+    "vitaminDUg": 0.0,
+    "zincMg": 0.24
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 169961,
+    "food": "Beans, snap, green, raw"
+   }
+  },
+  {
+   "id": "asparagus",
+   "concept": "asparagus",
+   "names": {
+    "es": "Espárragos verdes",
+    "en": "Green asparagus"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.01,
+    "calciumMg": 24.0,
+    "carbs": 1.78,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 0.12,
+    "fibre": 2.1,
+    "folateUg": 52.0,
+    "ironMg": 2.14,
+    "kcal": 20.0,
+    "magnesiumMg": 14.0,
+    "potassiumMg": 202.0,
+    "protein": 2.2,
+    "saturatedFat": 0.04,
+    "sodiumMg": 2.0,
+    "sugars": 1.88,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 5.6,
+    "vitaminDUg": 0.0,
+    "zincMg": 0.54
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 168389,
+    "food": "Asparagus, raw"
+   }
+  },
+  {
+   "id": "eggplant",
+   "concept": "eggplant",
+   "names": {
+    "es": "Berenjena",
+    "en": "Aubergine"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.013,
+    "calciumMg": 9.0,
+    "carbs": 2.88,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 0.18,
+    "fibre": 3.0,
+    "folateUg": 22.0,
+    "ironMg": 0.23,
+    "kcal": 25.0,
+    "magnesiumMg": 14.0,
+    "potassiumMg": 229.0,
+    "protein": 0.98,
+    "saturatedFat": 0.034,
+    "sodiumMg": 2.0,
+    "sugars": 3.53,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 2.2,
+    "vitaminDUg": 0.0,
+    "zincMg": 0.16
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 169228,
+    "food": "Eggplant, raw"
+   }
+  },
+  {
+   "id": "leek",
+   "concept": "leek",
+   "names": {
+    "es": "Puerro",
+    "en": "Leek"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.099,
+    "calciumMg": 59.0,
+    "carbs": 12.35,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 0.3,
+    "fibre": 1.8,
+    "folateUg": 64.0,
+    "ironMg": 2.1,
+    "kcal": 61.0,
+    "magnesiumMg": 28.0,
+    "potassiumMg": 180.0,
+    "protein": 1.5,
+    "saturatedFat": 0.04,
+    "sodiumMg": 20.0,
+    "sugars": 3.9,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 12.0,
+    "vitaminDUg": 0.0,
+    "zincMg": 0.12
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 169246,
+    "food": "Leeks, (bulb and lower leaf-portion), raw"
+   }
+  },
+  {
+   "id": "avocado",
+   "concept": "avocado",
+   "names": {
+    "es": "Aguacate",
+    "en": "Avocado"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.111,
+    "calciumMg": 12.0,
+    "carbs": 1.83,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 14.66,
+    "fibre": 6.7,
+    "folateUg": 81.0,
+    "ironMg": 0.55,
+    "kcal": 160.0,
+    "magnesiumMg": 29.0,
+    "potassiumMg": 485.0,
+    "protein": 2.0,
+    "saturatedFat": 2.126,
+    "sodiumMg": 7.0,
+    "sugars": 0.66,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 10.0,
+    "vitaminDUg": 0.0,
+    "zincMg": 0.64
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 171705,
+    "food": "Avocados, raw, all commercial varieties"
+   }
+  },
+  {
+   "id": "olives",
+   "concept": "olives",
+   "names": {
+    "es": "Aceitunas verdes",
+    "en": "Green olives"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.092,
+    "calciumMg": 52.0,
+    "carbs": 0.54,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 15.32,
+    "fibre": 3.3,
+    "folateUg": 3.0,
+    "ironMg": 0.49,
+    "kcal": 145.0,
+    "magnesiumMg": 11.0,
+    "potassiumMg": 42.0,
+    "protein": 1.03,
+    "saturatedFat": 2.029,
+    "sodiumMg": 1556.0,
+    "sugars": 0.54,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 0.0,
+    "vitaminDUg": 0.0,
+    "zincMg": 0.04
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 169096,
+    "food": "Olives, pickled, canned or bottled, green"
+   }
+  },
+  {
+   "id": "apple",
+   "concept": "apple",
+   "names": {
+    "es": "Manzana",
+    "en": "Apple"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.009,
+    "calciumMg": 6.0,
+    "carbs": 11.41,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 0.17,
+    "fibre": 2.4,
+    "folateUg": 3.0,
+    "ironMg": 0.12,
+    "kcal": 52.0,
+    "magnesiumMg": 5.0,
+    "potassiumMg": 107.0,
+    "protein": 0.26,
+    "saturatedFat": 0.028,
+    "sodiumMg": 1.0,
+    "sugars": 10.39,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 4.6,
+    "vitaminDUg": 0.0,
+    "zincMg": 0.04
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 171688,
+    "food": "Apples, raw, with skin (Includes foods for USDA's Food Distribution Program)"
+   }
+  },
+  {
+   "id": "banana",
+   "concept": "banana",
+   "names": {
+    "es": "Plátano",
+    "en": "Banana"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.027,
+    "calciumMg": 5.0,
+    "carbs": 20.24,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 0.33,
+    "fibre": 2.6,
+    "folateUg": 20.0,
+    "ironMg": 0.26,
+    "kcal": 89.0,
+    "magnesiumMg": 27.0,
+    "potassiumMg": 358.0,
+    "protein": 1.09,
+    "saturatedFat": 0.112,
+    "sodiumMg": 1.0,
+    "sugars": 12.23,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 8.7,
+    "vitaminDUg": 0.0,
+    "zincMg": 0.15
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 173944,
+    "food": "Bananas, raw"
+   }
+  },
+  {
+   "id": "orange",
+   "concept": "orange",
+   "names": {
+    "es": "Naranja",
+    "en": "Orange"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.007,
+    "calciumMg": 40.0,
+    "carbs": 9.35,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 0.12,
+    "fibre": 2.4,
+    "folateUg": 30.0,
+    "ironMg": 0.1,
+    "kcal": 47.0,
+    "magnesiumMg": 10.0,
+    "potassiumMg": 181.0,
+    "protein": 0.94,
+    "saturatedFat": 0.015,
+    "sodiumMg": 0.0,
+    "sugars": 9.35,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 53.2,
+    "vitaminDUg": 0.0,
+    "zincMg": 0.07
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 169097,
+    "food": "Oranges, raw, all commercial varieties"
+   }
+  },
+  {
+   "id": "mandarin",
+   "concept": "mandarin",
+   "names": {
+    "es": "Mandarina",
+    "en": "Mandarin"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.018,
+    "calciumMg": 37.0,
+    "carbs": 11.54,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 0.31,
+    "fibre": 1.8,
+    "folateUg": 16.0,
+    "ironMg": 0.15,
+    "kcal": 53.0,
+    "magnesiumMg": 12.0,
+    "potassiumMg": 166.0,
+    "protein": 0.81,
+    "saturatedFat": 0.039,
+    "sodiumMg": 2.0,
+    "sugars": 10.58,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 26.7,
+    "vitaminDUg": 0.0,
+    "zincMg": 0.07
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 169105,
+    "food": "Tangerines, (mandarin oranges), raw"
+   }
+  },
+  {
+   "id": "pear",
+   "concept": "pear",
+   "names": {
+    "es": "Pera",
+    "en": "Pear"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.001,
+    "calciumMg": 9.0,
+    "carbs": 12.13,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 0.14,
+    "fibre": 3.1,
+    "folateUg": 7.0,
+    "ironMg": 0.18,
+    "kcal": 57.0,
+    "magnesiumMg": 7.0,
+    "potassiumMg": 116.0,
+    "protein": 0.36,
+    "saturatedFat": 0.022,
+    "sodiumMg": 1.0,
+    "sugars": 9.75,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 4.3,
+    "vitaminDUg": 0.0,
+    "zincMg": 0.1
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 169118,
+    "food": "Pears, raw"
+   }
+  },
+  {
+   "id": "kiwi",
+   "concept": "kiwi",
+   "names": {
+    "es": "Kiwi",
+    "en": "Kiwi"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.042,
+    "calciumMg": 34.0,
+    "carbs": 11.66,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 0.52,
+    "fibre": 3.0,
+    "folateUg": 25.0,
+    "ironMg": 0.31,
+    "kcal": 61.0,
+    "magnesiumMg": 17.0,
+    "potassiumMg": 312.0,
+    "protein": 1.14,
+    "saturatedFat": 0.029,
+    "sodiumMg": 3.0,
+    "sugars": 8.99,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 92.7,
+    "vitaminDUg": 0.0,
+    "zincMg": 0.14
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 168153,
+    "food": "Kiwifruit, green, raw"
+   }
+  },
+  {
+   "id": "strawberries",
+   "concept": "strawberries",
+   "names": {
+    "es": "Fresas",
+    "en": "Strawberries"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.065,
+    "calciumMg": 16.0,
+    "carbs": 5.68,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 0.3,
+    "fibre": 2.0,
+    "folateUg": 24.0,
+    "ironMg": 0.41,
+    "kcal": 32.0,
+    "magnesiumMg": 13.0,
+    "potassiumMg": 153.0,
+    "protein": 0.67,
+    "saturatedFat": 0.015,
+    "sodiumMg": 1.0,
+    "sugars": 4.89,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 58.8,
+    "vitaminDUg": 0.0,
+    "zincMg": 0.14
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 167762,
+    "food": "Strawberries, raw"
+   }
+  },
+  {
+   "id": "grapes",
+   "concept": "grapes",
+   "names": {
+    "es": "Uvas",
+    "en": "Grapes"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.011,
+    "calciumMg": 10.0,
+    "carbs": 17.2,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 0.16,
+    "fibre": 0.9,
+    "folateUg": 2.0,
+    "ironMg": 0.36,
+    "kcal": 69.0,
+    "magnesiumMg": 7.0,
+    "potassiumMg": 191.0,
+    "protein": 0.72,
+    "saturatedFat": 0.054,
+    "sodiumMg": 2.0,
+    "sugars": 15.48,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 3.2,
+    "vitaminDUg": 0.0,
+    "zincMg": 0.07
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 174683,
+    "food": "Grapes, red or green (European type, such as Thompson seedless), raw"
+   }
+  },
+  {
+   "id": "peach",
+   "concept": "peach",
+   "names": {
+    "es": "Melocotón",
+    "en": "Peach"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.002,
+    "calciumMg": 6.0,
+    "carbs": 8.04,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 0.25,
+    "fibre": 1.5,
+    "folateUg": 4.0,
+    "ironMg": 0.25,
+    "kcal": 39.0,
+    "magnesiumMg": 9.0,
+    "potassiumMg": 190.0,
+    "protein": 0.91,
+    "saturatedFat": 0.019,
+    "sodiumMg": 0.0,
+    "sugars": 8.39,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 6.6,
+    "vitaminDUg": 0.0,
+    "zincMg": 0.17
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 169928,
+    "food": "Peaches, yellow, raw"
+   }
+  },
+  {
+   "id": "plum",
+   "concept": "plum",
+   "names": {
+    "es": "Ciruela",
+    "en": "Plum"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.0,
+    "calciumMg": 6.0,
+    "carbs": 10.02,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 0.28,
+    "fibre": 1.4,
+    "folateUg": 5.0,
+    "ironMg": 0.17,
+    "kcal": 46.0,
+    "magnesiumMg": 7.0,
+    "potassiumMg": 157.0,
+    "protein": 0.7,
+    "saturatedFat": 0.017,
+    "sodiumMg": 0.0,
+    "sugars": 9.92,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 9.5,
+    "vitaminDUg": 0.0,
+    "zincMg": 0.1
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 169949,
+    "food": "Plums, raw"
+   }
+  },
+  {
+   "id": "apricot",
+   "concept": "apricot",
+   "names": {
+    "es": "Albaricoque",
+    "en": "Apricot"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.0,
+    "calciumMg": 13.0,
+    "carbs": 9.12,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 0.39,
+    "fibre": 2.0,
+    "folateUg": 9.0,
+    "ironMg": 0.39,
+    "kcal": 48.0,
+    "magnesiumMg": 10.0,
+    "potassiumMg": 259.0,
+    "protein": 1.4,
+    "saturatedFat": 0.027,
+    "sodiumMg": 1.0,
+    "sugars": 9.24,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 10.0,
+    "vitaminDUg": 0.0,
+    "zincMg": 0.2
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 171697,
+    "food": "Apricots, raw"
+   }
+  },
+  {
+   "id": "cherries",
+   "concept": "cherries",
+   "names": {
+    "es": "Cerezas",
+    "en": "Cherries"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.026,
+    "calciumMg": 13.0,
+    "carbs": 13.91,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 0.2,
+    "fibre": 2.1,
+    "folateUg": 4.0,
+    "ironMg": 0.36,
+    "kcal": 63.0,
+    "magnesiumMg": 11.0,
+    "potassiumMg": 222.0,
+    "protein": 1.06,
+    "saturatedFat": 0.038,
+    "sodiumMg": 0.0,
+    "sugars": 12.82,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 7.0,
+    "vitaminDUg": 0.0,
+    "zincMg": 0.07
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 171719,
+    "food": "Cherries, sweet, raw"
+   }
+  },
+  {
+   "id": "melon",
+   "concept": "melon",
+   "names": {
+    "es": "Melón",
+    "en": "Melon"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.033,
+    "calciumMg": 6.0,
+    "carbs": 8.29,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 0.14,
+    "fibre": 0.8,
+    "folateUg": 19.0,
+    "ironMg": 0.17,
+    "kcal": 36.0,
+    "magnesiumMg": 10.0,
+    "potassiumMg": 228.0,
+    "protein": 0.54,
+    "saturatedFat": 0.038,
+    "sodiumMg": 18.0,
+    "sugars": 8.12,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 18.0,
+    "vitaminDUg": 0.0,
+    "zincMg": 0.09
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 169911,
+    "food": "Melons, honeydew, raw"
+   }
+  },
+  {
+   "id": "watermelon",
+   "concept": "watermelon",
+   "names": {
+    "es": "Sandía",
+    "en": "Watermelon"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.0,
+    "calciumMg": 7.0,
+    "carbs": 7.15,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 0.15,
+    "fibre": 0.4,
+    "folateUg": 3.0,
+    "ironMg": 0.24,
+    "kcal": 30.0,
+    "magnesiumMg": 10.0,
+    "potassiumMg": 112.0,
+    "protein": 0.61,
+    "saturatedFat": 0.016,
+    "sodiumMg": 1.0,
+    "sugars": 6.2,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 8.1,
+    "vitaminDUg": 0.0,
+    "zincMg": 0.1
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 167765,
+    "food": "Watermelon, raw"
+   }
+  },
+  {
+   "id": "pineapple",
+   "concept": "pineapple",
+   "names": {
+    "es": "Piña",
+    "en": "Pineapple"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.017,
+    "calciumMg": 13.0,
+    "carbs": 11.72,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 0.12,
+    "fibre": 1.4,
+    "folateUg": 18.0,
+    "ironMg": 0.29,
+    "kcal": 50.0,
+    "magnesiumMg": 12.0,
+    "potassiumMg": 109.0,
+    "protein": 0.54,
+    "saturatedFat": 0.009,
+    "sodiumMg": 1.0,
+    "sugars": 9.85,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 47.8,
+    "vitaminDUg": 0.0,
+    "zincMg": 0.12
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 169124,
+    "food": "Pineapple, raw, all varieties"
+   }
+  },
+  {
+   "id": "mango",
+   "concept": "mango",
+   "names": {
+    "es": "Mango",
+    "en": "Mango"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.051,
+    "calciumMg": 11.0,
+    "carbs": 13.38,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 0.38,
+    "fibre": 1.6,
+    "folateUg": 43.0,
+    "ironMg": 0.16,
+    "kcal": 60.0,
+    "magnesiumMg": 10.0,
+    "potassiumMg": 168.0,
+    "protein": 0.82,
+    "saturatedFat": 0.092,
+    "sodiumMg": 1.0,
+    "sugars": 13.66,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 36.4,
+    "vitaminDUg": 0.0,
+    "zincMg": 0.09
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 169910,
+    "food": "Mangos, raw"
+   }
+  },
+  {
+   "id": "figs",
+   "concept": "figs",
+   "names": {
+    "es": "Higos",
+    "en": "Figs"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.0,
+    "calciumMg": 35.0,
+    "carbs": 16.28,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 0.3,
+    "fibre": 2.9,
+    "folateUg": 6.0,
+    "ironMg": 0.37,
+    "kcal": 74.0,
+    "magnesiumMg": 17.0,
+    "potassiumMg": 232.0,
+    "protein": 0.75,
+    "saturatedFat": 0.06,
+    "sodiumMg": 1.0,
+    "sugars": 16.26,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 2.0,
+    "vitaminDUg": 0.0,
+    "zincMg": 0.15
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 173021,
+    "food": "Figs, raw"
+   }
+  },
+  {
+   "id": "blueberries",
+   "concept": "blueberries",
+   "names": {
+    "es": "Arándanos",
+    "en": "Blueberries"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.058,
+    "calciumMg": 6.0,
+    "carbs": 12.09,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 0.33,
+    "fibre": 2.4,
+    "folateUg": 6.0,
+    "ironMg": 0.28,
+    "kcal": 57.0,
+    "magnesiumMg": 6.0,
+    "potassiumMg": 77.0,
+    "protein": 0.74,
+    "saturatedFat": 0.028,
+    "sodiumMg": 1.0,
+    "sugars": 9.96,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 9.7,
+    "vitaminDUg": 0.0,
+    "zincMg": 0.16
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 171711,
+    "food": "Blueberries, raw"
+   }
+  },
+  {
+   "id": "raspberries",
+   "concept": "raspberries",
+   "names": {
+    "es": "Frambuesas",
+    "en": "Raspberries"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.126,
+    "calciumMg": 25.0,
+    "carbs": 5.44,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 0.65,
+    "fibre": 6.5,
+    "folateUg": 21.0,
+    "ironMg": 0.69,
+    "kcal": 52.0,
+    "magnesiumMg": 22.0,
+    "potassiumMg": 151.0,
+    "protein": 1.2,
+    "saturatedFat": 0.019,
+    "sodiumMg": 1.0,
+    "sugars": 4.42,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 26.2,
+    "vitaminDUg": 0.0,
+    "zincMg": 0.42
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 167755,
+    "food": "Raspberries, raw"
+   }
+  },
+  {
+   "id": "olive_oil",
+   "concept": "olive_oil",
+   "names": {
+    "es": "Aceite de oliva virgen extra",
+    "en": "Extra virgin olive oil"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.761,
+    "calciumMg": 1.0,
+    "carbs": 0.0,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 100.0,
+    "fibre": 0.0,
+    "folateUg": 0.0,
+    "ironMg": 0.56,
+    "kcal": 884.0,
+    "magnesiumMg": 0.0,
+    "potassiumMg": 1.0,
+    "protein": 0.0,
+    "saturatedFat": 13.808,
+    "sodiumMg": 2.0,
+    "sugars": 0.0,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 0.0,
+    "vitaminDUg": 0.0,
+    "zincMg": 0.0
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 171413,
+    "food": "Oil, olive, salad or cooking"
+   }
+  },
+  {
+   "id": "butter",
+   "concept": "butter",
+   "names": {
+    "es": "Mantequilla",
+    "en": "Butter"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.315,
+    "calciumMg": 24.0,
+    "carbs": 0.06,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 81.11,
+    "fibre": 0.0,
+    "folateUg": 3.0,
+    "ironMg": 0.02,
+    "kcal": 717.0,
+    "magnesiumMg": 2.0,
+    "potassiumMg": 24.0,
+    "protein": 0.85,
+    "saturatedFat": 51.368,
+    "sodiumMg": 643.0,
+    "sugars": 0.06,
+    "vitaminB12Ug": 0.17,
+    "vitaminCMg": 0.0,
+    "vitaminDUg": 0.0,
+    "zincMg": 0.09
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 173410,
+    "food": "Butter, salted"
+   }
+  },
+  {
+   "id": "almonds",
+   "concept": "almonds",
+   "names": {
+    "es": "Almendras",
+    "en": "Almonds"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.003,
+    "calciumMg": 269.0,
+    "carbs": 9.05,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 49.93,
+    "fibre": 12.5,
+    "folateUg": 44.0,
+    "ironMg": 3.71,
+    "kcal": 579.0,
+    "magnesiumMg": 270.0,
+    "potassiumMg": 733.0,
+    "protein": 21.15,
+    "saturatedFat": 3.802,
+    "sodiumMg": 1.0,
+    "sugars": 4.35,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 0.0,
+    "vitaminDUg": 0.0,
+    "zincMg": 3.12
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 170567,
+    "food": "Nuts, almonds"
+   }
+  },
+  {
+   "id": "walnuts",
+   "concept": "walnuts",
+   "names": {
+    "es": "Nueces",
+    "en": "Walnuts"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 9.08,
+    "calciumMg": 98.0,
+    "carbs": 7.01,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 65.21,
+    "fibre": 6.7,
+    "folateUg": 98.0,
+    "ironMg": 2.91,
+    "kcal": 654.0,
+    "magnesiumMg": 158.0,
+    "potassiumMg": 441.0,
+    "protein": 15.23,
+    "saturatedFat": 6.126,
+    "sodiumMg": 2.0,
+    "sugars": 2.61,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 1.3,
+    "vitaminDUg": 0.0,
+    "zincMg": 3.09
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 170187,
+    "food": "Nuts, walnuts, english"
+   }
+  },
+  {
+   "id": "pistachios",
+   "concept": "pistachios",
+   "names": {
+    "es": "Pistachos",
+    "en": "Pistachios"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.289,
+    "calciumMg": 105.0,
+    "carbs": 16.57,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 45.32,
+    "fibre": 10.6,
+    "folateUg": 51.0,
+    "ironMg": 3.92,
+    "kcal": 560.0,
+    "magnesiumMg": 121.0,
+    "potassiumMg": 1025.0,
+    "protein": 20.16,
+    "saturatedFat": 5.907,
+    "sodiumMg": 1.0,
+    "sugars": 7.66,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 5.6,
+    "vitaminDUg": 0.0,
+    "zincMg": 2.2
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 170184,
+    "food": "Nuts, pistachio nuts, raw"
+   }
+  },
+  {
+   "id": "peanuts",
+   "concept": "peanuts",
+   "names": {
+    "es": "Cacahuetes",
+    "en": "Peanuts"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.003,
+    "calciumMg": 92.0,
+    "carbs": 7.63,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 49.24,
+    "fibre": 8.5,
+    "folateUg": 240.0,
+    "ironMg": 4.58,
+    "kcal": 567.0,
+    "magnesiumMg": 168.0,
+    "potassiumMg": 705.0,
+    "protein": 25.8,
+    "saturatedFat": 6.279,
+    "sodiumMg": 18.0,
+    "sugars": 4.72,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 0.0,
+    "vitaminDUg": 0.0,
+    "zincMg": 3.27
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 172430,
+    "food": "Peanuts, all types, raw"
+   }
+  },
+  {
+   "id": "peanut_butter",
+   "concept": "peanut_butter",
+   "names": {
+    "es": "Crema de cacahuete",
+    "en": "Peanut butter"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.027,
+    "calciumMg": 49.0,
+    "carbs": 17.31,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 51.36,
+    "fibre": 5.0,
+    "folateUg": 87.0,
+    "ironMg": 1.74,
+    "kcal": 598.0,
+    "magnesiumMg": 168.0,
+    "potassiumMg": 558.0,
+    "protein": 22.21,
+    "saturatedFat": 10.325,
+    "sodiumMg": 17.0,
+    "sugars": 10.49,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 0.0,
+    "vitaminDUg": 0.0,
+    "zincMg": 2.51
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 172470,
+    "food": "Peanut butter, smooth style, without salt"
+   }
+  },
+  {
+   "id": "chia",
+   "concept": "chia",
+   "names": {
+    "es": "Semillas de chía",
+    "en": "Chia seeds"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 17.83,
+    "calciumMg": 631.0,
+    "carbs": 7.72,
+    "fat": 30.74,
+    "fibre": 34.4,
+    "ironMg": 7.72,
+    "kcal": 486.0,
+    "magnesiumMg": 335.0,
+    "potassiumMg": 407.0,
+    "protein": 16.54,
+    "saturatedFat": 3.33,
+    "sodiumMg": 16.0,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 1.6,
+    "zincMg": 4.58
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 170554,
+    "food": "Seeds, chia seeds, dried"
+   }
+  },
+  {
+   "id": "flax",
+   "concept": "flax",
+   "names": {
+    "es": "Semillas de lino",
+    "en": "Flaxseed"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 22.813,
+    "calciumMg": 255.0,
+    "carbs": 1.58,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 42.16,
+    "fibre": 27.3,
+    "folateUg": 87.0,
+    "ironMg": 5.73,
+    "kcal": 534.0,
+    "magnesiumMg": 392.0,
+    "potassiumMg": 813.0,
+    "protein": 18.29,
+    "saturatedFat": 3.663,
+    "sodiumMg": 30.0,
+    "sugars": 1.55,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 0.6,
+    "vitaminDUg": 0.0,
+    "zincMg": 4.34
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 169414,
+    "food": "Seeds, flaxseed"
+   }
+  },
+  {
+   "id": "dark_chocolate",
+   "concept": "dark_chocolate",
+   "names": {
+    "es": "Chocolate negro 70-85 %",
+    "en": "Dark chocolate 70-85%"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.034,
+    "calciumMg": 73.0,
+    "carbs": 35.0,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 42.63,
+    "fibre": 10.9,
+    "ironMg": 11.9,
+    "kcal": 598.0,
+    "magnesiumMg": 228.0,
+    "potassiumMg": 715.0,
+    "protein": 7.79,
+    "saturatedFat": 24.489,
+    "sodiumMg": 20.0,
+    "sugars": 23.99,
+    "vitaminB12Ug": 0.28,
+    "zincMg": 3.31
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 170273,
+    "food": "Chocolate, dark, 70-85% cacao solids"
+   }
+  },
+  {
+   "id": "honey",
+   "concept": "honey",
+   "names": {
+    "es": "Miel",
+    "en": "Honey"
+   },
+   "tags": [],
+   "per100": {
+    "alaG": 0.0,
+    "calciumMg": 6.0,
+    "carbs": 82.2,
+    "dhaG": 0.0,
+    "epaG": 0.0,
+    "fat": 0.0,
+    "fibre": 0.2,
+    "folateUg": 2.0,
+    "ironMg": 0.42,
+    "kcal": 304.0,
+    "magnesiumMg": 2.0,
+    "potassiumMg": 52.0,
+    "protein": 0.3,
+    "saturatedFat": 0.0,
+    "sodiumMg": 4.0,
+    "sugars": 82.12,
+    "vitaminB12Ug": 0.0,
+    "vitaminCMg": 0.5,
+    "vitaminDUg": 0.0,
+    "zincMg": 0.22
+   },
+   "source": {
+    "kind": "usda_sr_legacy",
+    "fdc_id": 169640,
+    "food": "Honey"
+   }
   }
  ]
 }

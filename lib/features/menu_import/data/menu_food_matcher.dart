@@ -6,6 +6,7 @@ import 'package:opennutritracker/features/add_meal/domain/entity/meal_entity.dar
 import 'package:opennutritracker/features/add_meal/domain/entity/meal_nutriments_entity.dart';
 import 'package:opennutritracker/features/add_meal/domain/usecase/resolve_parsed_meals_usecase.dart';
 import 'package:opennutritracker/features/add_meal/util/meal_text_parser.dart';
+import 'package:opennutritracker/features/food_knowledge/domain/food_knowledge.dart';
 import 'package:opennutritracker/features/menu_import/domain/imported_menu.dart';
 import 'package:opennutritracker/features/menu_import/domain/menu_text_parser.dart';
 import 'package:opennutritracker/core/data/data_source/recipe_data_source.dart';
@@ -46,10 +47,14 @@ class MenuFoodMatcher {
   final _log = Logger('MenuFoodMatcher');
   List<({String key, MealEntity meal, double? usual})>? _mine;
 
-  /// Set false to stay offline (only the user's own foods and estimates).
+  /// Set false to stay offline (only the user's own foods, EatPoint's food
+  /// list and estimates).
   final bool searchDatabases;
 
-  MenuFoodMatcher({this.searchDatabases = true});
+  /// Language for the names of foods taken from EatPoint's food list.
+  final String languageCode;
+
+  MenuFoodMatcher({this.searchDatabases = true, this.languageCode = 'en'});
 
   static String key(String name) => MenuTextParser.fold(name)
       .replaceAll(RegExp(r'[^a-z0-9 ]'), ' ')
@@ -140,6 +145,15 @@ class MenuFoodMatcher {
         best.meal,
         MatchOrigin.mine,
         usualAmount: best.usual,
+      );
+    }
+    // EatPoint's own food list, with full nutrition and no network.
+    final core = FoodKnowledge.instance?.matchFood(food.name);
+    if (core != null) {
+      return MatchedFood(
+        food,
+        core.toMealEntity(languageCode),
+        MatchOrigin.database,
       );
     }
     if (searchDatabases && locator.isRegistered<ResolveParsedMealsUseCase>()) {

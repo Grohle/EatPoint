@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:logging/logging.dart';
+import 'package:opennutritracker/features/add_meal/domain/entity/meal_entity.dart';
+import 'package:opennutritracker/features/add_meal/domain/entity/meal_nutriments_entity.dart';
 
 /// One household unit of a food, e.g. "1 filete" = 136 g.
 class FoodPortion {
@@ -88,6 +90,89 @@ class FoodConcept {
   }
 }
 
+/// A food EatPoint ships with full nutrition (USDA FoodData Central, public
+/// domain), for planning and generating menus without a network.
+class CoreFood {
+  final String id;
+  final String conceptId;
+  final String nameEs;
+  final String nameEn;
+  final Set<String> tags;
+
+  /// Nutrients per 100 g: kcal, carbs (available, without fibre), protein,
+  /// fat, fibre, saturatedFat, sugars, sodiumMg, calciumMg, ironMg,
+  /// vitaminCMg, vitaminDUg, vitaminB12Ug, folateUg, epaG, dhaG, alaG, …
+  final Map<String, double> per100;
+  final int? fdcId;
+
+  const CoreFood({
+    required this.id,
+    required this.conceptId,
+    required this.nameEs,
+    required this.nameEn,
+    required this.tags,
+    required this.per100,
+    this.fdcId,
+  });
+
+  String name(String languageCode) => languageCode == 'es' ? nameEs : nameEn;
+
+  double? operator [](String nutrient) => per100[nutrient];
+
+  /// This food as the app's meal entity, named in [languageCode].
+  MealEntity toMealEntity(String languageCode) => MealEntity(
+    code: 'eatpoint:$id',
+    name: name(languageCode),
+    url: fdcId == null
+        ? null
+        : 'https://fdc.nal.usda.gov/food-details/$fdcId/nutrients',
+    mealQuantity: null,
+    mealUnit: 'g',
+    servingQuantity: null,
+    servingUnit: 'g',
+    servingSize: null,
+    nutriments: MealNutrimentsEntity(
+      energyKcal100: per100['kcal'],
+      carbohydrates100: per100['carbs'],
+      fat100: per100['fat'],
+      proteins100: per100['protein'],
+      sugars100: per100['sugars'],
+      saturatedFat100: per100['saturatedFat'],
+      fiber100: per100['fibre'],
+    ),
+    source: MealSourceEntity.fdc,
+  );
+
+  static CoreFood? fromJson(Object? json) {
+    if (json is! Map) return null;
+    final names = json['names'];
+    final per100 = json['per100'];
+    if (json['id'] is! String || names is! Map || per100 is! Map) return null;
+    final values = <String, double>{
+      for (final e in per100.entries)
+        if (e.key is String && e.value is num)
+          e.key as String: (e.value as num).toDouble(),
+    };
+    if (!values.containsKey('kcal')) return null;
+    final source = json['source'];
+    return CoreFood(
+      id: json['id'] as String,
+      conceptId: json['concept'] as String? ?? '',
+      nameEs: '${names['es'] ?? ''}',
+      nameEn: '${names['en'] ?? ''}',
+      tags: {
+        if (json['tags'] is List)
+          for (final t in json['tags'] as List)
+            if (t is String) t,
+      },
+      per100: values,
+      fdcId: source is Map && source['fdc_id'] is int
+          ? source['fdc_id'] as int
+          : null,
+    );
+  }
+}
+
 /// The catalogue of everyday foods, read from
 /// `assets/data/food_knowledge.json`, and the lookup from a food's name to
 /// its concept.
@@ -95,6 +180,21 @@ class FoodKnowledge {
   static const assetPath = 'assets/data/food_knowledge.json';
 
   final List<FoodConcept> concepts;
+
+  /// Foods with full nutrition.
+  final List<CoreFood> foods;
+
+  late final Map<String, FoodConcept> _byId = {
+    for (final c in concepts) c.id: c,
+  };
+
+  FoodConcept? conceptById(String id) => _byId[id];
+
+  /// The concept of [food], with the food's own extra tags added.
+  Set<String> tagsOf(CoreFood food) => {
+    ...?_byId[food.conceptId]?.tags,
+    ...food.tags,
+  };
 
   /// Every name of every concept, longest first, so "pechuga de pavo" wins
   /// over "pavo" and "atun en lata" over "atun".
@@ -105,7 +205,7 @@ class FoodKnowledge {
 
   final Map<String, FoodConcept?> _cache = {};
 
-  FoodKnowledge(this.concepts);
+  FoodKnowledge(this.concepts, [this.foods = const []]);
 
   static FoodKnowledge? _instance;
   static Future<FoodKnowledge>? _loading;
@@ -138,10 +238,17 @@ class FoodKnowledge {
   static FoodKnowledge parse(String raw) {
     final decoded = jsonDecode(raw);
     final list = decoded is Map ? decoded['concepts'] : null;
-    return FoodKnowledge([
-      if (list is List)
-        for (final c in list) ?FoodConcept.fromJson(c),
-    ]);
+    final foods = decoded is Map ? decoded['foods'] : null;
+    return FoodKnowledge(
+      [
+        if (list is List)
+          for (final c in list) ?FoodConcept.fromJson(c),
+      ],
+      [
+        if (foods is List)
+          for (final f in foods) ?CoreFood.fromJson(f),
+      ],
+    );
   }
 
   /// Lower case, no accents, single spaces, letters and digits only.
@@ -159,6 +266,29 @@ class FoodKnowledge {
         .replaceAll(RegExp(r'[^a-z0-9 ]'), ' ')
         .replaceAll(RegExp(r'\s+'), ' ')
         .trim();
+  }
+
+  /// The core food called [foodName] or, failing that, the first core food
+  /// of the concept [foodName] matches. Null when neither is known.
+  CoreFood? matchFood(String foodName) {
+    final key = fold(foodName);
+    if (key.isEmpty) return null;
+    for (final f in foods) {
+      if (fold(f.nameEs) == key || fold(f.nameEn) == key) return f;
+    }
+    final concept = match(foodName);
+    if (concept == null) return null;
+    final candidates = foods.where((f) => f.conceptId == concept.id).toList();
+    if (candidates.isEmpty) return null;
+    // "arroz integral" should find brown rice, plain "arroz" white rice.
+    final wantsWholegrain = RegExp(
+      r'\b(integral|integrales|wholegrain|wholemeal|wholewheat|brown)\b',
+    ).hasMatch(key);
+    final preferred = candidates
+        .where((f) => f.tags.contains('wholegrain') == wantsWholegrain)
+        .toList();
+    if (preferred.isNotEmpty) return preferred.first;
+    return candidates.first;
   }
 
   /// The concept a food called [foodName] is, matching its names as whole

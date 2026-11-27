@@ -38,7 +38,11 @@ class MenuImportReviewScreen extends StatefulWidget {
 }
 
 class _MenuImportReviewScreenState extends State<MenuImportReviewScreen> {
-  late final MenuFoodMatcher _matcher = widget.matcher ?? MenuFoodMatcher();
+  late final MenuFoodMatcher _matcher =
+      widget.matcher ??
+      MenuFoodMatcher(
+        languageCode: Localizations.localeOf(context).languageCode,
+      );
   final Map<ImportedFood, MatchedFood> _matches = {};
   int _matched = 0;
   bool _matching = true;
@@ -61,10 +65,16 @@ class _MenuImportReviewScreenState extends State<MenuImportReviewScreen> {
     return usesWeekdays ? DayPlan.weekStart(base) : DayPlan.dateOnly(base);
   }
 
+  bool _started = false;
+
   @override
-  void initState() {
-    super.initState();
-    _load();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // The matcher names foods in the user's language, read from context.
+    if (!_started) {
+      _started = true;
+      _load();
+    }
   }
 
   Future<void> _load() async {

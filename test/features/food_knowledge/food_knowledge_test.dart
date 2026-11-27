@@ -53,7 +53,10 @@ void main() {
       final avocado = PortionFormatter.describe(100, main('avocado'))!;
       expect(avocado.label('es'), '½ aguacate');
       expect(avocado.label('en'), '½ avocado');
-      expect(PortionFormatter.describe(50, main('egg'))!.label('es'), '1 huevo');
+      expect(
+        PortionFormatter.describe(50, main('egg'))!.label('es'),
+        '1 huevo',
+      );
       expect(
         PortionFormatter.describe(100, main('egg'))!.label('en'),
         '2 eggs',
@@ -78,6 +81,44 @@ void main() {
       expect(PortionAmount.countText(0.5), '½');
       expect(PortionAmount.countText(1), '1');
       expect(PortionAmount.countText(2.5), '2½');
+    });
+  });
+
+  group('core foods', () {
+    test('carry nutrition, with fibre outside the carbohydrate', () {
+      expect(knowledge.foods.length, greaterThan(80));
+      final lentils = knowledge.foods.firstWhere((f) => f.id == 'lentils');
+      expect(lentils['fibre'], greaterThan(10));
+      // USDA by-difference 63.35 g minus 10.7 g fibre.
+      expect(lentils['carbs'], closeTo(52.65, 0.01));
+      final salmon = knowledge.foods.firstWhere((f) => f.id == 'salmon');
+      expect(salmon['epaG']! + salmon['dhaG']!, greaterThan(1.5));
+      expect(salmon['vitaminB12Ug'], greaterThan(2));
+    });
+
+    test('match by name, preferring wholegrain only when asked', () {
+      expect(knowledge.matchFood('Arroz integral')?.id, 'rice_brown');
+      expect(knowledge.matchFood('arroz')?.id, 'rice_white');
+      expect(knowledge.matchFood('Salmón a la plancha')?.id, 'salmon');
+      expect(
+        knowledge.matchFood('Pasta integral (cruda)')?.id,
+        'pasta_wholewheat',
+      );
+      expect(knowledge.matchFood('Quinoa'), isNull);
+    });
+
+    test('become meal entities named in the language asked', () {
+      final egg = knowledge.foods.firstWhere((f) => f.id == 'egg');
+      final es = egg.toMealEntity('es');
+      expect(es.name, 'Huevo');
+      expect(es.nutriments.energyKcal100, 143);
+      expect(egg.toMealEntity('en').name, 'Egg');
+    });
+
+    test('every food points at a known concept', () {
+      for (final f in knowledge.foods) {
+        expect(knowledge.conceptById(f.conceptId), isNotNull, reason: f.id);
+      }
     });
   });
 
