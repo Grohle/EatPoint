@@ -438,6 +438,7 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
                   // diet (allergies, intolerances, diet, religion).
                   DietWarning(
                     meal.name ?? '',
+                    code: meal.code,
                     margin: const EdgeInsets.only(bottom: Dimens.spacing12),
                   ),
                   Row(

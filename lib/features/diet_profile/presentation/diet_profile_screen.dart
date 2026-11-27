@@ -21,10 +21,45 @@ class _DietProfileScreenState extends State<DietProfileScreen> {
   final _store = locator<DietProfileStore>();
   late DietProfile _profile = _store.get();
 
-  void _set(DietProfile next) {
-    setState(() => _profile = next);
-    _store.save(next);
+  @override
+  Widget build(BuildContext context) {
+    final s = S.of(context);
+    return Scaffold(
+      appBar: AppBar(title: Text(s.dietTitle)),
+      body: ListView(
+        padding: const EdgeInsets.fromLTRB(
+          Dimens.spacing16,
+          Dimens.spacing8,
+          Dimens.spacing16,
+          Dimens.spacing32,
+        ),
+        children: [
+          Text(s.dietIntro, style: Theme.of(context).textTheme.bodyMedium),
+          DietProfileForm(
+            profile: _profile,
+            onChanged: (next) {
+              setState(() => _profile = next);
+              _store.save(next);
+            },
+          ),
+        ],
+      ),
+    );
   }
+}
+
+/// The choices of a [DietProfile]: diet, religion, allergies,
+/// intolerances, and foods liked and not wanted. Used by the "Your diet"
+/// screen and by onboarding.
+class DietProfileForm extends StatelessWidget {
+  final DietProfile profile;
+  final ValueChanged<DietProfile> onChanged;
+
+  const DietProfileForm({
+    super.key,
+    required this.profile,
+    required this.onChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -46,117 +81,108 @@ class _DietProfileScreenState extends State<DietProfileScreen> {
         ),
       ),
     );
-    final religionHelp = _profile.religion.help(s);
-    return Scaffold(
-      appBar: AppBar(title: Text(s.dietTitle)),
-      body: ListView(
-        padding: const EdgeInsets.fromLTRB(
-          Dimens.spacing16,
-          Dimens.spacing8,
-          Dimens.spacing16,
-          Dimens.spacing32,
+    final religionHelp = profile.religion.help(s);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        title(s.dietStyleTitle),
+        Semantics(
+          identifier: 'diet-style',
+          child: Wrap(
+            spacing: Dimens.spacing8,
+            runSpacing: Dimens.spacing8,
+            children: [
+              for (final style in DietStyle.values)
+                ChoiceChip(
+                  label: Text(style.label(s)),
+                  selected: profile.diet == style,
+                  onSelected: (_) => onChanged(profile.copyWith(diet: style)),
+                ),
+            ],
+          ),
         ),
-        children: [
-          Text(s.dietIntro, style: theme.textTheme.bodyMedium),
-          title(s.dietStyleTitle),
-          Semantics(
-            identifier: 'diet-style',
-            child: Wrap(
-              spacing: Dimens.spacing8,
-              runSpacing: Dimens.spacing8,
-              children: [
-                for (final style in DietStyle.values)
-                  ChoiceChip(
-                    label: Text(style.label(s)),
-                    selected: _profile.diet == style,
-                    onSelected: (_) => _set(_profile.copyWith(diet: style)),
-                  ),
-              ],
-            ),
+        help(profile.diet.help(s)),
+        title(s.dietReligionTitle),
+        Semantics(
+          identifier: 'diet-religion',
+          child: Wrap(
+            spacing: Dimens.spacing8,
+            runSpacing: Dimens.spacing8,
+            children: [
+              for (final religion in ReligiousDiet.values)
+                ChoiceChip(
+                  label: Text(religion.label(s)),
+                  selected: profile.religion == religion,
+                  onSelected: (_) =>
+                      onChanged(profile.copyWith(religion: religion)),
+                ),
+            ],
           ),
-          help(_profile.diet.help(s)),
-          title(s.dietReligionTitle),
-          Semantics(
-            identifier: 'diet-religion',
-            child: Wrap(
-              spacing: Dimens.spacing8,
-              runSpacing: Dimens.spacing8,
-              children: [
-                for (final religion in ReligiousDiet.values)
-                  ChoiceChip(
-                    label: Text(religion.label(s)),
-                    selected: _profile.religion == religion,
-                    onSelected: (_) =>
-                        _set(_profile.copyWith(religion: religion)),
-                  ),
-              ],
-            ),
-          ),
-          if (religionHelp != null) help(religionHelp),
-          title(s.dietAllergiesTitle),
-          Semantics(
-            identifier: 'diet-allergies',
-            child: Wrap(
-              spacing: Dimens.spacing8,
-              runSpacing: Dimens.spacing8,
-              children: [
-                for (final allergen in Allergen.values)
-                  FilterChip(
-                    label: Text(allergen.label(s)),
-                    selected: _profile.allergies.contains(allergen),
-                    onSelected: (on) => _set(
-                      _profile.copyWith(
-                        allergies: on
-                            ? {..._profile.allergies, allergen}
-                            : ({..._profile.allergies}..remove(allergen)),
-                      ),
+        ),
+        if (religionHelp != null) help(religionHelp),
+        title(s.dietAllergiesTitle),
+        Semantics(
+          identifier: 'diet-allergies',
+          child: Wrap(
+            spacing: Dimens.spacing8,
+            runSpacing: Dimens.spacing8,
+            children: [
+              for (final allergen in Allergen.values)
+                FilterChip(
+                  label: Text(allergen.label(s)),
+                  selected: profile.allergies.contains(allergen),
+                  onSelected: (on) => onChanged(
+                    profile.copyWith(
+                      allergies: on
+                          ? {...profile.allergies, allergen}
+                          : ({...profile.allergies}..remove(allergen)),
                     ),
                   ),
-              ],
-            ),
+                ),
+            ],
           ),
-          help(s.dietAllergiesHelp),
-          title(s.dietIntolerancesTitle),
-          Semantics(
-            identifier: 'diet-intolerances',
-            child: Wrap(
-              spacing: Dimens.spacing8,
-              runSpacing: Dimens.spacing8,
-              children: [
-                for (final intolerance in Intolerance.values)
-                  FilterChip(
-                    label: Text(intolerance.label(s)),
-                    selected: _profile.intolerances.contains(intolerance),
-                    onSelected: (on) => _set(
-                      _profile.copyWith(
-                        intolerances: on
-                            ? {..._profile.intolerances, intolerance}
-                            : ({..._profile.intolerances}..remove(intolerance)),
-                      ),
+        ),
+        help(s.dietAllergiesHelp),
+        title(s.dietIntolerancesTitle),
+        Semantics(
+          identifier: 'diet-intolerances',
+          child: Wrap(
+            spacing: Dimens.spacing8,
+            runSpacing: Dimens.spacing8,
+            children: [
+              for (final intolerance in Intolerance.values)
+                FilterChip(
+                  label: Text(intolerance.label(s)),
+                  selected: profile.intolerances.contains(intolerance),
+                  onSelected: (on) => onChanged(
+                    profile.copyWith(
+                      intolerances: on
+                          ? {...profile.intolerances, intolerance}
+                          : ({...profile.intolerances}..remove(intolerance)),
                     ),
                   ),
-              ],
-            ),
+                ),
+            ],
           ),
-          help(s.dietIntolerancesHelp),
-          title(s.dietLikesTitle),
-          _WordList(
-            identifier: 'diet-likes',
-            words: _profile.likes,
-            icon: Icons.favorite_rounded,
-            onChanged: (w) => _set(_profile.copyWith(likes: w)),
-          ),
-          help(s.dietLikesHelp),
-          title(s.dietDislikesTitle),
-          _WordList(
-            identifier: 'diet-dislikes',
-            words: _profile.dislikes,
-            icon: Icons.not_interested_rounded,
-            onChanged: (w) => _set(_profile.copyWith(dislikes: w)),
-          ),
-          help(s.dietDislikesHelp),
-        ],
-      ),
+        ),
+        help(s.dietIntolerancesHelp),
+        title(s.dietLikesTitle),
+        _WordList(
+          identifier: 'diet-likes',
+          words: profile.likes,
+          icon: Icons.favorite_rounded,
+          onChanged: (w) => onChanged(profile.copyWith(likes: w)),
+        ),
+        help(s.dietLikesHelp),
+        title(s.dietDislikesTitle),
+        _WordList(
+          identifier: 'diet-dislikes',
+          words: profile.dislikes,
+          icon: Icons.not_interested_rounded,
+          onChanged: (w) => onChanged(profile.copyWith(dislikes: w)),
+        ),
+        help(s.dietDislikesHelp),
+      ],
     );
   }
 }

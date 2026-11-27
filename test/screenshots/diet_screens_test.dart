@@ -9,7 +9,10 @@ import 'package:opennutritracker/features/diet_profile/data/diet_profile_store.d
 import 'package:opennutritracker/features/diet_profile/domain/diet_profile.dart';
 import 'package:opennutritracker/features/diet_profile/presentation/diet_profile_screen.dart';
 import 'package:opennutritracker/features/diet_profile/presentation/diet_warning.dart';
+import 'package:opennutritracker/features/diet_profile/presentation/onboarding_diet_page.dart';
 import 'package:opennutritracker/features/food_knowledge/domain/food_knowledge.dart';
+import 'package:opennutritracker/features/label_scan/data/label_text_reader.dart';
+import 'package:opennutritracker/features/label_scan/presentation/label_scan_screen.dart';
 import 'package:opennutritracker/features/menu_generator/domain/menu_generator.dart';
 import 'package:opennutritracker/features/menu_generator/presentation/menu_generator_screen.dart';
 import 'package:opennutritracker/features/planner/data/planner_data_source.dart';
@@ -157,5 +160,96 @@ void main() {
       await tester.pumpAndSettle();
       await capture(tester, '$tag/dish_picker_diet');
     }, skip: !screenshotsEnabled);
+
+    testWidgets('onboarding diet step ($tag)', (tester) async {
+      await loadAppFonts();
+      usePhone(tester);
+      await tester.pumpWidget(
+        screenshotApp(
+          locale: locale,
+          home: Scaffold(
+            body: SafeArea(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(16),
+                child: OnboardingDietPageBody(
+                  initialProfile: const DietProfile(
+                    allergies: {Allergen.treeNuts},
+                    intolerances: {Intolerance.lactose},
+                  ),
+                  onChanged: (_) {},
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      await capture(tester, '$tag/onboarding_diet');
+    }, skip: !screenshotsEnabled);
+
+    testWidgets('label scan ingredients ($tag)', (tester) async {
+      await loadAppFonts();
+      usePhone(tester);
+      await tester.pumpWidget(
+        screenshotApp(
+          locale: locale,
+          home: LabelScanScreen(
+            imagePath: 'test/screenshots/fixtures/label_photo.png',
+            reader: _LabelReader(),
+          ),
+        ),
+      );
+      await tester.runAsync(
+        () => Future<void>.delayed(const Duration(milliseconds: 200)),
+      );
+      await tester.pumpAndSettle();
+      final field = find.descendant(
+        of: find.bySemanticsIdentifier('label-scan-ingredients-field'),
+        matching: find.byType(TextField),
+      );
+      await tester.scrollUntilVisible(
+        field,
+        300,
+        scrollable: find.byType(Scrollable).first,
+      );
+      await tester.enterText(
+        field,
+        tag == 'es'
+            ? 'Copos de avena, almendras (12 %), miel, leche en polvo, '
+                  'aceite de girasol. Puede contener trazas de cacahuete y '
+                  'sésamo.'
+            : 'Oat flakes, almonds (12%), honey, milk powder, sunflower '
+                  'oil. May contain traces of peanuts and sesame.',
+      );
+      await tester.pumpAndSettle();
+      FocusManager.instance.primaryFocus?.unfocus();
+      await tester.pumpAndSettle();
+      await tester.scrollUntilVisible(
+        find.bySemanticsIdentifier('diet-warning'),
+        200,
+        scrollable: find.byType(Scrollable).first,
+      );
+      await tester.pumpAndSettle();
+      await settleAssets(tester);
+      await capture(tester, '$tag/label_scan_ingredients');
+    }, skip: !screenshotsEnabled);
   }
+}
+
+class _LabelReader implements LabelTextReader {
+  @override
+  Future<List<String>> readRows(String imagePath) async => const [
+    'Información nutricional por 100 g',
+    'Valor energético 1850 kJ / 441 kcal',
+    'Grasas 15 g',
+    'de las cuales saturadas 2,1 g',
+    'Hidratos de carbono 64 g',
+    'de los cuales azúcares 19 g',
+    'Fibra alimentaria 7,5 g',
+    'Proteínas 8,9 g',
+    'Sal 0,6 g',
+  ];
+
+  @override
+  Future<void> close() async {}
 }

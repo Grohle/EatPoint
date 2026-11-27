@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:opennutritracker/features/diet_profile/domain/diet_checker.dart';
 import 'package:opennutritracker/features/diet_profile/domain/diet_profile.dart';
+import 'package:opennutritracker/features/diet_profile/domain/food_facts.dart';
 import 'package:opennutritracker/features/menu_generator/domain/menu_generator.dart';
 import 'package:opennutritracker/generated/l10n.dart';
 
@@ -97,6 +98,7 @@ extension DietTraitText on DietTrait {
   final s = S.of(context);
   final what = c.trait?.label(s) ?? '';
   final reason = switch (c.reason) {
+    DietReason.allergy when c.traces => s.dietReasonTraces(what),
     DietReason.allergy => s.dietReasonAllergy(
       c.allergen?.label(s).toLowerCase() ?? what,
     ),
@@ -126,4 +128,15 @@ extension DietTraitText on DietTrait {
     return (reason: alternative, alternative: null);
   }
   return (reason: reason, alternative: alternative);
+}
+
+extension FoodLabelText on FoodLabel {
+  String label(S s) => switch (this) {
+    FoodLabel.vegan => s.foodLabelVegan,
+    FoodLabel.vegetarian => s.foodLabelVegetarian,
+    FoodLabel.glutenFree => s.foodLabelGlutenFree,
+    FoodLabel.lactoseFree => s.foodLabelLactoseFree,
+    FoodLabel.halal => s.foodLabelHalal,
+    FoodLabel.kosher => s.foodLabelKosher,
+  };
 }

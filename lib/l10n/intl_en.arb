@@ -4398,5 +4398,113 @@
         "type": "String"
       }
     }
+  },
+  "dietReasonTraces": "May contain traces of {what} (allergy)",
+  "@dietReasonTraces": {
+    "description": "Conflict from traces",
+    "placeholders": {
+      "what": {
+        "type": "String"
+      }
+    }
+  },
+  "dietFromLabel": "From the label you scanned.",
+  "@dietFromLabel": {
+    "description": "Source note"
+  },
+  "dietFromOff": "From Open Food Facts: recipes change, check the pack.",
+  "@dietFromOff": {
+    "description": "Source note"
+  },
+  "labelScanIngredientsTitle": "Ingredients and allergens",
+  "@labelScanIngredientsTitle": {
+    "description": "Section"
+  },
+  "labelScanIngredientsHelp": "Optional: photograph the ingredients list so EatPoint can warn you about allergens and anything that doesn't fit your diet.",
+  "@labelScanIngredientsHelp": {
+    "description": "Section help"
+  },
+  "labelScanIngredientsPhoto": "Photograph ingredients",
+  "@labelScanIngredientsPhoto": {
+    "description": "Button"
+  },
+  "labelScanIngredientsRetake": "Retake",
+  "@labelScanIngredientsRetake": {
+    "description": "Button"
+  },
+  "labelScanIngredientsField": "Ingredients",
+  "@labelScanIngredientsField": {
+    "description": "Field label"
+  },
+  "labelScanIngredientsFieldHelp": "As printed, including \"Contains\" and \"May contain\".",
+  "@labelScanIngredientsFieldHelp": {
+    "description": "Field helper"
+  },
+  "labelScanReadingIngredients": "Reading ingredients…",
+  "@labelScanReadingIngredients": {
+    "description": "Busy"
+  },
+  "labelScanContains": "Contains: {list}",
+  "@labelScanContains": {
+    "description": "Detected",
+    "placeholders": {
+      "list": {
+        "type": "String"
+      }
+    }
+  },
+  "labelScanTraces": "May contain: {list}",
+  "@labelScanTraces": {
+    "description": "Detected",
+    "placeholders": {
+      "list": {
+        "type": "String"
+      }
+    }
+  },
+  "labelScanClaims": "On the pack: {list}",
+  "@labelScanClaims": {
+    "description": "Detected",
+    "placeholders": {
+      "list": {
+        "type": "String"
+      }
+    }
+  },
+  "labelScanNoIngredients": "No ingredients list found in the photo. You can type it.",
+  "@labelScanNoIngredients": {
+    "description": "Nothing read"
+  },
+  "foodLabelVegan": "vegan",
+  "@foodLabelVegan": {
+    "description": "Pack claim"
+  },
+  "foodLabelVegetarian": "vegetarian",
+  "@foodLabelVegetarian": {
+    "description": "Pack claim"
+  },
+  "foodLabelGlutenFree": "gluten-free",
+  "@foodLabelGlutenFree": {
+    "description": "Pack claim"
+  },
+  "foodLabelLactoseFree": "lactose-free",
+  "@foodLabelLactoseFree": {
+    "description": "Pack claim"
+  },
+  "foodLabelHalal": "halal",
+  "@foodLabelHalal": {
+    "description": "Pack claim"
+  },
+  "foodLabelKosher": "kosher",
+  "@foodLabelKosher": {
+    "description": "Pack claim"
+  },
+  "onboardingDietTitle": "Your diet",
+  "@onboardingDietTitle": {
+    "description": "Onboarding page title"
+  },
+  "onboardingDietIntro": "Tell EatPoint about allergies, intolerances or a diet you follow. Menus will respect it and adding a food (or scanning a label) will warn you. You can skip this and change it any time in Settings.",
+  "@onboardingDietIntro": {
+    "description": "Onboarding page intro"
   }
 }

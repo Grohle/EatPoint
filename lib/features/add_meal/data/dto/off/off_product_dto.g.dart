@@ -35,6 +35,15 @@ OFFProductDTO _$OFFProductDTOFromJson(Map<String, dynamic> json) =>
       nutriments: _nutrimentsFromJson(json['nutriments']),
       popularity_key: offNumFromJson(json['popularity_key']),
       countries_tags: offStringListFromJson(json['countries_tags']),
+      allergens_tags: offStringListFromJson(json['allergens_tags']),
+      traces_tags: offStringListFromJson(json['traces_tags']),
+      labels_tags: offStringListFromJson(json['labels_tags']),
+      ingredients_analysis_tags: offStringListFromJson(
+        json['ingredients_analysis_tags'],
+      ),
+      ingredients_text: json['ingredients_text'] as String?,
+      ingredients_text_es: json['ingredients_text_es'] as String?,
+      ingredients_text_en: json['ingredients_text_en'] as String?,
     );
 
 Map<String, dynamic> _$OFFProductDTOToJson(OFFProductDTO instance) =>
@@ -65,5 +74,12 @@ Map<String, dynamic> _$OFFProductDTOToJson(OFFProductDTO instance) =>
       'serving_quantity_unit': instance.serving_quantity_unit,
       'popularity_key': instance.popularity_key,
       'countries_tags': instance.countries_tags,
+      'allergens_tags': instance.allergens_tags,
+      'traces_tags': instance.traces_tags,
+      'labels_tags': instance.labels_tags,
+      'ingredients_analysis_tags': instance.ingredients_analysis_tags,
+      'ingredients_text': instance.ingredients_text,
+      'ingredients_text_es': instance.ingredients_text_es,
+      'ingredients_text_en': instance.ingredients_text_en,
       'nutriments': instance.nutriments,
     };

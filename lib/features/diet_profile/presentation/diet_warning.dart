@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:opennutritracker/core/styles/dimens.dart';
 import 'package:opennutritracker/features/diet_profile/data/diet_profile_store.dart';
+import 'package:opennutritracker/features/diet_profile/data/food_facts_store.dart';
+import 'package:opennutritracker/features/diet_profile/domain/food_facts.dart';
 import 'package:opennutritracker/features/diet_profile/domain/diet_checker.dart';
 import 'package:opennutritracker/features/diet_profile/presentation/diet_text.dart';
 import 'package:opennutritracker/generated/l10n.dart';
@@ -36,6 +38,12 @@ class DietWarning extends StatelessWidget {
   /// Names the food in the title, for lists of several.
   final bool showName;
 
+  /// The food's code, to use what its label or Open Food Facts said.
+  final String? code;
+
+  /// What the label says, when known here; else looked up by [code].
+  final FoodFacts? facts;
+
   const DietWarning(
     this.foodName, {
     super.key,
@@ -43,13 +51,16 @@ class DietWarning extends StatelessWidget {
     this.checker,
     this.margin = EdgeInsets.zero,
     this.showName = false,
+    this.code,
+    this.facts,
   });
 
   @override
   Widget build(BuildContext context) {
     final c = checker ?? DietProfileStore.checker();
     if (c == null) return const SizedBox.shrink();
-    final conflicts = c.check(foodName, conceptId: conceptId);
+    final known = facts ?? FoodFactsStore.lookup(code);
+    final conflicts = c.check(foodName, conceptId: conceptId, facts: known);
     if (conflicts.isEmpty) return const SizedBox.shrink();
     final s = S.of(context);
     final theme = Theme.of(context);
@@ -107,7 +118,11 @@ class DietWarning extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: Dimens.spacing4),
                 child: Text(
-                  s.dietCheckLabel,
+                  switch (known?.source) {
+                    null => s.dietCheckLabel,
+                    FoodFactsSource.label => s.dietFromLabel,
+                    FoodFactsSource.openFoodFacts => s.dietFromOff,
+                  },
                   style: theme.textTheme.labelSmall?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,
                   ),
@@ -127,14 +142,27 @@ class DietBadge extends StatelessWidget {
   final String? conceptId;
   final DietChecker? checker;
 
-  const DietBadge(this.foodName, {super.key, this.conceptId, this.checker});
+  /// The food's code, to use what its label or Open Food Facts said.
+  final String? code;
+
+  const DietBadge(
+    this.foodName, {
+    super.key,
+    this.conceptId,
+    this.checker,
+    this.code,
+  });
 
   @override
   Widget build(BuildContext context) {
     final c = checker ?? DietProfileStore.checker();
     if (c == null) return const SizedBox.shrink();
     final conflicts = c
-        .check(foodName, conceptId: conceptId)
+        .check(
+          foodName,
+          conceptId: conceptId,
+          facts: FoodFactsStore.lookup(code),
+        )
         .where((x) => x.severity != ConflictSeverity.note)
         .toList();
     if (conflicts.isEmpty) return const SizedBox.shrink();
@@ -162,15 +190,24 @@ Future<bool> confirmDietConflicts(
   BuildContext context,
   String foodName, {
   String? conceptId,
+  String? code,
 }) async {
   final c = DietProfileStore.checker();
-  if (c == null || !c.blocks(foodName, conceptId: conceptId)) return true;
+  final facts = FoodFactsStore.lookup(code);
+  if (c == null || !c.blocks(foodName, conceptId: conceptId, facts: facts)) {
+    return true;
+  }
   final s = S.of(context);
   final ok = await showDialog<bool>(
     context: context,
     builder: (context) => AlertDialog(
       title: Text(foodName),
-      content: DietWarning(foodName, conceptId: conceptId, checker: c),
+      content: DietWarning(
+        foodName,
+        conceptId: conceptId,
+        checker: c,
+        facts: facts,
+      ),
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context, false),

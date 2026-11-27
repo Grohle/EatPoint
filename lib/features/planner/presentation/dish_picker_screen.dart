@@ -316,7 +316,13 @@ class _DishPickerScreenState extends State<DishPickerScreen> {
   }
 
   Future<void> _choose(PastDish dish) async {
-    if (!await confirmDietConflicts(context, dish.meal.name ?? '')) return;
+    if (!await confirmDietConflicts(
+      context,
+      dish.meal.name ?? '',
+      code: dish.meal.code,
+    )) {
+      return;
+    }
     if (!mounted) return;
     final amount = await showDialog<double>(
       context: context,
@@ -526,7 +532,7 @@ class _DishPickerScreenState extends State<DishPickerScreen> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: Dimens.spacing4),
-                    child: DietBadge(dish.meal.name ?? ''),
+                    child: DietBadge(dish.meal.name ?? '', code: dish.meal.code),
                   ),
                   if (fits)
                     Chip(

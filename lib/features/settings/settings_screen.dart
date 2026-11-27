@@ -42,6 +42,8 @@ import 'package:opennutritracker/features/settings/presentation/widgets/nutrient
 import 'package:opennutritracker/core/utils/ai_credential_storage.dart';
 import 'package:opennutritracker/features/add_meal/domain/usecase/run_ai_endpoint_probe_usecase.dart';
 import 'package:opennutritracker/features/settings/presentation/widgets/ai_assist_dialog.dart';
+import 'package:opennutritracker/features/diet_profile/data/diet_profile_store.dart';
+import 'package:opennutritracker/features/diet_profile/presentation/diet_profile_screen.dart';
 import 'package:opennutritracker/generated/l10n.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
@@ -270,6 +272,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ),
                       ),
                     ),
+                    if (locator.isRegistered<DietProfileStore>())
+                      SettingsTile(
+                        identifier: 'settings-diet',
+                        palette: palette,
+                        icon: Icons.no_food_outlined,
+                        title: S.of(context).dietTitle,
+                        subtitle: S.of(context).dietSubtitle,
+                        onTap: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => const DietProfileScreen(),
+                          ),
+                        ),
+                      ),
                     SettingsTile(
                       identifier: 'settings-travel',
                       palette: palette,

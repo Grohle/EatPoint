@@ -87,6 +87,17 @@ class OFFConst {
   static const _offPopularityKeyTag = "popularity_key";
   static const _offCountriesTagsTag = "countries_tags";
 
+  // EatPoint: what the diet check reads from a product.
+  static const _offDietTags = [
+    "allergens_tags",
+    "traces_tags",
+    "labels_tags",
+    "ingredients_analysis_tags",
+    "ingredients_text",
+    "ingredients_text_es",
+    "ingredients_text_en",
+  ];
+
   // Search-a-licious only indexes a thin projection of each product: the
   // serving_* and product_quantity fields are absent from its index, so they
   // are dropped here and recovered on hydration via the full v2 product call.
@@ -128,6 +139,7 @@ class OFFConst {
     _offServingQuantityUnitTag,
     _offServingSizeTag,
     _offNutrimentsTag,
+    ..._offDietTags,
   ];
 
   static String _joinFields(List<String> fields) => fields.join(",");

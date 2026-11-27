@@ -31,6 +31,8 @@ import 'package:opennutritracker/features/add_meal/domain/entity/meal_entity.dar
 import 'package:opennutritracker/features/edit_meal/presentation/bloc/edit_meal_bloc.dart';
 import 'package:opennutritracker/features/edit_meal/presentation/widgets/default_meal_image.dart';
 import 'package:opennutritracker/features/meal_detail/meal_detail_screen.dart';
+import 'package:opennutritracker/features/diet_profile/data/food_facts_store.dart';
+import 'package:opennutritracker/features/diet_profile/domain/food_facts.dart';
 import 'package:opennutritracker/generated/l10n.dart';
 import 'package:provider/provider.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
@@ -940,6 +942,11 @@ class _EditMealScreenState extends State<EditMealScreen> {
           previous: _mealEntity,
         );
       }
+      // EatPoint: what the scanned ingredients list said, for the diet
+      // check every time this food comes up.
+      if (_scannedFacts case final facts?) {
+        await FoodFactsStore.record(newMealEntity.code, facts);
+      }
 
       if (!mounted) return;
       if (_editOnly) {
@@ -972,6 +979,9 @@ class _EditMealScreenState extends State<EditMealScreen> {
   /// scan-time validator on the field handles bad codes (8–14 digits,
   /// EAN-13 check digit) — we don't double-validate here so the user can
   /// see and edit the raw scanned value before saving.
+  /// EatPoint: the ingredients facts from a label scan, kept until saving.
+  FoodFacts? _scannedFacts;
+
   /// EatPoint: fills the nutrition fields from a reviewed label scan. The
   /// label gives values per 100 g / ml, so advanced mode switches to a
   /// base quantity of 100 and per-quantity values; simple mode already
@@ -979,6 +989,7 @@ class _EditMealScreenState extends State<EditMealScreen> {
   Future<void> _scanLabelIntoForm() async {
     final values = await LabelScanFlow.start(context);
     if (values == null || !mounted) return;
+    _scannedFacts = values.facts ?? _scannedFacts;
     final usesKj =
         Provider.of<EnergyUnitProvider>(context, listen: false).usesKilojoules;
     String text(double? v) => v == null ? '' : v.toStringOrEmpty();

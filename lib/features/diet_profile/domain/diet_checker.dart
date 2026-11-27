@@ -1,4 +1,5 @@
 import 'package:opennutritracker/features/diet_profile/domain/diet_profile.dart';
+import 'package:opennutritracker/features/diet_profile/domain/food_facts.dart';
 import 'package:opennutritracker/features/food_knowledge/domain/food_knowledge.dart';
 import 'package:opennutritracker/features/menu_generator/domain/menu_generator.dart';
 
@@ -80,6 +81,9 @@ class DietConflict {
   /// For [DietReason.dislike]: the word that matched.
   final String? word;
 
+  /// The label says it may contain traces of [trait].
+  final bool traces;
+
   const DietConflict(
     this.reason,
     this.severity, {
@@ -87,6 +91,7 @@ class DietConflict {
     this.alternative,
     this.allergen,
     this.word,
+    this.traces = false,
   });
 }
 
@@ -355,6 +360,9 @@ class DietChecker {
       'pinon',
       'pine nut',
       'frutos secos',
+      'frutos de cascara',
+      'fruto de cascara',
+      'tree nut',
       'nuts',
       'mazapan',
       'marzipan',
@@ -628,9 +636,50 @@ class DietChecker {
     Allergen.molluscs: {DietTrait.mollusc},
   };
 
-  /// Where [name] clashes with the profile, most serious first.
-  List<DietConflict> check(String name, {String? conceptId}) {
+  /// Where [name] clashes with the profile, most serious first. [facts]
+  /// from the food's label or Open Food Facts add what it contains, may
+  /// contain and claims.
+  List<DietConflict> check(String name, {String? conceptId, FoodFacts? facts}) {
     final traits = traitsOf(name, conceptId: conceptId);
+    final labels = facts?.labels ?? const <FoodLabel>{};
+    if (facts != null) {
+      traits.addAll(facts.contains);
+      if (facts.contains.contains(DietTrait.milk) &&
+          !traits.contains(DietTrait.lowLactose)) {
+        traits.add(DietTrait.lactose);
+      }
+    }
+    // What the pack claims wins over what the name suggested.
+    if (labels.contains(FoodLabel.vegan)) {
+      traits.removeAll(const {
+        DietTrait.meat,
+        DietTrait.pork,
+        DietTrait.beef,
+        DietTrait.fish,
+        DietTrait.crustacean,
+        DietTrait.mollusc,
+        DietTrait.egg,
+        DietTrait.milk,
+        DietTrait.lactose,
+        DietTrait.lowLactose,
+        DietTrait.honey,
+        DietTrait.gelatin,
+      });
+    } else if (labels.contains(FoodLabel.vegetarian)) {
+      traits.removeAll(const {
+        DietTrait.meat,
+        DietTrait.pork,
+        DietTrait.beef,
+        DietTrait.fish,
+        DietTrait.crustacean,
+        DietTrait.mollusc,
+        DietTrait.gelatin,
+      });
+    }
+    if (labels.contains(FoodLabel.glutenFree)) traits.remove(DietTrait.gluten);
+    if (labels.contains(FoodLabel.lactoseFree)) {
+      traits.removeAll({DietTrait.lactose, DietTrait.lowLactose});
+    }
     // A milk allergy also forbids lactose-free milk, which is still milk.
     final milkInName = _rules[DietTrait.milk]!.hasMatch(
       FoodKnowledge.fold(name),
@@ -655,6 +704,23 @@ class DietChecker {
               : allergen == Allergen.milk
               ? DietAlternative.plantBased
               : null,
+        ),
+      );
+    }
+
+    // Traces matter only for allergies.
+    for (final allergen in profile.allergies) {
+      final hit = _allergenTraits[allergen]!
+          .intersection(facts?.traces ?? const {})
+          .difference(traits);
+      if (hit.isEmpty) continue;
+      out.add(
+        DietConflict(
+          DietReason.allergy,
+          ConflictSeverity.avoid,
+          trait: hit.first,
+          allergen: allergen,
+          traces: true,
         ),
       );
     }
@@ -749,7 +815,8 @@ class DietChecker {
         avoid(DietReason.religion, DietTrait.alcohol);
         avoid(DietReason.religion, DietTrait.gelatin);
         if (traits.contains(DietTrait.meat) &&
-            !traits.contains(DietTrait.pork)) {
+            !traits.contains(DietTrait.pork) &&
+            !labels.contains(FoodLabel.halal)) {
           out.add(
             const DietConflict(
               DietReason.religion,
@@ -765,7 +832,8 @@ class DietChecker {
         avoid(DietReason.religion, DietTrait.mollusc);
         avoid(DietReason.religion, DietTrait.gelatin);
         if (traits.contains(DietTrait.meat) &&
-            !traits.contains(DietTrait.pork)) {
+            !traits.contains(DietTrait.pork) &&
+            !labels.contains(FoodLabel.kosher)) {
           out.add(
             const DietConflict(
               DietReason.religion,
@@ -794,9 +862,10 @@ class DietChecker {
   }
 
   /// Whether the food must be left out (some conflict cannot be adapted).
-  bool blocks(String name, {String? conceptId}) => check(
+  bool blocks(String name, {String? conceptId, FoodFacts? facts}) => check(
     name,
     conceptId: conceptId,
+    facts: facts,
   ).any((c) => c.severity == ConflictSeverity.avoid);
 
   /// Whether [name] matches one of the foods the user likes.

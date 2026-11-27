@@ -539,7 +539,10 @@ class _MenuImportReviewScreenState extends State<MenuImportReviewScreen> {
           // What clashes with the user's diet, as a tooltip.
           Padding(
             padding: const EdgeInsets.only(left: Dimens.spacing4),
-            child: DietBadge(food.meal?.name ?? food.source.name),
+            child: DietBadge(
+              food.meal?.name ?? food.source.name,
+              code: food.meal?.code,
+            ),
           ),
         ],
       ),

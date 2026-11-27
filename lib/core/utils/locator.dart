@@ -85,6 +85,7 @@ import 'package:opennutritracker/features/planner/data/planner_data_source.dart'
 import 'package:opennutritracker/features/food_knowledge/domain/food_knowledge.dart';
 import 'package:opennutritracker/features/points/data/meal_slot_assignments.dart';
 import 'package:opennutritracker/features/diet_profile/data/diet_profile_store.dart';
+import 'package:opennutritracker/features/diet_profile/data/food_facts_store.dart';
 import 'package:opennutritracker/features/travel/data/travel_mode_store.dart';
 import 'package:opennutritracker/features/planner/data/planner_reminder_service.dart';
 import 'package:opennutritracker/features/mcp/data/mcp_controller.dart';
@@ -737,6 +738,9 @@ Future<void> initLocator() async {
   );
   locator.registerLazySingleton<PlannerDataSource>(
     () => PlannerDataSource(hiveDBProvider),
+  );
+  locator.registerLazySingleton<FoodFactsStore>(
+    () => FoodFactsStore(hiveDBProvider),
   );
   locator.registerLazySingleton<DietProfileStore>(
     () => DietProfileStore(hiveDBProvider),

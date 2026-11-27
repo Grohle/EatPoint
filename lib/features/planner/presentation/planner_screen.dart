@@ -776,7 +776,7 @@ class _PlannerScreenState extends State<PlannerScreen> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: Dimens.spacing4),
-                      child: DietBadge(item.name),
+                      child: DietBadge(item.name, code: item.meal.code),
                     ),
                   ],
                 ),

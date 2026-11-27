@@ -1,5 +1,7 @@
 import 'dart:math' as math;
 
+import 'package:opennutritracker/features/diet_profile/domain/food_facts.dart';
+
 /// Nutrition values per 100 g (or 100 ml) read from a label. Any value the
 /// label did not show, or that could not be read, is null.
 class NutritionLabelValues {
@@ -15,6 +17,10 @@ class NutritionLabelValues {
   /// True when the values were read from a "per 100 ml" column.
   final bool perMl;
 
+  /// EatPoint: what the ingredients list says (allergens, traces, claims),
+  /// when the user photographed it.
+  final FoodFacts? facts;
+
   const NutritionLabelValues({
     this.kcal,
     this.fat,
@@ -25,6 +31,7 @@ class NutritionLabelValues {
     this.protein,
     this.salt,
     this.perMl = false,
+    this.facts,
   });
 
   static const empty = NutritionLabelValues();
@@ -53,6 +60,7 @@ class NutritionLabelValues {
     double? Function()? protein,
     double? Function()? salt,
     bool? perMl,
+    FoodFacts? Function()? facts,
   }) => NutritionLabelValues(
     kcal: kcal != null ? kcal() : this.kcal,
     fat: fat != null ? fat() : this.fat,
@@ -63,6 +71,7 @@ class NutritionLabelValues {
     protein: protein != null ? protein() : this.protein,
     salt: salt != null ? salt() : this.salt,
     perMl: perMl ?? this.perMl,
+    facts: facts != null ? facts() : this.facts,
   );
 
   Map<String, dynamic> toJson() => {
