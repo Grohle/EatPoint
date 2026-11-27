@@ -82,13 +82,13 @@ Future<void> showMealCloserSheet(
                 excludeConcepts: inMeal,
                 onPick: (suggestion) {
                   final navigator = Navigator.of(context);
-                  final lang = Localizations.localeOf(context).languageCode;
+                  final meal = closerMeal(context, suggestion);
                   navigator.pop();
                   MealSlotContext.select(slot);
                   navigator.pushNamed(
                     NavigationOptions.mealDetailRoute,
                     arguments: MealDetailScreenArguments(
-                      suggestion.food.toMealEntity(lang),
+                      meal,
                       slot.baseType,
                       DateTime.now(),
                       false,

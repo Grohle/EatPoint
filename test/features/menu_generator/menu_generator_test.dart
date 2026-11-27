@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:opennutritracker/core/domain/entity/intake_type_entity.dart';
+import 'package:opennutritracker/features/diet_profile/domain/diet_checker.dart';
+import 'package:opennutritracker/features/diet_profile/domain/diet_profile.dart';
 import 'package:opennutritracker/features/food_knowledge/domain/food_knowledge.dart';
 import 'package:opennutritracker/features/insights/domain/week_insights.dart';
 import 'package:opennutritracker/features/menu_generator/domain/menu_generator.dart';
@@ -161,5 +163,90 @@ void main() {
       slots.where((s) => s.baseType == IntakeTypeEntity.lunch),
       hasLength(1),
     );
+  });
+
+  group('with a diet profile', () {
+    GeneratedMenu withProfile(DietProfile profile, {int seed = 3}) =>
+        MenuGenerator.generate(
+          slots: slots,
+          nameOf: nameOf,
+          pool: corePool(),
+          options: MenuGeneratorOptions(
+            days: days,
+            seed: seed,
+            checker: DietChecker(profile),
+            languageCode: 'es',
+          ),
+        );
+
+    List<String> names(GeneratedMenu g) => [
+      for (final d in g.menu.days)
+        for (final m in d.meals)
+          for (final f in m.foods) f.name,
+    ];
+
+    test('lactose and gluten intolerance keep dairy and bread, free-from', () {
+      final g = withProfile(
+        const DietProfile(
+          intolerances: {Intolerance.lactose, Intolerance.gluten},
+        ),
+      );
+      final all = names(g);
+      final milky = all.where((n) => RegExp(r'^(Leche|Yogur)').hasMatch(n));
+      expect(milky, isNotEmpty);
+      expect(milky.every((n) => n.contains('sin lactosa')), isTrue);
+      final breads = all.where((n) => n.startsWith('Pan') || n.startsWith('Pasta'));
+      expect(breads, isNotEmpty);
+      expect(breads.every((n) => n.contains('sin gluten')), isTrue);
+      // The review can still find each food by its new name.
+      for (final n in all) {
+        expect(g.foods.containsKey(n), isTrue, reason: n);
+      }
+    });
+
+    test('allergies leave foods out entirely', () {
+      final g = withProfile(
+        const DietProfile(
+          allergies: {Allergen.milk, Allergen.fish, Allergen.treeNuts},
+        ),
+      );
+      const checker = DietChecker(
+        DietProfile(
+          allergies: {Allergen.milk, Allergen.fish, Allergen.treeNuts},
+        ),
+      );
+      for (final n in names(g)) {
+        expect(checker.blocks(n), isFalse, reason: n);
+      }
+    });
+
+    test('halal leaves out pork; the profile diet wins', () {
+      final g = withProfile(
+        const DietProfile(
+          diet: DietStyle.pescatarian,
+          religion: ReligiousDiet.halal,
+        ),
+      );
+      for (final n in names(g)) {
+        final traits = DietChecker.traitsOf(n);
+        expect(traits.contains(DietTrait.pork), isFalse, reason: n);
+        expect(traits.contains(DietTrait.meat), isFalse, reason: n);
+      }
+    });
+
+    test('liked foods come up more often', () {
+      int count(GeneratedMenu g, String word) =>
+          names(g).where((n) => n.toLowerCase().contains(word)).length;
+      var plain = 0;
+      var liked = 0;
+      for (var seed = 1; seed <= 5; seed++) {
+        plain += count(withProfile(const DietProfile(), seed: seed), 'mango');
+        liked += count(
+          withProfile(const DietProfile(likes: ['mango']), seed: seed),
+          'mango',
+        );
+      }
+      expect(liked, greaterThan(plain));
+    });
   });
 }

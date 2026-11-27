@@ -12,6 +12,7 @@ import 'package:opennutritracker/features/points/domain/entity/meal_slot.dart';
 import 'package:opennutritracker/features/points/domain/usecase/get_points_budget_usecase.dart';
 import 'package:opennutritracker/features/points/presentation/meal_type_label.dart';
 import 'package:opennutritracker/features/points/presentation/points_format.dart';
+import 'package:opennutritracker/features/diet_profile/presentation/diet_warning.dart';
 import 'package:opennutritracker/generated/l10n.dart';
 
 /// Shows what was read from an imported menu, matched to foods and with
@@ -517,10 +518,21 @@ class _MenuImportReviewScreenState extends State<MenuImportReviewScreen> {
         ),
       ),
       minLeadingWidth: 20,
-      title: Text(
-        food.meal?.name ?? food.source.name,
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
+      title: Row(
+        children: [
+          Flexible(
+            child: Text(
+              food.meal?.name ?? food.source.name,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          // What clashes with the user's diet, as a tooltip.
+          Padding(
+            padding: const EdgeInsets.only(left: Dimens.spacing4),
+            child: DietBadge(food.meal?.name ?? food.source.name),
+          ),
+        ],
       ),
       subtitle: Text(
         [

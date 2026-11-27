@@ -3888,5 +3888,368 @@
         "type": "String"
       }
     }
+  },
+  "dietTitle": "Your diet",
+  "@dietTitle": {
+    "description": "Screen and tile title"
+  },
+  "dietSubtitle": "Diet, allergies, intolerances and foods you like",
+  "@dietSubtitle": {
+    "description": "Tile subtitle"
+  },
+  "dietIntro": "The menu generator follows this, and adding a food warns you when it goes against it.",
+  "@dietIntro": {
+    "description": "Screen intro"
+  },
+  "dietStyleTitle": "Diet",
+  "@dietStyleTitle": {
+    "description": "Section"
+  },
+  "dietOmnivore": "Omnivore",
+  "@dietOmnivore": {
+    "description": "Diet"
+  },
+  "dietPescatarian": "Pescatarian",
+  "@dietPescatarian": {
+    "description": "Diet"
+  },
+  "dietVegetarian": "Vegetarian",
+  "@dietVegetarian": {
+    "description": "Diet"
+  },
+  "dietVegan": "Vegan",
+  "@dietVegan": {
+    "description": "Diet"
+  },
+  "dietOmnivoreHelp": "Everything.",
+  "@dietOmnivoreHelp": {
+    "description": "Diet help"
+  },
+  "dietPescatarianHelp": "No meat; fish and seafood yes.",
+  "@dietPescatarianHelp": {
+    "description": "Diet help"
+  },
+  "dietVegetarianHelp": "No meat or fish; eggs and dairy yes.",
+  "@dietVegetarianHelp": {
+    "description": "Diet help"
+  },
+  "dietVeganHelp": "Nothing of animal origin: no meat, fish, eggs, dairy or honey.",
+  "@dietVeganHelp": {
+    "description": "Diet help"
+  },
+  "dietReligionTitle": "Religion",
+  "@dietReligionTitle": {
+    "description": "Section"
+  },
+  "dietReligionNone": "None",
+  "@dietReligionNone": {
+    "description": "Religious diet"
+  },
+  "dietHalal": "Halal",
+  "@dietHalal": {
+    "description": "Religious diet"
+  },
+  "dietKosher": "Kosher",
+  "@dietKosher": {
+    "description": "Religious diet"
+  },
+  "dietHindu": "Hindu (no beef)",
+  "@dietHindu": {
+    "description": "Religious diet"
+  },
+  "dietHalalHelp": "No pork, alcohol or gelatine; it reminds you to choose halal meat.",
+  "@dietHalalHelp": {
+    "description": "Religious diet help"
+  },
+  "dietKosherHelp": "No pork, shellfish or molluscs; it reminds you about kosher meat and not mixing meat and dairy.",
+  "@dietKosherHelp": {
+    "description": "Religious diet help"
+  },
+  "dietHinduHelp": "No beef. If you are also vegetarian, choose it under Diet.",
+  "@dietHinduHelp": {
+    "description": "Religious diet help"
+  },
+  "dietAllergiesTitle": "Allergies",
+  "@dietAllergiesTitle": {
+    "description": "Section"
+  },
+  "dietAllergiesHelp": "Always left out. With coeliac disease (gluten), certified gluten-free versions are used. Names can't show traces: always check the label.",
+  "@dietAllergiesHelp": {
+    "description": "Allergies help"
+  },
+  "dietIntolerancesTitle": "Intolerances",
+  "@dietIntolerancesTitle": {
+    "description": "Section"
+  },
+  "dietIntolerancesHelp": "The food stays, in its free-from version: lactose-free milk and yogurt, gluten-free bread and pasta. Aged cheese has almost no lactose.",
+  "@dietIntolerancesHelp": {
+    "description": "Intolerances help"
+  },
+  "dietIntoleranceLactose": "Lactose",
+  "@dietIntoleranceLactose": {
+    "description": "Intolerance"
+  },
+  "dietIntoleranceGluten": "Gluten (not coeliac)",
+  "@dietIntoleranceGluten": {
+    "description": "Intolerance"
+  },
+  "allergenGluten": "Gluten (coeliac)",
+  "@allergenGluten": {
+    "description": "Allergen"
+  },
+  "allergenCrustaceans": "Crustaceans",
+  "@allergenCrustaceans": {
+    "description": "Allergen"
+  },
+  "allergenEggs": "Eggs",
+  "@allergenEggs": {
+    "description": "Allergen"
+  },
+  "allergenFish": "Fish",
+  "@allergenFish": {
+    "description": "Allergen"
+  },
+  "allergenPeanuts": "Peanuts",
+  "@allergenPeanuts": {
+    "description": "Allergen"
+  },
+  "allergenSoy": "Soy",
+  "@allergenSoy": {
+    "description": "Allergen"
+  },
+  "allergenMilk": "Milk",
+  "@allergenMilk": {
+    "description": "Allergen"
+  },
+  "allergenTreeNuts": "Tree nuts",
+  "@allergenTreeNuts": {
+    "description": "Allergen"
+  },
+  "allergenCelery": "Celery",
+  "@allergenCelery": {
+    "description": "Allergen"
+  },
+  "allergenMustard": "Mustard",
+  "@allergenMustard": {
+    "description": "Allergen"
+  },
+  "allergenSesame": "Sesame",
+  "@allergenSesame": {
+    "description": "Allergen"
+  },
+  "allergenSulphites": "Sulphites",
+  "@allergenSulphites": {
+    "description": "Allergen"
+  },
+  "allergenLupin": "Lupin",
+  "@allergenLupin": {
+    "description": "Allergen"
+  },
+  "allergenMolluscs": "Molluscs",
+  "@allergenMolluscs": {
+    "description": "Allergen"
+  },
+  "dietDislikesTitle": "Foods you don't want",
+  "@dietDislikesTitle": {
+    "description": "Section"
+  },
+  "dietDislikesHelp": "Left out of generated menus, with a warning if you add them.",
+  "@dietDislikesHelp": {
+    "description": "Section help"
+  },
+  "dietLikesTitle": "Foods you like",
+  "@dietLikesTitle": {
+    "description": "Section"
+  },
+  "dietLikesHelp": "Suggested more often in generated menus, where they fit.",
+  "@dietLikesHelp": {
+    "description": "Section help"
+  },
+  "dietAddWordHint": "Type a food and press Enter",
+  "@dietAddWordHint": {
+    "description": "Chip input hint"
+  },
+  "dietWarnAvoid": "Doesn't fit your diet",
+  "@dietWarnAvoid": {
+    "description": "Warning title"
+  },
+  "dietWarnAdapt": "Choose the free-from version",
+  "@dietWarnAdapt": {
+    "description": "Warning title"
+  },
+  "dietWarnNote": "Good to know",
+  "@dietWarnNote": {
+    "description": "Warning title"
+  },
+  "dietReasonAllergy": "Contains {what} (allergy)",
+  "@dietReasonAllergy": {
+    "description": "Conflict reason",
+    "placeholders": {
+      "what": {
+        "type": "String"
+      }
+    }
+  },
+  "dietReasonIntolerance": "Contains {what} (intolerance)",
+  "@dietReasonIntolerance": {
+    "description": "Conflict reason",
+    "placeholders": {
+      "what": {
+        "type": "String"
+      }
+    }
+  },
+  "dietReasonDiet": "Has {what}: not {diet}",
+  "@dietReasonDiet": {
+    "description": "Conflict reason",
+    "placeholders": {
+      "what": {
+        "type": "String"
+      },
+      "diet": {
+        "type": "String"
+      }
+    }
+  },
+  "dietReasonReligion": "Has {what}: not {religion}",
+  "@dietReasonReligion": {
+    "description": "Conflict reason",
+    "placeholders": {
+      "what": {
+        "type": "String"
+      },
+      "religion": {
+        "type": "String"
+      }
+    }
+  },
+  "dietReasonDislike": "You don't want \"{word}\"",
+  "@dietReasonDislike": {
+    "description": "Conflict reason",
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
+  },
+  "dietAltLactoseFree": "There are lactose-free versions.",
+  "@dietAltLactoseFree": {
+    "description": "Alternative"
+  },
+  "dietAltGlutenFree": "There are gluten-free versions.",
+  "@dietAltGlutenFree": {
+    "description": "Alternative"
+  },
+  "dietAltCertifiedGlutenFree": "Use a certified gluten-free version.",
+  "@dietAltCertifiedGlutenFree": {
+    "description": "Alternative"
+  },
+  "dietAltPlantBased": "A plant-based drink or yogurt works instead (lactose-free milk is still milk).",
+  "@dietAltPlantBased": {
+    "description": "Alternative"
+  },
+  "dietAltHalalMeat": "Choose halal meat.",
+  "@dietAltHalalMeat": {
+    "description": "Alternative"
+  },
+  "dietAltKosherMeat": "Choose kosher meat and don't serve it with dairy.",
+  "@dietAltKosherMeat": {
+    "description": "Alternative"
+  },
+  "dietAltAgedCheese": "Aged cheese has almost no lactose.",
+  "@dietAltAgedCheese": {
+    "description": "Alternative"
+  },
+  "dietAddAnyway": "Add anyway",
+  "@dietAddAnyway": {
+    "description": "Confirm button"
+  },
+  "dietCheckLabel": "Worked out from the name: check the label for traces.",
+  "@dietCheckLabel": {
+    "description": "Disclaimer"
+  },
+  "traitGluten": "gluten",
+  "@traitGluten": {
+    "description": "Food trait"
+  },
+  "traitMilk": "milk",
+  "@traitMilk": {
+    "description": "Food trait"
+  },
+  "traitLactose": "lactose",
+  "@traitLactose": {
+    "description": "Food trait"
+  },
+  "traitEgg": "egg",
+  "@traitEgg": {
+    "description": "Food trait"
+  },
+  "traitFish": "fish",
+  "@traitFish": {
+    "description": "Food trait"
+  },
+  "traitCrustacean": "crustaceans",
+  "@traitCrustacean": {
+    "description": "Food trait"
+  },
+  "traitMollusc": "molluscs",
+  "@traitMollusc": {
+    "description": "Food trait"
+  },
+  "traitPeanut": "peanuts",
+  "@traitPeanut": {
+    "description": "Food trait"
+  },
+  "traitTreeNut": "tree nuts",
+  "@traitTreeNut": {
+    "description": "Food trait"
+  },
+  "traitSoy": "soy",
+  "@traitSoy": {
+    "description": "Food trait"
+  },
+  "traitSesame": "sesame",
+  "@traitSesame": {
+    "description": "Food trait"
+  },
+  "traitCelery": "celery",
+  "@traitCelery": {
+    "description": "Food trait"
+  },
+  "traitMustard": "mustard",
+  "@traitMustard": {
+    "description": "Food trait"
+  },
+  "traitSulphites": "sulphites",
+  "@traitSulphites": {
+    "description": "Food trait"
+  },
+  "traitLupin": "lupin",
+  "@traitLupin": {
+    "description": "Food trait"
+  },
+  "traitMeat": "meat",
+  "@traitMeat": {
+    "description": "Food trait"
+  },
+  "traitPork": "pork",
+  "@traitPork": {
+    "description": "Food trait"
+  },
+  "traitBeef": "beef",
+  "@traitBeef": {
+    "description": "Food trait"
+  },
+  "traitAlcohol": "alcohol",
+  "@traitAlcohol": {
+    "description": "Food trait"
+  },
+  "traitHoney": "honey",
+  "@traitHoney": {
+    "description": "Food trait"
+  },
+  "traitGelatin": "gelatine",
+  "@traitGelatin": {
+    "description": "Food trait"
   }
 }

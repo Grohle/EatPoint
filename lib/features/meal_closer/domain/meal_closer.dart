@@ -82,6 +82,7 @@ class MealCloser {
     FoodKnowledge knowledge, {
     int limit = 4,
     Set<String> excludeConcepts = const {},
+    bool Function(CoreFood food)? allow,
   }) {
     if (gap.isClosed) return const [];
     final want = gap.macros;
@@ -97,6 +98,7 @@ class MealCloser {
         continue;
       }
       if (excludeConcepts.contains(food.conceptId)) continue;
+      if (allow != null && !allow(food)) continue;
       final nutriments = food.toMealEntity('en').nutriments;
       final per = nutriments.macroPointsFor(1);
       final fibrePer = nutriments.fibrePointsFor(1);

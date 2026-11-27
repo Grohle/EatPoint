@@ -26,6 +26,7 @@ import 'package:opennutritracker/features/meal_detail/presentation/widgets/meal_
 import 'package:opennutritracker/features/meal_detail/presentation/widgets/meal_placeholder.dart';
 import 'package:opennutritracker/features/meal_detail/presentation/widgets/meal_title_expanded.dart';
 import 'package:opennutritracker/features/meal_detail/presentation/widgets/off_disclaimer.dart';
+import 'package:opennutritracker/features/diet_profile/presentation/diet_warning.dart';
 import 'package:opennutritracker/generated/l10n.dart';
 
 class MealDetailScreen extends StatefulWidget {
@@ -433,6 +434,12 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 children: [
+                  // EatPoint: warns when the food goes against the user's
+                  // diet (allergies, intolerances, diet, religion).
+                  DietWarning(
+                    meal.name ?? '',
+                    margin: const EdgeInsets.only(bottom: Dimens.spacing12),
+                  ),
                   Row(
                     children: [
                       Text(

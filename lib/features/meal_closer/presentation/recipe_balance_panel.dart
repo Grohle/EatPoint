@@ -12,6 +12,7 @@ import 'package:opennutritracker/features/points/domain/points_extensions.dart';
 import 'package:opennutritracker/features/points/domain/usecase/get_points_budget_usecase.dart';
 import 'package:opennutritracker/features/points/presentation/meal_type_label.dart';
 import 'package:opennutritracker/features/points/presentation/points_format.dart';
+import 'package:opennutritracker/features/diet_profile/presentation/diet_warning.dart';
 import 'package:opennutritracker/generated/l10n.dart';
 
 /// In the recipe builder: one serving of the recipe against the budget of
@@ -160,13 +161,17 @@ class _RecipeBalancePanelState extends State<RecipeBalancePanel> {
                 ),
                 const SizedBox(height: Dimens.spacing8),
               ],
+              for (final name in widget.ingredientNames)
+                DietWarning(
+                  name,
+                  showName: true,
+                  margin: const EdgeInsets.only(bottom: Dimens.spacing8),
+                ),
               MealCloserPanel(
                 gap: gap,
                 excludeConcepts: inRecipe,
-                onPick: (c) {
-                  final lang = Localizations.localeOf(context).languageCode;
-                  widget.onAdd(c.food.toMealEntity(lang), c.grams * _servings);
-                },
+                onPick: (c) =>
+                    widget.onAdd(closerMeal(context, c), c.grams * _servings),
               ),
               if (!gap.isClosed) ...[
                 const SizedBox(height: Dimens.spacing8),

@@ -22,6 +22,7 @@ import 'package:opennutritracker/features/planner/domain/shopping_list_builder.d
 import 'package:opennutritracker/features/points/domain/points_extensions.dart';
 import 'package:opennutritracker/features/points/presentation/meal_type_label.dart';
 import 'package:opennutritracker/features/points/presentation/points_format.dart';
+import 'package:opennutritracker/features/diet_profile/presentation/diet_warning.dart';
 import 'package:opennutritracker/generated/l10n.dart';
 
 /// A dish the user has eaten or saved before, with the amount they usually
@@ -315,6 +316,8 @@ class _DishPickerScreenState extends State<DishPickerScreen> {
   }
 
   Future<void> _choose(PastDish dish) async {
+    if (!await confirmDietConflicts(context, dish.meal.name ?? '')) return;
+    if (!mounted) return;
     final amount = await showDialog<double>(
       context: context,
       builder: (_) => _AmountDialog(dish: dish, initial: _amountFor(dish)),
@@ -520,6 +523,10 @@ class _DishPickerScreenState extends State<DishPickerScreen> {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: Dimens.spacing4),
+                    child: DietBadge(dish.meal.name ?? ''),
                   ),
                   if (fits)
                     Chip(

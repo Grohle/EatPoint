@@ -2,6 +2,7 @@ import 'dart:math' as math;
 
 import 'package:opennutritracker/core/domain/entity/intake_type_entity.dart';
 import 'package:opennutritracker/features/add_meal/domain/entity/meal_entity.dart';
+import 'package:opennutritracker/features/diet_profile/domain/diet_checker.dart';
 import 'package:opennutritracker/features/food_knowledge/domain/food_knowledge.dart';
 import 'package:opennutritracker/features/menu_import/domain/imported_menu.dart';
 import 'package:opennutritracker/features/points/domain/entity/meal_slot.dart';
@@ -44,6 +45,16 @@ class GenFood {
 
   String get name => meal.name ?? '';
 
+  /// The same food under another name (its free-from version).
+  GenFood renamed(String newName) => newName == name
+      ? this
+      : GenFood(
+          meal: meal.withName(newName),
+          tags: tags,
+          conceptId: conceptId,
+          own: own,
+        );
+
   bool has(String tag) => tags.contains(tag);
 
   /// Builds a [GenFood] for [meal], reading its kind from the catalogue,
@@ -85,13 +96,25 @@ class MenuGeneratorOptions {
   final bool preferOwn;
   final int seed;
 
+  /// The user's diet profile: leaves out what it rules out, uses free-from
+  /// versions where they exist, and suggests the foods the user likes. Its
+  /// diet style wins over [diet].
+  final DietChecker? checker;
+
+  /// Language of the free-from names ("sin lactosa", "lactose-free").
+  final String languageCode;
+
   const MenuGeneratorOptions({
     required this.days,
     this.diet = DietStyle.omnivore,
     this.excluded = const [],
     this.preferOwn = true,
     this.seed = 1,
+    this.checker,
+    this.languageCode = 'en',
   });
+
+  DietStyle get effectiveDiet => checker?.profile.diet ?? diet;
 }
 
 /// A generated week: the menu (as the importer reads it, so it goes through
@@ -160,7 +183,21 @@ class MenuGenerator {
     required MenuGeneratorOptions options,
   }) {
     final random = math.Random(options.seed);
-    final usable = pool.where((f) => _allowed(f, options)).toList();
+    final checker = options.checker;
+    final usable = [
+      for (final f in pool)
+        if (_allowed(f, options) &&
+            !(checker?.blocks(f.name, conceptId: f.conceptId) ?? false))
+          checker == null
+              ? f
+              : f.renamed(
+                  checker.adaptedName(
+                    f.name,
+                    options.languageCode,
+                    conceptId: f.conceptId,
+                  ),
+                ),
+    ];
     final uses = <String, int>{};
     final named = <String, GenFood>{};
 
@@ -168,11 +205,23 @@ class MenuGenerator {
       final candidates = usable.where(where).toList();
       if (candidates.isEmpty) return null;
       final own = candidates.where((f) => f.own).toList();
-      final from =
-          options.preferOwn &&
-              preferOwn &&
-              own.isNotEmpty &&
-              random.nextDouble() < 0.7
+      // Foods the user likes come up more often, as long as they are not
+      // used more than the others.
+      final liked = checker == null
+          ? const <GenFood>[]
+          : candidates.where((f) => checker.isLiked(f.name)).toList();
+      final leastUse = candidates
+          .map((f) => uses[f.name] ?? 0)
+          .reduce(math.min);
+      final likedFresh = liked
+          .where((f) => (uses[f.name] ?? 0) <= leastUse + 1)
+          .toList();
+      final from = likedFresh.isNotEmpty && random.nextDouble() < 0.75
+          ? likedFresh
+          : options.preferOwn &&
+                preferOwn &&
+                own.isNotEmpty &&
+                random.nextDouble() < 0.7
           ? own
           : candidates;
       // Least used first, then at random among equals.
@@ -204,7 +253,7 @@ class MenuGenerator {
     final mainSlots = slots.where(_isMain).toList();
     final mainCount = mainSlots.length * options.days.length;
     final kinds = _proteinSchedule(
-      _pattern[options.diet]!,
+      _pattern[options.effectiveDiet]!,
       mainCount,
       random,
       available: {
@@ -256,7 +305,7 @@ class MenuGenerator {
           );
           if (grain != null) foods.add(food(grain));
           final drink = pick(
-            (f) => options.diet == DietStyle.vegan
+            (f) => options.effectiveDiet == DietStyle.vegan
                 ? f.conceptId == 'plant_milk'
                 : f.conceptId == 'milk' || f.conceptId == 'yogurt',
           );
@@ -307,7 +356,7 @@ class MenuGenerator {
             );
             if (bread != null) foods.add(food(bread));
             final filling = pick(
-              (f) => options.diet == DietStyle.vegan
+              (f) => options.effectiveDiet == DietStyle.vegan
                   ? f.conceptId == 'chickpeas' && f.name.contains('ummus') ||
                         f.conceptId == 'peanut_butter'
                   : f.conceptId == 'turkey_breast' ||
@@ -322,7 +371,7 @@ class MenuGenerator {
           } else {
             final fruit = pick((f) => f.has('fruit') && !f.has('fat'));
             if (fruit != null) foods.add(food(fruit, portionGrams(fruit, 120)));
-            final dairy = options.diet == DietStyle.vegan
+            final dairy = options.effectiveDiet == DietStyle.vegan
                 ? pick((f) => f.conceptId == 'plant_milk')
                 : pick((f) => f.conceptId == 'yogurt');
             if (dairy != null) {
@@ -399,7 +448,7 @@ class MenuGenerator {
         !f.has('fish') &&
         f.conceptId != 'egg' &&
         !f.has('dairy');
-    switch (o.diet) {
+    switch (o.effectiveDiet) {
       case DietStyle.omnivore:
         return true;
       case DietStyle.pescatarian:

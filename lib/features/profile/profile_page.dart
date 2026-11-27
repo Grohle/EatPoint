@@ -38,6 +38,7 @@ import 'package:opennutritracker/features/points/data/points_settings_data_sourc
 import 'package:opennutritracker/features/points/presentation/meal_slots_screen.dart';
 import 'package:opennutritracker/features/points/presentation/points_settings_screen.dart';
 import 'package:opennutritracker/features/travel/presentation/travel_mode_screen.dart';
+import 'package:opennutritracker/features/diet_profile/presentation/diet_profile_screen.dart';
 import 'package:opennutritracker/generated/l10n.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -182,6 +183,17 @@ class _ProfilePageState extends State<ProfilePage> {
                 showChevron: true,
                 onTap: () => Navigator.of(context).push(
                   MaterialPageRoute(builder: (_) => const MealSlotsScreen()),
+                ),
+              ),
+              _ProfileTile(
+                identifier: 'profile-diet',
+                palette: palette,
+                icon: Icons.no_food_outlined,
+                title: S.of(context).dietTitle,
+                subtitle: S.of(context).dietSubtitle,
+                showChevron: true,
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const DietProfileScreen()),
                 ),
               ),
               _ProfileTile(

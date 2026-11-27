@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:opennutritracker/core/styles/app_palette.dart';
 import 'package:opennutritracker/core/styles/dimens.dart';
+import 'package:opennutritracker/features/add_meal/domain/entity/meal_entity.dart';
+import 'package:opennutritracker/features/diet_profile/data/diet_profile_store.dart';
 import 'package:opennutritracker/features/food_knowledge/domain/food_knowledge.dart';
 import 'package:opennutritracker/features/food_knowledge/domain/portion_formatter.dart';
 import 'package:opennutritracker/features/meal_closer/domain/meal_closer.dart';
@@ -66,6 +68,7 @@ class MealCloserPanel extends StatelessWidget {
       );
     }
     final knowledge = FoodKnowledge.instance;
+    final checker = DietProfileStore.checker();
     final suggestions = knowledge == null
         ? const <CloserSuggestion>[]
         : MealCloser.suggest(
@@ -73,6 +76,9 @@ class MealCloserPanel extends StatelessWidget {
             knowledge,
             limit: limit,
             excludeConcepts: excludeConcepts,
+            allow: checker == null
+                ? null
+                : (f) => !checker.blocks(f.nameEs, conceptId: f.conceptId),
           );
     final list = closerMissingList(context, gap);
     return Semantics(
@@ -154,7 +160,10 @@ class _SuggestionChip extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(c.food.name(lang), style: theme.textTheme.labelLarge),
+          Text(
+            closerMeal(context, c).name ?? '',
+            style: theme.textTheme.labelLarge,
+          ),
           Text(amount, style: theme.textTheme.bodySmall),
           const SizedBox(height: 2),
           Builder(
@@ -196,6 +205,18 @@ class _SuggestionChip extends StatelessWidget {
         Text(PointsFormat.of(context).points(value)),
       ],
     ),
+  );
+}
+
+/// The suggested food as a meal to log or add, named in the user's
+/// language and in its free-from version when their diet needs one.
+MealEntity closerMeal(BuildContext context, CloserSuggestion c) {
+  final lang = Localizations.localeOf(context).languageCode;
+  final meal = c.food.toMealEntity(lang);
+  final checker = DietProfileStore.checker();
+  if (checker == null) return meal;
+  return meal.withName(
+    checker.adaptedName(meal.name ?? '', lang, conceptId: c.food.conceptId),
   );
 }
 

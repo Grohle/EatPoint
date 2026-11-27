@@ -30,6 +30,7 @@ import 'package:opennutritracker/features/sync/domain/household_auto_sync.dart';
 import 'package:opennutritracker/features/travel/data/travel_mode_store.dart';
 import 'package:opennutritracker/features/travel/presentation/travel_mode_banner.dart';
 import 'package:opennutritracker/core/utils/id_generator.dart';
+import 'package:opennutritracker/features/diet_profile/presentation/diet_warning.dart';
 import 'package:opennutritracker/generated/l10n.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -746,10 +747,20 @@ class _PlannerScreenState extends State<PlannerScreen> {
               ListTile(
                 contentPadding: EdgeInsets.zero,
                 dense: true,
-                title: Text(
-                  item.name,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+                title: Row(
+                  children: [
+                    Flexible(
+                      child: Text(
+                        item.name,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: Dimens.spacing4),
+                      child: DietBadge(item.name),
+                    ),
+                  ],
                 ),
                 subtitle: Row(
                   children: [
