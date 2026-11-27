@@ -220,7 +220,7 @@ jobs:
     # Gated on `pod_deps`, NOT `ios`. The broad filter would boot a macOS runner
     # for an ios/Runner/*.swift-only PR just to discover the lockfile cannot
     # have moved. Same fail-open shape as ios-build.
-    if: ${{ !cancelled() && github.event_name == 'pull_request' && !(needs.changes.result == 'success' && needs.changes.outputs.pod_deps == 'false') }}
+    if: ${{ vars.EATPOINT_IOS == 'true' && (!cancelled() && github.event_name == 'pull_request' && !(needs.changes.result == 'success' && needs.changes.outputs.pod_deps == 'false')) }}
     runs-on: macos-26
     permissions:
       contents: read
@@ -292,7 +292,7 @@ jobs:
     # 33547853809 (the empty 2.2.0) recreated with a new cause. The gate below
     # has no `if:` today so a skip is unreachable, but that invariant then
     # lives in a comment; this expression enforces it instead.
-    if: ${{ !cancelled() && !(needs.changes.result == 'success' && needs.changes.outputs.ios == 'false') }}
+    if: ${{ vars.EATPOINT_IOS == 'true' && (!cancelled() && !(needs.changes.result == 'success' && needs.changes.outputs.ios == 'false')) }}
     runs-on: macos-26
     permissions:
       contents: write
@@ -412,7 +412,7 @@ jobs:
     # is what makes PRs queue. android-integration-tests runs the identical
     # `flutter test integration_test/` on a free ubuntu emulator and remains
     # the per-PR signal. See #1020.
-    if: ${{ github.event_name != 'pull_request' }}
+    if: ${{ vars.EATPOINT_IOS == 'true' && (github.event_name != 'pull_request') }}
     uses: ./.github/workflows/ios-integration-attempt.yml
 
   # Only when the first runner did not pass. An empty output counts as "did not
@@ -425,9 +425,9 @@ jobs:
     # `'' != 'true'` is TRUE — so without it, skipping the first attempt on a
     # pull request would fire the retry on every pull request instead.
     if: >-
-      ${{ !cancelled()
+      ${{ vars.EATPOINT_IOS == 'true' && ( !cancelled()
       && github.event_name != 'pull_request'
-      && needs.ios-integration-tests.outputs.passed != 'true' }}
+      && needs.ios-integration-tests.outputs.passed != 'true') }}
     uses: ./.github/workflows/ios-integration-attempt.yml
 
   # The check to require in branch protection — the two jobs above are green
@@ -441,7 +441,7 @@ jobs:
     # exempts this job from the skip its needs inherit, so on a pull request it
     # would RUN with both outputs empty, read that as "did not pass", and exit 1
     # — a red X on every PR for a suite that deliberately did not run.
-    if: ${{ !cancelled() && github.event_name != 'pull_request' }}
+    if: ${{ vars.EATPOINT_IOS == 'true' && (!cancelled() && github.event_name != 'pull_request') }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -479,10 +479,10 @@ jobs:
     # someone dispatched the suite on a feature branch, and the title-based
     # dedup would fold unrelated refs into one thread.
     if: >-
-      ${{ !cancelled()
+      ${{ vars.EATPOINT_IOS == 'true' && ( !cancelled()
       && github.ref == 'refs/heads/main'
       && github.event_name != 'pull_request'
-      && needs.ios-integration-tests-result.result == 'failure' }}
+      && needs.ios-integration-tests-result.result == 'failure') }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -812,6 +812,7 @@ jobs:
     # oversight: this job has no `needs:`, so there is no upstream skip for
     # GitHub's implicit `success()` to inherit and nothing to escape.
     if: |
+      vars.EATPOINT_STORE_DEPLOY == 'true' &&
       github.ref == 'refs/heads/main' &&
       (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
     runs-on: ubuntu-latest

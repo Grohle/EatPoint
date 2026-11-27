@@ -72,6 +72,9 @@ Download the APK from [Releases](https://github.com/Grohle/EatPoint/releases) an
 Android phone (Android 8.0 or later). `arm64-v8a` fits almost every recent phone; the
 `universal` build works everywhere. EatPoint is not on Google Play or the App Store yet.
 
+The iOS version is parked for now; its project files are kept up to date in the repository
+(see [docs/ios.md](docs/ios.md)).
+
 EatPoint installs as its own app (`io.github.grohle.eatpoint`) and doesn't read OpenNutriTracker's
 data. To bring your diary over, export it from OpenNutriTracker and import it in EatPoint.
 
