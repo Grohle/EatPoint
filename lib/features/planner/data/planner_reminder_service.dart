@@ -189,19 +189,18 @@ class PlannerReminderService {
     int hour,
     int minute,
   ) {
-    var candidate = tz.TZDateTime(
+    // Calendar days, not elapsed time: adding a Duration across a DST
+    // change would shift the wall-clock time by an hour.
+    tz.TZDateTime at(int dayOffset) => tz.TZDateTime(
       now.location,
       now.year,
       now.month,
-      now.day,
+      now.day + dayOffset,
       hour,
       minute,
     );
-    var days = (weekday - candidate.weekday) % 7;
-    candidate = candidate.add(Duration(days: days));
-    if (!candidate.isAfter(now)) {
-      candidate = candidate.add(const Duration(days: 7));
-    }
-    return candidate;
+    final days = (weekday - now.weekday) % 7;
+    final candidate = at(days);
+    return candidate.isAfter(now) ? candidate : at(days + 7);
   }
 }

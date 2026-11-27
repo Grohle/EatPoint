@@ -80,6 +80,8 @@ import 'package:opennutritracker/core/utils/tracked_day_reconciler.dart';
 import 'package:opennutritracker/core/utils/env.dart';
 import 'package:http/http.dart' as http;
 import 'package:opennutritracker/core/utils/ai_credential_storage.dart';
+import 'package:opennutritracker/features/planner/data/planner_data_source.dart';
+import 'package:opennutritracker/features/planner/data/planner_reminder_service.dart';
 import 'package:opennutritracker/features/points/data/points_settings_data_source.dart';
 import 'package:opennutritracker/features/points/domain/usecase/get_meal_points_usage_usecase.dart';
 import 'package:opennutritracker/features/points/domain/usecase/get_points_budget_usecase.dart';
@@ -723,6 +725,12 @@ Future<void> initLocator() async {
   );
   locator.registerLazySingleton<PointsSettingsDataSource>(
     () => PointsSettingsDataSource(hiveDBProvider),
+  );
+  locator.registerLazySingleton<PlannerDataSource>(
+    () => PlannerDataSource(hiveDBProvider),
+  );
+  locator.registerLazySingleton<PlannerReminderService>(
+    () => PlannerReminderService(locator()),
   );
   locator.registerLazySingleton(() => CustomMealDataSource(hiveDBProvider));
   locator.registerLazySingleton(() => RecipeDataSource(hiveDBProvider));

@@ -7,6 +7,8 @@ import 'package:opennutritracker/core/styles/app_palette.dart';
 import 'package:opennutritracker/core/styles/dimens.dart';
 import 'package:opennutritracker/core/utils/calc/points_calc.dart';
 import 'package:opennutritracker/core/utils/locator.dart';
+import 'package:opennutritracker/features/planner/presentation/planner_screen.dart';
+import 'package:opennutritracker/features/planner/presentation/shopping_list_screen.dart';
 import 'package:opennutritracker/features/points/data/points_settings_data_source.dart';
 import 'package:opennutritracker/features/points/domain/points_extensions.dart';
 import 'package:opennutritracker/features/points/domain/usecase/get_points_budget_usecase.dart';
@@ -102,34 +104,82 @@ class _PointsHomeSwitcherState extends State<PointsHomeSwitcher> {
     final budget = _budget;
     final pointsMode =
         _loaded && budget != null && budget.settings.pointsModeEnabled;
+    final shortcuts = _PlannerShortcuts(
+      trailing: pointsMode || budget == null
+          ? null
+          : Semantics(
+              identifier: 'home-switch-to-points',
+              child: ActionChip(
+                avatar: const Icon(Icons.donut_large_rounded, size: 18),
+                label: Text(S.of(context).pointsPointsViewLabel),
+                onPressed: () => _setPointsMode(true),
+              ),
+            ),
+    );
     if (!pointsMode) {
-      return Column(
+      return Column(children: [shortcuts, widget.caloriesView]);
+    }
+    return Column(
+      children: [
+        shortcuts,
+        _PointsDayCard(
+          budget: budget,
+          intakes: widget.intakes,
+          kcalSupplied: widget.kcalSupplied,
+          kcalGoal: widget.kcalGoal,
+          onSwitchToCalories: () => _setPointsMode(false),
+        ),
+      ],
+    );
+  }
+}
+
+/// One-tap access to the weekly menu and the shopping list.
+class _PlannerShortcuts extends StatelessWidget {
+  final Widget? trailing;
+
+  const _PlannerShortcuts({this.trailing});
+
+  @override
+  Widget build(BuildContext context) {
+    final s = S.of(context);
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(
+        Dimens.spacing16,
+        Dimens.spacing4,
+        Dimens.spacing16,
+        0,
+      ),
+      child: Wrap(
+        spacing: Dimens.spacing8,
+        runSpacing: Dimens.spacing4,
+        crossAxisAlignment: WrapCrossAlignment.center,
         children: [
-          if (budget != null)
-            Align(
-              alignment: Alignment.centerRight,
-              child: Padding(
-                padding: const EdgeInsets.only(right: Dimens.spacing16),
-                child: Semantics(
-                  identifier: 'home-switch-to-points',
-                  child: ActionChip(
-                    avatar: const Icon(Icons.donut_large_rounded, size: 18),
-                    label: Text(S.of(context).pointsPointsViewLabel),
-                    onPressed: () => _setPointsMode(true),
-                  ),
+          Semantics(
+            identifier: 'home-open-planner',
+            child: ActionChip(
+              avatar: const Icon(Icons.calendar_month_outlined, size: 18),
+              label: Text(s.plannerEntry),
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const PlannerScreen()),
+              ),
+            ),
+          ),
+          Semantics(
+            identifier: 'home-open-shopping',
+            child: ActionChip(
+              avatar: const Icon(Icons.shopping_cart_outlined, size: 18),
+              label: Text(s.shoppingEntry),
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => ShoppingListScreen(weekOf: DateTime.now()),
                 ),
               ),
             ),
-          widget.caloriesView,
+          ),
+          ?trailing,
         ],
-      );
-    }
-    return _PointsDayCard(
-      budget: budget,
-      intakes: widget.intakes,
-      kcalSupplied: widget.kcalSupplied,
-      kcalGoal: widget.kcalGoal,
-      onSwitchToCalories: () => _setPointsMode(false),
+      ),
     );
   }
 }
