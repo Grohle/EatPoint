@@ -4652,5 +4652,27 @@
   "householdDriveFolderName": "EatPoint household",
   "@householdDriveFolderName": {
     "description": "Drive folder name"
+  },
+  "householdDriveErrorSetup": "Google doesn't recognise the app. In Google Cloud, check that the Android client has package io.github.grohle.eatpoint and the SHA-1 from the guide, in the same project as the web client ID, and that your account is a test user. Changes can take a few minutes. ({detail})",
+  "@householdDriveErrorSetup": {
+    "description": "Google sign-in failed because of the Google Cloud setup",
+    "placeholders": {
+      "detail": {
+        "type": "String"
+      }
+    }
+  },
+  "householdDriveErrorCanceled": "Google sign-in was cancelled.",
+  "@householdDriveErrorCanceled": {
+    "description": "The user closed Google's sign-in window"
+  },
+  "householdDriveErrorOther": "Google sign-in failed: {detail}",
+  "@householdDriveErrorOther": {
+    "description": "Any other Google sign-in error",
+    "placeholders": {
+      "detail": {
+        "type": "String"
+      }
+    }
   }
 }

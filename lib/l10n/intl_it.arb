@@ -2028,5 +2028,8 @@
   "householdDriveGuide": "Come configurare Google (una volta)",
   "householdDriveNeedsSignIn": "Prima accedi con Google.",
   "householdDriveReconnect": "Riconnetti Google",
-  "householdDriveFolderName": "Casa EatPoint"
+  "householdDriveFolderName": "Casa EatPoint",
+  "householdDriveErrorSetup": "Google non riconosce l'app. In Google Cloud controlla che il client Android abbia il pacchetto io.github.grohle.eatpoint e lo SHA-1 della guida, nello stesso progetto dell'ID client web, e che il tuo account sia utente di prova. Le modifiche possono richiedere qualche minuto. ({detail})",
+  "householdDriveErrorCanceled": "Accesso con Google annullato.",
+  "householdDriveErrorOther": "Accesso con Google non riuscito: {detail}"
 }

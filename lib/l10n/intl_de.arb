@@ -2059,5 +2059,8 @@
   "householdDriveGuide": "Google einrichten (einmalig)",
   "householdDriveNeedsSignIn": "Melde dich zuerst mit Google an.",
   "householdDriveReconnect": "Google erneut verbinden",
-  "householdDriveFolderName": "EatPoint-Haushalt"
+  "householdDriveFolderName": "EatPoint-Haushalt",
+  "householdDriveErrorSetup": "Google erkennt die App nicht. Prüfe in Google Cloud, dass der Android-Client das Paket io.github.grohle.eatpoint und den SHA-1 aus der Anleitung hat, im selben Projekt wie die Web-Client-ID, und dass dein Konto Testnutzer ist. Änderungen können einige Minuten dauern. ({detail})",
+  "householdDriveErrorCanceled": "Google-Anmeldung abgebrochen.",
+  "householdDriveErrorOther": "Google-Anmeldung fehlgeschlagen: {detail}"
 }
