@@ -4506,5 +4506,106 @@
   "onboardingDietIntro": "Tell EatPoint about allergies, intolerances or a diet you follow. Menus will respect it and adding a food (or scanning a label) will warn you. You can skip this and change it any time in Settings.",
   "@onboardingDietIntro": {
     "description": "Onboarding page intro"
+  },
+  "foodDbTitle": "Food database",
+  "@foodDbTitle": {
+    "description": "Screen, tile and search section title"
+  },
+  "foodDbSubtitle": "Thousands of basic foods and supermarket products, offline",
+  "@foodDbSubtitle": {
+    "description": "Tile subtitle"
+  },
+  "foodDbIntro": "Download EatPoint's food database to find basic foods and supermarket products when you search, without a connection. It is kept on your phone and you can update or remove it here.",
+  "@foodDbIntro": {
+    "description": "Screen intro"
+  },
+  "foodDbNotDownloaded": "Not downloaded",
+  "@foodDbNotDownloaded": {
+    "description": "Status"
+  },
+  "foodDbInstalled": "{count} foods · version {version} · {date}",
+  "@foodDbInstalled": {
+    "description": "Status",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      },
+      "version": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "foodDbDownload": "Download",
+  "@foodDbDownload": {
+    "description": "Button"
+  },
+  "foodDbDownloadSize": "Download ({size})",
+  "@foodDbDownloadSize": {
+    "description": "Button with size",
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "foodDbUpdate": "Update",
+  "@foodDbUpdate": {
+    "description": "Button"
+  },
+  "foodDbCheck": "Check for updates",
+  "@foodDbCheck": {
+    "description": "Button"
+  },
+  "foodDbUpToDate": "You have the latest version.",
+  "@foodDbUpToDate": {
+    "description": "Snackbar"
+  },
+  "foodDbUpdateAvailable": "A new version is available.",
+  "@foodDbUpdateAvailable": {
+    "description": "Snackbar"
+  },
+  "foodDbDelete": "Remove from this phone",
+  "@foodDbDelete": {
+    "description": "Button"
+  },
+  "foodDbDeleteConfirm": "Remove the food database? Foods you already logged are kept.",
+  "@foodDbDeleteConfirm": {
+    "description": "Dialog"
+  },
+  "foodDbDownloading": "Downloading…",
+  "@foodDbDownloading": {
+    "description": "Busy"
+  },
+  "foodDbDone": "Food database ready: {count} foods.",
+  "@foodDbDone": {
+    "description": "Snackbar",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "foodDbFailed": "The download failed. Check your connection and try again.",
+  "@foodDbFailed": {
+    "description": "Error"
+  },
+  "foodDbSourcesTitle": "Sources and licences",
+  "@foodDbSourcesTitle": {
+    "description": "Section"
+  },
+  "foodDbSourcesNote": "Values per 100 g, as a guide. Products change: check the pack.",
+  "@foodDbSourcesNote": {
+    "description": "Footnote"
+  },
+  "foodDbOnboardingTitle": "Download the food database",
+  "@foodDbOnboardingTitle": {
+    "description": "Onboarding switch"
+  },
+  "foodDbOnboardingBody": "Basic foods and supermarket products to search offline. It downloads from GitHub once setup ends; you can remove it in Settings.",
+  "@foodDbOnboardingBody": {
+    "description": "Onboarding switch help"
   }
 }

@@ -6,6 +6,7 @@ import 'package:opennutritracker/features/add_meal/domain/entity/meal_entity.dar
 import 'package:opennutritracker/features/add_meal/domain/entity/meal_nutriments_entity.dart';
 import 'package:opennutritracker/features/add_meal/domain/usecase/resolve_parsed_meals_usecase.dart';
 import 'package:opennutritracker/features/add_meal/util/meal_text_parser.dart';
+import 'package:opennutritracker/features/food_db/domain/food_database.dart';
 import 'package:opennutritracker/features/food_knowledge/domain/food_knowledge.dart';
 import 'package:opennutritracker/features/menu_import/domain/imported_menu.dart';
 import 'package:opennutritracker/features/menu_import/domain/menu_text_parser.dart';
@@ -159,6 +160,19 @@ class MenuFoodMatcher {
         food,
         // A free-from version keeps its name ("Leche sin lactosa").
         _freeFrom.hasMatch(key(food.name)) ? meal.withName(food.name) : meal,
+        MatchOrigin.database,
+      );
+    }
+    // The downloaded food database, also offline.
+    final entry = FoodDatabase.instance?.bestMatch(
+      food.name,
+      languageCode: languageCode,
+    );
+    if (entry != null &&
+        score(k, key(entry.name(languageCode))) >= 0.6) {
+      return MatchedFood(
+        food,
+        entry.toMealEntity(languageCode),
         MatchOrigin.database,
       );
     }

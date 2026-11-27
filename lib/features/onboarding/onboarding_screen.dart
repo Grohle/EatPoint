@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:introduction_screen/introduction_screen.dart';
@@ -28,6 +30,7 @@ import 'package:opennutritracker/features/onboarding/presentation/widgets/onboar
 import 'package:opennutritracker/features/diet_profile/data/diet_profile_store.dart';
 import 'package:opennutritracker/features/diet_profile/domain/diet_profile.dart';
 import 'package:opennutritracker/features/diet_profile/presentation/onboarding_diet_page.dart';
+import 'package:opennutritracker/features/food_db/data/food_db_service.dart';
 import 'package:opennutritracker/generated/l10n.dart';
 import 'package:opennutritracker/features/points/data/points_settings_data_source.dart';
 import 'package:opennutritracker/features/points/presentation/onboarding_points_page.dart';
@@ -66,6 +69,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   /// EatPoint: the diet chosen on the "Your diet" step.
   DietProfile _dietProfile = DietProfile.empty;
+
+  /// EatPoint: download the food database once onboarding ends.
+  bool _downloadFoodDb = true;
 
   late OnboardingBloc _onboardingBloc;
   final _introKey = GlobalKey<IntroductionScreenState>();
@@ -340,6 +346,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           bodyWidget: OnboardingDietPageBody(
             initialProfile: _dietProfile,
             onChanged: (profile) => _dietProfile = profile,
+            initialDownloadFoodDb: locator.isRegistered<FoodDbService>()
+                ? _downloadFoodDb
+                : null,
+            onDownloadFoodDbChanged: (v) => _downloadFoodDb = v,
           ),
           footer: HighlightButton(
             buttonLabel: S.of(context).buttonNextLabel,
@@ -575,6 +585,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       if (!_dietProfile.isEmpty && locator.isRegistered<DietProfileStore>()) {
         await locator<DietProfileStore>().save(_dietProfile);
         if (!context.mounted) return;
+      }
+      if (_downloadFoodDb && locator.isRegistered<FoodDbService>()) {
+        // In the background: the app is usable while it downloads.
+        unawaited(
+          locator<FoodDbService>().download().catchError((Object _) {}),
+        );
       }
       // Onboarding can run for a profile added after the app has been in
       // use, so the screen-persistent tab BLoCs may still hold the previous

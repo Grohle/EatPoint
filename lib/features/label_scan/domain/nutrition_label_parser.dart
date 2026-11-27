@@ -145,7 +145,7 @@ class NutritionLabelParser {
     caseSensitive: false,
   );
   static final _carbs = RegExp(
-    r'hidrat|carbohidrat|carbohydrat|carb\b|glucid|kohlenhydrat|h\.?\s*de\s*c',
+    r'hidrat|carbohidrat|carbohydrat|carboidrat|carb\b|glucid|kohlenhydrat|h\.?\s*de\s*c',
     caseSensitive: false,
   );
   static final _fiber = RegExp(
@@ -157,11 +157,11 @@ class NutritionLabelParser {
     caseSensitive: false,
   );
   static final _salt = RegExp(
-    r'\bsal\b|^sal\b|salt|\bsel\b',
+    r'\bsal\b|^sal\b|salt|\bsel\b|\bsale\b|\bsalz\b',
     caseSensitive: false,
   );
   static final _energy = RegExp(
-    r'energ|valor\s*energ|calor|kcal|kj',
+    r'energ|[ée]nerg|valor\s*energ|brennwert|calor|kcal|kj',
     caseSensitive: false,
   );
   static final _per100 = RegExp(

@@ -1,4 +1,6 @@
 import 'package:logging/logging.dart';
+import 'package:intl/intl.dart';
+import 'package:opennutritracker/features/food_db/domain/food_database.dart';
 import 'package:opennutritracker/core/data/data_source/remote_search_cache_data_source.dart';
 import 'package:opennutritracker/core/data/data_source/custom_meal_data_source.dart';
 import 'package:opennutritracker/core/data/data_source/recipe_data_source.dart';
@@ -105,8 +107,20 @@ class SearchProductsUseCase {
       ),
     );
     await _cacheRemoteResults(remote.meals);
-    return _buildResult(searchString, remote.meals,
-        remoteFailed: remote.failed, cacheSource: MealSourceEntity.fdc);
+    // EatPoint: the downloaded food database answers first, offline.
+    final language = Intl.getCurrentLocale().split(RegExp('[_-]')).first;
+    final local = [
+      for (final f in FoodDatabase.instance?.search(
+            searchString,
+            languageCode: language,
+            limit: 25,
+          ) ??
+          const <FoodDbEntry>[])
+        f.toMealEntity(language),
+    ];
+    return _buildResult(searchString, [...local, ...remote.meals],
+        remoteFailed: remote.failed && local.isEmpty,
+        cacheSource: MealSourceEntity.fdc);
   }
 
   /// The full Open Food Facts record behind a thin text-search hit, or null

@@ -44,6 +44,8 @@ import 'package:opennutritracker/features/add_meal/domain/usecase/run_ai_endpoin
 import 'package:opennutritracker/features/settings/presentation/widgets/ai_assist_dialog.dart';
 import 'package:opennutritracker/features/diet_profile/data/diet_profile_store.dart';
 import 'package:opennutritracker/features/diet_profile/presentation/diet_profile_screen.dart';
+import 'package:opennutritracker/features/food_db/data/food_db_service.dart';
+import 'package:opennutritracker/features/food_db/presentation/food_db_screen.dart';
 import 'package:opennutritracker/generated/l10n.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
@@ -282,6 +284,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         onTap: () => Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (_) => const DietProfileScreen(),
+                          ),
+                        ),
+                      ),
+                    if (locator.isRegistered<FoodDbService>())
+                      SettingsTile(
+                        identifier: 'settings-food-db',
+                        palette: palette,
+                        icon: Icons.storage_rounded,
+                        title: S.of(context).foodDbTitle,
+                        subtitle: S.of(context).foodDbSubtitle,
+                        onTap: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => const FoodDbScreen(),
                           ),
                         ),
                       ),
