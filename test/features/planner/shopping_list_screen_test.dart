@@ -7,9 +7,21 @@ import 'package:opennutritracker/core/utils/locator.dart';
 import 'package:opennutritracker/features/planner/data/planner_data_source.dart';
 import 'package:opennutritracker/features/planner/domain/entity/planner_entities.dart';
 import 'package:opennutritracker/features/planner/presentation/shopping_list_screen.dart';
+import 'package:opennutritracker/features/sync/data/household_store.dart';
+import 'package:opennutritracker/features/sync/domain/household.dart';
+import 'package:opennutritracker/features/sync/domain/sync_backend.dart';
+import 'package:opennutritracker/features/sync/presentation/member_avatar.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../../helpers/fake_hive_db_provider.dart';
 import 'planner_test_support.dart';
+
+class _KeyedBox extends MemoryStringBox {
+  @override
+  Iterable<dynamic> get keys => data.keys;
+}
+
+class _NoSecrets extends Fake implements FlutterSecureStorage {}
 
 class _NoRecipes extends Fake implements RecipeDataSource {
   @override
@@ -81,6 +93,57 @@ void main() {
     final title = tester.widget<Text>(find.text('Tomate'));
     expect(title.style?.decoration, TextDecoration.lineThrough);
     expect(source.getShopping(monday).checked, {'tomate|g'});
+  });
+
+  testWidgets('a circle per member who needs each item', (tester) async {
+    await plan();
+    final box = _KeyedBox();
+    final household = HouseholdStore(
+      FakeHiveDBProvider(pointsSettingsBox: box),
+      _NoSecrets(),
+    );
+    await household.saveHousehold(
+      const Household(
+        householdId: '0123456789abcdef0123456789abcdef',
+        memberId: 'aaaaaaaaaaaaaaaa',
+        memberName: 'Ann',
+        backend: SyncBackendConfig(
+          kind: SyncBackendKind.webdav,
+          url: 'https://example.org/dav',
+        ),
+      ),
+    );
+    await household.saveMember(
+      MemberSnapshot(
+        memberId: 'bbbbbbbbbbbbbbbb',
+        name: 'Bo',
+        updatedAt: monday,
+        days: [
+          dayPlan(monday, {
+            IntakeTypeEntity.lunch: [plannedItem('Arroz', 300)],
+          }),
+        ],
+      ),
+    );
+    locator.registerSingleton<HouseholdStore>(household);
+    await pump(tester);
+
+    final rice = find.ancestor(
+      of: find.text('Arroz'),
+      matching: find.byType(CheckboxListTile),
+    );
+    final tomato = find.ancestor(
+      of: find.text('Tomate'),
+      matching: find.byType(CheckboxListTile),
+    );
+    expect(
+      find.descendant(of: rice, matching: find.byType(MemberAvatar)),
+      findsNWidgets(2),
+    );
+    expect(
+      find.descendant(of: tomato, matching: find.byType(MemberAvatar)),
+      findsOneWidget,
+    );
   });
 
   testWidgets('shows who ticked an item', (tester) async {

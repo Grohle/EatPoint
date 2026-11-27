@@ -4784,5 +4784,136 @@
   "updateDownload": "Download",
   "@updateDownload": {
     "description": "Download the APK"
+  },
+  "plannerUnlog": "Unlog",
+  "@plannerUnlog": {
+    "description": "Take a logged meal back out of the diary"
+  },
+  "plannerUnlogTitle": "Unlog {meal}?",
+  "@plannerUnlogTitle": {
+    "description": "Confirm unlogging",
+    "placeholders": {
+      "meal": {
+        "type": "String"
+      }
+    }
+  },
+  "plannerUnlogBody": "The foods logged from the menu are removed from the diary. The menu stays as it is.",
+  "@plannerUnlogBody": {
+    "description": "Confirm unlogging body"
+  },
+  "plannerUnloggedSnack": "{meal} is no longer logged",
+  "@plannerUnloggedSnack": {
+    "description": "After unlogging",
+    "placeholders": {
+      "meal": {
+        "type": "String"
+      }
+    }
+  },
+  "mealEditorTitle": "Edit meal",
+  "@mealEditorTitle": {
+    "description": "Edit a planned meal"
+  },
+  "mealEditorSave": "Save",
+  "@mealEditorSave": {
+    "description": "Save the edited meal"
+  },
+  "mealEditorSearch": "Search and add a food",
+  "@mealEditorSearch": {
+    "description": "Open the dish search"
+  },
+  "mealEditorLoggedNote": "This meal is in your diary: saving updates it there too.",
+  "@mealEditorLoggedNote": {
+    "description": "Note when editing a logged meal"
+  },
+  "householdAllowEdits": "Let the household change my menu",
+  "@householdAllowEdits": {
+    "description": "Switch"
+  },
+  "householdAllowEditsHint": "They also see your points per meal and your diet, to plan for you. Off, they only see your menu.",
+  "@householdAllowEditsHint": {
+    "description": "Switch subtitle"
+  },
+  "householdMemberMenu": "{name}'s menu",
+  "@householdMemberMenu": {
+    "description": "Another member's menu",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "householdMemberNoEdits": "{name} doesn't let others change their menu. You can see it, but not edit it.",
+  "@householdMemberNoEdits": {
+    "description": "When a member turned edits off",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "generatorEfficient": "Efficient shopping basket",
+  "@generatorEfficient": {
+    "description": "Switch"
+  },
+  "generatorEfficientHelp": "Fewer different products: the same few vegetables, starches and fruit, one food per kind of protein. Fish and meat early in the week, eggs and pulses later. Every other lunch is the previous dinner, cooked in double. The week stays balanced and varied.",
+  "@generatorEfficientHelp": {
+    "description": "Switch subtitle"
+  },
+  "generatorLeftovers": "Leftovers from dinner",
+  "@generatorLeftovers": {
+    "description": "Note on a meal made from the previous dinner"
+  },
+  "generatorForWhom": "Who it's for",
+  "@generatorForWhom": {
+    "description": "Section title"
+  },
+  "generatorForMe": "Me",
+  "@generatorForMe": {
+    "description": "Chip for the user"
+  },
+  "generatorForWhomHelp": "Shared meals are the same dish for everyone, each with their own portion. What someone can't eat is swapped just for them. Their menu is sent to their phone.",
+  "@generatorForWhomHelp": {
+    "description": "Help under the members"
+  },
+  "generatorSentTo": "Menu sent to {name}",
+  "@generatorSentTo": {
+    "description": "After sending a member their menu",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "shoppingPacks": "{count} × pack of {size}",
+  "@shoppingPacks": {
+    "description": "How many packs to buy",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      },
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "shoppingPackPieces": "{count}",
+  "@shoppingPackPieces": {
+    "description": "A pack counted in units (6 eggs)",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "shoppingPackLeftover": "{amount} left over",
+  "@shoppingPackLeftover": {
+    "description": "What's left of the packs",
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
   }
 }

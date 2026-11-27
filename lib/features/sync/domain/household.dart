@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:opennutritracker/features/planner/domain/entity/planner_entities.dart';
 import 'package:opennutritracker/features/sync/domain/household_crypto.dart';
 import 'package:opennutritracker/features/sync/domain/sync_backend.dart';
+import 'package:opennutritracker/features/sync/domain/household_menu.dart';
 
 /// This phone's membership of a shared household.
 class Household {
@@ -113,13 +114,46 @@ class MemberSnapshot {
   /// Week start key (yyyy-mm-dd) -> list state.
   final Map<String, ShoppingListState> shopping;
 
+  /// EatPoint: the member's meals, points and diet; null when they don't
+  /// share it.
+  final MemberProfile? profile;
+
+  /// Changes this member made to other members' menus, not yet confirmed.
+  final List<MenuEdit> edits;
+
+  /// Ids of the changes others made to this member's menu that this
+  /// member's phone has handled.
+  final Set<String> applied;
+
   const MemberSnapshot({
     required this.memberId,
     required this.name,
     required this.updatedAt,
     this.days = const [],
     this.shopping = const {},
+    this.profile,
+    this.edits = const [],
+    this.applied = const {},
   });
+
+  /// Whether other members may change this member's menu.
+  bool get allowsEdits => profile?.allowEdits ?? false;
+
+  /// The same snapshot with [day] in place of the plan for its date.
+  MemberSnapshot withDay(DayPlan day) => MemberSnapshot(
+    memberId: memberId,
+    name: name,
+    updatedAt: updatedAt,
+    days: [
+      for (final d in days)
+        if (d.date != day.date) d,
+      day,
+    ],
+    shopping: shopping,
+    profile: profile,
+    edits: edits,
+    applied: applied,
+  );
 
   DayPlan? dayFor(DateTime date) {
     final d = DayPlan.dateOnly(date);
@@ -136,6 +170,9 @@ class MemberSnapshot {
     'updatedAt': updatedAt.toIso8601String(),
     'days': [for (final d in days) d.toJson()],
     'shopping': {for (final e in shopping.entries) e.key: e.value.toJson()},
+    if (profile != null) 'profile': profile!.toJson(),
+    if (edits.isNotEmpty) 'edits': [for (final e in edits) e.toJson()],
+    if (applied.isNotEmpty) 'applied': applied.toList(),
   };
 
   static MemberSnapshot? fromJson(Map<String, dynamic> json) {
@@ -143,7 +180,18 @@ class MemberSnapshot {
     if (memberId is! String) return null;
     final rawDays = json['days'];
     final rawShopping = json['shopping'];
+    final rawEdits = json['edits'];
+    final rawApplied = json['applied'];
     return MemberSnapshot(
+      profile: MemberProfile.fromJson(json['profile']),
+      edits: [
+        if (rawEdits is List) ...rawEdits.map(MenuEdit.fromJson).nonNulls,
+      ],
+      applied: {
+        if (rawApplied is List)
+          for (final id in rawApplied)
+            if (id is String) id,
+      },
       memberId: memberId,
       name: json['name'] as String? ?? '',
       updatedAt:

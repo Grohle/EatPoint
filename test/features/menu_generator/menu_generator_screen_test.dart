@@ -13,9 +13,21 @@ import 'package:opennutritracker/features/menu_generator/presentation/menu_gener
 import 'package:opennutritracker/features/menu_import/presentation/menu_import_review_screen.dart';
 import 'package:opennutritracker/features/planner/data/planner_data_source.dart';
 import 'package:opennutritracker/features/points/domain/entity/meal_slot.dart';
+import 'package:opennutritracker/features/sync/data/household_store.dart';
+import 'package:opennutritracker/features/sync/domain/household.dart';
+import 'package:opennutritracker/features/sync/domain/household_menu.dart';
+import 'package:opennutritracker/features/sync/domain/sync_backend.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../../helpers/fake_hive_db_provider.dart';
 import '../points/points_test_support.dart';
+
+class _KeyedBox extends MemoryStringBox {
+  @override
+  Iterable<dynamic> get keys => data.keys;
+}
+
+class _NoSecrets extends Fake implements FlutterSecureStorage {}
 
 void main() {
   setUp(() async {
@@ -50,7 +62,13 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.textContaining('Allergies: peanuts'), findsOneWidget);
     expect(find.textContaining('Likes: salmón'), findsOneWidget);
+    expect(bySemanticsId('generator-efficient'), findsOneWidget);
     // Without an AI provider only the phone engine can be chosen.
+    await tester.scrollUntilVisible(
+      find.textContaining('Set up an AI provider'),
+      300,
+      scrollable: find.byType(Scrollable).first,
+    );
     expect(find.textContaining('Set up an AI provider'), findsOneWidget);
 
     await tester.tap(find.text('3 days'));
@@ -67,6 +85,100 @@ void main() {
     );
     await tester.pumpAndSettle();
     expect(find.byType(MenuImportReviewScreen), findsOneWidget);
+  });
+
+  testWidgets('a joint menu gives the other member their share', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(1080, 2400);
+    tester.view.devicePixelRatio = 2.625;
+    addTearDown(tester.view.reset);
+    final household = HouseholdStore(
+      FakeHiveDBProvider(pointsSettingsBox: _KeyedBox()),
+      _NoSecrets(),
+    );
+    await household.saveHousehold(
+      const Household(
+        householdId: '0123456789abcdef0123456789abcdef',
+        memberId: 'aaaaaaaaaaaaaaaa',
+        memberName: 'Ann',
+        backend: SyncBackendConfig(
+          kind: SyncBackendKind.webdav,
+          url: 'https://example.org/dav',
+        ),
+      ),
+    );
+    await household.saveMember(
+      MemberSnapshot(
+        memberId: 'bbbbbbbbbbbbbbbb',
+        name: 'Bo',
+        updatedAt: DateTime(2026, 11, 30),
+        profile: MemberProfile(
+          slots: [
+            for (final slot in MealSlot.builtIn())
+              MemberSlot(id: slot.id, baseType: slot.baseType),
+          ],
+          budgets: {
+            for (final slot in MealSlot.builtIn())
+              slot.id: const MacroPoints(carbs: 4, protein: 3, fat: 2),
+          },
+          diet: const DietProfile(diet: DietStyle.vegetarian),
+        ),
+      ),
+    );
+    locator.registerSingleton<HouseholdStore>(household);
+
+    await tester.pumpWidget(
+      localizedApp(MenuGeneratorScreen(initialDay: DateTime(2026, 11, 30))),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('1 day'));
+    final bo = bySemanticsId('generator-with-bbbbbbbbbbbbbbbb');
+    await tester.scrollUntilVisible(
+      bo,
+      300,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await tester.tap(bo);
+    await tester.pumpAndSettle();
+    final generate = bySemanticsId('generator-generate');
+    await tester.scrollUntilVisible(
+      generate,
+      300,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await tester.tap(generate);
+    await tester.runAsync(
+      () => Future<void>.delayed(const Duration(milliseconds: 200)),
+    );
+    await tester.pumpAndSettle();
+    final save = bySemanticsId('menu-import-save');
+    await tester.scrollUntilVisible(
+      save,
+      300,
+      scrollable: find.byType(Scrollable).last,
+    );
+    await tester.tap(save);
+    await tester.runAsync(
+      () => Future<void>.delayed(const Duration(milliseconds: 200)),
+    );
+    await tester.pumpAndSettle();
+
+    final edits = household.pendingEdits();
+    expect(edits, hasLength(4), reason: 'one per meal of the day');
+    expect(edits.every((e) => e.memberId == 'bbbbbbbbbbbbbbbb'), isTrue);
+    final vegetarian = MenuCompanion(diet: DietStyle.vegetarian);
+    for (final edit in edits) {
+      for (final item in edit.items) {
+        expect(
+          vegetarian.canEat(
+            GenFood.of(item.meal, knowledge: FoodKnowledge.instance!),
+          ),
+          isTrue,
+          reason: item.name,
+        );
+      }
+    }
   });
 
   test('the AI brief carries the meals, points and diet', () {

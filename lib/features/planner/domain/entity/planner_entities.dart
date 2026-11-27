@@ -72,10 +72,15 @@ class DayPlan {
   final Map<String, List<PlannedItem>> meals;
   final Set<String> logged;
 
+  /// The diary entries each logged meal created, so it can be unlogged.
+  /// Empty for meals logged before this was kept.
+  final Map<String, List<String>> loggedIntakes;
+
   const DayPlan({
     required this.date,
     this.meals = const {},
     this.logged = const {},
+    this.loggedIntakes = const {},
   });
 
   factory DayPlan.empty(DateTime date) => DayPlan(date: dateOnly(date));
@@ -105,13 +110,25 @@ class DayPlan {
           .where((e) => e.value.isNotEmpty)
           .every((e) => logged.contains(e.key));
 
-  DayPlan withMeal(String mealId, List<PlannedItem> items) =>
-      DayPlan(date: date, meals: {...meals, mealId: items}, logged: logged);
+  DayPlan withMeal(String mealId, List<PlannedItem> items) => DayPlan(
+    date: date,
+    meals: {...meals, mealId: items},
+    logged: logged,
+    loggedIntakes: loggedIntakes,
+  );
 
-  DayPlan withLogged(String mealId, bool value) => DayPlan(
+  /// Marks [mealId] as logged (with the diary entries it created) or not.
+  DayPlan withLogged(
+    String mealId,
+    bool value, {
+    List<String> intakeIds = const [],
+  }) => DayPlan(
     date: date,
     meals: meals,
     logged: value ? {...logged, mealId} : ({...logged}..remove(mealId)),
+    loggedIntakes: value
+        ? {...loggedIntakes, mealId: intakeIds}
+        : ({...loggedIntakes}..remove(mealId)),
   );
 
   /// The same plan on another date, with nothing marked as logged.
@@ -125,6 +142,10 @@ class DayPlan {
         e.key: [for (final i in e.value) i.toJson()],
     },
     'logged': [for (final t in logged) t],
+    if (loggedIntakes.isNotEmpty)
+      'loggedIntakes': {
+        for (final e in loggedIntakes.entries) e.key: e.value,
+      },
   };
 
   static DayPlan fromJson(Map<String, dynamic> json, DateTime fallbackDate) {
@@ -143,6 +164,7 @@ class DayPlan {
       }
     }
     final rawLogged = json['logged'];
+    final rawIntakes = json['loggedIntakes'];
     return DayPlan(
       date: dateOnly(date ?? fallbackDate),
       meals: meals,
@@ -150,6 +172,15 @@ class DayPlan {
         if (rawLogged is List)
           for (final id in rawLogged)
             if (id is String && id.isNotEmpty) id,
+      },
+      loggedIntakes: {
+        if (rawIntakes is Map)
+          for (final e in rawIntakes.entries)
+            if (e.key is String && e.value is List)
+              e.key as String: [
+                for (final id in e.value as List)
+                  if (id is String) id,
+              ],
       },
     );
   }
