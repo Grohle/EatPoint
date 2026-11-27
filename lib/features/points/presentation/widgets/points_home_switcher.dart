@@ -6,11 +6,13 @@ import 'package:opennutritracker/core/domain/entity/intake_type_entity.dart';
 import 'package:opennutritracker/core/styles/app_palette.dart';
 import 'package:opennutritracker/core/styles/dimens.dart';
 import 'package:opennutritracker/core/utils/calc/points_calc.dart';
+import 'package:opennutritracker/core/utils/calc/points_rebalance_calc.dart';
 import 'package:opennutritracker/core/utils/locator.dart';
 import 'package:opennutritracker/features/mcp/data/mcp_controller.dart';
 import 'package:opennutritracker/features/planner/presentation/planner_screen.dart';
 import 'package:opennutritracker/features/sync/domain/household_auto_sync.dart';
 import 'package:opennutritracker/features/planner/presentation/shopping_list_screen.dart';
+import 'package:opennutritracker/features/points/data/meal_slot_assignments.dart';
 import 'package:opennutritracker/features/points/data/points_settings_data_source.dart';
 import 'package:opennutritracker/features/points/domain/points_extensions.dart';
 import 'package:opennutritracker/features/points/domain/usecase/get_points_budget_usecase.dart';
@@ -18,6 +20,10 @@ import 'package:opennutritracker/features/points/presentation/meal_type_label.da
 import 'package:opennutritracker/features/points/presentation/points_format.dart';
 import 'package:opennutritracker/features/points/presentation/points_settings_screen.dart';
 import 'package:opennutritracker/features/points/presentation/widgets/points_budget_guide_sheet.dart';
+import 'package:opennutritracker/features/travel/data/travel_mode_store.dart';
+import 'package:opennutritracker/features/travel/presentation/travel_mode_actions.dart';
+import 'package:opennutritracker/features/travel/presentation/travel_mode_banner.dart';
+import 'package:opennutritracker/features/travel/presentation/travel_mode_screen.dart';
 import 'package:opennutritracker/generated/l10n.dart';
 
 /// Shows the points card on the home screen while points mode is on, and
@@ -57,6 +63,12 @@ class _PointsHomeSwitcherState extends State<PointsHomeSwitcher> {
     super.initState();
     if (!_available) return;
     _settings!.revision.addListener(_load);
+    if (locator.isRegistered<MealSlotAssignments>()) {
+      locator<MealSlotAssignments>().revision.addListener(_load);
+    }
+    if (locator.isRegistered<TravelModeStore>()) {
+      locator<TravelModeStore>().revision.addListener(_onTravelChanged);
+    }
     _load();
     _startConnectedServices();
     _lifecycle = AppLifecycleListener(onResume: _startConnectedServices);
@@ -65,6 +77,12 @@ class _PointsHomeSwitcherState extends State<PointsHomeSwitcher> {
   @override
   void dispose() {
     _settings?.revision.removeListener(_load);
+    if (locator.isRegistered<MealSlotAssignments>()) {
+      locator<MealSlotAssignments>().revision.removeListener(_load);
+    }
+    if (locator.isRegistered<TravelModeStore>()) {
+      locator<TravelModeStore>().revision.removeListener(_onTravelChanged);
+    }
     _lifecycle?.dispose();
     super.dispose();
   }
@@ -73,7 +91,15 @@ class _PointsHomeSwitcherState extends State<PointsHomeSwitcher> {
 
   /// The agent connector and the household sync run while the app is in
   /// the foreground; the home screen is where the app comes back to.
+  void _onTravelChanged() {
+    if (mounted) setState(() {});
+  }
+
   void _startConnectedServices() {
+    // Reads the locale, so not during initState.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) TravelModeActions.endIfExpired(context);
+    });
     if (locator.isRegistered<McpController>()) {
       locator<McpController>().applyConfig().catchError((_) {});
     }
@@ -120,17 +146,27 @@ class _PointsHomeSwitcherState extends State<PointsHomeSwitcher> {
     final budget = _budget;
     final pointsMode =
         _loaded && budget != null && budget.settings.pointsModeEnabled;
-    final shortcuts = _PlannerShortcuts(
-      trailing: pointsMode || budget == null
-          ? null
-          : Semantics(
-              identifier: 'home-switch-to-points',
-              child: ActionChip(
-                avatar: const Icon(Icons.donut_large_rounded, size: 18),
-                label: Text(S.of(context).pointsPointsViewLabel),
-                onPressed: () => _setPointsMode(true),
-              ),
-            ),
+    final travel = TravelModeGate.active;
+    final shortcuts = Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        if (travel) const TravelModeBanner(),
+        if (!TravelModeGate.plannerPaused || !travel)
+          _PlannerShortcuts(
+            showTravel: !travel,
+            trailing: pointsMode || budget == null
+                ? null
+                : Semantics(
+                    identifier: 'home-switch-to-points',
+                    child: ActionChip(
+                      avatar: const Icon(Icons.donut_large_rounded, size: 18),
+                      label: Text(S.of(context).pointsPointsViewLabel),
+                      onPressed: () => _setPointsMode(true),
+                    ),
+                  ),
+          ),
+      ],
     );
     if (!pointsMode) {
       return Column(children: [shortcuts, widget.caloriesView]);
@@ -153,8 +189,9 @@ class _PointsHomeSwitcherState extends State<PointsHomeSwitcher> {
 /// One-tap access to the weekly menu and the shopping list.
 class _PlannerShortcuts extends StatelessWidget {
   final Widget? trailing;
+  final bool showTravel;
 
-  const _PlannerShortcuts({this.trailing});
+  const _PlannerShortcuts({this.trailing, this.showTravel = true});
 
   @override
   Widget build(BuildContext context) {
@@ -176,9 +213,9 @@ class _PlannerShortcuts extends StatelessWidget {
             child: ActionChip(
               avatar: const Icon(Icons.calendar_month_outlined, size: 18),
               label: Text(s.plannerEntry),
-              onPressed: () => Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) => const PlannerScreen()),
-              ),
+              onPressed: () => Navigator.of(
+                context,
+              ).push(MaterialPageRoute(builder: (_) => const PlannerScreen())),
             ),
           ),
           Semantics(
@@ -193,6 +230,15 @@ class _PlannerShortcuts extends StatelessWidget {
               ),
             ),
           ),
+          if (showTravel)
+            Semantics(
+              identifier: 'home-travel-mode',
+              child: ActionChip(
+                avatar: const Icon(Icons.flight_takeoff_rounded, size: 18),
+                label: Text(s.travelTitle),
+                onPressed: () => showTravelModeSheet(context),
+              ),
+            ),
           ?trailing,
         ],
       ),
@@ -223,11 +269,30 @@ class _PointsDayCard extends StatelessWidget {
     final palette = isDark ? AppPalette.dark : AppPalette.light;
     final format = PointsFormat.of(context);
 
-    final usedPerMeal = {
-      for (final type in IntakeTypeEntity.values)
-        type: (intakes[type] ?? const <IntakeEntity>[]).macroPoints,
+    final used = intakes.values
+        .map((list) => list.macroPoints)
+        .fold(MacroPoints.zero, (a, b) => a + b);
+    final slots = budget.slots;
+    final grouping = locator.isRegistered<MealSlotAssignments>()
+        ? locator<MealSlotAssignments>().group(
+            intakes.values.expand((list) => list),
+            slots,
+          )
+        : null;
+    final usedPerSlot = {
+      for (final slot in slots)
+        slot.id:
+            (grouping?.bySlot[slot.id] ?? const <IntakeEntity>[]).macroPoints,
     };
-    final used = usedPerMeal.values.fold(MacroPoints.zero, (a, b) => a + b);
+    // What a meal went over is taken off the meals still ahead today.
+    final perSlot = budget.settings.rebalanceOverspend
+        ? PointsRebalanceCalc.rebalance(
+            order: [for (final slot in slots) slot.id],
+            budgets: budget.perSlot,
+            used: usedPerSlot,
+          )
+        : budget.perSlot;
+    final dailyOnly = TravelModeGate.dailyBudgetOnly;
     final daily = budget.daily;
     final left = daily.total - used.total;
 
@@ -357,39 +422,83 @@ class _PointsDayCard extends StatelessWidget {
                     color: theme.colorScheme.onSurfaceVariant,
                   ),
                 ),
-                const Divider(height: Dimens.spacing24),
-                Wrap(
-                  spacing: Dimens.spacing16,
-                  runSpacing: Dimens.spacing4,
-                  children: [
-                    for (final type in IntakeTypeEntity.values)
-                      if (budget.perMeal[type] != null)
-                        Text(
-                          s.pointsMealUsage(
-                            mealTypeLabel(context, type),
-                            format.points(usedPerMeal[type]!.total),
-                            format.points(budget.perMeal[type]!.total),
+                if (!dailyOnly) const Divider(height: Dimens.spacing24),
+                if (!dailyOnly)
+                  Wrap(
+                    spacing: Dimens.spacing16,
+                    runSpacing: Dimens.spacing4,
+                    children: [
+                      for (final slot in slots)
+                        if (perSlot[slot.id] case final slotBudget?)
+                          _MealUsageText(
+                            text: s.pointsMealUsage(
+                              mealSlotLabel(context, slot),
+                              format.points(usedPerSlot[slot.id]!.total),
+                              format.points(slotBudget.total),
+                            ),
+                            over:
+                                usedPerSlot[slot.id]!.total >
+                                slotBudget.total + 0.001,
+                            lowered:
+                                (budget.perSlot[slot.id]!.total -
+                                        slotBudget.total)
+                                    .abs() >
+                                0.001,
+                            loweredLabel: s.pointsMealLoweredTooltip,
                           ),
-                          style: theme.textTheme.bodySmall?.copyWith(
-                            fontWeight:
-                                usedPerMeal[type]!.total >
-                                    budget.perMeal[type]!.total + 0.001
-                                ? FontWeight.w700
-                                : null,
-                            color:
-                                usedPerMeal[type]!.total >
-                                    budget.perMeal[type]!.total + 0.001
-                                ? theme.colorScheme.error
-                                : null,
-                          ),
-                        ),
-                  ],
-                ),
+                    ],
+                  ),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+}
+
+/// "Lunch: 2 / 6 pts" on the points card, in red when over, with a small
+/// arrow when the budget was lowered to make up for an earlier meal.
+class _MealUsageText extends StatelessWidget {
+  final String text;
+  final bool over;
+  final bool lowered;
+  final String loweredLabel;
+
+  const _MealUsageText({
+    required this.text,
+    required this.over,
+    required this.lowered,
+    required this.loweredLabel,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final style = theme.textTheme.bodySmall?.copyWith(
+      fontWeight: over ? FontWeight.w700 : null,
+      color: over ? theme.colorScheme.error : null,
+    );
+    return Text.rich(
+      TextSpan(
+        text: text,
+        children: [
+          if (lowered)
+            WidgetSpan(
+              alignment: PlaceholderAlignment.middle,
+              child: Tooltip(
+                message: loweredLabel,
+                child: Icon(
+                  Icons.south_rounded,
+                  size: 13,
+                  semanticLabel: loweredLabel,
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
+              ),
+            ),
+        ],
+      ),
+      style: style,
     );
   }
 }

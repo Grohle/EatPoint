@@ -6,6 +6,7 @@ import 'package:opennutritracker/features/planner/data/planner_data_source.dart'
 import 'package:opennutritracker/features/planner/data/planner_reminder_service.dart';
 import 'package:opennutritracker/features/planner/domain/entity/planner_entities.dart';
 import 'package:opennutritracker/features/planner/presentation/planner_reminders_screen.dart';
+import 'package:opennutritracker/features/points/domain/entity/meal_slot.dart';
 
 import '../../helpers/fake_hive_db_provider.dart';
 import 'planner_test_support.dart';
@@ -30,6 +31,7 @@ class _FakeReminderService extends Fake implements PlannerReminderService {
     required PlannerReminderSettings settings,
     required List<DayPlan> upcoming,
     required PlannerReminderTexts texts,
+    List<MealSlot>? slots,
     DateTime? now,
   }) async {
     calls.add(settings);

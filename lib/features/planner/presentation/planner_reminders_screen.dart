@@ -8,6 +8,8 @@ import 'package:opennutritracker/features/planner/data/planner_reminder_service.
 import 'package:opennutritracker/features/planner/domain/entity/planner_entities.dart';
 import 'package:opennutritracker/features/points/presentation/meal_type_label.dart';
 import 'package:opennutritracker/generated/l10n.dart';
+import 'package:opennutritracker/features/points/data/points_settings_data_source.dart';
+import 'package:opennutritracker/features/travel/data/travel_mode_store.dart';
 
 /// The localised notification texts of the planner, resolved from [context].
 PlannerReminderTexts plannerReminderTextsOf(BuildContext context) {
@@ -23,7 +25,7 @@ PlannerReminderTexts plannerReminderTextsOf(BuildContext context) {
     prepareBody: s.remindersPrepareBody,
     logTitle: s.remindersLog,
     logBody: s.remindersLogBody,
-    mealName: (type) => mealTypeLabel(context, type),
+    mealName: (slot) => mealSlotLabel(context, slot),
   );
 }
 
@@ -76,8 +78,14 @@ class _PlannerRemindersScreenState extends State<PlannerRemindersScreen> {
       }
     }
     final today = DayPlan.dateOnly(DateTime.now());
+    final slots = locator.isRegistered<PointsSettingsDataSource>()
+        ? (await locator<PointsSettingsDataSource>().getSettings())
+              .effectiveMealSlots
+        : null;
+    if (TravelModeGate.remindersPaused) return;
     await locator<PlannerReminderService>().reschedule(
       settings: next,
+      slots: slots,
       upcoming: [
         for (var i = 0; i < 7; i++)
           _source.getDay(DateTime(today.year, today.month, today.day + i)),

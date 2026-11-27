@@ -32,6 +32,7 @@ import 'package:opennutritracker/features/home/presentation/widgets/quick_water_
 import 'package:opennutritracker/core/domain/entity/body_weight_unit_entity.dart';
 import 'package:opennutritracker/features/home/presentation/widgets/quick_weight_widget.dart';
 import 'package:opennutritracker/generated/l10n.dart';
+import 'package:opennutritracker/features/points/presentation/widgets/meal_slot_sections.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -262,6 +263,30 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
             // empty section so the home view doesn't carry a header the user
             // explicitly opted out of. A section that holds intakes always
             // shows, so they stay editable and deletable (#1305).
+            // EatPoint: the user's own meals replace the four fixed ones.
+            if (MealSlotSections.enabled)
+              MealSlotSections(
+                intakes: [
+                  ...breakfastIntakeList,
+                  ...lunchIntakeList,
+                  ...dinnerIntakeList,
+                  ...snackIntakeList,
+                ],
+                buildSection: (context, section) => IntakeVerticalList(
+                  key: ValueKey('home-meal-${section.key}'),
+                  day: DateTime.now(),
+                  title: section.title,
+                  listIcon: section.icon,
+                  addMealType: section.addMealType,
+                  intakeList: section.intakes,
+                  onDeleteIntakeCallback: onDeleteIntake,
+                  onItemDragCallback: onIntakeItemDrag,
+                  onItemTappedCallback: onIntakeItemTapped,
+                  usesImperialUnits: usesImperialUnits,
+                  showMealMacros: showMealMacros,
+                ),
+              )
+            else ...[
             if (IntakeVerticalList.isShown(
               sharePct: breakfastSharePct,
               intakes: breakfastIntakeList,
@@ -330,6 +355,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                 showMealMacros: showMealMacros,
                 mealKcalTarget: snackKcalTarget,
               ),
+            ],
             const SizedBox(height: 48.0),
           ],
         ),

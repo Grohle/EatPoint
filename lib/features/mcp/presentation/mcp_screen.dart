@@ -189,13 +189,19 @@ class _McpScreenState extends State<McpScreen> {
       case McpProposalKind.addDish:
         final amount = (p.data['amount'] as num?)?.round() ?? 0;
         final unit = p.data['unit'] as String? ?? 'g';
-        final type = IntakeTypeEntity.values.byName(p.data['meal'] as String);
+        final mealId = p.data['meal'] as String? ?? '';
+        final type = IntakeTypeEntity.values
+            .where((t) => t.name == mealId)
+            .firstOrNull;
+        final mealName =
+            p.data['meal_name'] as String? ??
+            (type == null ? mealId : mealTypeLabel(context, type));
         final date = DateTime.tryParse(p.data['date'] as String? ?? '');
         final locale = Localizations.localeOf(context).toString();
         return s.mcpProposalAdd(
           p.data['name'] as String? ?? '',
           '$amount $unit',
-          mealTypeLabel(context, type),
+          mealName,
           date == null ? '' : DateFormat.MMMEd(locale).format(date),
         );
       case McpProposalKind.tickItem:

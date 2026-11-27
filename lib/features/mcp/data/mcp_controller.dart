@@ -5,7 +5,6 @@ import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
 import 'package:opennutritracker/core/data/data_source/recipe_data_source.dart';
 import 'package:opennutritracker/core/data/dbo/meal_dbo.dart';
-import 'package:opennutritracker/core/domain/entity/intake_type_entity.dart';
 import 'package:opennutritracker/core/domain/entity/recipe_entity.dart';
 import 'package:opennutritracker/core/domain/usecase/get_intake_usecase.dart';
 import 'package:opennutritracker/core/utils/calc/points_calc.dart';
@@ -20,6 +19,7 @@ import 'package:opennutritracker/features/points/domain/points_extensions.dart';
 import 'package:opennutritracker/features/points/domain/usecase/get_meal_points_usage_usecase.dart';
 import 'package:opennutritracker/features/points/domain/usecase/get_points_budget_usecase.dart';
 import 'package:opennutritracker/features/sync/data/household_store.dart';
+import 'package:opennutritracker/features/points/domain/entity/meal_slot.dart';
 
 /// Connector settings, kept in EatPoint's per-profile box.
 class McpConfig {
@@ -263,9 +263,7 @@ class McpController {
     switch (proposal.kind) {
       case McpProposalKind.addDish:
         final date = DateTime.parse(proposal.data['date'] as String);
-        final type = IntakeTypeEntity.values.byName(
-          proposal.data['meal'] as String,
-        );
+        final mealId = proposal.data['meal'] as String;
         final meal = MealEntity.fromMealDBO(
           MealDBO.fromJson(
             Map<String, dynamic>.from(proposal.data['food'] as Map),
@@ -273,8 +271,8 @@ class McpController {
         );
         final day = _planner.getDay(date);
         await _planner.saveDay(
-          day.withMeal(type, [
-            ...day.itemsFor(type),
+          day.withMeal(mealId, [
+            ...day.itemsFor(mealId),
             PlannedItem(
               id: IdGenerator.getUniqueID(),
               meal: meal,
@@ -313,23 +311,44 @@ class McpController {
     return parsed;
   }
 
-  static IntakeTypeEntity _mealArg(Map<String, dynamic> args) {
+  static MealSlot _mealArg(Map<String, dynamic> args, List<MealSlot> slots) {
     final raw = args['meal'];
-    for (final t in IntakeTypeEntity.values) {
-      if (t.name == raw) return t;
+    final byId = raw is String ? slots.byId(raw) : null;
+    if (byId != null) return byId;
+    if (raw is String) {
+      final wanted = raw.trim().toLowerCase();
+      for (final slot in slots) {
+        if ((slot.name ?? '').toLowerCase() == wanted) return slot;
+      }
     }
-    throw McpToolError('meal must be one of breakfast, lunch, snack, dinner');
+    throw McpToolError(
+      'meal must be one of: ${[for (final s in slots) s.id].join(', ')} '
+      '(see get_points_budget)',
+    );
   }
 
-  Map<String, dynamic> _dayJson(DayPlan day) => {
+  static List<MealSlot> _slotsOf(PointsBudgetResult b) =>
+      b.slots.isEmpty ? MealSlot.builtIn() : b.slots;
+
+  Future<List<MealSlot>> _mealSlots() async =>
+      _slotsOf(await _budget.getBudget());
+
+  static Map<String, dynamic> _slotJson(MealSlot slot) => {
+    'id': slot.id,
+    'name': slot.name ?? slot.baseType.name,
+    'counts_as': slot.baseType.name,
+  };
+
+  Map<String, dynamic> _dayJson(DayPlan day, List<MealSlot> slots) => {
     'date': DayPlan.dateKey(day.date),
     'meals': {
-      for (final type in IntakeTypeEntity.values)
-        type.name: {
-          'logged': day.logged.contains(type),
-          'points': _points(day.pointsFor(type)),
+      for (final id in {for (final s in slots) s.id, ...day.meals.keys})
+        id: {
+          'name': slots.byId(id)?.name ?? id,
+          'logged': day.logged.contains(id),
+          'points': _points(day.pointsFor(id)),
           'items': [
-            for (final item in day.itemsFor(type))
+            for (final item in day.itemsFor(id))
               {
                 'name': item.name,
                 'amount': item.amount.round(),
@@ -395,9 +414,13 @@ class McpController {
           return {
             'daily': _points(b.daily),
             'kcal_goal': b.suggestion.kcalGoal.round(),
-            'per_meal': {
-              for (final e in b.perMeal.entries) e.key.name: _points(e.value),
-            },
+            'meals': [
+              for (final slot in _slotsOf(b))
+                {
+                  ..._slotJson(slot),
+                  'budget': _points(b.perSlot[slot.id] ?? MacroPoints.zero),
+                },
+            ],
             'note': 'A guide only; the user can change it in the app.',
           };
         },
@@ -420,9 +443,12 @@ class McpController {
         handler: (args) async {
           final weekOf = _dateArg(args, 'week_of');
           final start = DayPlan.weekStart(weekOf);
+          final slots = await _mealSlots();
           return {
             'week_start': DayPlan.dateKey(start),
-            'days': [for (final d in _planner.getWeek(weekOf)) _dayJson(d)],
+            'days': [
+              for (final d in _planner.getWeek(weekOf)) _dayJson(d, slots),
+            ],
             'other_members': [
               for (final m in _household.otherMembers())
                 {
@@ -430,7 +456,7 @@ class McpController {
                   'days': [
                     for (var i = 0; i < 7; i++)
                       if (m.dayFor(start.add(Duration(days: i))) case final d?)
-                        _dayJson(d),
+                        _dayJson(d, const []),
                   ],
                 },
             ],
@@ -528,9 +554,14 @@ class McpController {
           },
           handler: (args) async {
             final date = _dateArg(args, 'date');
+            final slots = await _mealSlots();
+            final used = await _usage.usedPerSlot(date, slots);
             return {
-              for (final t in IntakeTypeEntity.values)
-                t.name: _points(await _usage.usedIn(t, date)),
+              for (final slot in slots)
+                slot.id: {
+                  ..._slotJson(slot),
+                  'points': _points(used[slot.id] ?? MacroPoints.zero),
+                },
             };
           },
         ),
@@ -548,7 +579,9 @@ class McpController {
             'date': {'type': 'string', 'description': 'YYYY-MM-DD'},
             'meal': {
               'type': 'string',
-              'enum': ['breakfast', 'lunch', 'snack', 'dinner'],
+              'description':
+                  'The id of one of the user\'s meals, from '
+                  'get_points_budget (for example breakfast).',
             },
             'dish_name': {'type': 'string'},
             'amount': {
@@ -559,7 +592,7 @@ class McpController {
         },
         handler: (args) async {
           final date = _dateArg(args, 'date');
-          final type = _mealArg(args);
+          final slot = _mealArg(args, await _mealSlots());
           final name = ShoppingListBuilder.normalise(
             args['dish_name'] as String? ?? '',
           );
@@ -591,7 +624,8 @@ class McpController {
           }
           final proposal = await _propose(McpProposalKind.addDish, {
             'date': DayPlan.dateKey(date),
-            'meal': type.name,
+            'meal': slot.id,
+            'meal_name': slot.name,
             'amount': amount,
             'unit': match.meal.isLiquid ? 'ml' : 'g',
             'name': match.meal.name,

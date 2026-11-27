@@ -81,6 +81,8 @@ import 'package:opennutritracker/core/utils/env.dart';
 import 'package:http/http.dart' as http;
 import 'package:opennutritracker/core/utils/ai_credential_storage.dart';
 import 'package:opennutritracker/features/planner/data/planner_data_source.dart';
+import 'package:opennutritracker/features/points/data/meal_slot_assignments.dart';
+import 'package:opennutritracker/features/travel/data/travel_mode_store.dart';
 import 'package:opennutritracker/features/planner/data/planner_reminder_service.dart';
 import 'package:opennutritracker/features/mcp/data/mcp_controller.dart';
 import 'package:opennutritracker/features/points/data/points_settings_data_source.dart';
@@ -733,6 +735,13 @@ Future<void> initLocator() async {
   locator.registerLazySingleton<PlannerDataSource>(
     () => PlannerDataSource(hiveDBProvider),
   );
+  locator.registerLazySingleton<TravelModeStore>(
+    () => TravelModeStore(hiveDBProvider),
+  );
+  final mealSlotAssignments = MealSlotAssignments(hiveDBProvider);
+  locator.registerSingleton<MealSlotAssignments>(mealSlotAssignments);
+  IntakeRepository.onIntakeAdded = (intake) =>
+      MealSlotContext.onIntakeAdded(intake, mealSlotAssignments);
   locator.registerLazySingleton<PlannerReminderService>(
     () => PlannerReminderService(locator()),
   );

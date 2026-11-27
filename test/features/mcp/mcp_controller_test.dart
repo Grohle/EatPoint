@@ -172,10 +172,10 @@ void main() {
     expect(res.isError, isFalse);
     final proposals = controller.proposals();
     expect(proposals.single.kind, McpProposalKind.addDish);
-    expect(planner.getDay(day).itemsFor(IntakeTypeEntity.dinner), isEmpty);
+    expect(planner.getDay(day).itemsFor('dinner'), isEmpty);
 
     await controller.approve(proposals.single.id);
-    final items = planner.getDay(day).itemsFor(IntakeTypeEntity.dinner);
+    final items = planner.getDay(day).itemsFor('dinner');
     expect(items.single.name, 'Salmon');
     expect(items.single.amount, 120);
     expect(controller.proposals(), isEmpty);

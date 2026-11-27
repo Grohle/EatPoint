@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:opennutritracker/core/domain/entity/intake_type_entity.dart';
 import 'package:opennutritracker/features/planner/domain/entity/planner_entities.dart';
 
 import 'planner_test_support.dart';
@@ -10,9 +9,9 @@ void main() {
   group('DayPlan', () {
     final date = DateTime(2026, 11, 25);
     final plan = dayPlan(date, {
-      IntakeTypeEntity.lunch: [plannedItem('Arroz', 150)],
-      IntakeTypeEntity.dinner: [plannedItem('Leche', 200, unit: 'ml')],
-    }).withLogged(IntakeTypeEntity.lunch, true);
+      'lunch': [plannedItem('Arroz', 150)],
+      'dinner': [plannedItem('Leche', 200, unit: 'ml')],
+    }).withLogged('lunch', true);
 
     test('JSON round trip', () {
       final back = DayPlan.fromJson(
@@ -20,10 +19,10 @@ void main() {
         DateTime(2000),
       );
       expect(back.date, date);
-      expect(back.logged, {IntakeTypeEntity.lunch});
-      expect(back.itemsFor(IntakeTypeEntity.lunch).single.name, 'Arroz');
-      expect(back.itemsFor(IntakeTypeEntity.lunch).single.amount, 150);
-      final milk = back.itemsFor(IntakeTypeEntity.dinner).single;
+      expect(back.logged, {'lunch'});
+      expect(back.itemsFor('lunch').single.name, 'Arroz');
+      expect(back.itemsFor('lunch').single.amount, 150);
+      final milk = back.itemsFor('dinner').single;
       expect(milk.unit, 'ml');
       expect(milk.amount, 200);
     });
@@ -47,7 +46,7 @@ void main() {
       final copy = plan.copyTo(DateTime(2026, 12, 2, 9));
       expect(copy.date, DateTime(2026, 12, 2));
       expect(copy.logged, isEmpty);
-      expect(copy.itemsFor(IntakeTypeEntity.lunch), hasLength(1));
+      expect(copy.itemsFor('lunch'), hasLength(1));
     });
 
     test('malformed JSON is tolerated', () {
@@ -64,8 +63,9 @@ void main() {
         'logged': ['lunch', 'brunch', 3],
       }, DateTime(2026, 11, 25, 8));
       expect(back.date, DateTime(2026, 11, 25));
-      expect(back.itemsFor(IntakeTypeEntity.lunch), isEmpty);
-      expect(back.logged, {IntakeTypeEntity.lunch});
+      expect(back.itemsFor('lunch'), isEmpty);
+      // Any meal id is kept (users name their own meals); non-strings go.
+      expect(back.logged, {'lunch', 'brunch'});
       expect(
         DayPlan.fromJson({'meals': 5}, DateTime(2026, 1, 1)).isEmpty,
         true,

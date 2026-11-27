@@ -22,6 +22,7 @@ import 'package:opennutritracker/features/diary/presentation/widgets/daily_nutri
 import 'package:opennutritracker/features/diary/presentation/widgets/diary_sort_type.dart';
 import 'package:opennutritracker/features/home/presentation/widgets/intake_vertical_list.dart';
 import 'package:opennutritracker/generated/l10n.dart';
+import 'package:opennutritracker/features/points/presentation/widgets/meal_slot_sections.dart';
 import 'package:provider/provider.dart';
 
 class DayInfoWidget extends StatefulWidget {
@@ -296,6 +297,38 @@ class _DayInfoWidgetState extends State<DayInfoWidget> {
             // (and anyone else who's set a meal slot to 0%) don't see a meal
             // type they explicitly opted out of. A section that holds intakes
             // always shows, so they stay editable and deletable (#1305).
+            // EatPoint: the user's own meals replace the four fixed ones.
+            if (MealSlotSections.enabled)
+              MealSlotSections(
+                intakes: [
+                  ...widget.breakfastIntake,
+                  ...widget.lunchIntake,
+                  ...widget.dinnerIntake,
+                  ...widget.snackIntake,
+                ],
+                buildSection: (context, section) => IntakeVerticalList(
+                  key: ValueKey('diary-meal-${section.key}'),
+                  day: widget.selectedDay,
+                  title: section.title,
+                  listIcon: section.icon,
+                  addMealType: section.addMealType,
+                  intakeList: _sortByMeal[section.type]!.apply(
+                    section.intakes,
+                  ),
+                  onDeleteIntakeCallback: _deleteIntakeOnShownDay,
+                  onItemLongPressedCallback: onIntakeItemLongPressed,
+                  onItemTappedCallback: widget.onEditIntake,
+                  onCopyIntakeCallback:
+                      _showsCurrentDay ? null : widget.onCopyIntake,
+                  usesImperialUnits: widget.usesImperialUnits,
+                  showMealMacros: widget.showMealMacros,
+                  trackedDayEntity: trackedDay,
+                  sortType: _sortByMeal[section.type],
+                  onSortTypeChanged: (sort) =>
+                      _setSortFor(section.type, sort),
+                ),
+              )
+            else ...[
             if (IntakeVerticalList.isShown(
               sharePct: widget.breakfastSharePct,
               intakes: widget.breakfastIntake,
@@ -399,6 +432,7 @@ class _DayInfoWidgetState extends State<DayInfoWidget> {
                 onSortTypeChanged: (sort) =>
                     _setSortFor(IntakeTypeEntity.snack, sort),
               ),
+            ],
             const SizedBox(height: Dimens.spacing16),
           ],
         ),

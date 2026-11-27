@@ -1,5 +1,4 @@
 import 'package:opennutritracker/core/data/dbo/meal_dbo.dart';
-import 'package:opennutritracker/core/domain/entity/intake_type_entity.dart';
 import 'package:opennutritracker/core/utils/calc/points_calc.dart';
 import 'package:opennutritracker/features/add_meal/domain/entity/meal_entity.dart';
 import 'package:opennutritracker/features/points/domain/points_extensions.dart';
@@ -61,11 +60,15 @@ class PlannedItem {
 
 /// The plan for one day: the foods planned per meal and which meals were
 /// already logged from the plan.
+///
+/// Meals are keyed by the id of the user's meal (`MealSlot.id`). The four
+/// built-in meals use the meal type's name as id, which is also what plans
+/// saved before custom meals existed used.
 class DayPlan {
   /// Local date, time part zero.
   final DateTime date;
-  final Map<IntakeTypeEntity, List<PlannedItem>> meals;
-  final Set<IntakeTypeEntity> logged;
+  final Map<String, List<PlannedItem>> meals;
+  final Set<String> logged;
 
   const DayPlan({
     required this.date,
@@ -75,23 +78,33 @@ class DayPlan {
 
   factory DayPlan.empty(DateTime date) => DayPlan(date: dateOnly(date));
 
-  List<PlannedItem> itemsFor(IntakeTypeEntity type) => meals[type] ?? const [];
+  List<PlannedItem> itemsFor(String mealId) => meals[mealId] ?? const [];
 
-  MacroPoints pointsFor(IntakeTypeEntity type) =>
-      itemsFor(type).fold(MacroPoints.zero, (sum, i) => sum + i.points);
+  MacroPoints pointsFor(String mealId) =>
+      itemsFor(mealId).fold(MacroPoints.zero, (sum, i) => sum + i.points);
 
   MacroPoints get totalPoints =>
       meals.keys.fold(MacroPoints.zero, (sum, t) => sum + pointsFor(t));
 
   bool get isEmpty => meals.values.every((items) => items.isEmpty);
 
-  DayPlan withMeal(IntakeTypeEntity type, List<PlannedItem> items) =>
-      DayPlan(date: date, meals: {...meals, type: items}, logged: logged);
+  /// Number of foods planned for the day.
+  int get itemCount => meals.values.fold(0, (n, items) => n + items.length);
 
-  DayPlan withLogged(IntakeTypeEntity type, bool value) => DayPlan(
+  /// Whether every meal with food planned has been logged.
+  bool get fullyLogged =>
+      !isEmpty &&
+      meals.entries
+          .where((e) => e.value.isNotEmpty)
+          .every((e) => logged.contains(e.key));
+
+  DayPlan withMeal(String mealId, List<PlannedItem> items) =>
+      DayPlan(date: date, meals: {...meals, mealId: items}, logged: logged);
+
+  DayPlan withLogged(String mealId, bool value) => DayPlan(
     date: date,
     meals: meals,
-    logged: value ? {...logged, type} : ({...logged}..remove(type)),
+    logged: value ? {...logged, mealId} : ({...logged}..remove(mealId)),
   );
 
   /// The same plan on another date, with nothing marked as logged.
@@ -102,20 +115,20 @@ class DayPlan {
     'date': dateKey(date),
     'meals': {
       for (final e in meals.entries)
-        e.key.name: [for (final i in e.value) i.toJson()],
+        e.key: [for (final i in e.value) i.toJson()],
     },
-    'logged': [for (final t in logged) t.name],
+    'logged': [for (final t in logged) t],
   };
 
   static DayPlan fromJson(Map<String, dynamic> json, DateTime fallbackDate) {
     final date = DateTime.tryParse(json['date'] as String? ?? '');
-    final meals = <IntakeTypeEntity, List<PlannedItem>>{};
+    final meals = <String, List<PlannedItem>>{};
     final rawMeals = json['meals'];
     if (rawMeals is Map) {
-      for (final type in IntakeTypeEntity.values) {
-        final raw = rawMeals[type.name];
-        if (raw is List) {
-          meals[type] = raw
+      for (final e in rawMeals.entries) {
+        final raw = e.value;
+        if (e.key is String && (e.key as String).isNotEmpty && raw is List) {
+          meals[e.key as String] = raw
               .map(PlannedItem.fromJson)
               .whereType<PlannedItem>()
               .toList();
@@ -128,9 +141,8 @@ class DayPlan {
       meals: meals,
       logged: {
         if (rawLogged is List)
-          for (final name in rawLogged)
-            for (final t in IntakeTypeEntity.values)
-              if (t.name == name) t,
+          for (final id in rawLogged)
+            if (id is String && id.isNotEmpty) id,
       },
     );
   }

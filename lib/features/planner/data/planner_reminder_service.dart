@@ -3,6 +3,7 @@ import 'package:logging/logging.dart';
 import 'package:opennutritracker/core/domain/entity/intake_type_entity.dart';
 import 'package:opennutritracker/core/utils/notification_service.dart';
 import 'package:opennutritracker/features/planner/domain/entity/planner_entities.dart';
+import 'package:opennutritracker/features/points/domain/entity/meal_slot.dart';
 import 'package:timezone/timezone.dart' as tz;
 
 /// Localised texts for the planner notifications, resolved by the caller
@@ -18,7 +19,7 @@ class PlannerReminderTexts {
   final String Function(String dishes) prepareBody;
   final String logTitle;
   final String logBody;
-  final String Function(IntakeTypeEntity meal) mealName;
+  final String Function(MealSlot meal) mealName;
 
   const PlannerReminderTexts({
     required this.channelName,
@@ -42,10 +43,12 @@ class PlannerReminderService {
   static const _planWeekId = 100;
   static const _shoppingId = 101;
   static const _prepareBase = 110; // + day offset 0..6
-  static const _logBase = 120; // + day * 4 + meal index, up to 147
+  static const _logBase = 120; // + day * 11 + meal index, up to 196
+  static const _maxMealsPerDay = 11;
   static const _lastId = 199;
 
-  /// When each meal is usually eaten, for the "log what you planned" nudge.
+  /// When each built-in meal is usually eaten, for the "log what you
+  /// planned" nudge.
   static const mealTimes = {
     IntakeTypeEntity.breakfast: (hour: 9, minute: 0),
     IntakeTypeEntity.lunch: (hour: 14, minute: 30),
@@ -60,14 +63,31 @@ class PlannerReminderService {
 
   PlannerReminderService(this._notifications);
 
+  /// Cancels every planner notification (travel mode pauses them).
+  Future<void> cancelAll() async {
+    try {
+      await _notifications.initialize();
+      for (var id = _planWeekId; id <= _lastId; id++) {
+        await _plugin.cancel(id: id);
+      }
+    } catch (e) {
+      _log.warning('Could not cancel planner reminders: $e');
+    }
+  }
+
   /// Cancels every planner notification and schedules the ones [settings]
   /// asks for. [upcoming] are the plans for today and the next six days.
   Future<void> reschedule({
     required PlannerReminderSettings settings,
     required List<DayPlan> upcoming,
     required PlannerReminderTexts texts,
+    List<MealSlot>? slots,
     DateTime? now,
   }) async {
+    final meals = (slots == null || slots.isEmpty ? MealSlot.builtIn() : slots)
+        .take(_maxMealsPerDay)
+        .toList();
+    final times = timesFor(meals);
     try {
       await _notifications.initialize();
       for (var id = _planWeekId; id <= _lastId; id++) {
@@ -150,11 +170,13 @@ class PlannerReminderService {
           }
         }
         if (logAfter != null) {
-          for (final type in IntakeTypeEntity.values) {
-            if (plan.itemsFor(type).isEmpty || plan.logged.contains(type)) {
+          for (var m = 0; m < meals.length; m++) {
+            final meal = meals[m];
+            if (plan.itemsFor(meal.id).isEmpty ||
+                plan.logged.contains(meal.id)) {
               continue;
             }
-            final time = mealTimes[type]!;
+            final time = times[m];
             final at = tz.TZDateTime(
               tz.local,
               plan.date.year,
@@ -165,8 +187,8 @@ class PlannerReminderService {
             ).add(Duration(minutes: logAfter));
             if (!at.isAfter(current)) continue;
             await _plugin.zonedSchedule(
-              id: _logBase + day * 4 + type.index,
-              title: '${texts.logTitle} · ${texts.mealName(type)}',
+              id: _logBase + day * _maxMealsPerDay + m,
+              title: '${texts.logTitle} · ${texts.mealName(meal)}',
               body: texts.logBody,
               scheduledDate: at,
               notificationDetails: details,
@@ -179,6 +201,41 @@ class PlannerReminderService {
       // A reminder that cannot be scheduled must never break the planner.
       _log.warning('Could not schedule planner reminders: $e');
     }
+  }
+
+  /// When each of [meals] is usually eaten: a built-in meal at its usual
+  /// time, a meal the user added spread evenly between the meals around it
+  /// (from 07:00 before the first to 23:00 after the last).
+  static List<({int hour, int minute})> timesFor(List<MealSlot> meals) {
+    final known = <int?>[
+      for (final meal in meals)
+        meal.isBuiltIn
+            ? mealTimes[meal.baseType]!.hour * 60 +
+                  mealTimes[meal.baseType]!.minute
+            : null,
+    ];
+    final minutes = <int>[];
+    for (var i = 0; i < meals.length; i++) {
+      final k = known[i];
+      if (k != null) {
+        minutes.add(k);
+        continue;
+      }
+      var before = i - 1;
+      while (before >= 0 && known[before] == null) {
+        before--;
+      }
+      var after = i + 1;
+      while (after < meals.length && known[after] == null) {
+        after++;
+      }
+      final from = before >= 0 ? known[before]! : 7 * 60;
+      final to = after < meals.length ? known[after]! : 23 * 60;
+      final steps = after - before;
+      final at = from + ((to - from) * (i - before) / steps).round();
+      minutes.add(at.clamp(0, 23 * 60 + 59));
+    }
+    return [for (final m in minutes) (hour: m ~/ 60, minute: m % 60)];
   }
 
   /// The next [weekday] (1 = Monday) at [hour]:[minute] strictly after

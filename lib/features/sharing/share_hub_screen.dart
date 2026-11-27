@@ -11,6 +11,7 @@ import 'package:opennutritracker/features/points/data/points_settings_data_sourc
 import 'package:opennutritracker/features/sharing/eatpoint_export.dart';
 import 'package:opennutritracker/features/sync/presentation/household_screen.dart';
 import 'package:opennutritracker/generated/l10n.dart';
+import 'package:opennutritracker/features/menu_import/presentation/menu_import_screen.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -69,6 +70,17 @@ class ShareHubScreen extends StatelessWidget {
               leading: const Icon(Icons.file_download_outlined),
               title: Text(s.shareImportData),
               onTap: () => _import(context),
+            ),
+          ),
+          Semantics(
+            identifier: 'share-hub-import-menu',
+            child: ListTile(
+              leading: const Icon(Icons.restaurant_menu_rounded),
+              title: Text(s.menuImportTitle),
+              subtitle: Text(s.menuImportEntrySubtitle),
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const MenuImportScreen()),
+              ),
             ),
           ),
         ],

@@ -15,6 +15,8 @@ import 'package:opennutritracker/features/sync/data/household_store.dart';
 import 'package:opennutritracker/features/sync/domain/household.dart';
 import 'package:opennutritracker/features/sync/domain/household_auto_sync.dart';
 import 'package:opennutritracker/generated/l10n.dart';
+import 'package:opennutritracker/features/travel/data/travel_mode_store.dart';
+import 'package:opennutritracker/features/travel/presentation/travel_mode_banner.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -390,7 +392,19 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
           label: Text(s.shoppingAddItem),
         ),
       ),
-      body: total == 0
+      body: Column(
+        children: [
+          if (TravelModeGate.plannerPaused) const TravelModeBanner(),
+          Expanded(child: _body(context, total, children)),
+        ],
+      ),
+    );
+  }
+
+  Widget _body(BuildContext context, int total, List<Widget> children) {
+    final s = S.of(context);
+    final theme = Theme.of(context);
+    return total == 0
           ? Center(
               child: Padding(
                 padding: const EdgeInsets.all(Dimens.spacing32),
@@ -408,8 +422,7 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
                 padding: const EdgeInsets.only(bottom: 96),
                 children: children,
               ),
-            ),
-    );
+            );
   }
 
   Widget _row(ShoppingItem item, ThemeData theme) {

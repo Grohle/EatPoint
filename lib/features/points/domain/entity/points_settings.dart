@@ -1,6 +1,7 @@
 import 'package:opennutritracker/core/domain/entity/intake_type_entity.dart';
 import 'package:opennutritracker/core/utils/calc/points_budget_calc.dart';
 import 'package:opennutritracker/core/utils/calc/points_calc.dart';
+import 'package:opennutritracker/features/points/domain/entity/meal_slot.dart';
 
 /// Everything the user can set about the points system, for one profile.
 ///
@@ -33,6 +34,10 @@ class PointsSettings {
   /// [PointsBudgetCalc.defaultMealSplit].
   final Map<IntakeTypeEntity, MacroPoints>? mealSplit;
 
+  /// The meals of the user's day, in order. Null means the four built-in
+  /// meals with [effectiveMealSplit] as their shares.
+  final List<MealSlot>? mealSlots;
+
   /// A daily budget the user typed in themselves. When set it replaces the
   /// suggested budget.
   final MacroPoints? dailyBudgetOverride;
@@ -40,6 +45,11 @@ class PointsSettings {
   /// The user has seen and acknowledged that the suggested budget is a
   /// guide only.
   final bool budgetGuideAcknowledged;
+
+  /// When a meal goes over its budget on a macro, take the excess off the
+  /// meals still ahead that day. Applies to what is logged, never to the
+  /// planned menu.
+  final bool rebalanceOverspend;
 
   const PointsSettings({
     this.pointsModeEnabled = true,
@@ -52,14 +62,23 @@ class PointsSettings {
     this.waistCm,
     this.hipCm,
     this.mealSplit,
+    this.mealSlots,
     this.dailyBudgetOverride,
     this.budgetGuideAcknowledged = false,
+    this.rebalanceOverspend = true,
   });
 
   static const defaults = PointsSettings();
 
   Map<IntakeTypeEntity, MacroPoints> get effectiveMealSplit =>
       mealSplit ?? PointsBudgetCalc.defaultMealSplit;
+
+  /// The meals of the day: the user's own list, or the four built-in ones.
+  List<MealSlot> get effectiveMealSlots {
+    final slots = mealSlots;
+    if (slots != null && slots.isNotEmpty) return slots;
+    return MealSlot.builtIn(effectiveMealSplit);
+  }
 
   PointsSettings copyWith({
     bool? pointsModeEnabled,
@@ -72,8 +91,10 @@ class PointsSettings {
     double? Function()? waistCm,
     double? Function()? hipCm,
     Map<IntakeTypeEntity, MacroPoints>? Function()? mealSplit,
+    List<MealSlot>? Function()? mealSlots,
     MacroPoints? Function()? dailyBudgetOverride,
     bool? budgetGuideAcknowledged,
+    bool? rebalanceOverspend,
   }) => PointsSettings(
     pointsModeEnabled: pointsModeEnabled ?? this.pointsModeEnabled,
     budgetMethod: budgetMethod ?? this.budgetMethod,
@@ -90,11 +111,13 @@ class PointsSettings {
     waistCm: waistCm != null ? waistCm() : this.waistCm,
     hipCm: hipCm != null ? hipCm() : this.hipCm,
     mealSplit: mealSplit != null ? mealSplit() : this.mealSplit,
+    mealSlots: mealSlots != null ? mealSlots() : this.mealSlots,
     dailyBudgetOverride: dailyBudgetOverride != null
         ? dailyBudgetOverride()
         : this.dailyBudgetOverride,
     budgetGuideAcknowledged:
         budgetGuideAcknowledged ?? this.budgetGuideAcknowledged,
+    rebalanceOverspend: rebalanceOverspend ?? this.rebalanceOverspend,
   );
 
   Map<String, dynamic> toJson() => {
@@ -112,9 +135,12 @@ class PointsSettings {
         for (final e in mealSplit!.entries)
           e.key.name: _macroPointsToJson(e.value),
       },
+    if (mealSlots != null)
+      'mealSlots': [for (final slot in mealSlots!) slot.toJson()],
     if (dailyBudgetOverride != null)
       'dailyBudgetOverride': _macroPointsToJson(dailyBudgetOverride!),
     'budgetGuideAcknowledged': budgetGuideAcknowledged,
+    'rebalanceOverspend': rebalanceOverspend,
   };
 
   /// Reads settings written by [toJson]. Unknown or malformed values fall
@@ -131,6 +157,17 @@ class PointsSettings {
       }
       if (split.length != IntakeTypeEntity.values.length) split = null;
     }
+    List<MealSlot>? slots;
+    final rawSlots = json['mealSlots'];
+    if (rawSlots is List) {
+      final ids = <String>{};
+      slots = [
+        for (final raw in rawSlots)
+          if (MealSlot.fromJson(raw) case final slot? when ids.add(slot.id))
+            slot,
+      ];
+      if (slots.isEmpty) slots = null;
+    }
     return PointsSettings(
       pointsModeEnabled: _toBool(json['pointsModeEnabled']) ?? true,
       budgetMethod: PointsBudgetMethod.values.firstWhere(
@@ -146,9 +183,11 @@ class PointsSettings {
       waistCm: _toDouble(json['waistCm']),
       hipCm: _toDouble(json['hipCm']),
       mealSplit: split,
+      mealSlots: slots,
       dailyBudgetOverride: _macroPointsFromJson(json['dailyBudgetOverride']),
       budgetGuideAcknowledged:
           _toBool(json['budgetGuideAcknowledged']) ?? false,
+      rebalanceOverspend: _toBool(json['rebalanceOverspend']) ?? true,
     );
   }
 

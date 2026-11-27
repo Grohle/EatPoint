@@ -5,6 +5,7 @@ import 'package:opennutritracker/core/utils/locator.dart';
 import 'package:opennutritracker/features/planner/data/planner_data_source.dart';
 import 'package:opennutritracker/features/sync/data/household_store.dart';
 import 'package:opennutritracker/features/sync/domain/household_sync_service.dart';
+import 'package:opennutritracker/features/travel/data/travel_mode_store.dart';
 
 /// Keeps a shared household in step while a screen that shows shared data
 /// (the weekly menu, the shopping list) is open: syncs when it opens, every
@@ -27,6 +28,7 @@ class HouseholdAutoSync {
   HouseholdAutoSync._();
 
   bool get _available =>
+      !TravelModeGate.householdSyncPaused &&
       locator.isRegistered<HouseholdSyncService>() &&
       locator.isRegistered<HouseholdStore>() &&
       locator<HouseholdStore>().getHousehold() != null;

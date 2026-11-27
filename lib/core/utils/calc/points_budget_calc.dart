@@ -234,7 +234,14 @@ class PointsBudgetCalc {
   static Map<IntakeTypeEntity, MacroPoints> mealBudgets(
     MacroPoints daily, {
     Map<IntakeTypeEntity, MacroPoints> split = defaultMealSplit,
-  }) {
+  }) => distribute(daily, split);
+
+  /// Splits [daily] across any set of meals keyed by [K], weighted by
+  /// [split], the same way as [mealBudgets].
+  static Map<K, MacroPoints> distribute<K>(
+    MacroPoints daily,
+    Map<K, MacroPoints> split,
+  ) {
     final meals = split.keys.toList();
     final carbs = _distribute(
       daily.carbs,

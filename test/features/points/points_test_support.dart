@@ -15,6 +15,7 @@ import 'package:opennutritracker/features/points/domain/entity/points_settings.d
 import 'package:opennutritracker/features/points/domain/usecase/get_meal_points_usage_usecase.dart';
 import 'package:opennutritracker/features/points/domain/usecase/get_points_budget_usecase.dart';
 import 'package:opennutritracker/generated/l10n.dart';
+import 'package:opennutritracker/features/points/domain/entity/meal_slot.dart';
 
 import '../../fixture/user_entity_fixtures.dart';
 import '../../helpers/fake_hive_db_provider.dart';
@@ -77,6 +78,7 @@ class FakeGetPointsBudgetUsecase extends Fake
       settings,
     );
     final daily = settings.dailyBudgetOverride ?? suggestion.rounded;
+    final slots = settings.effectiveMealSlots;
     return PointsBudgetResult(
       suggestion: suggestion,
       daily: daily,
@@ -84,6 +86,8 @@ class FakeGetPointsBudgetUsecase extends Fake
         daily,
         split: settings.effectiveMealSplit,
       ),
+      slots: slots,
+      perSlot: slots.budgets(daily),
       isOverridden: settings.dailyBudgetOverride != null,
       settings: settings,
     );
@@ -98,6 +102,12 @@ class FakeGetMealPointsUsageUsecase extends Fake
 
   @override
   Future<MacroPoints> usedIn(IntakeTypeEntity type, DateTime day) async => used;
+
+  @override
+  Future<Map<String, MacroPoints>> usedPerSlot(
+    DateTime day,
+    List<MealSlot> slots,
+  ) async => {for (final slot in slots) slot.id: used};
 }
 
 /// Registers the locator entries the points widgets read and returns the

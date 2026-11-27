@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:opennutritracker/core/data/repository/user_repository.dart';
-import 'package:opennutritracker/core/domain/entity/intake_type_entity.dart';
 import 'package:opennutritracker/core/domain/entity/user_entity.dart';
 import 'package:opennutritracker/core/styles/dimens.dart';
 import 'package:opennutritracker/core/utils/calc/points_budget_calc.dart';
@@ -11,6 +10,8 @@ import 'package:opennutritracker/features/points/data/points_settings_data_sourc
 import 'package:opennutritracker/features/points/domain/entity/points_settings.dart';
 import 'package:opennutritracker/features/points/domain/usecase/get_points_budget_usecase.dart';
 import 'package:opennutritracker/features/points/presentation/meal_type_label.dart';
+import 'package:opennutritracker/features/points/presentation/meal_slots_screen.dart';
+import 'package:opennutritracker/features/points/domain/entity/meal_slot.dart';
 import 'package:opennutritracker/features/points/presentation/points_format.dart';
 import 'package:opennutritracker/generated/l10n.dart';
 
@@ -163,7 +164,12 @@ class _PointsSettingsScreenState extends State<PointsSettingsScreen> {
   Future<void> _save() async {
     final draft = _draft;
     if (draft == null) return;
-    await _source.saveSettings(_readFields(draft));
+    // The meals are edited on their own screen and saved there; keep
+    // whatever it stored rather than the copy this screen loaded.
+    final stored = await _source.getSettings();
+    await _source.saveSettings(
+      _readFields(draft).copyWith(mealSlots: () => stored.mealSlots),
+    );
     if (mounted) Navigator.of(context).pop();
   }
 
@@ -261,6 +267,17 @@ class _PointsSettingsScreenState extends State<PointsSettingsScreen> {
                     ),
                   ),
                 _mealSplit(context, draft),
+                Semantics(
+                  identifier: 'points-rebalance-overspend',
+                  child: SwitchListTile(
+                    title: Text(s.pointsRebalanceTitle),
+                    subtitle: Text(s.pointsRebalanceHelp),
+                    value: draft.rebalanceOverspend,
+                    onChanged: (v) => _update(
+                      (d) => d.copyWith(rebalanceOverspend: v),
+                    ),
+                  ),
+                ),
                 const Divider(),
                 _SectionTitle(s.pointsMethodTitle),
                 RadioGroup<PointsBudgetMethod>(
@@ -428,29 +445,50 @@ class _PointsSettingsScreenState extends State<PointsSettingsScreen> {
     final format = PointsFormat.of(context);
     final daily = draft.dailyBudgetOverride ?? _suggestion?.rounded;
     if (daily == null) return const SizedBox.shrink();
-    final perMeal = PointsBudgetCalc.mealBudgets(
-      daily,
-      split: draft.effectiveMealSplit,
-    );
+    final slots = draft.effectiveMealSlots;
+    final perSlot = slots.budgets(daily);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         _SectionTitle(s.pointsMealSplitTitle),
-        for (final type in IntakeTypeEntity.values)
-          if (perMeal[type] != null)
+        for (final slot in slots)
+          if (perSlot[slot.id] case final budget?)
             ListTile(
               dense: true,
-              leading: Icon(type.getIconData()),
-              title: Text(mealTypeLabel(context, type)),
+              leading: Icon(mealSlotIcon(slot)),
+              title: Text(mealSlotLabel(context, slot)),
               trailing: Text(
-                '${format.points(perMeal[type]!.carbs)} / '
-                '${format.points(perMeal[type]!.protein)} / '
-                '${format.points(perMeal[type]!.fat)}',
+                '${format.points(budget.carbs)} / '
+                '${format.points(budget.protein)} / '
+                '${format.points(budget.fat)}',
                 style: Theme.of(
                   context,
                 ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
               ),
             ),
+        Semantics(
+          identifier: 'points-settings-edit-meals',
+          child: ListTile(
+            leading: const Icon(Icons.tune_rounded),
+            title: Text(s.mealSlotsEditButton),
+            subtitle: Text(s.mealSlotsEditSubtitle),
+            trailing: const Icon(Icons.chevron_right_rounded),
+            onTap: () async {
+              await Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const MealSlotsScreen()),
+              );
+              final stored = await _source.getSettings();
+              if (!mounted) return;
+              final current = _draft;
+              if (current == null) return;
+              setState(
+                () => _draft = current.copyWith(
+                  mealSlots: () => stored.mealSlots,
+                ),
+              );
+            },
+          ),
+        ),
       ],
     );
   }

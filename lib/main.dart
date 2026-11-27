@@ -55,6 +55,7 @@ import 'package:opennutritracker/features/settings/presentation/widgets/accent_c
 import 'package:opennutritracker/features/settings/presentation/widgets/health_sync_screen.dart';
 import 'package:opennutritracker/features/settings/settings_screen.dart';
 import 'package:opennutritracker/generated/l10n.dart';
+import 'package:opennutritracker/features/points/data/meal_slot_assignments.dart';
 import 'package:provider/provider.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
@@ -359,6 +360,10 @@ class _OpenNutriTrackerAppState extends State<OpenNutriTrackerApp>
     );
   }
 
+  // EatPoint: forgets the meal being added to once the user leaves the
+  // add-food flow.
+  final _mealSlotRouteObserver = MealSlotRouteObserver();
+
   Widget _buildMaterialApp(
     BuildContext context,
     AppPalette lightPalette,
@@ -381,6 +386,7 @@ class _OpenNutriTrackerAppState extends State<OpenNutriTrackerApp>
       // Above the Navigator, so dialogs and sheets are covered too.
       builder: (context, child) =>
           KeyboardDismisser(child: child ?? const SizedBox.shrink()),
+      navigatorObservers: [_mealSlotRouteObserver],
       initialRoute: NavigationOptions.splashRoute,
       routes: {
         NavigationOptions.splashRoute: (context) =>

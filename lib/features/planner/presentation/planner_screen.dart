@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:opennutritracker/core/domain/entity/intake_type_entity.dart';
 import 'package:opennutritracker/core/styles/app_palette.dart';
 import 'package:opennutritracker/core/styles/dimens.dart';
 import 'package:opennutritracker/core/utils/calc/points_calc.dart';
@@ -9,6 +8,7 @@ import 'package:opennutritracker/features/diary/presentation/bloc/calendar_day_b
 import 'package:opennutritracker/features/diary/presentation/bloc/diary_bloc.dart';
 import 'package:opennutritracker/features/home/presentation/bloc/home_bloc.dart';
 import 'package:opennutritracker/features/meal_detail/presentation/bloc/meal_detail_bloc.dart';
+import 'package:opennutritracker/features/menu_import/presentation/menu_import_screen.dart';
 import 'package:opennutritracker/features/planner/data/planner_data_source.dart';
 import 'package:opennutritracker/features/planner/data/planner_reminder_service.dart';
 import 'package:opennutritracker/features/planner/domain/entity/planner_entities.dart';
@@ -16,12 +16,17 @@ import 'package:opennutritracker/features/planner/domain/shopping_list_builder.d
 import 'package:opennutritracker/features/planner/presentation/dish_picker_screen.dart';
 import 'package:opennutritracker/features/planner/presentation/planner_reminders_screen.dart';
 import 'package:opennutritracker/features/planner/presentation/shopping_list_screen.dart';
+import 'package:opennutritracker/features/planner/presentation/planner_calendar_screen.dart';
+import 'package:opennutritracker/features/points/data/meal_slot_assignments.dart';
+import 'package:opennutritracker/features/points/domain/entity/meal_slot.dart';
 import 'package:opennutritracker/features/points/domain/usecase/get_points_budget_usecase.dart';
 import 'package:opennutritracker/features/points/presentation/meal_type_label.dart';
 import 'package:opennutritracker/features/points/presentation/points_format.dart';
 import 'package:opennutritracker/features/sync/data/household_store.dart';
 import 'package:opennutritracker/features/sync/domain/household.dart';
 import 'package:opennutritracker/features/sync/domain/household_auto_sync.dart';
+import 'package:opennutritracker/features/travel/data/travel_mode_store.dart';
+import 'package:opennutritracker/features/travel/presentation/travel_mode_banner.dart';
 import 'package:opennutritracker/core/utils/id_generator.dart';
 import 'package:opennutritracker/generated/l10n.dart';
 import 'package:share_plus/share_plus.dart';
@@ -38,7 +43,14 @@ class PlannerScreen extends StatefulWidget {
   State<PlannerScreen> createState() => _PlannerScreenState();
 }
 
-enum _DayAction { copyPreviousWeek, copyDayTo, clearDay, shareWeek, reminders }
+enum _DayAction {
+  importMenu,
+  copyPreviousWeek,
+  copyDayTo,
+  clearDay,
+  shareWeek,
+  reminders,
+}
 
 class _PlannerScreenState extends State<PlannerScreen> {
   final _source = locator<PlannerDataSource>();
@@ -47,7 +59,28 @@ class _PlannerScreenState extends State<PlannerScreen> {
   );
   List<DayPlan> _week = const [];
   PointsBudgetResult? _budget;
-  final Set<IntakeTypeEntity> _logging = {};
+  final Set<String> _logging = {};
+
+  /// The user's meals, in the order of a day.
+  List<MealSlot> get _slots => _budget?.slots.isNotEmpty == true
+      ? _budget!.slots
+      : MealSlot.builtIn();
+
+  /// The user's meals plus, for the selected day, any meal planned earlier
+  /// that the user has since removed, so its food stays visible.
+  List<MealSlot> _slotsFor(DayPlan day) => [
+    ..._slots,
+    for (final id in day.meals.keys)
+      if (_slots.byId(id) == null && day.itemsFor(id).isNotEmpty)
+        MealSlot(
+          id: id,
+          baseType: MealSlot.dayOrder
+                  .where((t) => t.name == id)
+                  .firstOrNull ??
+              MealSlot.dayOrder.last,
+          share: MacroPoints.zero,
+        ),
+  ];
 
   DateTime get _weekStart => DayPlan.weekStart(_selected);
 
@@ -86,13 +119,13 @@ class _PlannerScreenState extends State<PlannerScreen> {
     });
   }
 
-  Future<void> _copyToMine(IntakeTypeEntity type, PlannedItem item) async {
+  Future<void> _copyToMine(MealSlot slot, PlannedItem item) async {
     final messenger = ScaffoldMessenger.of(context);
     final copied = S.of(context).plannerCopied;
     final day = _day;
     await _save(
-      day.withMeal(type, [
-        ...day.itemsFor(type),
+      day.withMeal(slot.id, [
+        ...day.itemsFor(slot.id),
         PlannedItem(
           id: IdGenerator.getUniqueID(),
           meal: item.meal,
@@ -122,6 +155,7 @@ class _PlannerScreenState extends State<PlannerScreen> {
   }
 
   Future<void> _rescheduleReminders() async {
+    if (TravelModeGate.remindersPaused) return;
     final settings = _source.getReminders();
     if (settings.planWeek == null &&
         settings.shopping == null &&
@@ -133,6 +167,7 @@ class _PlannerScreenState extends State<PlannerScreen> {
     final today = DayPlan.dateOnly(DateTime.now());
     await locator<PlannerReminderService>().reschedule(
       settings: settings,
+      slots: _slots,
       upcoming: [
         for (var i = 0; i < 7; i++)
           _source.getDay(today.add(Duration(days: i))),
@@ -141,61 +176,77 @@ class _PlannerScreenState extends State<PlannerScreen> {
     );
   }
 
+  Future<void> _openCalendar() async {
+    final picked = await Navigator.of(context).push<DateTime>(
+      MaterialPageRoute(
+        builder: (_) => PlannerCalendarScreen(initialDay: _selected),
+      ),
+    );
+    if (picked == null || !mounted) return;
+    setState(() => _selected = DayPlan.dateOnly(picked));
+    _reload();
+  }
+
   void _moveWeek(int weeks) {
     setState(() => _selected = _selected.add(Duration(days: 7 * weeks)));
     _reload();
   }
 
-  Future<void> _addDish(IntakeTypeEntity type) async {
-    final budget = _budget?.perMeal[type];
-    final remaining = budget == null ? null : budget - _day.pointsFor(type);
+  Future<void> _addDish(MealSlot slot) async {
+    final budget = _budget?.perSlot[slot.id];
+    final remaining = budget == null
+        ? null
+        : budget - _day.pointsFor(slot.id);
     final item = await Navigator.of(context).push<PlannedItem>(
       MaterialPageRoute(
         builder: (_) => DishPickerScreen(
           day: _selected,
-          mealType: type,
+          mealType: slot.baseType,
           remaining: remaining,
         ),
       ),
     );
     if (item == null) return;
     final day = _day;
-    await _save(day.withMeal(type, [...day.itemsFor(type), item]));
+    await _save(day.withMeal(slot.id, [...day.itemsFor(slot.id), item]));
   }
 
-  Future<void> _removeItem(IntakeTypeEntity type, PlannedItem item) async {
+  Future<void> _removeItem(MealSlot slot, PlannedItem item) async {
     final day = _day;
     await _save(
       day.withMeal(
-        type,
-        day.itemsFor(type).where((i) => i.id != item.id).toList(),
+        slot.id,
+        day.itemsFor(slot.id).where((i) => i.id != item.id).toList(),
       ),
     );
   }
 
-  /// Logs every food planned for [type] on the selected day, the same way
-  /// the amount sheet logs one.
-  Future<void> _logMeal(IntakeTypeEntity type) async {
+  /// Logs every food planned for [slot] on the selected day, the same way
+  /// the amount sheet logs one, into that meal of the diary.
+  Future<void> _logMeal(MealSlot slot) async {
     final day = _day;
-    final items = day.itemsFor(type);
-    if (items.isEmpty || _logging.contains(type)) return;
-    setState(() => _logging.add(type));
+    final items = day.itemsFor(slot.id);
+    if (items.isEmpty || _logging.contains(slot.id)) return;
+    setState(() => _logging.add(slot.id));
     final bloc = locator<MealDetailBloc>();
     final messenger = ScaffoldMessenger.of(context);
     final s = S.of(context);
-    final mealName = mealTypeLabel(context, type);
+    final mealName = mealSlotLabel(context, slot);
     try {
-      for (final item in items) {
-        await bloc.addIntake(
-          context,
-          item.unit,
-          item.amount.toString(),
-          type,
-          item.meal,
-          day.date,
-        );
-      }
-      await _save(day.withLogged(type, true));
+      await MealSlotContext.run(slot, () async {
+        for (final item in items) {
+          if (!mounted) return;
+          await bloc.addIntake(
+            context,
+            item.unit,
+            item.amount.toString(),
+            slot.baseType,
+            item.meal,
+            day.date,
+          );
+        }
+      });
+      await _save(day.withLogged(slot.id, true));
       locator<HomeBloc>().add(const LoadItemsEvent());
       locator<DiaryBloc>().add(const LoadDiaryYearEvent());
       locator<CalendarDayBloc>().add(const RefreshCalendarDayEvent());
@@ -204,7 +255,7 @@ class _PlannerScreenState extends State<PlannerScreen> {
       );
     } finally {
       await bloc.close();
-      if (mounted) setState(() => _logging.remove(type));
+      if (mounted) setState(() => _logging.remove(slot.id));
     }
   }
 
@@ -212,6 +263,18 @@ class _PlannerScreenState extends State<PlannerScreen> {
     final s = S.of(context);
     final messenger = ScaffoldMessenger.of(context);
     switch (action) {
+      case _DayAction.importMenu:
+        final days = await Navigator.of(context).push<int>(
+          MaterialPageRoute(
+            builder: (_) => MenuImportScreen(initialWeek: _selected),
+          ),
+        );
+        if (days != null && days > 0) {
+          await _rescheduleReminders();
+          messenger.showSnackBar(
+            SnackBar(content: Text(s.menuImportDone(days.toString()))),
+          );
+        }
       case _DayAction.copyPreviousWeek:
         final copied = await _source.copyPreviousWeek(_weekStart);
         await _rescheduleReminders();
@@ -248,12 +311,12 @@ class _PlannerScreenState extends State<PlannerScreen> {
       if (day.isEmpty) continue;
       buffer.writeln();
       buffer.writeln(DateFormat.MMMMEEEEd(locale).format(day.date));
-      for (final type in IntakeTypeEntity.values) {
-        final items = day.itemsFor(type);
+      for (final slot in _slotsFor(day)) {
+        final items = day.itemsFor(slot.id);
         if (items.isEmpty) continue;
         buffer.writeln(
-          '  ${mealTypeLabel(context, type)} · '
-          '${format.points(day.pointsFor(type).total)} ${s.pointsShort}',
+          '  ${_slotName(context, slot)} · '
+          '${format.points(day.pointsFor(slot.id).total)} ${s.pointsShort}',
         );
         for (final item in items) {
           buffer.writeln(
@@ -339,6 +402,14 @@ class _PlannerScreenState extends State<PlannerScreen> {
         ),
         actions: [
           Semantics(
+            identifier: 'planner-calendar',
+            child: IconButton(
+              tooltip: s.plannerCalendarTitle,
+              onPressed: _openCalendar,
+              icon: const Icon(Icons.calendar_month_rounded),
+            ),
+          ),
+          Semantics(
             identifier: 'planner-previous-week',
             child: IconButton(
               tooltip: s.plannerPreviousWeek,
@@ -359,6 +430,10 @@ class _PlannerScreenState extends State<PlannerScreen> {
             child: PopupMenuButton<_DayAction>(
               onSelected: _onAction,
               itemBuilder: (context) => [
+                PopupMenuItem(
+                  value: _DayAction.importMenu,
+                  child: Text(s.menuImportTitle),
+                ),
                 PopupMenuItem(
                   value: _DayAction.copyPreviousWeek,
                   child: Text(s.plannerCopyPreviousWeek),
@@ -388,6 +463,7 @@ class _PlannerScreenState extends State<PlannerScreen> {
       ),
       body: Column(
         children: [
+          if (TravelModeGate.plannerPaused) const TravelModeBanner(),
           _dayStrip(context),
           Expanded(
             child: ListView(
@@ -433,13 +509,8 @@ class _PlannerScreenState extends State<PlannerScreen> {
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ),
-                for (final type in const [
-                  IntakeTypeEntity.breakfast,
-                  IntakeTypeEntity.lunch,
-                  IntakeTypeEntity.snack,
-                  IntakeTypeEntity.dinner,
-                ])
-                  _mealCard(context, day, type),
+                for (final slot in _slotsFor(day))
+                  _mealCard(context, day, slot),
               ],
             ),
           ),
@@ -497,11 +568,7 @@ class _PlannerScreenState extends State<PlannerScreen> {
                 final date = _weekStart.add(Duration(days: i));
                 final plan = _week.length > i ? _week[i] : DayPlan.empty(date);
                 final selected = date == _selected;
-                final allLogged =
-                    !plan.isEmpty &&
-                    plan.meals.entries
-                        .where((e) => e.value.isNotEmpty)
-                        .every((e) => plan.logged.contains(e.key));
+                final allLogged = plan.fullyLogged;
                 return Expanded(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 2),
@@ -516,7 +583,7 @@ class _PlannerScreenState extends State<PlannerScreen> {
                             ? scheme.primary
                             : plan.isEmpty
                             ? scheme.surfaceContainerHighest
-                            : scheme.primaryContainer,
+                            : scheme.primary.withValues(alpha: 0.14),
                         borderRadius: Dimens.borderRadiusM,
                         child: InkWell(
                           borderRadius: Dimens.borderRadiusM,
@@ -576,16 +643,22 @@ class _PlannerScreenState extends State<PlannerScreen> {
     );
   }
 
-  Widget _mealCard(BuildContext context, DayPlan day, IntakeTypeEntity type) {
+  /// A meal's name; a meal the user has since removed shows as "Other".
+  String _slotName(BuildContext context, MealSlot slot) =>
+      _slots.byId(slot.id) != null || slot.id == slot.baseType.name
+      ? mealSlotLabel(context, slot)
+      : S.of(context).plannerOtherMeal;
+
+  Widget _mealCard(BuildContext context, DayPlan day, MealSlot slot) {
     final s = S.of(context);
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
     final palette = isDark ? AppPalette.dark : AppPalette.light;
     final format = PointsFormat.of(context);
-    final items = day.itemsFor(type);
-    final points = day.pointsFor(type);
-    final mealBudget = _budget?.perMeal[type];
-    final logged = day.logged.contains(type);
+    final items = day.itemsFor(slot.id);
+    final points = day.pointsFor(slot.id);
+    final mealBudget = _budget?.perSlot[slot.id];
+    final logged = day.logged.contains(slot.id);
     final over = mealBudget != null && points.total > mealBudget.total + 0.001;
     return Card(
       margin: const EdgeInsets.only(bottom: Dimens.spacing12),
@@ -601,11 +674,11 @@ class _PlannerScreenState extends State<PlannerScreen> {
           children: [
             Row(
               children: [
-                Icon(type.getIconData(), size: 20),
+                Icon(mealSlotIcon(slot), size: 20),
                 const SizedBox(width: Dimens.spacing8),
                 Expanded(
                   child: Text(
-                    mealTypeLabel(context, type),
+                    _slotName(context, slot),
                     style: theme.textTheme.titleSmall,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -630,12 +703,12 @@ class _PlannerScreenState extends State<PlannerScreen> {
                   )
                 else if (items.isNotEmpty)
                   Semantics(
-                    identifier: 'planner-log-${type.name}',
+                    identifier: 'planner-log-${slot.id}',
                     child: OutlinedButton(
-                      onPressed: _logging.contains(type)
+                      onPressed: _logging.contains(slot.id)
                           ? null
-                          : () => _logMeal(type),
-                      child: _logging.contains(type)
+                          : () => _logMeal(slot),
+                      child: _logging.contains(slot.id)
                           ? const SizedBox(
                               width: 16,
                               height: 16,
@@ -685,13 +758,13 @@ class _PlannerScreenState extends State<PlannerScreen> {
                     : IconButton(
                         tooltip: s.plannerRemoveItem,
                         icon: const Icon(Icons.close_rounded),
-                        onPressed: () => _removeItem(type, item),
+                        onPressed: () => _removeItem(slot, item),
                       ),
               ),
             if (_viewBoth)
               for (final member in _others)
                 for (final other
-                    in member.dayFor(day.date)?.itemsFor(type) ??
+                    in member.dayFor(day.date)?.itemsFor(slot.id) ??
                         const <PlannedItem>[])
                   ListTile(
                     contentPadding: EdgeInsets.zero,
@@ -732,16 +805,16 @@ class _PlannerScreenState extends State<PlannerScreen> {
                         : IconButton(
                             tooltip: s.plannerCopyToMine,
                             icon: const Icon(Icons.content_copy_rounded),
-                            onPressed: () => _copyToMine(type, other),
+                            onPressed: () => _copyToMine(slot, other),
                           ),
                   ),
             if (!logged)
               Align(
                 alignment: Alignment.centerLeft,
                 child: Semantics(
-                  identifier: 'planner-add-${type.name}',
+                  identifier: 'planner-add-${slot.id}',
                   child: TextButton.icon(
-                    onPressed: () => _addDish(type),
+                    onPressed: () => _addDish(slot),
                     icon: const Icon(Icons.add_rounded),
                     label: Text(s.plannerAddDish),
                   ),

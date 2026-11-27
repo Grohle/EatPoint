@@ -45,7 +45,14 @@ PlannedItem plannedItem(
   unit: unit,
 );
 
-DayPlan dayPlan(
-  DateTime date,
-  Map<IntakeTypeEntity, List<PlannedItem>> meals,
-) => DayPlan(date: DateTime(date.year, date.month, date.day), meals: meals);
+/// A day plan; [meals] may be keyed by meal id or by meal type.
+DayPlan dayPlan(DateTime date, Map<Object, List<PlannedItem>> meals) => DayPlan(
+  date: DateTime(date.year, date.month, date.day),
+  meals: {
+    for (final e in meals.entries)
+      (e.key is IntakeTypeEntity
+              ? (e.key as IntakeTypeEntity).name
+              : e.key as String):
+          e.value,
+  },
+);

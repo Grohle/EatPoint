@@ -10,10 +10,15 @@ class IntakeRepository {
 
   IntakeRepository(this._intakeDataSource);
 
+  /// Told about every intake added through [addIntake]. EatPoint uses it to
+  /// remember which of the user's meals the food was logged in.
+  static void Function(IntakeEntity intake)? onIntakeAdded;
+
   Future<void> addIntake(IntakeEntity intakeEntity) async {
     final intakeDBO = IntakeDBO.fromIntakeEntity(intakeEntity);
 
     await _intakeDataSource.addIntake(intakeDBO);
+    onIntakeAdded?.call(intakeEntity);
   }
 
   Future<void> upsertAllIntakeDBOs(List<IntakeDBO> intakeDBOs) async {

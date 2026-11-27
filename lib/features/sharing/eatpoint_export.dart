@@ -17,7 +17,8 @@ class EatPointExport {
       key == 'household' ||
       key.startsWith('household:') ||
       key == 'mcp:config' ||
-      key == 'mcp:proposals';
+      key == 'mcp:proposals' ||
+      key == 'travel';
 
   final HiveDBProvider _db;
 

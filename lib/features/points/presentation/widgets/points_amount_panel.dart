@@ -8,7 +8,10 @@ import 'package:opennutritracker/core/utils/calc/points_calc.dart';
 import 'package:opennutritracker/core/utils/locator.dart';
 import 'package:opennutritracker/features/add_meal/domain/entity/meal_entity.dart';
 import 'package:opennutritracker/features/meal_detail/presentation/bloc/meal_detail_bloc.dart';
+import 'package:opennutritracker/features/points/data/meal_slot_assignments.dart';
+import 'package:opennutritracker/features/points/domain/entity/meal_slot.dart';
 import 'package:opennutritracker/features/points/domain/points_extensions.dart';
+import 'package:opennutritracker/features/points/domain/usecase/get_day_meal_budgets_usecase.dart';
 import 'package:opennutritracker/features/points/domain/usecase/get_meal_points_usage_usecase.dart';
 import 'package:opennutritracker/features/points/domain/usecase/get_points_budget_usecase.dart';
 import 'package:opennutritracker/features/points/presentation/meal_type_label.dart';
@@ -62,6 +65,14 @@ class _PointsAmountPanelState extends State<PointsAmountPanel> {
   MacroPoints? _mealBudget;
   MacroPoints _mealUsed = MacroPoints.zero;
 
+  /// The meal the strip compares against; null when it shows the whole day
+  /// (travel mode's daily budget only).
+  MealSlot? _mealSlot;
+
+  /// How many points this meal's budget lost to an earlier meal's
+  /// overspend, when it did.
+  double? _mealAdjustedBy;
+
   double? get _per100 => widget.product.pointsPer100;
 
   @override
@@ -91,15 +102,33 @@ class _PointsAmountPanelState extends State<PointsAmountPanel> {
 
   Future<void> _loadMealContext() async {
     try {
-      final budget = await locator<GetPointsBudgetUsecase>().getBudget();
-      final used = await locator<GetMealPointsUsageUsecase>().usedIn(
-        widget.intakeType,
-        widget.day,
-      );
+      final day = await GetDayMealBudgetsUsecase(
+        locator<GetPointsBudgetUsecase>(),
+        locator<GetMealPointsUsageUsecase>(),
+      ).forDay(widget.day);
+      // The meal the food is being added to: the one picked on Home or in
+      // the Diary, else the first meal of this type.
+      final pending = MealSlotContext.pending;
+      final slot =
+          (pending != null && pending.type == widget.intakeType
+              ? day.slots.byId(pending.slotId)
+              : null) ??
+          day.slots.defaultFor(widget.intakeType);
       if (!mounted) return;
       setState(() {
-        _mealBudget = budget.perMeal[widget.intakeType];
-        _mealUsed = used;
+        if (day.dailyOnly || slot == null) {
+          _mealSlot = null;
+          _mealBudget = day.daily;
+          _mealUsed = day.usedTotal;
+          _mealAdjustedBy = null;
+        } else {
+          _mealSlot = slot;
+          _mealBudget = day.effective[slot.id];
+          _mealUsed = day.used[slot.id] ?? MacroPoints.zero;
+          _mealAdjustedBy = day.isAdjusted(slot.id)
+              ? day.base[slot.id]!.total - day.effective[slot.id]!.total
+              : null;
+        }
       });
     } catch (_) {
       // The strip is a guide; without a profile there is nothing to show.
@@ -324,11 +353,23 @@ class _PointsAmountPanelState extends State<PointsAmountPanel> {
         if (_mealBudget != null) ...[
           const SizedBox(height: Dimens.spacing12),
           MealFitStrip(
-            mealName: mealTypeLabel(context, widget.intakeType),
+            mealName: _mealSlot == null
+                ? s.pointsDayTitle
+                : mealSlotLabel(context, _mealSlot!),
             budget: _mealBudget!,
             used: _mealUsed,
             serving: serving,
           ),
+          if (_mealAdjustedBy case final lost?)
+            Padding(
+              padding: const EdgeInsets.only(top: Dimens.spacing4),
+              child: Text(
+                s.pointsMealAdjustedNote(_format.points(lost)),
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
+              ),
+            ),
         ],
       ],
     );
