@@ -151,4 +151,17 @@ extension MealSlotList on List<MealSlot> {
   /// quarter points so the meals add up exactly to [daily].
   Map<String, MacroPoints> budgets(MacroPoints daily) =>
       PointsBudgetCalc.distribute(daily, {for (final s in this) s.id: s.share});
+
+  /// Each meal's share of the day's minimum [fibrePoints], in quarter
+  /// points. Fibre follows the meals' carb shares, where most of it is.
+  Map<String, double> fibreTargets(double fibrePoints) => {
+    for (final e in PointsBudgetCalc.distribute(
+      MacroPoints(carbs: fibrePoints, protein: 0, fat: 0),
+      {
+        for (final s in this)
+          s.id: MacroPoints(carbs: s.share.carbs, protein: 0, fat: 0),
+      },
+    ).entries)
+      e.key: e.value.carbs,
+  };
 }

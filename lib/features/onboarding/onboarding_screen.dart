@@ -25,6 +25,9 @@ import 'package:opennutritracker/features/onboarding/presentation/widgets/onboar
 import 'package:opennutritracker/features/onboarding/presentation/widgets/highlight_button.dart';
 import 'package:opennutritracker/features/onboarding/presentation/widgets/onboarding_about_you_page_body.dart';
 import 'package:opennutritracker/features/onboarding/presentation/widgets/onboarding_body_measurements_page_body.dart';
+import 'package:opennutritracker/features/diet_profile/data/diet_profile_store.dart';
+import 'package:opennutritracker/features/diet_profile/domain/diet_profile.dart';
+import 'package:opennutritracker/features/diet_profile/presentation/onboarding_diet_page.dart';
 import 'package:opennutritracker/generated/l10n.dart';
 import 'package:opennutritracker/features/points/data/points_settings_data_source.dart';
 import 'package:opennutritracker/features/points/presentation/onboarding_points_page.dart';
@@ -42,6 +45,8 @@ enum _OnboardingPage {
   goal,
   // EatPoint: points budget and meals of the day.
   points,
+  // EatPoint: allergies, intolerances and diet.
+  diet,
   otherOptions,
   overview,
 }
@@ -58,6 +63,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final bool _pointsStepEnabled =
       locator.isRegistered<PointsSettingsDataSource>();
   OnboardingPointsChoice _pointsChoice = const OnboardingPointsChoice();
+
+  /// EatPoint: the diet chosen on the "Your diet" step.
+  DietProfile _dietProfile = DietProfile.empty;
 
   late OnboardingBloc _onboardingBloc;
   final _introKey = GlobalKey<IntroductionScreenState>();
@@ -286,13 +294,23 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             heightCm: selection.height,
             weightKg: selection.weight,
             targetWeightKg: selection.targetWeight,
+            initialBuildMuscle: _pointsChoice.buildMuscle,
+            onBodyGoalChanged: (goal) {
+              // EatPoint: the muscle goals keep their own pace and protein.
+              selection.weeklyWeightGoalKg = goal.buildsMuscle
+                  ? goal.defaultWeeklyPaceKg
+                  : null;
+              _pointsChoice = _pointsChoice.copyWith(
+                buildMuscle: goal.buildsMuscle,
+              );
+            },
           ),
           footer: HighlightButton(
             buttonLabel: S.of(context).buttonNextLabel,
             onButtonPressed: () => _scrollToPage(
               _pointsStepEnabled
                   ? _OnboardingPage.points
-                  : _OnboardingPage.otherOptions,
+                  : _OnboardingPage.diet,
             ),
             buttonActive: _goalPageButtonActive,
             inactiveMessage: S.of(context).onboardingBlockedGoalSnack,
@@ -307,6 +325,21 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             user: selection.toUserEntity(),
             initialChoice: _pointsChoice,
             onChanged: (choice) => _pointsChoice = choice,
+          ),
+          footer: HighlightButton(
+            buttonLabel: S.of(context).buttonNextLabel,
+            onButtonPressed: () => _scrollToPage(_OnboardingPage.diet),
+            buttonActive: true,
+          ),
+        ),
+        PageViewModel(
+          titleWidget: const SizedBox(),
+          // empty
+          decoration: _pageDecoration,
+          image: _defaultImageWidget,
+          bodyWidget: OnboardingDietPageBody(
+            initialProfile: _dietProfile,
+            onChanged: (profile) => _dietProfile = profile,
           ),
           footer: HighlightButton(
             buttonLabel: S.of(context).buttonNextLabel,
@@ -537,6 +570,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       if (!context.mounted) return;
       if (_pointsStepEnabled) {
         await _pointsChoice.save(context);
+        if (!context.mounted) return;
+      }
+      if (!_dietProfile.isEmpty && locator.isRegistered<DietProfileStore>()) {
+        await locator<DietProfileStore>().save(_dietProfile);
         if (!context.mounted) return;
       }
       // Onboarding can run for a profile added after the app has been in

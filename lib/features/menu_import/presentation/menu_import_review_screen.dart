@@ -12,6 +12,7 @@ import 'package:opennutritracker/features/points/domain/entity/meal_slot.dart';
 import 'package:opennutritracker/features/points/domain/usecase/get_points_budget_usecase.dart';
 import 'package:opennutritracker/features/points/presentation/meal_type_label.dart';
 import 'package:opennutritracker/features/points/presentation/points_format.dart';
+import 'package:opennutritracker/features/diet_profile/presentation/diet_warning.dart';
 import 'package:opennutritracker/generated/l10n.dart';
 
 /// Shows what was read from an imported menu, matched to foods and with
@@ -38,7 +39,11 @@ class MenuImportReviewScreen extends StatefulWidget {
 }
 
 class _MenuImportReviewScreenState extends State<MenuImportReviewScreen> {
-  late final MenuFoodMatcher _matcher = widget.matcher ?? MenuFoodMatcher();
+  late final MenuFoodMatcher _matcher =
+      widget.matcher ??
+      MenuFoodMatcher(
+        languageCode: Localizations.localeOf(context).languageCode,
+      );
   final Map<ImportedFood, MatchedFood> _matches = {};
   int _matched = 0;
   bool _matching = true;
@@ -61,10 +66,16 @@ class _MenuImportReviewScreenState extends State<MenuImportReviewScreen> {
     return usesWeekdays ? DayPlan.weekStart(base) : DayPlan.dateOnly(base);
   }
 
+  bool _started = false;
+
   @override
-  void initState() {
-    super.initState();
-    _load();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // The matcher names foods in the user's language, read from context.
+    if (!_started) {
+      _started = true;
+      _load();
+    }
   }
 
   Future<void> _load() async {
@@ -396,31 +407,40 @@ class _MenuImportReviewScreenState extends State<MenuImportReviewScreen> {
             children: [
               Icon(mealSlotIcon(meal.slot), size: 18),
               const SizedBox(width: Dimens.spacing8),
-              PopupMenuButton<MealSlot>(
-                tooltip: s.menuImportChangeMeal,
-                onSelected: (slot) => setState(() {
-                  _slotEdits[key] = slot;
-                  _rebuild();
-                }),
-                itemBuilder: (context) => [
-                  for (final slot in widget.slots)
-                    PopupMenuItem(
-                      value: slot,
-                      child: Text(mealSlotLabel(context, slot)),
+              // The meal's name gives way to the points on narrow screens.
+              Expanded(
+                child: Align(
+                  alignment: AlignmentDirectional.centerStart,
+                  child: PopupMenuButton<MealSlot>(
+                    tooltip: s.menuImportChangeMeal,
+                    onSelected: (slot) => setState(() {
+                      _slotEdits[key] = slot;
+                      _rebuild();
+                    }),
+                    itemBuilder: (context) => [
+                      for (final slot in widget.slots)
+                        PopupMenuItem(
+                          value: slot,
+                          child: Text(mealSlotLabel(context, slot)),
+                        ),
+                    ],
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Flexible(
+                          child: Text(
+                            mealSlotLabel(context, meal.slot),
+                            style: theme.textTheme.titleSmall,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        const Icon(Icons.arrow_drop_down_rounded),
+                      ],
                     ),
-                ],
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      mealSlotLabel(context, meal.slot),
-                      style: theme.textTheme.titleSmall,
-                    ),
-                    const Icon(Icons.arrow_drop_down_rounded),
-                  ],
+                  ),
                 ),
               ),
-              const Spacer(),
               Text(
                 budget == null
                     ? '${format.points(meal.points.total)} ${s.pointsShort}'
@@ -507,10 +527,24 @@ class _MenuImportReviewScreenState extends State<MenuImportReviewScreen> {
         ),
       ),
       minLeadingWidth: 20,
-      title: Text(
-        food.meal?.name ?? food.source.name,
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
+      title: Row(
+        children: [
+          Flexible(
+            child: Text(
+              food.meal?.name ?? food.source.name,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          // What clashes with the user's diet, as a tooltip.
+          Padding(
+            padding: const EdgeInsets.only(left: Dimens.spacing4),
+            child: DietBadge(
+              food.meal?.name ?? food.source.name,
+              code: food.meal?.code,
+            ),
+          ),
+        ],
       ),
       subtitle: Text(
         [

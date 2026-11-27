@@ -6,11 +6,9 @@ import 'package:opennutritracker/core/domain/entity/user_bmi_entity.dart';
 import 'package:opennutritracker/core/domain/entity/user_entity.dart';
 import 'package:opennutritracker/core/domain/entity/user_gender_entity.dart';
 import 'package:opennutritracker/core/domain/entity/user_pal_entity.dart';
-import 'package:opennutritracker/core/domain/entity/user_weight_goal_entity.dart';
 import 'package:opennutritracker/core/domain/entity/weight_log_entity.dart';
 import 'package:opennutritracker/core/domain/usecase/add_weight_log_usecase.dart';
 import 'package:opennutritracker/core/domain/usecase/get_user_usecase.dart';
-import 'package:opennutritracker/core/presentation/widgets/app_card.dart';
 import 'package:opennutritracker/core/presentation/widgets/section_group.dart';
 import 'package:opennutritracker/core/presentation/widgets/calories_profile_info_dialog.dart';
 import 'package:opennutritracker/core/styles/app_palette.dart';
@@ -19,12 +17,15 @@ import 'package:opennutritracker/core/utils/bounds/validator.dart';
 import 'package:opennutritracker/core/utils/calc/unit_calc.dart';
 import 'package:opennutritracker/core/utils/locator.dart';
 import 'package:opennutritracker/core/utils/navigation_options.dart';
+import 'package:opennutritracker/features/goals/domain/body_goal.dart';
+import 'package:opennutritracker/features/goals/presentation/body_goal_dialog.dart';
+import 'package:opennutritracker/features/goals/presentation/body_goal_text.dart';
+import 'package:opennutritracker/features/profile/domain/weekly_pace_for_goal.dart';
 import 'package:opennutritracker/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:opennutritracker/features/profile/presentation/utils/profile_display_format.dart';
 import 'package:opennutritracker/features/profile/presentation/widgets/bmi_overview.dart';
 import 'package:opennutritracker/features/profile/presentation/widgets/profile_switcher_header.dart';
 import 'package:opennutritracker/features/profile/presentation/widgets/set_gender_dialog.dart';
-import 'package:opennutritracker/features/profile/presentation/widgets/set_goal_dialog.dart';
 import 'package:opennutritracker/features/profile/presentation/widgets/set_height_dialog.dart';
 import 'package:opennutritracker/features/profile/presentation/widgets/set_weekly_weight_goal_dialog.dart';
 import 'package:opennutritracker/features/profile/presentation/widgets/set_pal_category_dialog.dart';
@@ -32,8 +33,12 @@ import 'package:opennutritracker/features/profile/presentation/widgets/set_targe
 import 'package:opennutritracker/features/profile/presentation/widgets/set_weight_dialog.dart';
 import 'package:opennutritracker/features/home/presentation/bloc/home_bloc.dart';
 import 'package:opennutritracker/features/settings/presentation/bloc/settings_bloc.dart';
-import 'package:opennutritracker/features/settings/settings_screen.dart';
 import 'package:opennutritracker/features/settings/presentation/widgets/water_goal_dialog.dart';
+import 'package:opennutritracker/features/points/data/points_settings_data_source.dart';
+import 'package:opennutritracker/features/points/presentation/meal_slots_screen.dart';
+import 'package:opennutritracker/features/points/presentation/points_settings_screen.dart';
+import 'package:opennutritracker/features/travel/presentation/travel_mode_screen.dart';
+import 'package:opennutritracker/features/diet_profile/presentation/diet_profile_screen.dart';
 import 'package:opennutritracker/generated/l10n.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -52,11 +57,34 @@ class _ProfilePageState extends State<ProfilePage> {
 
   late ProfileBloc _profileBloc;
 
+  /// EatPoint: whether the goal includes building muscle, from the points
+  /// settings, and the user it was read for (re-read after a profile
+  /// switch).
+  bool _buildMuscle = false;
+  UserEntity? _buildMuscleReadFor;
+
   @override
   void initState() {
     _profileBloc = locator<ProfileBloc>();
     super.initState();
   }
+
+  void _readBuildMuscle(UserEntity user) {
+    if (identical(_buildMuscleReadFor, user)) return;
+    _buildMuscleReadFor = user;
+    if (!locator.isRegistered<PointsSettingsDataSource>()) return;
+    locator<PointsSettingsDataSource>().getSettings().then((settings) {
+      if (mounted && settings.buildMuscle != _buildMuscle) {
+        setState(() => _buildMuscle = settings.buildMuscle);
+      }
+    });
+  }
+
+  BodyGoal _bodyGoalOf(UserEntity user) => BodyGoal.of(
+    user.goal,
+    buildMuscle: _buildMuscle,
+    weeklyPaceKg: user.weeklyWeightGoalKg,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -98,6 +126,7 @@ class _ProfilePageState extends State<ProfilePage> {
     int effectiveWaterGoalMl,
     bool usesImperialFoodUnits,
   ) {
+    _readBuildMuscle(user);
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final palette = isDark ? AppPalette.dark : AppPalette.light;
     return ListView(
@@ -115,6 +144,73 @@ class _ProfilePageState extends State<ProfilePage> {
           nutritionalStatus: userBMIEntity.nutritionalStatus,
         ),
         const SizedBox(height: Dimens.spacing32),
+        // EatPoint: settings get their own panel above the goal, each entry
+        // opening its own screen.
+        SectionHeader(label: S.of(context).settingsLabel, palette: palette),
+        const SizedBox(height: Dimens.spacing12),
+        SectionGroup(
+          palette: palette,
+          tiles: [
+            _ProfileTile(
+              identifier: 'profile-settings',
+              palette: palette,
+              icon: Icons.settings_rounded,
+              title: S.of(context).profileAppSettingsLabel,
+              subtitle: S.of(context).profileAppSettingsSubtitle,
+              showChevron: true,
+              onTap: () => Navigator.of(
+                context,
+              ).pushNamed(NavigationOptions.settingsRoute),
+            ),
+            if (locator.isRegistered<PointsSettingsDataSource>()) ...[
+              _ProfileTile(
+                identifier: 'profile-points',
+                palette: palette,
+                icon: Icons.donut_large_rounded,
+                title: S.of(context).pointsSettingsTitle,
+                subtitle: S.of(context).pointsSettingsSubtitle,
+                showChevron: true,
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const PointsSettingsScreen()),
+                ),
+              ),
+              _ProfileTile(
+                identifier: 'profile-meals',
+                palette: palette,
+                icon: Icons.restaurant_menu_rounded,
+                title: S.of(context).mealSlotsTitle,
+                subtitle: S.of(context).mealSlotsEditSubtitle,
+                showChevron: true,
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const MealSlotsScreen()),
+                ),
+              ),
+              _ProfileTile(
+                identifier: 'profile-diet',
+                palette: palette,
+                icon: Icons.no_food_outlined,
+                title: S.of(context).dietTitle,
+                subtitle: S.of(context).dietSubtitle,
+                showChevron: true,
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const DietProfileScreen()),
+                ),
+              ),
+              _ProfileTile(
+                identifier: 'profile-travel',
+                palette: palette,
+                icon: Icons.flight_takeoff_rounded,
+                title: S.of(context).travelTitle,
+                subtitle: S.of(context).travelSettingsSubtitle,
+                showChevron: true,
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const TravelModeScreen()),
+                ),
+              ),
+            ],
+          ],
+        ),
+        const SizedBox(height: Dimens.spacing24),
         SectionHeader(label: S.of(context).goalLabel, palette: palette),
         const SizedBox(height: Dimens.spacing12),
         SectionGroup(
@@ -133,7 +229,7 @@ class _ProfilePageState extends State<ProfilePage> {
               palette: palette,
               icon: Icons.flag_rounded,
               title: S.of(context).goalLabel,
-              subtitle: user.goal.getName(context),
+              subtitle: _bodyGoalOf(user).name(context),
               onTap: () => _showSetGoalDialog(context, user),
             ),
             _ProfileTile(
@@ -343,32 +439,6 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           ],
         ),
-        const SizedBox(height: Dimens.spacing24),
-        // The full settings surface lives inline so You is the single home for
-        // identity, goals and app preferences — but collapsed by default so the
-        // tab stays scannable. Reuses SettingsScreen unchanged; the pushed route
-        // still works for any other caller.
-        AppCard(
-          padding: EdgeInsets.zero,
-          child: Theme(
-            data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-            child: ExpansionTile(
-              shape: const Border(),
-              collapsedShape: const Border(),
-              tilePadding: const EdgeInsets.symmetric(
-                horizontal: Dimens.spacing16,
-                vertical: Dimens.spacing4,
-              ),
-              leading: Icon(Icons.settings_rounded, color: palette.textMuted),
-              title: Text(
-                S.of(context).settingsLabel,
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-              childrenPadding: const EdgeInsets.only(bottom: Dimens.spacing8),
-              children: const [SettingsScreen(embedded: true)],
-            ),
-          ),
-        ),
       ],
     );
   }
@@ -441,13 +511,40 @@ class _ProfilePageState extends State<ProfilePage> {
     BuildContext context,
     UserEntity userEntity,
   ) async {
-    final selectedGoal = await showDialog<UserWeightGoalEntity>(
+    // EatPoint: six goals (three of them with muscle), each explained.
+    final previous = _bodyGoalOf(userEntity);
+    final selected = await showDialog<BodyGoal>(
       context: context,
-      builder: (BuildContext context) => const SetWeightGoalDialog(),
+      builder: (BuildContext context) => BodyGoalDialog(current: previous),
     );
-    if (selectedGoal != null) {
-      userEntity.goal = selectedGoal;
-      _profileBloc.updateUser(userEntity);
+    if (selected == null) return;
+    userEntity.goal = selected.weightGoal;
+    // A pace pointing the other way would win over the goal, and the
+    // muscle goals differ from the others in their pace.
+    final oldPace = userEntity.weeklyWeightGoalKg;
+    final newPace = WeeklyPaceForGoal.adjustBodyGoal(
+      previous,
+      selected,
+      oldPace,
+    );
+    userEntity.weeklyWeightGoalKg = newPace;
+    if (locator.isRegistered<PointsSettingsDataSource>()) {
+      final source = locator<PointsSettingsDataSource>();
+      final settings = await source.getSettings();
+      await source.saveSettings(
+        settings.copyWith(buildMuscle: selected.buildsMuscle),
+      );
+    }
+    if (mounted) setState(() => _buildMuscle = selected.buildsMuscle);
+    await _profileBloc.updateUser(userEntity);
+    if (newPace != oldPace && newPace != null && context.mounted) {
+      final pace = newPace == 0
+          ? S.of(context).goalMaintainWeight
+          : '${newPace > 0 ? '+' : ''}'
+                '${newPace.toStringAsFixed(2)} kg';
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(S.of(context).goalPaceSetTo(pace))),
+      );
     }
   }
 

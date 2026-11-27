@@ -3367,5 +3367,1144 @@
   "pointsMealLoweredTooltip": "Lowered to make up for an earlier meal",
   "@pointsMealLoweredTooltip": {
     "description": "Tooltip of the arrow next to a meal whose budget was lowered"
+  },
+  "pointsFibreLabel": "Fibre",
+  "@pointsFibreLabel": {
+    "description": "Label of fibre points"
+  },
+  "pointsFibreOfMin": "{used} / {target} min",
+  "@pointsFibreOfMin": {
+    "description": "Fibre points logged against the minimum",
+    "placeholders": {
+      "used": {
+        "type": "String"
+      },
+      "target": {
+        "type": "String"
+      }
+    }
+  },
+  "pointsFibreTargetLabel": "Minimum fibre a day (g)",
+  "@pointsFibreTargetLabel": {
+    "description": "Field for the daily fibre minimum in grams"
+  },
+  "pointsFibreTargetHelper": "1 fibre point = 5 g. 25 g (5 points) is a common minimum for adults.",
+  "@pointsFibreTargetHelper": {
+    "description": "Helper of the fibre minimum field"
+  },
+  "plannerDayFibre": "Fibre {planned} of {target} pts min",
+  "@plannerDayFibre": {
+    "description": "Fibre planned for the day",
+    "placeholders": {
+      "planned": {
+        "type": "String"
+      },
+      "target": {
+        "type": "String"
+      }
+    }
+  },
+  "insightCardTitle": "{count} suggestions for this week",
+  "@insightCardTitle": {
+    "description": "Card in the weekly menu",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "insightCardAllGood": "Your week looks well balanced",
+  "@insightCardAllGood": {
+    "description": "Card when there is nothing to suggest"
+  },
+  "insightSheetTitle": "Suggestions for your week",
+  "@insightSheetTitle": {
+    "description": "Title of the suggestions sheet"
+  },
+  "insightGuideOnly": "General healthy-eating guides, not medical advice. If you have a condition, follow a special diet or think you may be short of a nutrient, ask a health professional.",
+  "@insightGuideOnly": {
+    "description": "Disclaimer under the suggestions"
+  },
+  "insightNeedMoreDays": "Plan at least {days} days to get suggestions for your week.",
+  "@insightNeedMoreDays": {
+    "description": "Shown when too few days are planned",
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "insightFibreLowTitle": "Add some fibre",
+  "@insightFibreLowTitle": {
+    "description": "Insight title"
+  },
+  "insightFibreLowBody": "Your days average {avg} of {target} fibre points. Vegetables, fruit with its skin, pulses, wholegrain bread and oats are easy ways to get there.",
+  "@insightFibreLowBody": {
+    "description": "Insight body",
+    "placeholders": {
+      "avg": {
+        "type": "String"
+      },
+      "target": {
+        "type": "String"
+      }
+    }
+  },
+  "insightFibreGoodTitle": "Fibre on track",
+  "@insightFibreGoodTitle": {
+    "description": "Insight title"
+  },
+  "insightFibreGoodBody": "{avg} fibre points a day on average.",
+  "@insightFibreGoodBody": {
+    "description": "Insight body",
+    "placeholders": {
+      "avg": {
+        "type": "String"
+      }
+    }
+  },
+  "insightOilyFishTitle": "Oily fish for omega-3",
+  "@insightOilyFishTitle": {
+    "description": "Insight title"
+  },
+  "insightOilyFishBody": "There's no oily fish this week ({fish} fish meals in total). Salmon, sardines, mackerel or tuna once or twice a week give you the omega-3 fats EPA and DHA.",
+  "@insightOilyFishBody": {
+    "description": "Insight body",
+    "placeholders": {
+      "fish": {
+        "type": "String"
+      }
+    }
+  },
+  "insightOilyFishGoodTitle": "Good on fish",
+  "@insightOilyFishGoodTitle": {
+    "description": "Insight title"
+  },
+  "insightOilyFishGoodBody": "{fish} fish meals this week, including oily fish.",
+  "@insightOilyFishGoodBody": {
+    "description": "Insight body",
+    "placeholders": {
+      "fish": {
+        "type": "String"
+      }
+    }
+  },
+  "insightPlantOmega3Title": "Plant omega-3",
+  "@insightPlantOmega3Title": {
+    "description": "Insight title"
+  },
+  "insightPlantOmega3Body": "Without fish, walnuts, chia or ground flaxseed add the plant omega-3 ALA. The body turns little of it into EPA and DHA, so ask a professional if you never eat fish.",
+  "@insightPlantOmega3Body": {
+    "description": "Insight body"
+  },
+  "insightB12Title": "No vitamin B12 source",
+  "@insightB12Title": {
+    "description": "Insight title"
+  },
+  "insightB12Body": "Nothing this week has vitamin B12, which comes from meat, fish, eggs and dairy. On a plant-based diet you need fortified foods or a supplement: ask a health professional.",
+  "@insightB12Body": {
+    "description": "Insight body"
+  },
+  "insightLegumesTitle": "More pulses",
+  "@insightLegumesTitle": {
+    "description": "Insight title"
+  },
+  "insightLegumesBody": "{count} meals with pulses this week. Lentils, chickpeas or beans two to four times a week add protein, fibre and iron.",
+  "@insightLegumesBody": {
+    "description": "Insight body",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "insightLegumesGoodTitle": "Pulses on the menu",
+  "@insightLegumesGoodTitle": {
+    "description": "Insight title"
+  },
+  "insightLegumesGoodBody": "{count} meals with pulses this week.",
+  "@insightLegumesGoodBody": {
+    "description": "Insight body",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "insightFruitVegTitle": "More fruit and vegetables",
+  "@insightFruitVegTitle": {
+    "description": "Insight title"
+  },
+  "insightFruitVegBody": "About {grams} g a day ({servings} servings). Aim for around 400 g, five servings: a piece of fruit and some vegetables with each main meal.",
+  "@insightFruitVegBody": {
+    "description": "Insight body",
+    "placeholders": {
+      "grams": {
+        "type": "String"
+      },
+      "servings": {
+        "type": "String"
+      }
+    }
+  },
+  "insightFruitVegGoodTitle": "Plenty of fruit and vegetables",
+  "@insightFruitVegGoodTitle": {
+    "description": "Insight title"
+  },
+  "insightFruitVegGoodBody": "About {grams} g a day.",
+  "@insightFruitVegGoodBody": {
+    "description": "Insight body",
+    "placeholders": {
+      "grams": {
+        "type": "String"
+      }
+    }
+  },
+  "insightWholegrainTitle": "Choose wholegrain",
+  "@insightWholegrainTitle": {
+    "description": "Insight title"
+  },
+  "insightWholegrainBody": "{whole} of {total} servings of bread, pasta, rice or cereals are wholegrain. The wholegrain version has more fibre for the same points.",
+  "@insightWholegrainBody": {
+    "description": "Insight body",
+    "placeholders": {
+      "whole": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "insightVarietyTitle": "A bit more variety",
+  "@insightVarietyTitle": {
+    "description": "Insight title"
+  },
+  "insightVarietyBody": "{food} is on the menu {days} days. Swapping it now and then for something similar gives you a wider range of nutrients.",
+  "@insightVarietyBody": {
+    "description": "Insight body",
+    "placeholders": {
+      "food": {
+        "type": "String"
+      },
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "insightProcessedMeatTitle": "Less processed meat",
+  "@insightProcessedMeatTitle": {
+    "description": "Insight title"
+  },
+  "insightProcessedMeatBody": "{count} servings of ham, sausages or cured meats this week. Fresh meat, fish, eggs or pulses are good swaps.",
+  "@insightProcessedMeatBody": {
+    "description": "Insight body",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "insightSweetsTitle": "Fewer sweets",
+  "@insightSweetsTitle": {
+    "description": "Insight title"
+  },
+  "insightSweetsBody": "{count} sweet foods this week. Fruit, yogurt or a few nuts can take their place now and then.",
+  "@insightSweetsBody": {
+    "description": "Insight body",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "insightCalciumTitle": "Calcium",
+  "@insightCalciumTitle": {
+    "description": "Insight title"
+  },
+  "insightCalciumBody": "Few calcium-rich foods. Milk, yogurt, cheese, tofu, sardines with their bones, almonds or broccoli help; about two to three a day.",
+  "@insightCalciumBody": {
+    "description": "Insight body"
+  },
+  "profileAppSettingsLabel": "App settings",
+  "@profileAppSettingsLabel": {
+    "description": "Profile tab tile opening the settings screen"
+  },
+  "profileAppSettingsSubtitle": "Units, language, theme, data and more",
+  "@profileAppSettingsSubtitle": {
+    "description": "Subtitle of the app settings tile"
+  },
+  "profileWeeklyPaceFollowsGoal": "Weekly pace adjusted to match your new goal. You can change it below.",
+  "@profileWeeklyPaceFollowsGoal": {
+    "description": "Snackbar after the goal changed and the pace was adjusted"
+  },
+  "goalBuildMuscle": "Build muscle",
+  "@goalBuildMuscle": {
+    "description": "Body goal: build muscle with a small surplus"
+  },
+  "goalGainWeightAndMuscle": "Gain weight and muscle",
+  "@goalGainWeightAndMuscle": {
+    "description": "Body goal"
+  },
+  "goalLoseWeightBuildMuscle": "Lose weight and build muscle",
+  "@goalLoseWeightBuildMuscle": {
+    "description": "Body goal: recomposition"
+  },
+  "goalLoseWeightDescription": "A deficit of about 550 kcal a day: around half a kilo a week.",
+  "@goalLoseWeightDescription": {
+    "description": "Goal explanation"
+  },
+  "goalLoseWeightBuildMuscleDescription": "A gentle deficit (about 275 kcal a day) with high protein, to lose fat while keeping and building muscle. Best with strength training.",
+  "@goalLoseWeightBuildMuscleDescription": {
+    "description": "Goal explanation"
+  },
+  "goalMaintainWeightDescription": "Eat what you burn, to keep your weight steady.",
+  "@goalMaintainWeightDescription": {
+    "description": "Goal explanation"
+  },
+  "goalBuildMuscleDescription": "A small surplus (about 275 kcal a day) with high protein, to build muscle with little fat. Best with strength training.",
+  "@goalBuildMuscleDescription": {
+    "description": "Goal explanation"
+  },
+  "goalGainWeightAndMuscleDescription": "A larger surplus (about 550 kcal a day) with high protein, to gain weight faster while building muscle.",
+  "@goalGainWeightAndMuscleDescription": {
+    "description": "Goal explanation"
+  },
+  "goalGainWeightDescription": "A surplus of about 550 kcal a day: around half a kilo a week.",
+  "@goalGainWeightDescription": {
+    "description": "Goal explanation"
+  },
+  "goalProteinNote": "Muscle goals raise protein to at least {leanMass} g per kg of lean mass ({bodyWeight} g per kg of body weight with the calorie-goal method).",
+  "@goalProteinNote": {
+    "description": "Note in the goal dialog",
+    "placeholders": {
+      "leanMass": {
+        "type": "String"
+      },
+      "bodyWeight": {
+        "type": "String"
+      }
+    }
+  },
+  "goalPaceSetTo": "Weekly pace set to {pace} for this goal. You can change it below.",
+  "@goalPaceSetTo": {
+    "description": "Snackbar after choosing a goal",
+    "placeholders": {
+      "pace": {
+        "type": "String"
+      }
+    }
+  },
+  "budgetInfoTooltip": "How it works",
+  "@budgetInfoTooltip": {
+    "description": "Tooltip of the info buttons"
+  },
+  "budgetInfoPointsTitle": "Points or calories",
+  "@budgetInfoPointsTitle": {
+    "description": "Info sheet title"
+  },
+  "budgetInfoPointsBody": "With points, every food counts as points of carbohydrate, protein and fat: one point is 100 kcal of that macro. You get a daily budget of each, split across your meals, and the app turns points into grams for your scale. It is a way to balance a meal at a glance, not only its calories.\n\nTurn points off to see the classic view with calories and macro grams. Your diary, menus and goals stay the same; only how they are shown changes.",
+  "@budgetInfoPointsBody": {
+    "description": "Info sheet body"
+  },
+  "budgetInfoLeanMassTitle": "Lean mass, protein first",
+  "@budgetInfoLeanMassTitle": {
+    "description": "Info sheet title"
+  },
+  "budgetInfoLeanMassBody": "1. Lean mass: your weight minus your body fat. Fat is estimated from your BMI and age, or from your tape measurements (neck, waist, hip) if you enter them, which is more accurate.\n2. Resting energy with the Cunningham equation (370 + 21.6 × lean mass in kg), times your activity level.\n3. Your goal adjusts it: for example 75 % to lose weight, 105 % to build muscle, 110 % to gain weight.\n4. Protein is fixed first: 1.5 g per kg of lean mass (at least 2.2 g, or 2.4 g in a deficit, with a muscle goal).\n5. The calories left are split between carbs (65 %) and fat (35 %).\n\nBest when you train or care about body composition: protein follows your muscle, not your total weight.",
+  "@budgetInfoLeanMassBody": {
+    "description": "Info sheet body"
+  },
+  "budgetInfoCaloriesTitle": "Calorie goal",
+  "@budgetInfoCaloriesTitle": {
+    "description": "Info sheet title"
+  },
+  "budgetInfoCaloriesBody": "1. Your daily energy use is worked out from your sex, age, height, weight and activity level (the IOM 2005 equations).\n2. Your weekly pace is added: about 1,100 kcal a day for each kilo a week (−0.5 kg a week ≈ −550 kcal a day). Without a pace, the goal adds −500, 0 or +500 kcal.\n3. Activities you log add their calories that day, so your deficit or surplus stays the same.\n4. The calories are split by your macro percentages (60 % carbs, 25 % fat, 15 % protein by default, changeable in Settings), and with points each 100 kcal of a macro is one point. A muscle goal raises protein to at least 1.8 g per kg of body weight (2 g in a deficit).\n\nSimple and familiar; the Home screen's calorie goal shows every number it uses.",
+  "@budgetInfoCaloriesBody": {
+    "description": "Info sheet body"
+  },
+  "budgetInfoGuideOnly": "These are general estimates, not medical advice. You can change every number.",
+  "@budgetInfoGuideOnly": {
+    "description": "Footer of the info sheets"
+  },
+  "budgetInfoSeeCalorieBreakdown": "See today's numbers",
+  "@budgetInfoSeeCalorieBreakdown": {
+    "description": "Button opening the calorie goal breakdown"
+  },
+  "plannerSearchYourDishes": "Your dishes",
+  "@plannerSearchYourDishes": {
+    "description": "Search section: the user's dishes"
+  },
+  "plannerSearchBasicFoods": "Basic foods",
+  "@plannerSearchBasicFoods": {
+    "description": "Search section: EatPoint's basic foods"
+  },
+  "plannerSearchDatabases": "Search \"{query}\" in the food databases",
+  "@plannerSearchDatabases": {
+    "description": "Button",
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
+  },
+  "plannerSearchNoMatches": "Nothing called \"{query}\" among your dishes or the basic foods.",
+  "@plannerSearchNoMatches": {
+    "description": "No search results",
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
+  },
+  "plannerSearchFoodTitle": "Find a food",
+  "@plannerSearchFoodTitle": {
+    "description": "Title of the database search screen"
+  },
+  "plannerCreateRecipe": "Create a recipe",
+  "@plannerCreateRecipe": {
+    "description": "Button"
+  },
+  "plannerFindFood": "Find a food",
+  "@plannerFindFood": {
+    "description": "Button"
+  },
+  "plannerEmptyTitle": "No recipes or dishes yet",
+  "@plannerEmptyTitle": {
+    "description": "Empty state title"
+  },
+  "plannerNoRecipesTitle": "No recipes yet",
+  "@plannerNoRecipesTitle": {
+    "description": "Empty recipes tab title"
+  },
+  "plannerEmptyBody": "Create a recipe to plan it in your menus, or find a food. You can also type above to search the basic foods.",
+  "@plannerEmptyBody": {
+    "description": "Empty state body"
+  },
+  "closerMissing": "Still missing: {list}",
+  "@closerMissing": {
+    "description": "What a meal still lacks",
+    "placeholders": {
+      "list": {
+        "type": "String"
+      }
+    }
+  },
+  "closerMissingAfter": "After this, still missing: {list}",
+  "@closerMissingAfter": {
+    "description": "What a meal lacks after the food being logged",
+    "placeholders": {
+      "list": {
+        "type": "String"
+      }
+    }
+  },
+  "closerCarbs": "{points} carbs",
+  "@closerCarbs": {
+    "description": "Missing carbs points",
+    "placeholders": {
+      "points": {
+        "type": "String"
+      }
+    }
+  },
+  "closerProtein": "{points} protein",
+  "@closerProtein": {
+    "description": "Missing protein points",
+    "placeholders": {
+      "points": {
+        "type": "String"
+      }
+    }
+  },
+  "closerFat": "{points} fat",
+  "@closerFat": {
+    "description": "Missing fat points",
+    "placeholders": {
+      "points": {
+        "type": "String"
+      }
+    }
+  },
+  "closerFibre": "{points} fibre",
+  "@closerFibre": {
+    "description": "Missing fibre points",
+    "placeholders": {
+      "points": {
+        "type": "String"
+      }
+    }
+  },
+  "closerClosed": "This meal is complete: it fits its budget.",
+  "@closerClosed": {
+    "description": "Meal closed"
+  },
+  "closerSuggestionsTitle": "To complete it you could add",
+  "@closerSuggestionsTitle": {
+    "description": "Header of food suggestions"
+  },
+  "closerHomeButton": "What am I missing?",
+  "@closerHomeButton": {
+    "description": "Home button opening the meal completion sheet"
+  },
+  "closerSheetTitle": "Complete your meals",
+  "@closerSheetTitle": {
+    "description": "Sheet title"
+  },
+  "closerSheetEmpty": "Every meal you logged today is complete.",
+  "@closerSheetEmpty": {
+    "description": "Sheet empty state"
+  },
+  "closerSheetHint": "Tap a food to log it in that meal with the suggested amount.",
+  "@closerSheetHint": {
+    "description": "Sheet hint"
+  },
+  "closerRecipeTitle": "Balance per serving",
+  "@closerRecipeTitle": {
+    "description": "Recipe builder panel title"
+  },
+  "closerRecipeAgainst": "Compared with your meal",
+  "@closerRecipeAgainst": {
+    "description": "Label of the meal chooser in the recipe builder"
+  },
+  "closerRecipeHint": "Tap a food to add it to the recipe (the amount is for all servings).",
+  "@closerRecipeHint": {
+    "description": "Recipe builder hint"
+  },
+  "closerRecipeOver": "Over the meal by: {list}",
+  "@closerRecipeOver": {
+    "description": "Recipe per serving exceeds the meal budget",
+    "placeholders": {
+      "list": {
+        "type": "String"
+      }
+    }
+  },
+  "closerAdds": "+{points}",
+  "@closerAdds": {
+    "description": "Points a suggestion adds",
+    "placeholders": {
+      "points": {
+        "type": "String"
+      }
+    }
+  },
+  "dietTitle": "Your diet",
+  "@dietTitle": {
+    "description": "Screen and tile title"
+  },
+  "dietSubtitle": "Diet, allergies, intolerances and foods you like",
+  "@dietSubtitle": {
+    "description": "Tile subtitle"
+  },
+  "dietIntro": "The menu generator follows this, and adding a food warns you when it goes against it.",
+  "@dietIntro": {
+    "description": "Screen intro"
+  },
+  "dietStyleTitle": "Diet",
+  "@dietStyleTitle": {
+    "description": "Section"
+  },
+  "dietOmnivore": "Omnivore",
+  "@dietOmnivore": {
+    "description": "Diet"
+  },
+  "dietPescatarian": "Pescatarian",
+  "@dietPescatarian": {
+    "description": "Diet"
+  },
+  "dietVegetarian": "Vegetarian",
+  "@dietVegetarian": {
+    "description": "Diet"
+  },
+  "dietVegan": "Vegan",
+  "@dietVegan": {
+    "description": "Diet"
+  },
+  "dietOmnivoreHelp": "Everything.",
+  "@dietOmnivoreHelp": {
+    "description": "Diet help"
+  },
+  "dietPescatarianHelp": "No meat; fish and seafood yes.",
+  "@dietPescatarianHelp": {
+    "description": "Diet help"
+  },
+  "dietVegetarianHelp": "No meat or fish; eggs and dairy yes.",
+  "@dietVegetarianHelp": {
+    "description": "Diet help"
+  },
+  "dietVeganHelp": "Nothing of animal origin: no meat, fish, eggs, dairy or honey.",
+  "@dietVeganHelp": {
+    "description": "Diet help"
+  },
+  "dietReligionTitle": "Religion",
+  "@dietReligionTitle": {
+    "description": "Section"
+  },
+  "dietReligionNone": "None",
+  "@dietReligionNone": {
+    "description": "Religious diet"
+  },
+  "dietHalal": "Halal",
+  "@dietHalal": {
+    "description": "Religious diet"
+  },
+  "dietKosher": "Kosher",
+  "@dietKosher": {
+    "description": "Religious diet"
+  },
+  "dietHindu": "Hindu (no beef)",
+  "@dietHindu": {
+    "description": "Religious diet"
+  },
+  "dietHalalHelp": "No pork, alcohol or gelatine; it reminds you to choose halal meat.",
+  "@dietHalalHelp": {
+    "description": "Religious diet help"
+  },
+  "dietKosherHelp": "No pork, shellfish or molluscs; it reminds you about kosher meat and not mixing meat and dairy.",
+  "@dietKosherHelp": {
+    "description": "Religious diet help"
+  },
+  "dietHinduHelp": "No beef. If you are also vegetarian, choose it under Diet.",
+  "@dietHinduHelp": {
+    "description": "Religious diet help"
+  },
+  "dietAllergiesTitle": "Allergies",
+  "@dietAllergiesTitle": {
+    "description": "Section"
+  },
+  "dietAllergiesHelp": "Always left out. With coeliac disease (gluten), certified gluten-free versions are used. Names can't show traces: always check the label.",
+  "@dietAllergiesHelp": {
+    "description": "Allergies help"
+  },
+  "dietIntolerancesTitle": "Intolerances",
+  "@dietIntolerancesTitle": {
+    "description": "Section"
+  },
+  "dietIntolerancesHelp": "The food stays, in its free-from version: lactose-free milk and yogurt, gluten-free bread and pasta. Aged cheese has almost no lactose.",
+  "@dietIntolerancesHelp": {
+    "description": "Intolerances help"
+  },
+  "dietIntoleranceLactose": "Lactose",
+  "@dietIntoleranceLactose": {
+    "description": "Intolerance"
+  },
+  "dietIntoleranceGluten": "Gluten (not coeliac)",
+  "@dietIntoleranceGluten": {
+    "description": "Intolerance"
+  },
+  "allergenGluten": "Gluten (coeliac)",
+  "@allergenGluten": {
+    "description": "Allergen"
+  },
+  "allergenCrustaceans": "Crustaceans",
+  "@allergenCrustaceans": {
+    "description": "Allergen"
+  },
+  "allergenEggs": "Eggs",
+  "@allergenEggs": {
+    "description": "Allergen"
+  },
+  "allergenFish": "Fish",
+  "@allergenFish": {
+    "description": "Allergen"
+  },
+  "allergenPeanuts": "Peanuts",
+  "@allergenPeanuts": {
+    "description": "Allergen"
+  },
+  "allergenSoy": "Soy",
+  "@allergenSoy": {
+    "description": "Allergen"
+  },
+  "allergenMilk": "Milk",
+  "@allergenMilk": {
+    "description": "Allergen"
+  },
+  "allergenTreeNuts": "Tree nuts",
+  "@allergenTreeNuts": {
+    "description": "Allergen"
+  },
+  "allergenCelery": "Celery",
+  "@allergenCelery": {
+    "description": "Allergen"
+  },
+  "allergenMustard": "Mustard",
+  "@allergenMustard": {
+    "description": "Allergen"
+  },
+  "allergenSesame": "Sesame",
+  "@allergenSesame": {
+    "description": "Allergen"
+  },
+  "allergenSulphites": "Sulphites",
+  "@allergenSulphites": {
+    "description": "Allergen"
+  },
+  "allergenLupin": "Lupin",
+  "@allergenLupin": {
+    "description": "Allergen"
+  },
+  "allergenMolluscs": "Molluscs",
+  "@allergenMolluscs": {
+    "description": "Allergen"
+  },
+  "dietDislikesTitle": "Foods you don't want",
+  "@dietDislikesTitle": {
+    "description": "Section"
+  },
+  "dietDislikesHelp": "Left out of generated menus, with a warning if you add them.",
+  "@dietDislikesHelp": {
+    "description": "Section help"
+  },
+  "dietLikesTitle": "Foods you like",
+  "@dietLikesTitle": {
+    "description": "Section"
+  },
+  "dietLikesHelp": "Suggested more often in generated menus, where they fit.",
+  "@dietLikesHelp": {
+    "description": "Section help"
+  },
+  "dietAddWordHint": "Type a food and press Enter",
+  "@dietAddWordHint": {
+    "description": "Chip input hint"
+  },
+  "dietWarnAvoid": "Doesn't fit your diet",
+  "@dietWarnAvoid": {
+    "description": "Warning title"
+  },
+  "dietWarnAdapt": "Choose the free-from version",
+  "@dietWarnAdapt": {
+    "description": "Warning title"
+  },
+  "dietWarnNote": "Good to know",
+  "@dietWarnNote": {
+    "description": "Warning title"
+  },
+  "dietReasonAllergy": "Contains {what} (allergy)",
+  "@dietReasonAllergy": {
+    "description": "Conflict reason",
+    "placeholders": {
+      "what": {
+        "type": "String"
+      }
+    }
+  },
+  "dietReasonIntolerance": "Contains {what} (intolerance)",
+  "@dietReasonIntolerance": {
+    "description": "Conflict reason",
+    "placeholders": {
+      "what": {
+        "type": "String"
+      }
+    }
+  },
+  "dietReasonDiet": "Has {what}: not {diet}",
+  "@dietReasonDiet": {
+    "description": "Conflict reason",
+    "placeholders": {
+      "what": {
+        "type": "String"
+      },
+      "diet": {
+        "type": "String"
+      }
+    }
+  },
+  "dietReasonReligion": "Has {what}: not {religion}",
+  "@dietReasonReligion": {
+    "description": "Conflict reason",
+    "placeholders": {
+      "what": {
+        "type": "String"
+      },
+      "religion": {
+        "type": "String"
+      }
+    }
+  },
+  "dietReasonDislike": "You don't want \"{word}\"",
+  "@dietReasonDislike": {
+    "description": "Conflict reason",
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
+  },
+  "dietAltLactoseFree": "There are lactose-free versions.",
+  "@dietAltLactoseFree": {
+    "description": "Alternative"
+  },
+  "dietAltGlutenFree": "There are gluten-free versions.",
+  "@dietAltGlutenFree": {
+    "description": "Alternative"
+  },
+  "dietAltCertifiedGlutenFree": "Use a certified gluten-free version.",
+  "@dietAltCertifiedGlutenFree": {
+    "description": "Alternative"
+  },
+  "dietAltPlantBased": "A plant-based drink or yogurt works instead (lactose-free milk is still milk).",
+  "@dietAltPlantBased": {
+    "description": "Alternative"
+  },
+  "dietAltHalalMeat": "Choose halal meat.",
+  "@dietAltHalalMeat": {
+    "description": "Alternative"
+  },
+  "dietAltKosherMeat": "Choose kosher meat and don't serve it with dairy.",
+  "@dietAltKosherMeat": {
+    "description": "Alternative"
+  },
+  "dietAltAgedCheese": "Aged cheese has almost no lactose.",
+  "@dietAltAgedCheese": {
+    "description": "Alternative"
+  },
+  "dietAddAnyway": "Add anyway",
+  "@dietAddAnyway": {
+    "description": "Confirm button"
+  },
+  "dietCheckLabel": "Worked out from the name: check the label for traces.",
+  "@dietCheckLabel": {
+    "description": "Disclaimer"
+  },
+  "traitGluten": "gluten",
+  "@traitGluten": {
+    "description": "Food trait"
+  },
+  "traitMilk": "milk",
+  "@traitMilk": {
+    "description": "Food trait"
+  },
+  "traitLactose": "lactose",
+  "@traitLactose": {
+    "description": "Food trait"
+  },
+  "traitEgg": "egg",
+  "@traitEgg": {
+    "description": "Food trait"
+  },
+  "traitFish": "fish",
+  "@traitFish": {
+    "description": "Food trait"
+  },
+  "traitCrustacean": "crustaceans",
+  "@traitCrustacean": {
+    "description": "Food trait"
+  },
+  "traitMollusc": "molluscs",
+  "@traitMollusc": {
+    "description": "Food trait"
+  },
+  "traitPeanut": "peanuts",
+  "@traitPeanut": {
+    "description": "Food trait"
+  },
+  "traitTreeNut": "tree nuts",
+  "@traitTreeNut": {
+    "description": "Food trait"
+  },
+  "traitSoy": "soy",
+  "@traitSoy": {
+    "description": "Food trait"
+  },
+  "traitSesame": "sesame",
+  "@traitSesame": {
+    "description": "Food trait"
+  },
+  "traitCelery": "celery",
+  "@traitCelery": {
+    "description": "Food trait"
+  },
+  "traitMustard": "mustard",
+  "@traitMustard": {
+    "description": "Food trait"
+  },
+  "traitSulphites": "sulphites",
+  "@traitSulphites": {
+    "description": "Food trait"
+  },
+  "traitLupin": "lupin",
+  "@traitLupin": {
+    "description": "Food trait"
+  },
+  "traitMeat": "meat",
+  "@traitMeat": {
+    "description": "Food trait"
+  },
+  "traitPork": "pork",
+  "@traitPork": {
+    "description": "Food trait"
+  },
+  "traitBeef": "beef",
+  "@traitBeef": {
+    "description": "Food trait"
+  },
+  "traitAlcohol": "alcohol",
+  "@traitAlcohol": {
+    "description": "Food trait"
+  },
+  "traitHoney": "honey",
+  "@traitHoney": {
+    "description": "Food trait"
+  },
+  "traitGelatin": "gelatine",
+  "@traitGelatin": {
+    "description": "Food trait"
+  },
+  "generatorTitle": "Generate menu",
+  "@generatorTitle": {
+    "description": "Screen and menu action"
+  },
+  "generatorIntro": "A varied menu for your meals and points, following your diet. You can review and change everything before it is saved.",
+  "@generatorIntro": {
+    "description": "Intro"
+  },
+  "generatorDietCard": "Your diet",
+  "@generatorDietCard": {
+    "description": "Card title"
+  },
+  "generatorDietNone": "No restrictions or preferences yet.",
+  "@generatorDietNone": {
+    "description": "Profile empty"
+  },
+  "generatorDietEdit": "Edit",
+  "@generatorDietEdit": {
+    "description": "Button"
+  },
+  "generatorAllergies": "Allergies: {list}",
+  "@generatorAllergies": {
+    "description": "Summary",
+    "placeholders": {
+      "list": {
+        "type": "String"
+      }
+    }
+  },
+  "generatorIntolerances": "Intolerances: {list}",
+  "@generatorIntolerances": {
+    "description": "Summary",
+    "placeholders": {
+      "list": {
+        "type": "String"
+      }
+    }
+  },
+  "generatorLikes": "Likes: {list}",
+  "@generatorLikes": {
+    "description": "Summary",
+    "placeholders": {
+      "list": {
+        "type": "String"
+      }
+    }
+  },
+  "generatorDislikes": "Not wanted: {list}",
+  "@generatorDislikes": {
+    "description": "Summary",
+    "placeholders": {
+      "list": {
+        "type": "String"
+      }
+    }
+  },
+  "generatorDaysTitle": "Days",
+  "@generatorDaysTitle": {
+    "description": "Section"
+  },
+  "generatorFrom": "From {date}",
+  "@generatorFrom": {
+    "description": "Start date button",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "generatorDays": "{count} days",
+  "@generatorDays": {
+    "description": "Days chip",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "generatorOneDay": "1 day",
+  "@generatorOneDay": {
+    "description": "Days chip"
+  },
+  "generatorPreferOwn": "Use your dishes and recipes first",
+  "@generatorPreferOwn": {
+    "description": "Switch"
+  },
+  "generatorPreferOwnHelp": "Otherwise it picks from EatPoint's basic foods.",
+  "@generatorPreferOwnHelp": {
+    "description": "Switch help"
+  },
+  "generatorEngineTitle": "How",
+  "@generatorEngineTitle": {
+    "description": "Section"
+  },
+  "generatorEnginePhone": "On this phone",
+  "@generatorEnginePhone": {
+    "description": "Engine"
+  },
+  "generatorEngineAi": "With AI",
+  "@generatorEngineAi": {
+    "description": "Engine"
+  },
+  "generatorEnginePhoneHelp": "Private and offline: simple meals from your foods and the basic foods, following healthy-eating guides.",
+  "@generatorEnginePhoneHelp": {
+    "description": "Engine help"
+  },
+  "generatorEngineAiHelp": "Your AI provider writes more varied dishes. Your meals, points and diet are sent to it (not your name).",
+  "@generatorEngineAiHelp": {
+    "description": "Engine help"
+  },
+  "generatorAiNotSet": "Set up an AI provider in Settings to use it.",
+  "@generatorAiNotSet": {
+    "description": "AI unavailable"
+  },
+  "generatorGenerate": "Generate",
+  "@generatorGenerate": {
+    "description": "Button"
+  },
+  "generatorGenerating": "Generating…",
+  "@generatorGenerating": {
+    "description": "Busy"
+  },
+  "generatorAiConfirmTitle": "Send to your AI provider?",
+  "@generatorAiConfirmTitle": {
+    "description": "Dialog"
+  },
+  "generatorAiConfirmBody": "Your meals and their points, your diet (allergies, intolerances, likes) and the names of some of your dishes will be sent to write the menu. Nothing else.",
+  "@generatorAiConfirmBody": {
+    "description": "Dialog body"
+  },
+  "generatorAiFailed": "The AI could not write the menu. Try again or generate it on the phone.",
+  "@generatorAiFailed": {
+    "description": "Error"
+  },
+  "generatorNothing": "No menu could be made with these settings. Try allowing more foods.",
+  "@generatorNothing": {
+    "description": "Error"
+  },
+  "generatorDone": "Menu saved for {count} days",
+  "@generatorDone": {
+    "description": "Snackbar",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "dietReasonTraces": "May contain traces of {what} (allergy)",
+  "@dietReasonTraces": {
+    "description": "Conflict from traces",
+    "placeholders": {
+      "what": {
+        "type": "String"
+      }
+    }
+  },
+  "dietFromLabel": "From the label you scanned.",
+  "@dietFromLabel": {
+    "description": "Source note"
+  },
+  "dietFromOff": "From Open Food Facts: recipes change, check the pack.",
+  "@dietFromOff": {
+    "description": "Source note"
+  },
+  "labelScanIngredientsTitle": "Ingredients and allergens",
+  "@labelScanIngredientsTitle": {
+    "description": "Section"
+  },
+  "labelScanIngredientsHelp": "Optional: photograph the ingredients list so EatPoint can warn you about allergens and anything that doesn't fit your diet.",
+  "@labelScanIngredientsHelp": {
+    "description": "Section help"
+  },
+  "labelScanIngredientsPhoto": "Photograph ingredients",
+  "@labelScanIngredientsPhoto": {
+    "description": "Button"
+  },
+  "labelScanIngredientsRetake": "Retake",
+  "@labelScanIngredientsRetake": {
+    "description": "Button"
+  },
+  "labelScanIngredientsField": "Ingredients",
+  "@labelScanIngredientsField": {
+    "description": "Field label"
+  },
+  "labelScanIngredientsFieldHelp": "As printed, including \"Contains\" and \"May contain\".",
+  "@labelScanIngredientsFieldHelp": {
+    "description": "Field helper"
+  },
+  "labelScanReadingIngredients": "Reading ingredients…",
+  "@labelScanReadingIngredients": {
+    "description": "Busy"
+  },
+  "labelScanContains": "Contains: {list}",
+  "@labelScanContains": {
+    "description": "Detected",
+    "placeholders": {
+      "list": {
+        "type": "String"
+      }
+    }
+  },
+  "labelScanTraces": "May contain: {list}",
+  "@labelScanTraces": {
+    "description": "Detected",
+    "placeholders": {
+      "list": {
+        "type": "String"
+      }
+    }
+  },
+  "labelScanClaims": "On the pack: {list}",
+  "@labelScanClaims": {
+    "description": "Detected",
+    "placeholders": {
+      "list": {
+        "type": "String"
+      }
+    }
+  },
+  "labelScanNoIngredients": "No ingredients list found in the photo. You can type it.",
+  "@labelScanNoIngredients": {
+    "description": "Nothing read"
+  },
+  "foodLabelVegan": "vegan",
+  "@foodLabelVegan": {
+    "description": "Pack claim"
+  },
+  "foodLabelVegetarian": "vegetarian",
+  "@foodLabelVegetarian": {
+    "description": "Pack claim"
+  },
+  "foodLabelGlutenFree": "gluten-free",
+  "@foodLabelGlutenFree": {
+    "description": "Pack claim"
+  },
+  "foodLabelLactoseFree": "lactose-free",
+  "@foodLabelLactoseFree": {
+    "description": "Pack claim"
+  },
+  "foodLabelHalal": "halal",
+  "@foodLabelHalal": {
+    "description": "Pack claim"
+  },
+  "foodLabelKosher": "kosher",
+  "@foodLabelKosher": {
+    "description": "Pack claim"
+  },
+  "onboardingDietTitle": "Your diet",
+  "@onboardingDietTitle": {
+    "description": "Onboarding page title"
+  },
+  "onboardingDietIntro": "Tell EatPoint about allergies, intolerances or a diet you follow. Menus will respect it and adding a food (or scanning a label) will warn you. You can skip this and change it any time in Settings.",
+  "@onboardingDietIntro": {
+    "description": "Onboarding page intro"
   }
 }

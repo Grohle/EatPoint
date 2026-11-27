@@ -81,6 +81,20 @@ class OFFProductDTO {
   @JsonKey(fromJson: offStringListFromJson)
   final List<String>? countries_tags;
 
+  // EatPoint: allergens, traces, labels and ingredients, for the diet
+  // check. Requested only from the v2 product endpoint.
+  @JsonKey(fromJson: offStringListFromJson)
+  final List<String>? allergens_tags;
+  @JsonKey(fromJson: offStringListFromJson)
+  final List<String>? traces_tags;
+  @JsonKey(fromJson: offStringListFromJson)
+  final List<String>? labels_tags;
+  @JsonKey(fromJson: offStringListFromJson)
+  final List<String>? ingredients_analysis_tags;
+  final String? ingredients_text;
+  final String? ingredients_text_es;
+  final String? ingredients_text_en;
+
   // A null or non-object `nutriments` reads as absent.
   @JsonKey(fromJson: _nutrimentsFromJson)
   final OFFProductNutrimentsDTO? nutriments;
@@ -163,6 +177,13 @@ class OFFProductDTO {
     required this.nutriments,
     this.popularity_key,
     this.countries_tags,
+    this.allergens_tags,
+    this.traces_tags,
+    this.labels_tags,
+    this.ingredients_analysis_tags,
+    this.ingredients_text,
+    this.ingredients_text_es,
+    this.ingredients_text_en,
   });
 
   factory OFFProductDTO.fromJson(Map<String, dynamic> json) =>

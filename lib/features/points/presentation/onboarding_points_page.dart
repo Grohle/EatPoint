@@ -14,6 +14,7 @@ import 'package:opennutritracker/features/points/domain/entity/points_settings.d
 import 'package:opennutritracker/features/points/domain/usecase/get_points_budget_usecase.dart';
 import 'package:opennutritracker/features/points/presentation/meal_type_label.dart';
 import 'package:opennutritracker/features/points/presentation/points_format.dart';
+import 'package:opennutritracker/features/goals/presentation/budget_info.dart';
 import 'package:opennutritracker/generated/l10n.dart';
 
 /// What the user chose on the onboarding points page.
@@ -22,20 +23,26 @@ class OnboardingPointsChoice {
   final int mealsPerDay;
   final bool rebalanceOverspend;
 
+  /// Chosen on the goal page: the goal includes building muscle.
+  final bool buildMuscle;
+
   const OnboardingPointsChoice({
     this.method = PointsBudgetMethod.leanMass,
     this.mealsPerDay = 4,
     this.rebalanceOverspend = true,
+    this.buildMuscle = false,
   });
 
   OnboardingPointsChoice copyWith({
     PointsBudgetMethod? method,
     int? mealsPerDay,
     bool? rebalanceOverspend,
+    bool? buildMuscle,
   }) => OnboardingPointsChoice(
     method: method ?? this.method,
     mealsPerDay: mealsPerDay ?? this.mealsPerDay,
     rebalanceOverspend: rebalanceOverspend ?? this.rebalanceOverspend,
+    buildMuscle: buildMuscle ?? this.buildMuscle,
   );
 
   /// The meals of the day for [mealsPerDay], named in the user's language.
@@ -54,6 +61,7 @@ class OnboardingPointsChoice {
         budgetMethod: method,
         mealSlots: () => slots,
         rebalanceOverspend: rebalanceOverspend,
+        buildMuscle: buildMuscle,
       ),
     );
   }
@@ -164,8 +172,13 @@ class _OnboardingPointsPageBodyState extends State<OnboardingPointsPageBody> {
   PointsBudget? get _suggestion {
     final user = widget.user;
     if (user == null) return null;
+    final settings = PointsSettings.defaults.copyWith(
+      buildMuscle: _choice.buildMuscle,
+    );
+    final goal = GetPointsBudgetUsecase.bodyGoalFor(user, settings);
     switch (_choice.method) {
       case PointsBudgetMethod.leanMass:
+        final minProtein = goal.minProteinPerKgLeanMass;
         return PointsBudgetCalc.leanMassBudget(
           weightKg: user.weightKG,
           bodyFatPercent: GetPointsBudgetUsecase.bodyFatPercentFor(
@@ -176,17 +189,29 @@ class _OnboardingPointsPageBodyState extends State<OnboardingPointsPageBody> {
             user.pal,
           ),
           settings: LeanMassBudgetSettings(
-            calorieAdjustment: GetPointsBudgetUsecase.calorieAdjustmentFor(
-              user.goal,
-            ),
+            calorieAdjustment: goal.leanMassCalorieAdjustment,
+            proteinGramsPerKgLeanMass:
+                minProtein != null &&
+                    minProtein > settings.proteinGramsPerKgLeanMass
+                ? minProtein
+                : settings.proteinGramsPerKgLeanMass,
           ),
         );
       case PointsBudgetMethod.appMacros:
+        final kcalGoal = CalorieGoalCalc.getTotalKcalGoal(user, 0);
+        final percents = GetPointsBudgetUsecase.musclePercents(
+          goal: goal,
+          weightKg: user.weightKG,
+          kcalGoal: kcalGoal,
+          carbs: MacroCalc.defaultCarbsPercentageGoal,
+          protein: MacroCalc.defaultProteinsPercentageGoal,
+          fat: MacroCalc.defaultFatsPercentageGoal,
+        );
         return PointsBudgetCalc.appMacrosBudget(
-          kcalGoal: CalorieGoalCalc.getTotalKcalGoal(user, 0),
-          carbsPercent: MacroCalc.defaultCarbsPercentageGoal,
-          proteinPercent: MacroCalc.defaultProteinsPercentageGoal,
-          fatPercent: MacroCalc.defaultFatsPercentageGoal,
+          kcalGoal: kcalGoal,
+          carbsPercent: percents.carbs,
+          proteinPercent: percents.protein,
+          fatPercent: percents.fat,
         );
     }
   }
@@ -285,7 +310,18 @@ class _OnboardingPointsPageBodyState extends State<OnboardingPointsPageBody> {
           ),
           const SizedBox(height: Dimens.spacing16),
         ],
-        Text(s.onboardingPointsMethodTitle, style: theme.textTheme.titleSmall),
+        Row(
+          children: [
+            Expanded(
+              child: Text(
+                s.onboardingPointsMethodTitle,
+                style: theme.textTheme.titleSmall,
+              ),
+            ),
+            // EatPoint: what points are, explained.
+            const BudgetInfoButton(BudgetInfoTopic.points, showBreakdown: false),
+          ],
+        ),
         const SizedBox(height: Dimens.spacing8),
         Semantics(
           identifier: 'onboarding-points-method',
@@ -305,13 +341,28 @@ class _OnboardingPointsPageBodyState extends State<OnboardingPointsPageBody> {
           ),
         ),
         const SizedBox(height: Dimens.spacing4),
-        Text(
-          _choice.method == PointsBudgetMethod.leanMass
-              ? s.pointsMethodLeanMassSubtitle
-              : s.pointsMethodAppMacrosSubtitle,
-          style: theme.textTheme.bodySmall?.copyWith(
-            color: theme.colorScheme.onSurfaceVariant,
-          ),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(top: Dimens.spacing8),
+                child: Text(
+                  _choice.method == PointsBudgetMethod.leanMass
+                      ? s.pointsMethodLeanMassSubtitle
+                      : s.pointsMethodAppMacrosSubtitle,
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: theme.colorScheme.onSurfaceVariant,
+                  ),
+                ),
+              ),
+            ),
+            BudgetInfoButton(
+              BudgetInfoTopic.forMethod(_choice.method),
+              key: ValueKey(_choice.method),
+              showBreakdown: false,
+            ),
+          ],
         ),
         const SizedBox(height: Dimens.spacing16),
         Text(s.onboardingPointsMealsTitle, style: theme.textTheme.titleSmall),

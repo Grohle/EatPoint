@@ -25,6 +25,10 @@ class DayMealBudgets {
   /// Travel mode asks to count against the daily budget only.
   final bool dailyOnly;
 
+  /// Each meal's minimum fibre and the fibre logged in it, in fibre points.
+  final Map<String, double> fibreTarget;
+  final Map<String, double> fibreUsed;
+
   const DayMealBudgets({
     required this.budget,
     required this.slots,
@@ -32,7 +36,13 @@ class DayMealBudgets {
     required this.used,
     required this.effective,
     required this.dailyOnly,
+    this.fibreTarget = const {},
+    this.fibreUsed = const {},
   });
+
+  double get fibreDaily => budget.fibreDaily;
+
+  double get fibreUsedTotal => fibreUsed.values.fold(0.0, (a, b) => a + b);
 
   MacroPoints get daily => budget.daily;
 
@@ -61,6 +71,7 @@ class GetDayMealBudgetsUsecase {
         ? slots.budgets(budget.daily)
         : budget.perSlot;
     final used = await _usage.usedPerSlot(day, slots);
+    final fibreUsed = await _usage.usedFibrePerSlot(day, slots);
     final effective = budget.settings.rebalanceOverspend
         ? PointsRebalanceCalc.rebalance(
             order: [for (final s in slots) s.id],
@@ -75,6 +86,10 @@ class GetDayMealBudgetsUsecase {
       used: used,
       effective: effective,
       dailyOnly: TravelModeGate.dailyBudgetOnly,
+      fibreTarget: budget.fibrePerSlot.isEmpty
+          ? slots.fibreTargets(budget.fibreDaily)
+          : budget.fibrePerSlot,
+      fibreUsed: fibreUsed,
     );
   }
 }

@@ -2,6 +2,7 @@ import 'package:opennutritracker/core/domain/entity/intake_type_entity.dart';
 import 'package:opennutritracker/core/utils/calc/points_calc.dart';
 import 'package:opennutritracker/core/utils/id_generator.dart';
 import 'package:opennutritracker/features/add_meal/domain/entity/meal_entity.dart';
+import 'package:opennutritracker/features/food_knowledge/domain/food_knowledge.dart';
 import 'package:opennutritracker/features/menu_import/domain/imported_menu.dart';
 import 'package:opennutritracker/features/menu_import/domain/menu_amount_solver.dart';
 import 'package:opennutritracker/features/menu_import/domain/menu_text_parser.dart';
@@ -247,12 +248,14 @@ class MenuImportPlanner {
               ).roundedGrams,
               amountSource: AmountSource.fromPoints,
             );
-          } else if (food.count != null && (m.meal?.servingQuantity ?? 0) > 0) {
+          } else if (food.count != null &&
+              m.meal != null &&
+              _pieceGrams(food.name, m.meal!) != null) {
             fixed[i] = PlanFood(
               source: food,
               meal: m.meal,
               grams: PointsCalc.roundPracticalGrams(
-                food.count! * m.meal!.servingQuantity!,
+                food.count! * _pieceGrams(food.name, m.meal!)!,
               ),
               amountSource: AmountSource.fromCount,
             );
@@ -323,6 +326,18 @@ class MenuImportPlanner {
       result.add(PlanDay(source: day, date: dates[d], meals: meals));
     }
     return result;
+  }
+
+  /// What one piece of a food weighs: its household unit when EatPoint
+  /// knows it ("2 huevos" → 2 × 50 g), else its serving size.
+  static double? _pieceGrams(String name, MealEntity meal) {
+    final portion =
+        (FoodKnowledge.instance?.match(name) ??
+                FoodKnowledge.instance?.match(meal.name ?? ''))
+            ?.mainPortion;
+    if (portion != null) return portion.grams;
+    final serving = meal.servingQuantity;
+    return serving != null && serving > 0 ? serving : null;
   }
 
   /// The planner day for [day], added to [existing] or replacing it.

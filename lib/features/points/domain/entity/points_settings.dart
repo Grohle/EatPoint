@@ -51,6 +51,16 @@ class PointsSettings {
   /// planned menu.
   final bool rebalanceOverspend;
 
+  /// Minimum grams of fibre a day. Shown as fibre points
+  /// ([PointsCalc.fibreGramsPerPoint] g each).
+  final double fibreTargetGrams;
+
+  static const defaultFibreTargetGrams = 25.0;
+
+  /// The user also wants to build muscle (see `BodyGoal`): more protein and
+  /// the gentler calorie changes of the muscle goals.
+  final bool buildMuscle;
+
   const PointsSettings({
     this.pointsModeEnabled = true,
     this.budgetMethod = PointsBudgetMethod.leanMass,
@@ -66,6 +76,8 @@ class PointsSettings {
     this.dailyBudgetOverride,
     this.budgetGuideAcknowledged = false,
     this.rebalanceOverspend = true,
+    this.fibreTargetGrams = defaultFibreTargetGrams,
+    this.buildMuscle = false,
   });
 
   static const defaults = PointsSettings();
@@ -95,6 +107,8 @@ class PointsSettings {
     MacroPoints? Function()? dailyBudgetOverride,
     bool? budgetGuideAcknowledged,
     bool? rebalanceOverspend,
+    double? fibreTargetGrams,
+    bool? buildMuscle,
   }) => PointsSettings(
     pointsModeEnabled: pointsModeEnabled ?? this.pointsModeEnabled,
     budgetMethod: budgetMethod ?? this.budgetMethod,
@@ -118,6 +132,8 @@ class PointsSettings {
     budgetGuideAcknowledged:
         budgetGuideAcknowledged ?? this.budgetGuideAcknowledged,
     rebalanceOverspend: rebalanceOverspend ?? this.rebalanceOverspend,
+    fibreTargetGrams: fibreTargetGrams ?? this.fibreTargetGrams,
+    buildMuscle: buildMuscle ?? this.buildMuscle,
   );
 
   Map<String, dynamic> toJson() => {
@@ -141,6 +157,8 @@ class PointsSettings {
       'dailyBudgetOverride': _macroPointsToJson(dailyBudgetOverride!),
     'budgetGuideAcknowledged': budgetGuideAcknowledged,
     'rebalanceOverspend': rebalanceOverspend,
+    'fibreTargetGrams': fibreTargetGrams,
+    'buildMuscle': buildMuscle,
   };
 
   /// Reads settings written by [toJson]. Unknown or malformed values fall
@@ -188,6 +206,11 @@ class PointsSettings {
       budgetGuideAcknowledged:
           _toBool(json['budgetGuideAcknowledged']) ?? false,
       rebalanceOverspend: _toBool(json['rebalanceOverspend']) ?? true,
+      fibreTargetGrams: switch (_toDouble(json['fibreTargetGrams'])) {
+        final double g when g >= 0 && g <= 150 => g,
+        _ => defaultFibreTargetGrams,
+      },
+      buildMuscle: _toBool(json['buildMuscle']) ?? false,
     );
   }
 

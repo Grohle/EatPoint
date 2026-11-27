@@ -17,6 +17,7 @@ import 'package:opennutritracker/features/sync/domain/household_auto_sync.dart';
 import 'package:opennutritracker/generated/l10n.dart';
 import 'package:opennutritracker/features/travel/data/travel_mode_store.dart';
 import 'package:opennutritracker/features/travel/presentation/travel_mode_banner.dart';
+import 'package:opennutritracker/features/food_knowledge/domain/portion_formatter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -152,6 +153,14 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
     }
     final rounded = format.grams(item.amount.roundToDouble());
     return unit.isEmpty ? rounded : '$rounded $unit';
+  }
+
+  /// "≈ 6 patatas" under an item bought by the piece.
+  String? _piecesText(ShoppingItem item) {
+    if (item.unit != 'g' && item.unit != 'ml') return null;
+    final pieces = PortionFormatter.forShopping(item.name, item.amount);
+    if (pieces == null) return null;
+    return '≈ ${pieces.label(Localizations.localeOf(context).languageCode)}';
   }
 
   Future<void> _save(ShoppingListState next) async {
@@ -432,6 +441,7 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
     final format = PointsFormat.of(context);
     final muted = theme.colorScheme.onSurfaceVariant;
     final subtitleLines = <String>[
+      ?_piecesText(item),
       if (item.perOwner.length > 1)
         item.perOwner.entries
             .map((e) => '${e.key}: ${format.grams(e.value.roundToDouble())}')

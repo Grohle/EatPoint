@@ -88,6 +88,10 @@ class FakeGetPointsBudgetUsecase extends Fake
       ),
       slots: slots,
       perSlot: slots.budgets(daily),
+      fibreDaily: PointsCalc.fibrePoints(settings.fibreTargetGrams),
+      fibrePerSlot: slots.fibreTargets(
+        PointsCalc.fibrePoints(settings.fibreTargetGrams),
+      ),
       isOverridden: settings.dailyBudgetOverride != null,
       settings: settings,
     );
@@ -108,6 +112,12 @@ class FakeGetMealPointsUsageUsecase extends Fake
     DateTime day,
     List<MealSlot> slots,
   ) async => {for (final slot in slots) slot.id: used};
+
+  @override
+  Future<Map<String, double>> usedFibrePerSlot(
+    DateTime day,
+    List<MealSlot> slots,
+  ) async => {for (final slot in slots) slot.id: 0.0};
 }
 
 /// Registers the locator entries the points widgets read and returns the

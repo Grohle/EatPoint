@@ -17,6 +17,7 @@ import 'package:opennutritracker/features/points/data/points_settings_data_sourc
 import 'package:opennutritracker/features/points/domain/points_extensions.dart';
 import 'package:opennutritracker/features/points/domain/usecase/get_points_budget_usecase.dart';
 import 'package:opennutritracker/features/points/presentation/meal_type_label.dart';
+import 'package:opennutritracker/features/points/presentation/points_colors.dart';
 import 'package:opennutritracker/features/points/presentation/points_format.dart';
 import 'package:opennutritracker/features/points/presentation/points_settings_screen.dart';
 import 'package:opennutritracker/features/points/presentation/widgets/points_budget_guide_sheet.dart';
@@ -24,6 +25,7 @@ import 'package:opennutritracker/features/travel/data/travel_mode_store.dart';
 import 'package:opennutritracker/features/travel/presentation/travel_mode_actions.dart';
 import 'package:opennutritracker/features/travel/presentation/travel_mode_banner.dart';
 import 'package:opennutritracker/features/travel/presentation/travel_mode_screen.dart';
+import 'package:opennutritracker/features/meal_closer/presentation/meal_closer_sheet.dart';
 import 'package:opennutritracker/generated/l10n.dart';
 
 /// Shows the points card on the home screen while points mode is on, and
@@ -272,6 +274,10 @@ class _PointsDayCard extends StatelessWidget {
     final used = intakes.values
         .map((list) => list.macroPoints)
         .fold(MacroPoints.zero, (a, b) => a + b);
+    final fibreUsed = intakes.values.fold(
+      0.0,
+      (sum, list) => sum + list.fibrePoints,
+    );
     final slots = budget.slots;
     final grouping = locator.isRegistered<MealSlotAssignments>()
         ? locator<MealSlotAssignments>().group(
@@ -407,6 +413,18 @@ class _PointsDayCard extends StatelessWidget {
                               format.points(daily.fat),
                             ),
                           ),
+                          if (budget.fibreDaily > 0)
+                            _MacroLine(
+                              label: s.pointsFibreLabel,
+                              color: PointsColors.fibre,
+                              text: s.pointsFibreOfMin(
+                                format.points(fibreUsed),
+                                format.points(budget.fibreDaily),
+                              ),
+                              highlight: fibreUsed + 0.001 >= budget.fibreDaily
+                                  ? PointsColors.fibre
+                                  : null,
+                            ),
                         ],
                       ),
                     ),
@@ -447,6 +465,34 @@ class _PointsDayCard extends StatelessWidget {
                             loweredLabel: s.pointsMealLoweredTooltip,
                           ),
                     ],
+                  ),
+                // What the logged meals still lack, with foods to fill it.
+                if (!dailyOnly && used.total > 0)
+                  Align(
+                    alignment: AlignmentDirectional.centerStart,
+                    child: Semantics(
+                      identifier: 'points-home-closer',
+                      child: TextButton.icon(
+                        icon: const Icon(
+                          Icons.lightbulb_outline_rounded,
+                          size: 18,
+                        ),
+                        label: Text(s.closerHomeButton),
+                        onPressed: () => showMealCloserSheet(
+                          context,
+                          slots: slots,
+                          budgets: perSlot,
+                          used: usedPerSlot,
+                          fibreTargets: budget.fibrePerSlot,
+                          intakes: {
+                            for (final slot in slots)
+                              slot.id:
+                                  grouping?.bySlot[slot.id] ??
+                                  const <IntakeEntity>[],
+                          },
+                        ),
+                      ),
+                    ),
                   ),
               ],
             ),
@@ -508,10 +554,14 @@ class _MacroLine extends StatelessWidget {
   final Color color;
   final String text;
 
+  /// Colour of [text] when it should stand out (fibre minimum reached).
+  final Color? highlight;
+
   const _MacroLine({
     required this.label,
     required this.color,
     required this.text,
+    this.highlight,
   });
 
   @override
@@ -539,6 +589,7 @@ class _MacroLine extends StatelessWidget {
             text,
             style: theme.textTheme.bodyMedium?.copyWith(
               fontWeight: FontWeight.w600,
+              color: highlight,
             ),
           ),
         ],

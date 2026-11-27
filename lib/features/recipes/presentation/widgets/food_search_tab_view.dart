@@ -29,10 +29,14 @@ class FoodSearchTabView extends StatefulWidget {
   // scanner in pick mode and feed the result back through [onMealSelected].
   final VoidCallback? onBarcodePressed;
 
+  /// EatPoint: a query to search for straight away.
+  final String? initialQuery;
+
   const FoodSearchTabView({
     super.key,
     required this.onMealSelected,
     this.onBarcodePressed,
+    this.initialQuery,
   });
 
   @override
@@ -41,7 +45,9 @@ class FoodSearchTabView extends StatefulWidget {
 
 class _FoodSearchTabViewState extends State<FoodSearchTabView>
     with SingleTickerProviderStateMixin {
-  final ValueNotifier<String> _searchStringListener = ValueNotifier('');
+  late final ValueNotifier<String> _searchStringListener = ValueNotifier(
+    widget.initialQuery?.trim() ?? '',
+  );
 
   late ProductsBloc _productsBloc;
   late FoodBloc _foodBloc;
@@ -58,6 +64,9 @@ class _FoodSearchTabViewState extends State<FoodSearchTabView>
     _tabController.addListener(() {
       _onSearchSubmit(_searchStringListener.value);
     });
+    if (_searchStringListener.value.isNotEmpty) {
+      _onSearchSubmit(_searchStringListener.value);
+    }
   }
 
   @override

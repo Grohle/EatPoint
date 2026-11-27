@@ -24,6 +24,9 @@ class UserDataMaskEntity {
   /// regardless of the display unit the user picked.
   double? targetWeight;
 
+  /// EatPoint: the weekly pace of a muscle goal, null for the others.
+  double? weeklyWeightGoalKg;
+
   bool acceptDataCollection = false;
 
   /// Whether the user chose to display and enter height in imperial feet.
@@ -149,6 +152,7 @@ class UserDataMaskEntity {
       caloriesProfile:
           userGender == UserGenderEntity.nonBinary ? caloriesProfile : null,
       targetWeightKg: targetWeight,
+      weeklyWeightGoalKg: weeklyWeightGoalKg,
     );
   }
 }

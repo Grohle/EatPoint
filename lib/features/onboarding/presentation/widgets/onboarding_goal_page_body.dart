@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:opennutritracker/core/domain/entity/user_weight_goal_entity.dart';
 import 'package:opennutritracker/core/styles/dimens.dart';
+import 'package:opennutritracker/features/goals/domain/body_goal.dart';
+import 'package:opennutritracker/features/goals/presentation/body_goal_text.dart';
 import 'package:opennutritracker/features/onboarding/domain/entity/goal_suggestion_entity.dart';
 import 'package:opennutritracker/features/onboarding/domain/entity/user_goal_selection_entity.dart';
 import 'package:opennutritracker/generated/l10n.dart';
@@ -15,6 +18,11 @@ class OnboardingGoalPageBody extends StatefulWidget {
   final double? weightKg;
   final double? targetWeightKg;
 
+  /// EatPoint: the muscle goals. Whether the earlier choice included
+  /// building muscle, and where the full choice goes.
+  final bool initialBuildMuscle;
+  final ValueChanged<BodyGoal>? onBodyGoalChanged;
+
   const OnboardingGoalPageBody({
     super.key,
     required this.setButtonContent,
@@ -22,6 +30,8 @@ class OnboardingGoalPageBody extends StatefulWidget {
     this.heightCm,
     this.weightKg,
     this.targetWeightKg,
+    this.initialBuildMuscle = false,
+    this.onBodyGoalChanged,
   });
 
   @override
@@ -29,7 +39,29 @@ class OnboardingGoalPageBody extends StatefulWidget {
 }
 
 class _OnboardingGoalPageBodyState extends State<OnboardingGoalPageBody> {
-  late UserGoalSelectionEntity? _selected = widget.initialGoal;
+  late BodyGoal? _selected = switch (widget.initialGoal) {
+    null => null,
+    final goal => BodyGoal.of(
+      _weightGoalOf(goal),
+      buildMuscle: widget.initialBuildMuscle,
+    ),
+  };
+
+  static UserWeightGoalEntity _weightGoalOf(UserGoalSelectionEntity goal) =>
+      switch (goal) {
+        UserGoalSelectionEntity.loseWeight => UserWeightGoalEntity.loseWeight,
+        UserGoalSelectionEntity.maintainWeight =>
+          UserWeightGoalEntity.maintainWeight,
+        UserGoalSelectionEntity.gainWeigh => UserWeightGoalEntity.gainWeight,
+      };
+
+  static UserGoalSelectionEntity _selectionOf(BodyGoal goal) =>
+      switch (goal.weightGoal) {
+        UserWeightGoalEntity.loseWeight => UserGoalSelectionEntity.loseWeight,
+        UserWeightGoalEntity.maintainWeight =>
+          UserGoalSelectionEntity.maintainWeight,
+        UserWeightGoalEntity.gainWeight => UserGoalSelectionEntity.gainWeigh,
+      };
 
   /// Derived on every build rather than cached, so going back to the
   /// height/weight page and changing a value can't leave the badge marking
@@ -41,21 +73,13 @@ class _OnboardingGoalPageBodyState extends State<OnboardingGoalPageBody> {
     targetWeightKg: widget.targetWeightKg,
   );
 
-  String _label(UserGoalSelectionEntity goal) {
-    switch (goal) {
-      case UserGoalSelectionEntity.loseWeight:
-        return S.of(context).goalLoseWeight;
-      case UserGoalSelectionEntity.maintainWeight:
-        return S.of(context).goalMaintainWeight;
-      case UserGoalSelectionEntity.gainWeigh:
-        return S.of(context).goalGainWeight;
-    }
-  }
-
   static const _identifierSuffix = {
-    UserGoalSelectionEntity.loseWeight: 'lose',
-    UserGoalSelectionEntity.maintainWeight: 'maintain',
-    UserGoalSelectionEntity.gainWeigh: 'gain',
+    BodyGoal.loseWeight: 'lose',
+    BodyGoal.loseWeightBuildMuscle: 'lose-muscle',
+    BodyGoal.maintainWeight: 'maintain',
+    BodyGoal.buildMuscle: 'muscle',
+    BodyGoal.gainWeightAndMuscle: 'gain-muscle',
+    BodyGoal.gainWeight: 'gain',
   };
 
   @override
@@ -77,7 +101,7 @@ class _OnboardingGoalPageBodyState extends State<OnboardingGoalPageBody> {
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: Dimens.spacing16),
-            for (final goal in UserGoalSelectionEntity.values) ...[
+            for (final goal in BodyGoal.values) ...[
               _buildGoalRow(goal, suggestion),
               const SizedBox(height: Dimens.spacing8),
             ],
@@ -91,14 +115,13 @@ class _OnboardingGoalPageBodyState extends State<OnboardingGoalPageBody> {
     );
   }
 
-  Widget _buildGoalRow(
-    UserGoalSelectionEntity goal,
-    GoalSuggestionEntity? suggestion,
-  ) {
-    final isSuggested = suggestion?.goal == goal;
+  Widget _buildGoalRow(BodyGoal goal, GoalSuggestionEntity? suggestion) {
+    final isSuggested =
+        !goal.buildsMuscle && suggestion?.goal == _selectionOf(goal);
+    final theme = Theme.of(context);
     // A Wrap: at a large font the badge moves under the chip rather than
     // overflowing the row.
-    return Wrap(
+    final row = Wrap(
       crossAxisAlignment: WrapCrossAlignment.center,
       spacing: Dimens.spacing8,
       runSpacing: Dimens.spacing4,
@@ -106,15 +129,35 @@ class _OnboardingGoalPageBodyState extends State<OnboardingGoalPageBody> {
         Semantics(
           identifier: 'onboarding-goal-${_identifierSuffix[goal]}',
           child: ChoiceChip(
-            label: Text(
-              _label(goal),
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
+            avatar: Icon(goal.icon),
+            label: Text(goal.name(context), style: theme.textTheme.titleLarge),
             selected: _selected == goal,
             onSelected: (_) => _onSelected(goal),
           ),
         ),
         if (isSuggested) _buildSuggestedBadge(),
+      ],
+    );
+    // EatPoint: what each goal means, under its chip once chosen.
+    if (_selected != goal) return row;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        row,
+        Padding(
+          padding: const EdgeInsets.fromLTRB(
+            Dimens.spacing8,
+            Dimens.spacing4,
+            Dimens.spacing8,
+            0,
+          ),
+          child: Text(
+            goal.description(context),
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
+          ),
+        ),
       ],
     );
   }
@@ -179,8 +222,9 @@ class _OnboardingGoalPageBodyState extends State<OnboardingGoalPageBody> {
     );
   }
 
-  void _onSelected(UserGoalSelectionEntity goal) {
+  void _onSelected(BodyGoal goal) {
     setState(() => _selected = goal);
-    widget.setButtonContent(true, goal);
+    widget.setButtonContent(true, _selectionOf(goal));
+    widget.onBodyGoalChanged?.call(goal);
   }
 }

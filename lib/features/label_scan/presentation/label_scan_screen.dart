@@ -9,6 +9,10 @@ import 'package:opennutritracker/core/utils/ai_credential_storage.dart';
 import 'package:opennutritracker/core/utils/calc/points_calc.dart';
 import 'package:opennutritracker/core/utils/locator.dart';
 import 'package:opennutritracker/core/utils/navigation_options.dart';
+import 'package:opennutritracker/features/diet_profile/domain/diet_checker.dart';
+import 'package:opennutritracker/features/diet_profile/domain/food_facts.dart';
+import 'package:opennutritracker/features/diet_profile/presentation/diet_text.dart';
+import 'package:opennutritracker/features/diet_profile/presentation/diet_warning.dart';
 import 'package:opennutritracker/features/label_scan/data/label_text_reader.dart';
 import 'package:opennutritracker/features/label_scan/data/remote_nutrition_extractor.dart';
 import 'package:opennutritracker/features/label_scan/domain/nutrition_label_parser.dart';
@@ -109,6 +113,7 @@ class _LabelScanScreenState extends State<LabelScanScreen> {
 
   @override
   void dispose() {
+    _ingredients.dispose();
     for (final c in _controllers.values) {
       c.dispose();
     }
@@ -159,8 +164,185 @@ class _LabelScanScreenState extends State<LabelScanScreen> {
       protein: read(_Field.protein),
       salt: read(_Field.salt),
       perMl: _perMl,
+      facts: _facts,
     );
   }
+
+  // EatPoint: the ingredients list, for allergens and the diet check.
+  final _ingredients = TextEditingController();
+  bool _readingIngredients = false;
+  bool _ingredientsTried = false;
+
+  /// What the ingredients text says; null when there is none.
+  FoodFacts? get _facts {
+    final text = _ingredients.text.trim();
+    if (text.isEmpty) return null;
+    var facts = IngredientLabelParser.parse(text);
+    // Typed or read without its heading: all of it is the list.
+    if (facts.ingredients == null) {
+      final whole = IngredientLabelParser.parse('Ingredientes: $text');
+      facts = FoodFacts(
+        contains: {...facts.contains, ...whole.contains},
+        traces: whole.traces,
+        labels: {...facts.labels, ...whole.labels},
+        ingredients: whole.ingredients,
+      );
+    }
+    return facts.isEmpty ? null : facts;
+  }
+
+  Future<void> _photographIngredients() async {
+    final source = await showModalBottomSheet<ImageSource>(
+      context: context,
+      showDragHandle: true,
+      builder: (context) {
+        final s = S.of(context);
+        return SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: const Icon(Icons.photo_camera_outlined),
+                title: Text(s.labelScanTakePhoto),
+                onTap: () => Navigator.pop(context, ImageSource.camera),
+              ),
+              ListTile(
+                leading: const Icon(Icons.photo_library_outlined),
+                title: Text(s.labelScanChooseGallery),
+                onTap: () => Navigator.pop(context, ImageSource.gallery),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+    if (source == null || !mounted) return;
+    final photo = await ImagePicker().pickImage(
+      source: source,
+      maxWidth: 2000,
+      maxHeight: 2000,
+      imageQuality: 90,
+    );
+    if (photo == null || !mounted) return;
+    setState(() => _readingIngredients = true);
+    var text = '';
+    try {
+      text = (await _reader.readRows(photo.path)).join('\n');
+    } catch (_) {
+      // Leave it for the user to type.
+    }
+    if (!mounted) return;
+    setState(() {
+      _readingIngredients = false;
+      _ingredientsTried = true;
+      if (text.trim().isNotEmpty) _ingredients.text = text.trim();
+    });
+  }
+
+  Widget _ingredientsSection(BuildContext context) {
+    final s = S.of(context);
+    final theme = Theme.of(context);
+    final facts = _facts;
+    String list(Iterable<String> items) => items.join(', ');
+    return Semantics(
+      identifier: 'label-scan-ingredients',
+      container: true,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Divider(height: Dimens.spacing32),
+          Text(s.labelScanIngredientsTitle, style: theme.textTheme.titleSmall),
+          const SizedBox(height: Dimens.spacing4),
+          Text(
+            s.labelScanIngredientsHelp,
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
+          ),
+          const SizedBox(height: Dimens.spacing8),
+          Semantics(
+            identifier: 'label-scan-ingredients-photo',
+            child: OutlinedButton.icon(
+              icon: _readingIngredients
+                  ? const SizedBox(
+                      width: 18,
+                      height: 18,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    )
+                  : const Icon(Icons.document_scanner_outlined),
+              label: Text(
+                _readingIngredients
+                    ? s.labelScanReadingIngredients
+                    : _ingredientsTried
+                    ? s.labelScanIngredientsRetake
+                    : s.labelScanIngredientsPhoto,
+              ),
+              onPressed: _readingIngredients ? null : _photographIngredients,
+            ),
+          ),
+          if (_ingredientsTried && _ingredients.text.trim().isEmpty)
+            Padding(
+              padding: const EdgeInsets.only(top: Dimens.spacing8),
+              child: Text(
+                s.labelScanNoIngredients,
+                style: theme.textTheme.bodySmall,
+              ),
+            ),
+          const SizedBox(height: Dimens.spacing8),
+          Semantics(
+            identifier: 'label-scan-ingredients-field',
+            child: TextField(
+              controller: _ingredients,
+              minLines: 2,
+              maxLines: 6,
+              onChanged: (_) => setState(() {}),
+              decoration: InputDecoration(
+                labelText: s.labelScanIngredientsField,
+                helperText: s.labelScanIngredientsFieldHelp,
+                border: const OutlineInputBorder(
+                  borderRadius: Dimens.borderRadiusM,
+                ),
+              ),
+            ),
+          ),
+          if (facts != null) ...[
+            const SizedBox(height: Dimens.spacing8),
+            if (facts.contains.isNotEmpty)
+              Text(
+                s.labelScanContains(list(_traitNames(s, facts.contains))),
+                style: theme.textTheme.bodySmall,
+              ),
+            if (facts.traces.isNotEmpty)
+              Text(
+                s.labelScanTraces(list(_traitNames(s, facts.traces))),
+                style: theme.textTheme.bodySmall,
+              ),
+            if (facts.labels.isNotEmpty)
+              Text(
+                s.labelScanClaims(list(facts.labels.map((l) => l.label(s)))),
+                style: theme.textTheme.bodySmall,
+              ),
+            DietWarning(
+              '',
+              facts: facts,
+              margin: const EdgeInsets.only(top: Dimens.spacing8),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+
+  /// Trait names without repeats (milk and lactose read as one).
+  static List<String> _traitNames(S s, Set<DietTrait> traits) => {
+    for (final t in traits)
+      if (t != DietTrait.lowLactose &&
+          !(t == DietTrait.lactose && traits.contains(DietTrait.milk)) &&
+          !(t == DietTrait.meat &&
+              (traits.contains(DietTrait.pork) ||
+                  traits.contains(DietTrait.beef))))
+        t.label(s),
+  }.toList();
 
   Future<void> _retake() async {
     final photo = await ImagePicker().pickImage(
@@ -280,6 +462,7 @@ class _LabelScanScreenState extends State<LabelScanScreen> {
                         _grid(context, suspects),
                         const SizedBox(height: Dimens.spacing12),
                         _pointsResult(context, values),
+                        _ingredientsSection(context),
                       ],
                     ),
             ),

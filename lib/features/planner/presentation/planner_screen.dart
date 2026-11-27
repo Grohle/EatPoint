@@ -8,6 +8,8 @@ import 'package:opennutritracker/features/diary/presentation/bloc/calendar_day_b
 import 'package:opennutritracker/features/diary/presentation/bloc/diary_bloc.dart';
 import 'package:opennutritracker/features/home/presentation/bloc/home_bloc.dart';
 import 'package:opennutritracker/features/meal_detail/presentation/bloc/meal_detail_bloc.dart';
+import 'package:opennutritracker/features/food_knowledge/domain/portion_formatter.dart';
+import 'package:opennutritracker/features/insights/presentation/week_insights_card.dart';
 import 'package:opennutritracker/features/menu_import/presentation/menu_import_screen.dart';
 import 'package:opennutritracker/features/planner/data/planner_data_source.dart';
 import 'package:opennutritracker/features/planner/data/planner_reminder_service.dart';
@@ -28,6 +30,8 @@ import 'package:opennutritracker/features/sync/domain/household_auto_sync.dart';
 import 'package:opennutritracker/features/travel/data/travel_mode_store.dart';
 import 'package:opennutritracker/features/travel/presentation/travel_mode_banner.dart';
 import 'package:opennutritracker/core/utils/id_generator.dart';
+import 'package:opennutritracker/features/diet_profile/presentation/diet_warning.dart';
+import 'package:opennutritracker/features/menu_generator/presentation/menu_generator_screen.dart';
 import 'package:opennutritracker/generated/l10n.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -44,6 +48,7 @@ class PlannerScreen extends StatefulWidget {
 }
 
 enum _DayAction {
+  generateMenu,
   importMenu,
   copyPreviousWeek,
   copyDayTo,
@@ -263,6 +268,18 @@ class _PlannerScreenState extends State<PlannerScreen> {
     final s = S.of(context);
     final messenger = ScaffoldMessenger.of(context);
     switch (action) {
+      case _DayAction.generateMenu:
+        final days = await Navigator.of(context).push<int>(
+          MaterialPageRoute(
+            builder: (_) => MenuGeneratorScreen(initialDay: _weekStart),
+          ),
+        );
+        if (days != null && days > 0) {
+          await _rescheduleReminders();
+          messenger.showSnackBar(
+            SnackBar(content: Text(s.generatorDone(days.toString()))),
+          );
+        }
       case _DayAction.importMenu:
         final days = await Navigator.of(context).push<int>(
           MaterialPageRoute(
@@ -431,6 +448,10 @@ class _PlannerScreenState extends State<PlannerScreen> {
               onSelected: _onAction,
               itemBuilder: (context) => [
                 PopupMenuItem(
+                  value: _DayAction.generateMenu,
+                  child: Text(s.generatorTitle),
+                ),
+                PopupMenuItem(
                   value: _DayAction.importMenu,
                   child: Text(s.menuImportTitle),
                 ),
@@ -496,16 +517,27 @@ class _PlannerScreenState extends State<PlannerScreen> {
                       ),
                     ),
                   ),
+                WeekInsightsCard(
+                  week: _week,
+                  fibreTargetPoints: budget?.fibreDaily ?? 5,
+                ),
                 if (budget != null)
                   Padding(
                     padding: const EdgeInsets.symmetric(
                       vertical: Dimens.spacing8,
                     ),
                     child: Text(
-                      s.plannerDayPoints(
-                        format.points(day.totalPoints.total),
-                        format.points(budget.daily.total),
-                      ),
+                      [
+                        s.plannerDayPoints(
+                          format.points(day.totalPoints.total),
+                          format.points(budget.daily.total),
+                        ),
+                        if (budget.fibreDaily > 0)
+                          s.plannerDayFibre(
+                            format.points(day.totalFibre),
+                            format.points(budget.fibreDaily),
+                          ),
+                      ].join(' · '),
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ),
@@ -733,16 +765,35 @@ class _PlannerScreenState extends State<PlannerScreen> {
               ListTile(
                 contentPadding: EdgeInsets.zero,
                 dense: true,
-                title: Text(
-                  item.name,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+                title: Row(
+                  children: [
+                    Flexible(
+                      child: Text(
+                        item.name,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: Dimens.spacing4),
+                      child: DietBadge(item.name, code: item.meal.code),
+                    ),
+                  ],
                 ),
                 subtitle: Row(
                   children: [
-                    Text(
-                      '${format.grams(item.amount)} ${item.unit} · '
-                      '${format.points(item.points.total)} ${s.pointsShort}',
+                    Flexible(
+                      child: Text(
+                        [
+                          '${format.grams(item.amount)} ${item.unit}',
+                          if (PortionFormatter.forFood(item.name, item.amount)
+                              case final portion?)
+                            '≈ ${portion.label(Localizations.localeOf(context).languageCode)}',
+                          '${format.points(item.points.total)} ${s.pointsShort}',
+                        ].join(' · '),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                     const SizedBox(width: Dimens.spacing8),
                     _MiniSplit(

@@ -29,6 +29,13 @@ extension MealNutrimentsPoints on MealNutrimentsEntity {
     final points = grams * per100 / 100;
     return PointsCalc.split(points, pointsProfile ?? PointsProfile.carbsOnly);
   }
+
+  /// Fibre points in [grams] of the food; zero when its fibre is unknown.
+  double fibrePointsFor(double grams) {
+    final fibre = fiber100;
+    if (fibre == null || grams <= 0) return 0;
+    return PointsCalc.fibrePoints(fibre * grams / 100);
+  }
 }
 
 extension MealEntityPoints on MealEntity {
@@ -47,7 +54,15 @@ extension IntakePoints on IntakeEntity {
   }
 }
 
+extension IntakeFibrePoints on IntakeEntity {
+  /// Fibre points of this logged amount (amounts are stored in g or ml).
+  double get fibrePoints => meal.nutriments.fibrePointsFor(amount);
+}
+
 extension IntakeListPoints on Iterable<IntakeEntity> {
   MacroPoints get macroPoints =>
       fold(MacroPoints.zero, (sum, intake) => sum + intake.macroPoints);
+
+  double get fibrePoints =>
+      fold(0.0, (sum, intake) => sum + intake.fibrePoints);
 }

@@ -19,6 +19,7 @@ import 'package:opennutritracker/features/recipes/presentation/widgets/ingredien
 import 'package:opennutritracker/features/recipes/presentation/widgets/ingredient_quantity_dialog.dart';
 import 'package:opennutritracker/features/recipes/presentation/widgets/recipe_nutrition_summary.dart';
 import 'package:opennutritracker/features/scanner/scanner_screen.dart';
+import 'package:opennutritracker/features/meal_closer/presentation/recipe_balance_panel.dart';
 import 'package:opennutritracker/generated/l10n.dart';
 
 class RecipeBuilderArguments {
@@ -268,6 +269,22 @@ class _RecipeBuilderScreenState extends State<RecipeBuilderScreen> {
                 icon: const Icon(Icons.add_rounded),
                 label: Text(S.of(context).recipeAddIngredientLabel),
               ),
+              // EatPoint: a serving against one of the user's meals, with
+              // foods that would complete it.
+              if (state.ingredients.isNotEmpty) ...[
+                const SizedBox(height: Dimens.spacing16),
+                RecipeBalancePanel(
+                  per100: state.aggregatedNutrimentsPer100,
+                  totalWeightG: state.totalWeightG,
+                  servings: state.servingsCount,
+                  ingredientNames: [
+                    for (final i in state.ingredients) i.snapshotMeal.name ?? '',
+                  ],
+                  onAdd: (meal, grams) => _bloc.add(
+                    AddIngredientEvent(meal: meal, amount: grams, unit: 'g'),
+                  ),
+                ),
+              ],
               const SizedBox(height: Dimens.spacing24),
               TextField(
                 controller: _totalWeightController,

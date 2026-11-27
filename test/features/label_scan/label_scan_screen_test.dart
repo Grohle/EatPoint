@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 import 'package:opennutritracker/core/utils/ai_credential_storage.dart';
+import 'package:opennutritracker/features/diet_profile/domain/diet_checker.dart';
 import 'package:opennutritracker/features/label_scan/data/label_text_reader.dart';
 import 'package:opennutritracker/features/label_scan/data/remote_nutrition_extractor.dart';
 import 'package:opennutritracker/features/label_scan/domain/nutrition_label_parser.dart';
@@ -250,5 +251,34 @@ void main() {
     await pumpScreen(tester, reader, (_) {});
     await tester.pumpWidget(const SizedBox());
     expect(reader.closed, isTrue);
+  });
+
+  testWidgets('typed ingredients show what the label contains and return '
+      'with the values', (tester) async {
+    Future<NutritionLabelValues?>? result;
+    await pumpScreen(tester, _FakeReader(_spanishRows), (f) => result = f);
+    final ingredients = find.descendant(
+      of: find.byWidgetPredicate(
+        (w) =>
+            w is Semantics &&
+            w.properties.identifier == 'label-scan-ingredients-field',
+      ),
+      matching: find.byType(TextField),
+    );
+    await tester.ensureVisible(ingredients);
+    await tester.enterText(
+      ingredients,
+      'Harina de trigo, leche en polvo, sal. '
+      'Puede contener trazas de cacahuete.',
+    );
+    await tester.pump();
+    expect(find.textContaining('Contains: gluten, milk'), findsOneWidget);
+    expect(find.textContaining('May contain: peanuts'), findsOneWidget);
+
+    await tester.tap(find.text('Use these values'));
+    await tester.pumpAndSettle();
+    final values = await result!;
+    expect(values!.facts, isNotNull);
+    expect(values.facts!.traces, contains(DietTrait.peanut));
   });
 }

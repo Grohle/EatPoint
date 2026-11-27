@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:logging/logging.dart';
 import 'package:opennutritracker/core/utils/off_country.dart';
+import 'package:opennutritracker/features/diet_profile/data/off_food_facts.dart';
 import 'package:opennutritracker/features/add_meal/data/data_sources/off_data_source.dart';
 import 'package:opennutritracker/features/add_meal/data/data_sources/sp_food_data_source.dart';
 import 'package:opennutritracker/features/add_meal/domain/entity/meal_entity.dart';
@@ -182,11 +183,14 @@ class ProductsRepository {
 
     final product = productResponse.product;
     if (product == null) throw ProductNotFoundException();
-    return MealEntity.fromOFFProduct(
+    final meal = MealEntity.fromOFFProduct(
       product,
       detailed: true,
       knownName: knownName,
     );
+    // EatPoint: keep its allergens and claims for the diet check.
+    await recordOffFoodFacts(meal.code, product);
+    return meal;
   }
 
   /// Drops items whose nutriments fail the physical-plausibility rules from
