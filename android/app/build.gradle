@@ -116,7 +116,13 @@ android {
         if (variant.flavorName == 'full') {
             // APK rename — AGP exposes this directly via Variant.outputs.
             variant.outputs.all { output ->
-                output.outputFileName = "app-${variant.buildType.name}.apk"
+                // EatPoint: a split-per-ABI build makes one APK per ABI;
+                // naming them all app-<buildType>.apk made them overwrite
+                // each other ("already contains entry … cannot overwrite").
+                def abi = output.filters.find { it.filterType == 'ABI' }?.identifier
+                output.outputFileName = abi == null
+                    ? "app-${variant.buildType.name}.apk"
+                    : "app-${abi}-${variant.buildType.name}.apk"
             }
             // AAB rename — AGP doesn't expose a public DSL for the bundle
             // output filename, so we hook the variant's bundle task with a
