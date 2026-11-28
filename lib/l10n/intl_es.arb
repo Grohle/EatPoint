@@ -2377,7 +2377,7 @@
   "updatesSubtitle": "Buscar una versión nueva de EatPoint",
   "updateInstalledVersion": "Versión instalada: {version}",
   "updateAutoCheck": "Buscar al abrir la app",
-  "updateAutoCheckHint": "Consulta a GitHub, donde se publica EatPoint, la lista de versiones. No se envía nada sobre ti.",
+  "updateAutoCheckHint": "Consulta a GitHub, donde se publica EatPoint, si hay versiones nuevas de la app y de la base de datos de alimentos, que se actualiza sola. No se envía nada sobre ti.",
   "updateCheckNow": "Buscar ahora",
   "updateUpToDate": "Tienes la última versión.",
   "updateCheckFailed": "No se ha podido comprobar. Inténtalo con conexión.",
@@ -2493,5 +2493,6 @@
   "calendarTravelPlanned": "Viaje guardado: del {from} al {to}",
   "travelFromLabel": "Primer día del viaje",
   "travelFromClear": "Empezar ya",
-  "travelStartsOn": "Empieza el {date}"
+  "travelStartsOn": "Empieza el {date}",
+  "foodDbAutoUpdated": "Base de datos de alimentos actualizada a la versión {version}"
 }

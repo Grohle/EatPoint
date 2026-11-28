@@ -81,9 +81,11 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
     if (!mounted) return;
     setState(() => _isDemoData = config.isDemoData);
     await _maybeOpenHealthRationale();
-    // EatPoint: offer a newer release, if any (off in demo mode).
+    // EatPoint: bring the food database up to date and offer a newer
+    // release, if any (off in demo mode).
     if (mounted && !config.isDemoData) {
       unawaited(maybeAutoBackup());
+      unawaited(maybeUpdateFoodDb(context));
       await maybeOfferUpdate(context);
     }
   }

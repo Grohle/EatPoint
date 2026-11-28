@@ -7,6 +7,7 @@ import 'package:logging/logging.dart';
 import 'package:opennutritracker/core/styles/dimens.dart';
 import 'package:opennutritracker/core/utils/locator.dart';
 import 'package:opennutritracker/core/utils/safe_url_launcher.dart';
+import 'package:opennutritracker/features/food_db/data/food_db_service.dart';
 import 'package:opennutritracker/generated/l10n.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
@@ -56,6 +57,34 @@ Future<void> maybeOfferUpdate(
   await updates.markOffered(version);
   if (!context.mounted) return;
   await showUpdateDialog(context, update);
+}
+
+/// On opening the app: brings the downloaded food database up to date, in
+/// the background, and says so when it did. Silent when offline, up to
+/// date, not downloaded, or when checking is turned off.
+Future<void> maybeUpdateFoodDb(
+  BuildContext context, {
+  FoodDbService? service,
+  UpdateStore? store,
+}) async {
+  final updates = store ?? locator<UpdateStore>();
+  if (!updates.autoCheck) return;
+  final db =
+      service ??
+      (locator.isRegistered<FoodDbService>() ? locator<FoodDbService>() : null);
+  if (db == null) return;
+  final messenger = ScaffoldMessenger.maybeOf(context);
+  final s = S.of(context);
+  try {
+    final version = await db.updateIfNewer();
+    if (version != null) {
+      messenger?.showSnackBar(
+        SnackBar(content: Text(s.foodDbAutoUpdated('$version'))),
+      );
+    }
+  } catch (e) {
+    _log.fine('Food database check skipped: $e');
+  }
 }
 
 /// "Version X is available": the start of its notes and a download button.
@@ -130,8 +159,14 @@ String _summary(String notes) {
 class UpdateSettingsSheet extends StatefulWidget {
   final UpdateStore? store;
   final UpdateChecker? checker;
+  final FoodDbService? foodDb;
 
-  const UpdateSettingsSheet({super.key, this.store, this.checker});
+  const UpdateSettingsSheet({
+    super.key,
+    this.store,
+    this.checker,
+    this.foodDb,
+  });
 
   static Future<void> show(BuildContext context) => showModalBottomSheet<void>(
     context: context,
@@ -145,9 +180,15 @@ class UpdateSettingsSheet extends StatefulWidget {
 
 class _UpdateSettingsSheetState extends State<UpdateSettingsSheet> {
   late final UpdateStore _store = widget.store ?? locator<UpdateStore>();
+  late final FoodDbService? _foodDb =
+      widget.foodDb ??
+      (locator.isRegistered<FoodDbService>() ? locator<FoodDbService>() : null);
   String? _installed;
   bool _checking = false;
   String? _result;
+
+  /// What became of the food database on "Check now".
+  String? _dbResult;
 
   @override
   void initState() {
@@ -162,7 +203,25 @@ class _UpdateSettingsSheetState extends State<UpdateSettingsSheet> {
     setState(() {
       _checking = true;
       _result = null;
+      _dbResult = null;
     });
+    // The food database too, alongside the app.
+    final db = _foodDb;
+    if (db != null && db.installed != null) {
+      db
+          .updateIfNewer()
+          .then((version) {
+            if (!mounted) return;
+            setState(
+              () => _dbResult = version == null
+                  ? s.foodDbUpToDate
+                  : s.foodDbAutoUpdated('$version'),
+            );
+          })
+          .catchError((Object _) {
+            if (mounted) setState(() => _dbResult = s.foodDbFailed);
+          });
+    }
     final client = http.Client();
     try {
       final update = await _check(widget.checker ?? UpdateChecker(client));
@@ -234,6 +293,14 @@ class _UpdateSettingsSheetState extends State<UpdateSettingsSheet> {
             if (_result != null) ...[
               const SizedBox(height: Dimens.spacing8),
               Text(_result!, textAlign: TextAlign.center),
+            ],
+            if (_dbResult != null) ...[
+              const SizedBox(height: Dimens.spacing4),
+              Text(
+                '${s.foodDbTitle}: $_dbResult',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
             ],
           ],
         ),

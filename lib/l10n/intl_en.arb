@@ -4744,7 +4744,7 @@
   "@updateAutoCheck": {
     "description": "Switch"
   },
-  "updateAutoCheckHint": "Asks GitHub, where EatPoint is published, for the list of releases. Nothing about you is sent.",
+  "updateAutoCheckHint": "Asks GitHub, where EatPoint is published, for new versions of the app and of the food database, which then updates by itself. Nothing about you is sent.",
   "@updateAutoCheckHint": {
     "description": "Switch subtitle"
   },
@@ -5335,6 +5335,15 @@
     "description": "Travel mode switch subtitle for a trip planned ahead",
     "placeholders": {
       "date": {
+        "type": "String"
+      }
+    }
+  },
+  "foodDbAutoUpdated": "Food database updated to version {version}",
+  "@foodDbAutoUpdated": {
+    "description": "Shown when the food database updated by itself",
+    "placeholders": {
+      "version": {
         "type": "String"
       }
     }

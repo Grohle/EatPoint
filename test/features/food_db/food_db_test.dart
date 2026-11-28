@@ -137,6 +137,32 @@ void main() {
       expect(dir.listSync(), isEmpty);
     });
 
+    test('on opening, an installed database updates only when newer', () async {
+      // Nothing installed: nothing is downloaded.
+      FoodDatabase.setInstance(null);
+      final none = await service();
+      await none.load();
+      expect(await none.updateIfNewer(), isNull);
+      expect(dir.listSync(), isEmpty);
+
+      // An older version installed: the newer one replaces it.
+      final s = await service();
+      await s.download();
+      final installed = File('${dir.path}/installed.json');
+      final info = jsonDecode(installed.readAsStringSync()) as Map;
+      installed.writeAsStringSync(
+        jsonEncode({...info, 'version': 2, 'sha256': 'old'}),
+      );
+      final opened = await service();
+      await opened.load();
+      expect(opened.installed!.version, 2);
+      expect(await opened.updateIfNewer(), 3);
+      expect(opened.installed!.version, 3);
+
+      // Up to date: nothing happens.
+      expect(await opened.updateIfNewer(), isNull);
+    });
+
     test('a manifest naming a path is rejected', () {
       expect(
         FoodDbInfo.fromJson({
