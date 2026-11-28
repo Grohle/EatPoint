@@ -90,20 +90,22 @@ class HouseholdSyncService {
 
   Future<MemberProfile?> _myProfile() async {
     final allow = _store.allowEdits;
-    if (!allow) return const MemberProfile(allowEdits: false);
+    final color = _store.myColorPick;
+    if (!allow) return MemberProfile(allowEdits: false, color: color);
     try {
       final profile = await _profile?.call();
       return profile == null
-          ? const MemberProfile()
+          ? MemberProfile(color: color)
           : MemberProfile(
               slots: profile.slots,
               budgets: profile.budgets,
               fibre: profile.fibre,
               diet: profile.diet,
+              color: color,
             );
     } catch (e) {
       _log.warning('Profile not shared this round: $e');
-      return const MemberProfile();
+      return MemberProfile(color: color);
     }
   }
 

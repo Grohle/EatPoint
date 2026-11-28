@@ -100,8 +100,12 @@ class FoodDbService {
   Future<File> _file(String name) async =>
       File('${(await _directory()).path}/$name');
 
+  Future<void>? _loading;
+
   /// Loads the installed database, if any. Never throws.
-  Future<void> load() async {
+  Future<void> load() => _loading = _load();
+
+  Future<void> _load() async {
     try {
       final info = await _file(_installedName);
       final data = await _file(_dataName);
@@ -142,6 +146,17 @@ class FoodDbService {
     return current == null ||
         latest.version > current.version ||
         latest.sha256 != current.sha256;
+  }
+
+  /// EatPoint: when a database is installed and GitHub has a newer one,
+  /// installs it. Returns the new version, or null when nothing changed.
+  /// Throws when the check or the download fails; what was installed stays.
+  Future<int?> updateIfNewer() async {
+    await _loading;
+    if (state.value != FoodDbState.ready || _installed == null) return null;
+    if (!await hasUpdate()) return null;
+    await download();
+    return _installed?.version;
   }
 
   /// Downloads the latest database, checks it and installs it. Throws when

@@ -76,6 +76,7 @@ class _TravelModeFormState extends State<TravelModeForm> {
     final theme = Theme.of(context);
     final locale = Localizations.localeOf(context).toString();
     final until = _mode.until;
+    final from = _mode.from;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -120,13 +121,31 @@ class _TravelModeFormState extends State<TravelModeForm> {
             identifier: 'travel-mode-switch',
             child: SwitchListTile(
               title: Text(s.travelSwitch),
+              subtitle: from != null && from.isAfter(DateTime.now())
+                  ? Text(
+                      s.travelStartsOn(DateFormat.yMMMEd(locale).format(from)),
+                    )
+                  : null,
               value: _mode.enabled,
               onChanged: (v) => _change(
                 _mode.copyWith(
                   enabled: v,
                   since: v ? () => DateTime.now() : null,
+                  // Turned on by hand, the trip starts now.
+                  from: () => null,
                 ),
               ),
+            ),
+          ),
+        if (from != null)
+          ListTile(
+            leading: const Icon(Icons.flight_takeoff_rounded),
+            title: Text(s.travelFromLabel),
+            subtitle: Text(DateFormat.yMMMEd(locale).format(from)),
+            trailing: IconButton(
+              tooltip: s.travelFromClear,
+              icon: const Icon(Icons.close_rounded),
+              onPressed: () => _change(_mode.copyWith(from: () => null)),
             ),
           ),
         ListTile(

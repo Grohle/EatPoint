@@ -40,17 +40,26 @@ class MenuGeneratorScreen extends StatefulWidget {
   /// The first day to plan; today when null.
   final DateTime? initialDay;
 
-  const MenuGeneratorScreen({super.key, this.initialDay});
+  /// How many days to plan from it, as days chosen in the calendar.
+  final int? initialDays;
+
+  const MenuGeneratorScreen({super.key, this.initialDay, this.initialDays});
 
   @override
   State<MenuGeneratorScreen> createState() => _MenuGeneratorScreenState();
 }
 
 class _MenuGeneratorScreenState extends State<MenuGeneratorScreen> {
-  static const _dayCounts = [1, 3, 5, 7, 14];
+  static const _standardCounts = [1, 3, 5, 7, 14];
+
+  /// The usual choices, plus the number of days chosen in the calendar.
+  late final List<int> _dayCounts = {
+    ..._standardCounts,
+    ?widget.initialDays,
+  }.toList()..sort();
 
   late DateTime _start = DayPlan.dateOnly(widget.initialDay ?? DateTime.now());
-  int _days = 7;
+  late int _days = widget.initialDays ?? 7;
   bool _preferOwn = true;
   _Engine _engine = _Engine.phone;
   bool _aiAvailable = false;

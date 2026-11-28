@@ -189,4 +189,19 @@ void main() {
       expect(store.get().pauseHouseholdSync, isTrue);
     });
   });
+
+  test('a trip planned ahead waits for its first day', () {
+    final m = TravelMode(
+      enabled: true,
+      from: DateTime(2030, 6, 10),
+      until: DateTime(2030, 6, 12),
+    );
+    expect(m.isActiveAt(DateTime(2030, 6, 9, 23)), isFalse);
+    expect(m.hasExpiredAt(DateTime(2030, 6, 9)), isFalse);
+    expect(m.isActiveAt(DateTime(2030, 6, 10)), isTrue);
+    expect(m.isActiveAt(DateTime(2030, 6, 12, 22)), isTrue);
+    expect(m.hasExpiredAt(DateTime(2030, 6, 13)), isTrue);
+    final back = TravelMode.fromJson(m.toJson());
+    expect(back.from, DateTime(2030, 6, 10));
+  });
 }

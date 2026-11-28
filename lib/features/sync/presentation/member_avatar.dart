@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:opennutritracker/core/utils/locator.dart';
+import 'package:opennutritracker/features/sync/data/household_store.dart';
 
-/// A household member's colour, the same on every screen and phone.
+/// A household member's colour, the same on every screen and phone: the
+/// household's resolved colour for that member id, else one from [key].
 Color memberColor(String key) {
+  if (locator.isRegistered<HouseholdStore>()) {
+    final resolved = locator<HouseholdStore>().memberColors()[key];
+    if (resolved != null) return Color(resolved);
+  }
+  return _hashColor(key);
+}
+
+Color _hashColor(String key) {
   const colours = [
     Color(0xFFFFB300),
     Color(0xFF42A5F5),
