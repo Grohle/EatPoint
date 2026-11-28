@@ -1,16 +1,16 @@
 {
   "format": "eatpoint-foods-manifest",
-  "version": 3,
-  "file": "eatpoint-foods-v3.json.gz",
-  "bytes": 342289,
-  "sha256": "fa988119dba965f8daf2e7eaf127f71744acce53ce8b328cadf83c97e9d48737",
-  "count": 7514,
+  "version": 4,
+  "file": "eatpoint-foods-v4.json.gz",
+  "bytes": 396644,
+  "sha256": "6e7737862d9159aa72a6f334551ac4c28432840e95369c8dd50bbe9fbc24b664",
+  "count": 8825,
   "counts": {
-    "eatpoint": 235,
+    "eatpoint": 355,
     "usda": 4432,
-    "off": 2847
+    "off": 4038
   },
-  "generated": "2026-11-27",
+  "generated": "2026-11-28",
   "sources": [
     {
       "id": "eatpoint",
