@@ -10,6 +10,10 @@ class TravelMode {
   /// The last day of the trip, inclusive. Null means "until I turn it off".
   final DateTime? until;
 
+  /// EatPoint: the first day of a trip planned ahead, inclusive. Null means
+  /// "from now".
+  final DateTime? from;
+
   /// When travel mode was last turned on.
   final DateTime? since;
 
@@ -29,6 +33,7 @@ class TravelMode {
   const TravelMode({
     this.enabled = false,
     this.until,
+    this.from,
     this.since,
     this.pausePlanner = true,
     this.pauseReminders = true,
@@ -38,21 +43,33 @@ class TravelMode {
 
   static const off = TravelMode();
 
-  /// Whether travel mode applies at [now]: on, and [until] not yet past.
+  /// Whether travel mode applies at [now]: on, [from] reached and [until]
+  /// not yet past.
   bool isActiveAt(DateTime now) {
     if (!enabled) return false;
-    final last = until;
-    if (last == null) return true;
-    final endExclusive = DateTime(last.year, last.month, last.day + 1);
-    return now.isBefore(endExclusive);
+    final first = from;
+    if (first != null &&
+        now.isBefore(DateTime(first.year, first.month, first.day))) {
+      return false;
+    }
+    return !_pastUntil(now);
   }
 
-  /// Whether travel mode is on but its last day has passed.
-  bool hasExpiredAt(DateTime now) => enabled && !isActiveAt(now);
+  bool _pastUntil(DateTime now) {
+    final last = until;
+    if (last == null) return false;
+    final endExclusive = DateTime(last.year, last.month, last.day + 1);
+    return !now.isBefore(endExclusive);
+  }
+
+  /// Whether travel mode is on but its last day has passed. A trip that
+  /// has not started yet has not expired.
+  bool hasExpiredAt(DateTime now) => enabled && _pastUntil(now);
 
   TravelMode copyWith({
     bool? enabled,
     DateTime? Function()? until,
+    DateTime? Function()? from,
     DateTime? Function()? since,
     bool? pausePlanner,
     bool? pauseReminders,
@@ -61,6 +78,7 @@ class TravelMode {
   }) => TravelMode(
     enabled: enabled ?? this.enabled,
     until: until != null ? until() : this.until,
+    from: from != null ? from() : this.from,
     since: since != null ? since() : this.since,
     pausePlanner: pausePlanner ?? this.pausePlanner,
     pauseReminders: pauseReminders ?? this.pauseReminders,
@@ -71,6 +89,7 @@ class TravelMode {
   Map<String, dynamic> toJson() => {
     'enabled': enabled,
     if (until != null) 'until': _date(until!),
+    if (from != null) 'from': _date(from!),
     if (since != null) 'since': since!.toIso8601String(),
     'pausePlanner': pausePlanner,
     'pauseReminders': pauseReminders,
@@ -84,11 +103,13 @@ class TravelMode {
     DateTime? date(String key) =>
         json[key] is String ? DateTime.tryParse(json[key] as String) : null;
     final until = date('until');
+    final from = date('from');
     return TravelMode(
       enabled: flag('enabled', false),
       until: until == null
           ? null
           : DateTime(until.year, until.month, until.day),
+      from: from == null ? null : DateTime(from.year, from.month, from.day),
       since: date('since'),
       pausePlanner: flag('pausePlanner', true),
       pauseReminders: flag('pauseReminders', true),

@@ -9,6 +9,8 @@ import 'package:opennutritracker/features/sync/domain/household_sync_service.dar
 import 'package:opennutritracker/features/sync/presentation/backend_setup_screen.dart';
 import 'package:opennutritracker/features/sync/presentation/household_edits_switch.dart';
 import 'package:opennutritracker/features/sync/presentation/join_household_screen.dart';
+import 'package:opennutritracker/features/sync/presentation/member_color_picker.dart';
+import 'package:opennutritracker/features/sync/presentation/member_avatar.dart';
 import 'package:opennutritracker/features/sync/presentation/storage_labels.dart';
 import 'package:opennutritracker/features/sync/domain/sync_backend.dart';
 import 'package:opennutritracker/features/sync/data/backends/google_drive_sync_backend.dart';
@@ -191,7 +193,13 @@ class _HouseholdScreenState extends State<HouseholdScreen> {
         builder: (context, _, _) {
           final household = _store.getHousehold();
           return ListView(
-            padding: const EdgeInsets.all(Dimens.spacing16),
+            // Room at the end, so the last button clears any message.
+            padding: const EdgeInsets.fromLTRB(
+              Dimens.spacing16,
+              Dimens.spacing16,
+              Dimens.spacing16,
+              96,
+            ),
             children: household == null
                 ? _notSetUp(context)
                 : _setUp(context, household),
@@ -308,10 +316,15 @@ class _HouseholdScreenState extends State<HouseholdScreen> {
       const SizedBox(height: Dimens.spacing8),
       HouseholdEditsSwitch(store: _store, contentPadding: EdgeInsets.zero),
       const SizedBox(height: Dimens.spacing16),
+      MemberColorPicker(store: _store),
+      const SizedBox(height: Dimens.spacing16),
       Text(s.householdMembers, style: Theme.of(context).textTheme.titleMedium),
       ListTile(
         contentPadding: EdgeInsets.zero,
-        leading: const Icon(Icons.person),
+        leading: MemberAvatar(
+          name: household.memberName,
+          colourKey: household.memberId,
+        ),
         title: Text(s.householdYou(household.memberName)),
       ),
       for (final name in others)

@@ -89,6 +89,28 @@ class _PlannedMealEditorScreenState extends State<PlannedMealEditorScreen> {
 
   void _add(PlannedItem item) => setState(() => _items = [..._items, item]);
 
+  /// Asks before a food swiped away leaves the meal.
+  Future<bool> _confirmRemove(PlannedItem item) async {
+    final s = S.of(context);
+    final ok = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(s.plannerRemoveItemTitle(item.name)),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: Text(s.plannerRemoveItem),
+          ),
+        ],
+      ),
+    );
+    return ok == true;
+  }
+
   Future<void> _search() async {
     final budget = widget.budget;
     final item = await Navigator.of(context).push<PlannedItem>(
@@ -179,108 +201,132 @@ class _PlannedMealEditorScreenState extends State<PlannedMealEditorScreen> {
               ),
             ),
           for (final item in _items)
-            ListTile(
-              key: ValueKey(item.id),
-              contentPadding: EdgeInsets.zero,
-              title: Row(
-                children: [
-                  Flexible(
-                    child: Text(
-                      item.name,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: Dimens.spacing4),
-                    child: DietBadge(item.name, code: item.meal.code),
-                  ),
-                ],
+            // Swipe a food left to take it out, after asking.
+            Dismissible(
+              key: ValueKey('swipe-${item.id}'),
+              direction: DismissDirection.endToStart,
+              background: Container(
+                alignment: Alignment.centerRight,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: Dimens.spacing16,
+                ),
+                color: theme.colorScheme.errorContainer,
+                child: Icon(
+                  Icons.delete_outline_rounded,
+                  color: theme.colorScheme.onErrorContainer,
+                ),
               ),
-              subtitle: Wrap(
-                crossAxisAlignment: WrapCrossAlignment.center,
-                spacing: Dimens.spacing4,
-                children: [
-                  Text('${format.points(item.points.total)} ${s.pointsShort}'),
-                  // EatPoint: tap to set what one unit of it weighs.
-                  Semantics(
-                    identifier: 'meal-editor-unit-weight',
-                    child: InkWell(
-                      borderRadius: Dimens.borderRadiusM,
-                      onTap: () async {
-                        final changed = await showUnitWeightDialog(
-                          context,
-                          name: item.name,
-                          code: item.meal.code,
-                        );
-                        if (changed && mounted) setState(() {});
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 2),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Flexible(
-                              child: Text(
-                                switch (PortionFormatter.forFood(
-                                  item.name,
-                                  item.amount,
-                                  code: item.meal.code,
-                                )) {
-                                  final portion? =>
-                                    '· ≈ ${portion.label(lang)}',
-                                  null => '· ${s.unitWeightAdd}',
-                                },
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: Theme.of(context).colorScheme.primary,
+              confirmDismiss: (_) => _confirmRemove(item),
+              onDismissed: (_) => _remove(item),
+              child: ListTile(
+                key: ValueKey(item.id),
+                contentPadding: EdgeInsets.zero,
+                title: Row(
+                  children: [
+                    Flexible(
+                      child: Text(
+                        item.name,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: Dimens.spacing4),
+                      child: DietBadge(item.name, code: item.meal.code),
+                    ),
+                  ],
+                ),
+                subtitle: Wrap(
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  spacing: Dimens.spacing4,
+                  children: [
+                    Text(
+                      '${format.points(item.points.total)} ${s.pointsShort}',
+                    ),
+                    // EatPoint: tap to set what one unit of it weighs.
+                    Semantics(
+                      identifier: 'meal-editor-unit-weight',
+                      child: InkWell(
+                        borderRadius: Dimens.borderRadiusM,
+                        onTap: () async {
+                          final changed = await showUnitWeightDialog(
+                            context,
+                            name: item.name,
+                            code: item.meal.code,
+                          );
+                          if (changed && mounted) setState(() {});
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 2),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  switch (PortionFormatter.forFood(
+                                    item.name,
+                                    item.amount,
+                                    code: item.meal.code,
+                                  )) {
+                                    final portion? =>
+                                      '· ≈ ${portion.label(lang)}',
+                                    null => '· ${s.unitWeightAdd}',
+                                  },
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.primary,
+                                  ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(width: 2),
-                            Icon(
-                              Icons.edit_rounded,
-                              size: 12,
-                              color: Theme.of(context).colorScheme.primary,
+                              const SizedBox(width: 2),
+                              Icon(
+                                Icons.edit_rounded,
+                                size: 12,
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(
+                      width: 72,
+                      child: Semantics(
+                        identifier: 'meal-editor-amount',
+                        child: TextField(
+                          controller: _controllerFor(item),
+                          keyboardType: const TextInputType.numberWithOptions(
+                            decimal: true,
+                          ),
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(
+                              RegExp(r'[0-9.,]'),
                             ),
                           ],
+                          textAlign: TextAlign.end,
+                          decoration: InputDecoration(
+                            isDense: true,
+                            suffixText: item.unit,
+                          ),
+                          onChanged: (text) => _setAmount(item, text),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              trailing: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SizedBox(
-                    width: 72,
-                    child: Semantics(
-                      identifier: 'meal-editor-amount',
-                      child: TextField(
-                        controller: _controllerFor(item),
-                        keyboardType: const TextInputType.numberWithOptions(
-                          decimal: true,
-                        ),
-                        inputFormatters: [
-                          FilteringTextInputFormatter.allow(RegExp(r'[0-9.,]')),
-                        ],
-                        textAlign: TextAlign.end,
-                        decoration: InputDecoration(
-                          isDense: true,
-                          suffixText: item.unit,
-                        ),
-                        onChanged: (text) => _setAmount(item, text),
-                      ),
+                    IconButton(
+                      tooltip: s.plannerRemoveItem,
+                      icon: const Icon(Icons.close_rounded),
+                      onPressed: () => _remove(item),
                     ),
-                  ),
-                  IconButton(
-                    tooltip: s.plannerRemoveItem,
-                    icon: const Icon(Icons.close_rounded),
-                    onPressed: () => _remove(item),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           const SizedBox(height: Dimens.spacing8),

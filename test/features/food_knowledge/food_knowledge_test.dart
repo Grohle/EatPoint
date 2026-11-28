@@ -70,6 +70,12 @@ void main() {
       expect(a.label('es'), '5 tomates cherry');
     });
 
+    test('bread slices are medium ones', () {
+      // 125 g of wholemeal bread is 4 medium slices, not 5 thin ones.
+      final slice = main('bread_slice');
+      expect(PortionFormatter.describe(125, slice)!.label('es'), '4 rebanadas');
+    });
+
     test('nothing when no round count is close', () {
       final fillet = main('chicken_breast');
       expect(PortionFormatter.describe(20, fillet), isNull);

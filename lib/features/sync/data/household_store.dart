@@ -96,6 +96,40 @@ class HouseholdStore {
     revision.value++;
   }
 
+  static const _colorKey = 'household.color';
+
+  /// The colour this member chose (ARGB), or null for an automatic one.
+  int? get myColorPick =>
+      int.tryParse(_db.pointsSettingsBox.get(_colorKey) ?? '');
+
+  Future<void> setMyColor(int? argb) async {
+    if (argb == null) {
+      await _db.pointsSettingsBox.delete(_colorKey);
+    } else {
+      await _db.pointsSettingsBox.put(_colorKey, '$argb');
+    }
+    _colors = null;
+    revision.value++;
+  }
+
+  Map<String, int>? _colors;
+  int _colorsRevision = -1;
+
+  /// Every member's colour, this member's included, by member id; empty
+  /// outside a household.
+  Map<String, int> memberColors() {
+    if (_colors != null && _colorsRevision == revision.value) return _colors!;
+    final household = getHousehold();
+    _colors = household == null
+        ? const {}
+        : HouseholdColors.resolve({
+            household.memberId: myColorPick,
+            for (final m in otherMembers()) m.memberId: m.profile?.color,
+          });
+    _colorsRevision = revision.value;
+    return _colors!;
+  }
+
   /// EatPoint: whether the other members may change this member's menu,
   /// and see their points and diet to plan for them. On by default.
   bool get allowEdits => _db.pointsSettingsBox.get(_allowEditsKey) != 'false';

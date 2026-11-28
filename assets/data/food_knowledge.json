@@ -952,11 +952,11 @@
       "slice",
       "slices"
      ],
-     "grams": 25,
+     "grams": 31,
      "default": true,
      "source": {
       "kind": "audit",
-      "note": "Sliced bread 23-28 g per slice."
+      "note": "Medium slice of sliced bread (Bimbo/Hacendado integral 30-33 g); thin slices are 23-25 g."
      }
     }
    ],

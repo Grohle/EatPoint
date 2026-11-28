@@ -104,7 +104,7 @@
    ]
   },
   "9 Claras de Huevo": {
-   "g": 33.0,
+   "g": 30.0,
    "es": [
     "clara",
     "claras"
@@ -112,6 +112,9 @@
    "en": [
     "egg white",
     "egg whites"
+   ],
+   "src": [
+    "https://www.ucm.es/data/cont/docs/458-2015-10-22-pesos-medidas-caseras-raciones-2015.pdf"
    ]
   },
   "ALMENDRA Molida": {
@@ -142,8 +145,64 @@
   "ARROZ sabor ALMENDRA Sin azúcares añadidos**": {
    "none": true
   },
+  "Aceite Vegetal Mixto": {
+   "g": 13.0,
+   "es": [
+    "cucharada",
+    "cucharadas"
+   ],
+   "en": [
+    "tablespoon",
+    "tablespoons"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Aceite de coco virgen": {
+   "g": 13.0,
+   "es": [
+    "cucharada",
+    "cucharadas"
+   ],
+   "en": [
+    "tablespoon",
+    "tablespoons"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Aceite de mantequilla, anhidro": {
+   "g": 4.0,
+   "es": [
+    "cucharadita",
+    "cucharaditas"
+   ],
+   "en": [
+    "teaspoon",
+    "teaspoons"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
   "Aceite de pescado, hígado de bacalao": {
    "none": true
+  },
+  "Aceite vegetal, palmiste": {
+   "g": 13.0,
+   "es": [
+    "cucharada",
+    "cucharadas"
+   ],
+   "en": [
+    "tablespoon",
+    "tablespoons"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
   },
   "Aceite, aguacate": {
    "none": true
@@ -154,14 +213,98 @@
   "Aceite, cacahuete, para ensalada o cocinar": {
    "none": true
   },
+  "Aceite, coco": {
+   "g": 13.0,
+   "es": [
+    "cucharada",
+    "cucharadas"
+   ],
+   "en": [
+    "tablespoon",
+    "tablespoons"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
   "Aceite, cártamo, para ensalada o cocinar, alto oleico": {
    "none": true
   },
   "Aceite, cártamo, para ensalada o cocinar, linoleico, (más del 70%)": {
    "none": true
   },
+  "Aceite, de maíz y colza": {
+   "g": 13.0,
+   "es": [
+    "cucharada",
+    "cucharadas"
+   ],
+   "en": [
+    "tablespoon",
+    "tablespoons"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
   "Aceite, hueso de albaricoque": {
    "none": true
+  },
+  "Aceite, manteca de cacao": {
+   "g": 13.0,
+   "es": [
+    "cucharada",
+    "cucharadas"
+   ],
+   "en": [
+    "tablespoon",
+    "tablespoons"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Aceite, manteca de nuez moscada": {
+   "g": 13.0,
+   "es": [
+    "cucharada",
+    "cucharadas"
+   ],
+   "en": [
+    "tablespoon",
+    "tablespoons"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Aceite, manteca de ucuuba": {
+   "g": 13.0,
+   "es": [
+    "cucharada",
+    "cucharadas"
+   ],
+   "en": [
+    "tablespoon",
+    "tablespoons"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Aceite, maíz, cacahuete, y oliva": {
+   "g": 13.0,
+   "es": [
+    "cucharada",
+    "cucharadas"
+   ],
+   "en": [
+    "tablespoon",
+    "tablespoons"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
   },
   "Aceite, oliva, para ensalada o cocinar": {
    "none": true
@@ -171,6 +314,76 @@
   },
   "Aceite, semilla de tomate": {
    "none": true
+  },
+  "Aceite, semilla de té": {
+   "g": 13.0,
+   "es": [
+    "cucharada",
+    "cucharadas"
+   ],
+   "en": [
+    "tablespoon",
+    "tablespoons"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Aceite, semilla de uva": {
+   "g": 13.0,
+   "es": [
+    "cucharada",
+    "cucharadas"
+   ],
+   "en": [
+    "tablespoon",
+    "tablespoons"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Aceite, semillas de amapola": {
+   "g": 13.0,
+   "es": [
+    "cucharada",
+    "cucharadas"
+   ],
+   "en": [
+    "tablespoon",
+    "tablespoons"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Aceite, semillas de lino, con lino laminado añadido": {
+   "g": 13.0,
+   "es": [
+    "cucharada",
+    "cucharadas"
+   ],
+   "en": [
+    "tablespoon",
+    "tablespoons"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Aceite, semillas de lino, prensado en frío": {
+   "g": 13.0,
+   "es": [
+    "cucharada",
+    "cucharadas"
+   ],
+   "en": [
+    "tablespoon",
+    "tablespoons"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
   },
   "Aceite, soja, para ensalada o cocinar": {
    "none": true
@@ -183,6 +396,34 @@
   },
   "Aceite, sésamo, para ensalada o cocinar": {
    "none": true
+  },
+  "Aceite, verdura, colza Natreon, alta estabilidad, sin grasas trans, alto oleico (70%)": {
+   "g": 13.0,
+   "es": [
+    "cucharada",
+    "cucharadas"
+   ],
+   "en": [
+    "tablespoon",
+    "tablespoons"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Aceite, verdura, soja, refinado": {
+   "g": 13.0,
+   "es": [
+    "cucharada",
+    "cucharadas"
+   ],
+   "en": [
+    "tablespoon",
+    "tablespoons"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
   },
   "Acelgas, suizo, cocido, hervido, escurrido, con sal": {
    "none": true
@@ -201,8 +442,107 @@
     "yogurts"
    ]
   },
+  "Aguacate / guacamole": {
+   "g": 150.0,
+   "es": [
+    "aguacate",
+    "aguacates"
+   ],
+   "en": [
+    "avocado",
+    "avocados"
+   ],
+   "src": [
+    "https://hacecuentas.com/calculadora-calorias-palta-aguacate-completa-mitad"
+   ]
+  },
+  "Aguacates, crudo": {
+   "g": 150.0,
+   "es": [
+    "aguacate",
+    "aguacates"
+   ],
+   "en": [
+    "avocado",
+    "avocados"
+   ],
+   "src": [
+    "https://www.avocado.uma.es/downloads/PDFs/Valor_nutricional_aguacate.pdf",
+    "https://www.ucm.es/data/cont/docs/458-2015-10-22-pesos-medidas-caseras-raciones-2015.pdf"
+   ]
+  },
+  "Aguacates, crudo, de California": {
+   "g": 150.0,
+   "es": [
+    "aguacate",
+    "aguacates"
+   ],
+   "en": [
+    "avocado",
+    "avocados"
+   ],
+   "src": [
+    "https://www.avocado.uma.es/downloads/PDFs/Valor_nutricional_aguacate.pdf"
+   ]
+  },
+  "Aguacates, crudo, de Florida": {
+   "g": 150.0,
+   "es": [
+    "aguacate",
+    "aguacates"
+   ],
+   "en": [
+    "avocado",
+    "avocados"
+   ],
+   "src": [
+    "https://www.avocado.uma.es/downloads/PDFs/Valor_nutricional_aguacate.pdf"
+   ]
+  },
+  "Ajo, crudo": {
+   "g": 5.0,
+   "es": [
+    "diente",
+    "dientes"
+   ],
+   "en": [
+    "clove",
+    "cloves"
+   ],
+   "src": [
+    "https://www.ucm.es/data/cont/docs/458-2015-10-22-pesos-medidas-caseras-raciones-2015.pdf"
+   ]
+  },
+  "Albaricoque": {
+   "g": 50.0,
+   "es": [
+    "albaricoque",
+    "albaricoques"
+   ],
+   "en": [
+    "apricot",
+    "apricots"
+   ],
+   "src": [
+    "https://www.ucm.es/data/cont/docs/458-2015-10-22-pesos-medidas-caseras-raciones-2015.pdf"
+   ]
+  },
   "Albaricoques, congelado, azucarado": {
    "none": true
+  },
+  "Albaricoques, crudo": {
+   "g": 50.0,
+   "es": [
+    "albaricoque",
+    "albaricoques"
+   ],
+   "en": [
+    "apricot",
+    "apricots"
+   ],
+   "src": [
+    "https://www.ucm.es/data/cont/docs/458-2015-10-22-pesos-medidas-caseras-raciones-2015.pdf"
+   ]
   },
   "Albaricoques, deshidratado, sulfitado, sin cocinar": {
    "none": true
@@ -579,6 +919,20 @@
   "Aperitivo, chips de plátano macho, salado": {
    "none": true
   },
+  "Aperitivo, maíz frito crujiente, sabor barbacoa": {
+   "g": 25.0,
+   "es": [
+    "puñado",
+    "puñados"
+   ],
+   "en": [
+    "handful",
+    "handfuls"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
   "Aperitivo, mezcla de frutos secos, con pepitas de chocolate, frutos secos y semillas salados": {
    "none": true
   },
@@ -587,6 +941,20 @@
   },
   "Aperitivo, nachos, bajo en grasa, con olestra, sabor queso nacho": {
    "none": true
+  },
+  "Aperitivo, nachos, ligero (horneado con menos aceite)": {
+   "g": 25.0,
+   "es": [
+    "puñado",
+    "puñados"
+   ],
+   "en": [
+    "handful",
+    "handfuls"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
   },
   "Aperitivo, nachos, sabor queso nacho": {
    "none": true
@@ -682,26 +1050,169 @@
   "Aperitivo, pretzels, sin gluten con maicena y harina de patata": {
    "none": true
   },
-  "Aperitivo, tortitas de maíz": {
-   "g": 10.0,
+  "Aperitivo, tortitas de arroz, arroz integral, centeno": {
+   "g": 8.0,
    "es": [
     "tortita",
     "tortitas"
    ],
    "en": [
-    "corn cake",
-    "corn cakes"
+    "rice cake",
+    "rice cakes"
+   ],
+   "src": [
+    "https://world.openfoodfacts.org/product/8480000140135/tortitas-de-arroz-hacendado",
+    "https://www.ocu.org/alimentacion/comer-bien/test/comparar-tortitas-cereales/hacendado-mercadona-tortita-de-arroz/82588_82672"
+   ]
+  },
+  "Aperitivo, tortitas de arroz, arroz integral, maíz": {
+   "g": 8.0,
+   "es": [
+    "tortita",
+    "tortitas"
+   ],
+   "en": [
+    "rice cake",
+    "rice cakes"
+   ],
+   "src": [
+    "https://world.openfoodfacts.org/product/8480000140135/tortitas-de-arroz-hacendado",
+    "https://www.ocu.org/alimentacion/comer-bien/test/comparar-tortitas-cereales/hacendado-mercadona-tortita-de-arroz/82588_82672"
+   ]
+  },
+  "Aperitivo, tortitas de arroz, arroz integral, multicereales": {
+   "g": 8.0,
+   "es": [
+    "tortita",
+    "tortitas"
+   ],
+   "en": [
+    "rice cake",
+    "rice cakes"
+   ],
+   "src": [
+    "https://world.openfoodfacts.org/product/8480000140135/tortitas-de-arroz-hacendado",
+    "https://www.ocu.org/alimentacion/comer-bien/test/comparar-tortitas-cereales/hacendado-mercadona-tortita-de-arroz/82588_82672"
+   ]
+  },
+  "Aperitivo, tortitas de arroz, arroz integral, multicereales, sin sal": {
+   "g": 8.0,
+   "es": [
+    "tortita",
+    "tortitas"
+   ],
+   "en": [
+    "rice cake",
+    "rice cakes"
+   ],
+   "src": [
+    "https://world.openfoodfacts.org/product/8480000140135/tortitas-de-arroz-hacendado",
+    "https://www.ocu.org/alimentacion/comer-bien/test/comparar-tortitas-cereales/hacendado-mercadona-tortita-de-arroz/82588_82672"
+   ]
+  },
+  "Aperitivo, tortitas de arroz, arroz integral, natural, sin sal": {
+   "g": 8.0,
+   "es": [
+    "tortita",
+    "tortitas"
+   ],
+   "en": [
+    "rice cake",
+    "rice cakes"
+   ],
+   "src": [
+    "https://world.openfoodfacts.org/product/8480000140135/tortitas-de-arroz-hacendado",
+    "https://www.ocu.org/alimentacion/comer-bien/test/comparar-tortitas-cereales/hacendado-mercadona-tortita-de-arroz/82588_82672"
+   ]
+  },
+  "Aperitivo, tortitas de arroz, arroz integral, semillas de sésamo": {
+   "g": 8.0,
+   "es": [
+    "tortita",
+    "tortitas"
+   ],
+   "en": [
+    "rice cake",
+    "rice cakes"
+   ],
+   "src": [
+    "https://world.openfoodfacts.org/product/8480000140135/tortitas-de-arroz-hacendado",
+    "https://www.ocu.org/alimentacion/comer-bien/test/comparar-tortitas-cereales/hacendado-mercadona-tortita-de-arroz/82588_82672"
+   ]
+  },
+  "Aperitivo, tortitas de arroz, arroz integral, semillas de sésamo, sin sal": {
+   "g": 8.0,
+   "es": [
+    "tortita",
+    "tortitas"
+   ],
+   "en": [
+    "rice cake",
+    "rice cakes"
+   ],
+   "src": [
+    "https://world.openfoodfacts.org/product/8480000140135/tortitas-de-arroz-hacendado",
+    "https://www.ocu.org/alimentacion/comer-bien/test/comparar-tortitas-cereales/hacendado-mercadona-tortita-de-arroz/82588_82672"
+   ]
+  },
+  "Aperitivo, tortitas de arroz, arroz integral, trigo sarraceno": {
+   "g": 8.0,
+   "es": [
+    "tortita",
+    "tortitas"
+   ],
+   "en": [
+    "rice cake",
+    "rice cakes"
+   ],
+   "src": [
+    "https://world.openfoodfacts.org/product/8480000140135/tortitas-de-arroz-hacendado",
+    "https://www.ocu.org/alimentacion/comer-bien/test/comparar-tortitas-cereales/hacendado-mercadona-tortita-de-arroz/82588_82672"
+   ]
+  },
+  "Aperitivo, tortitas de arroz, arroz integral, trigo sarraceno, sin sal": {
+   "g": 8.0,
+   "es": [
+    "tortita",
+    "tortitas"
+   ],
+   "en": [
+    "rice cake",
+    "rice cakes"
+   ],
+   "src": [
+    "https://world.openfoodfacts.org/product/8480000140135/tortitas-de-arroz-hacendado",
+    "https://www.ocu.org/alimentacion/comer-bien/test/comparar-tortitas-cereales/hacendado-mercadona-tortita-de-arroz/82588_82672"
+   ]
+  },
+  "Aperitivo, tortitas de maíz": {
+   "g": 8.0,
+   "es": [
+    "tortita",
+    "tortitas"
+   ],
+   "en": [
+    "rice cake",
+    "rice cakes"
+   ],
+   "src": [
+    "https://world.openfoodfacts.org/product/8480000140135/tortitas-de-arroz-hacendado",
+    "https://www.ocu.org/alimentacion/comer-bien/test/comparar-tortitas-cereales/hacendado-mercadona-tortita-de-arroz/82588_82672"
    ]
   },
   "Aperitivo, tortitas de maíz, muy bajo en sodio": {
-   "g": 9.0,
+   "g": 8.0,
    "es": [
     "tortita",
     "tortitas"
    ],
    "en": [
-    "tortitas",
-    "tortitas"
+    "rice cake",
+    "rice cakes"
+   ],
+   "src": [
+    "https://world.openfoodfacts.org/product/8480000140135/tortitas-de-arroz-hacendado",
+    "https://www.ocu.org/alimentacion/comer-bien/test/comparar-tortitas-cereales/hacendado-mercadona-tortita-de-arroz/82588_82672"
    ]
   },
   "Apero Toasts": {
@@ -769,6 +1280,34 @@
    "en": [
     "wafer roll",
     "wafer rolls"
+   ]
+  },
+  "Arándanos rojos, crudo": {
+   "g": 50.0,
+   "es": [
+    "puñado",
+    "puñados"
+   ],
+   "en": [
+    "handful",
+    "handfuls"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Arándanos, congelado, azucarado": {
+   "g": 50.0,
+   "es": [
+    "puñado",
+    "puñados"
+   ],
+   "en": [
+    "handful",
+    "handfuls"
+   ],
+   "src": [
+    "reviewed by hand"
    ]
   },
   "Arándanos, deshidratado, azucarado": {
@@ -841,7 +1380,7 @@
    ]
   },
   "Atún en salsa de tomate": {
-   "g": 80.0,
+   "g": 60.0,
    "es": [
     "lata",
     "latas"
@@ -849,6 +1388,9 @@
    "en": [
     "can",
     "cans"
+   ],
+   "src": [
+    "https://world.openfoodfacts.org/product/8480000180551/atun-claro-en-aceite-de-girasol-hacendado"
    ]
   },
   "Atún vegano con tomate (Aldi)": {
@@ -884,6 +1426,20 @@
    "en": [
     "sugar cube",
     "sugar cubes"
+   ]
+  },
+  "Azúcar glas": {
+   "g": 3.0,
+   "es": [
+    "cucharadita",
+    "cucharaditas"
+   ],
+   "en": [
+    "teaspoon",
+    "teaspoons"
+   ],
+   "src": [
+    "reviewed by hand"
    ]
   },
   "BARRITAS BANANA CACAO": {
@@ -1025,7 +1581,7 @@
    ]
   },
   "Barrita de leche y cereales": {
-   "g": 25.0,
+   "g": 20.0,
    "es": [
     "barrita",
     "barritas"
@@ -1033,6 +1589,9 @@
    "en": [
     "bar",
     "bars"
+   ],
+   "src": [
+    "https://www.cronista.com/espana/actualidad-es/mercadona-tiene-las-mejores-barritas-de-cereal-salen-menos-de-2-euros-y-tiene-aporte-energetico"
    ]
   },
   "Barrita de postre lácteo, congelado, hecho con leche semidesnatada": {
@@ -1402,6 +1961,20 @@
   "Bebida, bebida sabor naranja, tipo desayuno, en polvo, preparado con agua": {
    "none": true
   },
+  "Bebida, cacao en polvo, sin azúcar añadido, en polvo": {
+   "g": 3.0,
+   "es": [
+    "cucharadita",
+    "cucharaditas"
+   ],
+   "en": [
+    "teaspoon",
+    "teaspoons"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
   "Bebida, chocolate en polvo, sin azúcar añadido": {
    "none": true
   },
@@ -1421,6 +1994,9 @@
    "none": true
   },
   "Bebida, desayuno instantáneo en polvo, chocolate, sin reconstituir": {
+   "none": true
+  },
+  "Bebida, mezcla sabor ponche de huevo, en polvo, preparado con leche entera": {
    "none": true
   },
   "Bebida, preparado de bebida sabor chocolate para leche, en polvo, con nutrientes añadidos": {
@@ -1473,6 +2049,20 @@
   },
   "Bebida, zumo de naranja, light, sin pulpa": {
    "none": true
+  },
+  "Bebido de avena calcio 0% azúcares añadidos": {
+   "g": 5.0,
+   "es": [
+    "cucharadita",
+    "cucharaditas"
+   ],
+   "en": [
+    "teaspoon",
+    "teaspoons"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
   },
   "Beicon, pavo, bajo en sodio": {
    "g": 12.0,
@@ -1904,6 +2494,20 @@
   "Boniato, en conserva, en puré": {
    "none": true
   },
+  "Boniato, en conserva, envasado al vacío": {
+   "g": 150.0,
+   "es": [
+    "boniato",
+    "boniatos"
+   ],
+   "en": [
+    "sweet potato",
+    "sweet potatoes"
+   ],
+   "src": [
+    "https://www.ucm.es/data/cont/docs/458-2015-10-22-pesos-medidas-caseras-raciones-2015.pdf"
+   ]
+  },
   "Boniatos, frito a la francesa, congelado envasado, con sal añadida": {
    "none": true
   },
@@ -2172,6 +2776,20 @@
   "Cacahuetes fritos": {
    "none": true
   },
+  "Cacao, en polvo, sin azúcar": {
+   "g": 2.5,
+   "es": [
+    "cucharadita",
+    "cucharaditas"
+   ],
+   "en": [
+    "teaspoon",
+    "teaspoons"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
   "Calabaza de cera, melón chino de conserva, cocido, hervido, escurrido, con sal": {
    "none": true
   },
@@ -2180,6 +2798,20 @@
   },
   "Calabaza de cera, melón chino de conserva, crudo": {
    "none": true
+  },
+  "Calabaza, calabacín, baby, crudo": {
+   "g": 50.0,
+   "es": [
+    "calabacín",
+    "calabacines"
+   ],
+   "en": [
+    "courgette",
+    "courgettes"
+   ],
+   "src": [
+    "https://www.ucm.es/idinutricion/file/tablas-de-raciones-estandar_web"
+   ]
   },
   "Calabaza, de verano, calabacín, con piel, cocido, hervido, escurrido, sin sal": {
    "none": true
@@ -2241,6 +2873,48 @@
     "bars"
    ]
   },
+  "Caramelos, chocolate blanco": {
+   "g": 8.0,
+   "es": [
+    "caramelo",
+    "caramelos"
+   ],
+   "en": [
+    "candy",
+    "candies"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Caramelos, chocolate dulce": {
+   "g": 8.0,
+   "es": [
+    "caramelo",
+    "caramelos"
+   ],
+   "en": [
+    "candy",
+    "candies"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Caramelos, chocolate semiamargo": {
+   "g": 8.0,
+   "es": [
+    "caramelo",
+    "caramelos"
+   ],
+   "en": [
+    "candy",
+    "candies"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
   "Caramelos, chocolate semiamargo, hecho con mantequilla": {
    "g": 10.0,
    "es": [
@@ -2261,6 +2935,20 @@
    "en": [
     "candy",
     "candies"
+   ]
+  },
+  "Caramelos, fondant cubierto de chocolate dulce": {
+   "g": 10.0,
+   "es": [
+    "bombón",
+    "bombones"
+   ],
+   "en": [
+    "chocolate candy",
+    "chocolate candies"
+   ],
+   "src": [
+    "reviewed by hand"
    ]
   },
   "Caramelos, fudge, chocolate, casero": {
@@ -2363,6 +3051,20 @@
    "en": [
     "piece",
     "pieces"
+   ]
+  },
+  "Carissa, ciruela de Natal, crudo": {
+   "g": 6.0,
+   "es": [
+    "ciruela",
+    "ciruelas"
+   ],
+   "en": [
+    "plum",
+    "plums"
+   ],
+   "src": [
+    "reviewed by hand"
    ]
   },
   "Carne de kebab pollo": {
@@ -2634,6 +3336,62 @@
     "cups"
    ]
   },
+  "Cereales, avena, instantáneo, fortificado, arce y azúcar moreno, seco": {
+   "g": 3.0,
+   "es": [
+    "cucharadita",
+    "cucharaditas"
+   ],
+   "en": [
+    "teaspoon",
+    "teaspoons"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Cerezas, agrio, en conserva, en agua, escurrido": {
+   "g": 5.0,
+   "es": [
+    "cereza",
+    "cerezas"
+   ],
+   "en": [
+    "cherry",
+    "cherries"
+   ],
+   "src": [
+    "https://www.consumer.es/alimentacion/ocho-razones-para-comer-cerezas.html"
+   ]
+  },
+  "Cerezas, agrio, rojo, crudo": {
+   "g": 5.0,
+   "es": [
+    "cereza",
+    "cerezas"
+   ],
+   "en": [
+    "cherry",
+    "cherries"
+   ],
+   "src": [
+    "https://www.consumer.es/alimentacion/ocho-razones-para-comer-cerezas.html"
+   ]
+  },
+  "Cerezas, agrio, rojo, en conserva, en agua, con líquido": {
+   "g": 5.0,
+   "es": [
+    "cereza",
+    "cerezas"
+   ],
+   "en": [
+    "cherry",
+    "cherries"
+   ],
+   "src": [
+    "https://www.consumer.es/alimentacion/ocho-razones-para-comer-cerezas.html"
+   ]
+  },
   "Cerezas, agrio, rojo, en conserva, en almíbar espeso, con líquido": {
    "none": true
   },
@@ -2717,6 +3475,20 @@
   "Cheddar rallado": {
    "none": true
   },
+  "Chile con carne con alubias, plato preparado en conserva": {
+   "g": 400.0,
+   "es": [
+    "bote",
+    "botes"
+   ],
+   "en": [
+    "can",
+    "cans"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
   "Chips Con Sabor Nata Y Cebollas": {
    "none": true
   },
@@ -2737,8 +3509,53 @@
   "Chocograni chocolate con leche": {
    "none": true
   },
+  "Chocolate 70% negro 0% azúcares añadidos": {
+   "g": 9.0,
+   "es": [
+    "cuadradito",
+    "cuadraditos"
+   ],
+   "en": [
+    "square",
+    "squares"
+   ],
+   "src": [
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/hacendado/chocolate-negro-85/1-cuadrados",
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/dia/chocolate-negro-74/2-cuadrados"
+   ]
+  },
   "Chocolate Granola": {
    "none": true
+  },
+  "Chocolate Negro": {
+   "g": 9.0,
+   "es": [
+    "cuadradito",
+    "cuadraditos"
+   ],
+   "en": [
+    "square",
+    "squares"
+   ],
+   "src": [
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/hacendado/chocolate-negro-85/1-cuadrados",
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/dia/chocolate-negro-74/2-cuadrados"
+   ]
+  },
+  "Chocolate Negro 70% 0% Azúcares Añadidos": {
+   "g": 9.0,
+   "es": [
+    "cuadradito",
+    "cuadraditos"
+   ],
+   "en": [
+    "square",
+    "squares"
+   ],
+   "src": [
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/hacendado/chocolate-negro-85/1-cuadrados",
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/dia/chocolate-negro-74/2-cuadrados"
+   ]
   },
   "Chocolate O's": {
    "none": true
@@ -2802,6 +3619,321 @@
    "en": [
     "square",
     "squares"
+   ]
+  },
+  "Chocolate negro": {
+   "g": 9.0,
+   "es": [
+    "cuadradito",
+    "cuadraditos"
+   ],
+   "en": [
+    "square",
+    "squares"
+   ],
+   "src": [
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/hacendado/chocolate-negro-85/1-cuadrados",
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/dia/chocolate-negro-74/2-cuadrados"
+   ]
+  },
+  "Chocolate negro 100% Cacao Ecológico": {
+   "g": 9.0,
+   "es": [
+    "cuadradito",
+    "cuadraditos"
+   ],
+   "en": [
+    "square",
+    "squares"
+   ],
+   "src": [
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/hacendado/chocolate-negro-85/1-cuadrados",
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/dia/chocolate-negro-74/2-cuadrados"
+   ]
+  },
+  "Chocolate negro 55% cacao": {
+   "g": 9.0,
+   "es": [
+    "cuadradito",
+    "cuadraditos"
+   ],
+   "en": [
+    "square",
+    "squares"
+   ],
+   "src": [
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/hacendado/chocolate-negro-85/1-cuadrados",
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/dia/chocolate-negro-74/2-cuadrados"
+   ]
+  },
+  "Chocolate negro 55% cacao con almendras": {
+   "g": 9.0,
+   "es": [
+    "cuadradito",
+    "cuadraditos"
+   ],
+   "en": [
+    "square",
+    "squares"
+   ],
+   "src": [
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/hacendado/chocolate-negro-85/1-cuadrados",
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/dia/chocolate-negro-74/2-cuadrados"
+   ]
+  },
+  "Chocolate negro 70% almendras enteras": {
+   "g": 9.0,
+   "es": [
+    "cuadradito",
+    "cuadraditos"
+   ],
+   "en": [
+    "square",
+    "squares"
+   ],
+   "src": [
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/hacendado/chocolate-negro-85/1-cuadrados",
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/dia/chocolate-negro-74/2-cuadrados"
+   ]
+  },
+  "Chocolate negro 72%": {
+   "g": 9.0,
+   "es": [
+    "cuadradito",
+    "cuadraditos"
+   ],
+   "en": [
+    "square",
+    "squares"
+   ],
+   "src": [
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/hacendado/chocolate-negro-85/1-cuadrados",
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/dia/chocolate-negro-74/2-cuadrados"
+   ]
+  },
+  "Chocolate negro 72% cacao con almendras enteras": {
+   "g": 9.0,
+   "es": [
+    "cuadradito",
+    "cuadraditos"
+   ],
+   "en": [
+    "square",
+    "squares"
+   ],
+   "src": [
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/hacendado/chocolate-negro-85/1-cuadrados",
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/dia/chocolate-negro-74/2-cuadrados"
+   ]
+  },
+  "Chocolate negro 72% de cacao con almendras enteras": {
+   "g": 9.0,
+   "es": [
+    "cuadradito",
+    "cuadraditos"
+   ],
+   "en": [
+    "square",
+    "squares"
+   ],
+   "src": [
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/hacendado/chocolate-negro-85/1-cuadrados",
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/dia/chocolate-negro-74/2-cuadrados"
+   ]
+  },
+  "Chocolate negro 74% cacao": {
+   "g": 9.0,
+   "es": [
+    "cuadradito",
+    "cuadraditos"
+   ],
+   "en": [
+    "square",
+    "squares"
+   ],
+   "src": [
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/hacendado/chocolate-negro-85/1-cuadrados",
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/dia/chocolate-negro-74/2-cuadrados"
+   ]
+  },
+  "Chocolate negro 85%": {
+   "g": 9.0,
+   "es": [
+    "cuadradito",
+    "cuadraditos"
+   ],
+   "en": [
+    "square",
+    "squares"
+   ],
+   "src": [
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/hacendado/chocolate-negro-85/1-cuadrados",
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/dia/chocolate-negro-74/2-cuadrados"
+   ]
+  },
+  "Chocolate negro 85% cacao": {
+   "g": 9.0,
+   "es": [
+    "cuadradito",
+    "cuadraditos"
+   ],
+   "en": [
+    "square",
+    "squares"
+   ],
+   "src": [
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/hacendado/chocolate-negro-85/1-cuadrados",
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/dia/chocolate-negro-74/2-cuadrados"
+   ]
+  },
+  "Chocolate negro 85% cacao - J.D. Gross": {
+   "g": 9.0,
+   "es": [
+    "cuadradito",
+    "cuadraditos"
+   ],
+   "en": [
+    "square",
+    "squares"
+   ],
+   "src": [
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/hacendado/chocolate-negro-85/1-cuadrados",
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/dia/chocolate-negro-74/2-cuadrados"
+   ]
+  },
+  "Chocolate negro 99% cacao": {
+   "g": 9.0,
+   "es": [
+    "cuadradito",
+    "cuadraditos"
+   ],
+   "en": [
+    "square",
+    "squares"
+   ],
+   "src": [
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/hacendado/chocolate-negro-85/1-cuadrados",
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/dia/chocolate-negro-74/2-cuadrados"
+   ]
+  },
+  "Chocolate negro Ecuador 80% cacao": {
+   "g": 9.0,
+   "es": [
+    "cuadradito",
+    "cuadraditos"
+   ],
+   "en": [
+    "square",
+    "squares"
+   ],
+   "src": [
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/hacendado/chocolate-negro-85/1-cuadrados",
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/dia/chocolate-negro-74/2-cuadrados"
+   ]
+  },
+  "Chocolate negro Ecuador con frambuesa 70% cacao": {
+   "g": 9.0,
+   "es": [
+    "cuadradito",
+    "cuadraditos"
+   ],
+   "en": [
+    "square",
+    "squares"
+   ],
+   "src": [
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/hacendado/chocolate-negro-85/1-cuadrados",
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/dia/chocolate-negro-74/2-cuadrados"
+   ]
+  },
+  "Chocolate negro Madagascar 85% cacao": {
+   "g": 9.0,
+   "es": [
+    "cuadradito",
+    "cuadraditos"
+   ],
+   "en": [
+    "square",
+    "squares"
+   ],
+   "src": [
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/hacendado/chocolate-negro-85/1-cuadrados",
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/dia/chocolate-negro-74/2-cuadrados"
+   ]
+  },
+  "Chocolate negro con almendras caramelizadas": {
+   "g": 9.0,
+   "es": [
+    "cuadradito",
+    "cuadraditos"
+   ],
+   "en": [
+    "square",
+    "squares"
+   ],
+   "src": [
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/hacendado/chocolate-negro-85/1-cuadrados",
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/dia/chocolate-negro-74/2-cuadrados"
+   ]
+  },
+  "Chocolate negro con naranja": {
+   "g": 9.0,
+   "es": [
+    "cuadradito",
+    "cuadraditos"
+   ],
+   "en": [
+    "square",
+    "squares"
+   ],
+   "src": [
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/hacendado/chocolate-negro-85/1-cuadrados",
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/dia/chocolate-negro-74/2-cuadrados"
+   ]
+  },
+  "Chocolate negro con pistachos 56%": {
+   "g": 9.0,
+   "es": [
+    "cuadradito",
+    "cuadraditos"
+   ],
+   "en": [
+    "square",
+    "squares"
+   ],
+   "src": [
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/hacendado/chocolate-negro-85/1-cuadrados",
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/dia/chocolate-negro-74/2-cuadrados"
+   ]
+  },
+  "Chocolate negro con sal marina 56%": {
+   "g": 9.0,
+   "es": [
+    "cuadradito",
+    "cuadraditos"
+   ],
+   "en": [
+    "square",
+    "squares"
+   ],
+   "src": [
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/hacendado/chocolate-negro-85/1-cuadrados",
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/dia/chocolate-negro-74/2-cuadrados"
+   ]
+  },
+  "Chocolate negro limón": {
+   "g": 9.0,
+   "es": [
+    "cuadradito",
+    "cuadraditos"
+   ],
+   "en": [
+    "square",
+    "squares"
+   ],
+   "src": [
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/hacendado/chocolate-negro-85/1-cuadrados",
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/dia/chocolate-negro-74/2-cuadrados"
    ]
   },
   "Chocolate para repostería, sin azúcar, líquido": {
@@ -2900,7 +4032,7 @@
    "none": true
   },
   "Claras de huevo": {
-   "g": 33.0,
+   "g": 30.0,
    "es": [
     "clara",
     "claras"
@@ -2908,6 +4040,9 @@
    "en": [
     "egg white",
     "egg whites"
+   ],
+   "src": [
+    "https://www.ucm.es/data/cont/docs/458-2015-10-22-pesos-medidas-caseras-raciones-2015.pdf"
    ]
   },
   "Claras de huevo pasteurizadas": {
@@ -3068,7 +4203,7 @@
    ]
   },
   "Corny chocolate con leche 0% azúcares añadidos": {
-   "g": 25.0,
+   "g": 20.0,
    "es": [
     "barrita",
     "barritas"
@@ -3076,9 +4211,15 @@
    "en": [
     "bar",
     "bars"
+   ],
+   "src": [
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/corny/barrita-de-cereales-con-chocolate-con-leche/1-barrita"
    ]
   },
   "Cottage Cheese": {
+   "none": true
+  },
+  "Crackers Quesos tomate": {
    "none": true
   },
   "Crackers aceitunas bio": {
@@ -3137,6 +4278,48 @@
   "Crema para sándwich, cerdo, ternera": {
    "none": true
   },
+  "Crema para sándwich, con pepinillo picado, aceites sin especificar": {
+   "g": 12.0,
+   "es": [
+    "cucharada",
+    "cucharadas"
+   ],
+   "en": [
+    "tablespoon",
+    "tablespoons"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Crema untable tipo margarina con yogur, 70% de grasa, en barra, con sal": {
+   "g": 12.0,
+   "es": [
+    "cucharada",
+    "cucharadas"
+   ],
+   "en": [
+    "tablespoon",
+    "tablespoons"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Crema untable tipo margarina con yogur, aprox. 40% de grasa, en tarrina, con sal": {
+   "g": 12.0,
+   "es": [
+    "cucharada",
+    "cucharadas"
+   ],
+   "en": [
+    "tablespoon",
+    "tablespoons"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
   "Crocks chocolate con leche": {
    "none": true
   },
@@ -3166,25 +4349,31 @@
    ]
   },
   "Croquetas de patata, congelado, calentado al horno": {
-   "g": 15.0,
+   "g": 20.0,
    "es": [
     "croqueta",
     "croquetas"
    ],
    "en": [
-    "potato puff",
-    "potato puffs"
+    "croquette",
+    "croquettes"
+   ],
+   "src": [
+    "reviewed by hand"
    ]
   },
   "Croquetas de patata, congelado, sin preparar": {
-   "g": 15.0,
+   "g": 20.0,
    "es": [
     "croqueta",
     "croquetas"
    ],
    "en": [
-    "potato puff",
-    "potato puffs"
+    "croquette",
+    "croquettes"
+   ],
+   "src": [
+    "reviewed by hand"
    ]
   },
   "Crousti caramelo & chocolate": {
@@ -3258,7 +4447,7 @@
    ]
   },
   "Cucuruchos de helado, azúcar, tipo enrollado": {
-   "g": 15.0,
+   "g": 20.0,
    "es": [
     "cucurucho",
     "cucuruchos"
@@ -3266,6 +4455,9 @@
    "en": [
     "cone",
     "cones"
+   ],
+   "src": [
+    "https://www.arise-app.com/es/plato/Cucurucho-de-helado"
    ]
   },
   "Cuo di cereale biscotti di avena con frutti rossi": {
@@ -3311,6 +4503,20 @@
    "en": [
     "cup",
     "cups"
+   ]
+  },
+  "Cóctel de zumo de arándano rojo, embotellado, bajo en calorías, con calcio, sacarina y edulcorante de maíz": {
+   "g": 330.0,
+   "es": [
+    "lata",
+    "latas"
+   ],
+   "en": [
+    "can",
+    "cans"
+   ],
+   "src": [
+    "reviewed by hand"
    ]
   },
   "Delicias de Pollo": {
@@ -3462,6 +4668,20 @@
     "cookies"
    ]
   },
+  "Disfruta Don Simon Piña sin azúcares añadidos": {
+   "g": 5.0,
+   "es": [
+    "cucharadita",
+    "cucharaditas"
+   ],
+   "en": [
+    "teaspoon",
+    "teaspoons"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
   "Doble Concentrado de Tomate": {
    "none": true
   },
@@ -3477,25 +4697,31 @@
    ]
   },
   "Donuts, tipo bizcocho, chocolate, azucarado o glaseado": {
-   "g": 60.0,
+   "g": 50.0,
    "es": [
+    "donut",
+    "donutes"
+   ],
+   "en": [
     "donut",
     "donuts"
    ],
-   "en": [
-    "doughnut",
-    "doughnuts"
+   "src": [
+    "https://www.ucm.es/data/cont/docs/458-2015-10-22-pesos-medidas-caseras-raciones-2015.pdf"
    ]
   },
   "Donuts, tipo bizcocho, natural, cubierto o glaseado de chocolate": {
-   "g": 60.0,
+   "g": 50.0,
    "es": [
+    "donut",
+    "donutes"
+   ],
+   "en": [
     "donut",
     "donuts"
    ],
-   "en": [
-    "doughnut",
-    "doughnuts"
+   "src": [
+    "https://www.ucm.es/data/cont/docs/458-2015-10-22-pesos-medidas-caseras-raciones-2015.pdf"
    ]
   },
   "Dúo frutas fresa y plátano congeladas": {
@@ -3523,6 +4749,20 @@
     "empanadas"
    ]
   },
+  "Empanadilla china o wonton, cerdo y verduras, congelado, sin preparar": {
+   "g": 20.0,
+   "es": [
+    "empanadilla",
+    "empanadillas"
+   ],
+   "en": [
+    "wonton",
+    "wontons"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
   "Empanadilla, de pollo o pavo, y relleno de verduras, reducido en grasa, congelado": {
    "g": 120.0,
    "es": [
@@ -3535,7 +4775,7 @@
    ]
   },
   "Empanadilla, relleno de carne y queso, salsa a base de tomate, reducido en grasa, congelado": {
-   "g": 120.0,
+   "g": 80.0,
    "es": [
     "empanadilla",
     "empanadillas"
@@ -3543,10 +4783,13 @@
    "en": [
     "turnover",
     "turnovers"
+   ],
+   "src": [
+    "https://file-server-proveedores.tata.com.uy/pdfs/1603-20251009083910-181811.pdf"
    ]
   },
   "Empanadilla, relleno de huevo, carne y queso, congelado": {
-   "g": 120.0,
+   "g": 80.0,
    "es": [
     "empanadilla",
     "empanadillas"
@@ -3554,10 +4797,13 @@
    "en": [
     "turnover",
     "turnovers"
+   ],
+   "src": [
+    "https://file-server-proveedores.tata.com.uy/pdfs/1603-20251009083910-181811.pdf"
    ]
   },
   "Empanadilla, relleno de patata o queso, congelado": {
-   "g": 120.0,
+   "g": 80.0,
    "es": [
     "empanadilla",
     "empanadillas"
@@ -3565,10 +4811,13 @@
    "en": [
     "turnover",
     "turnovers"
+   ],
+   "src": [
+    "https://file-server-proveedores.tata.com.uy/pdfs/1603-20251009083910-181811.pdf"
    ]
   },
   "Empanadilla, relleno de queso, salsa a base de tomate, congelado, sin preparar": {
-   "g": 120.0,
+   "g": 80.0,
    "es": [
     "empanadilla",
     "empanadillas"
@@ -3576,6 +4825,9 @@
    "en": [
     "turnover",
     "turnovers"
+   ],
+   "src": [
+    "https://file-server-proveedores.tata.com.uy/pdfs/1603-20251009083910-181811.pdf"
    ]
   },
   "Empanadillas de Atún Ultracongeladas": {
@@ -3596,69 +4848,87 @@
    "none": true
   },
   "Encurtidos, pepino, agrio": {
-   "g": 30.0,
+   "g": 17.0,
    "es": [
     "pepinillo",
     "pepinillos"
    ],
    "en": [
-    "pickle",
-    "pickles"
+    "gherkin",
+    "gherkins"
+   ],
+   "src": [
+    "https://fitia.app/calories-nutritional-information/pepinillos-en-vinagre-tradicional-12008006/"
    ]
   },
   "Encurtidos, pepino, agrio, bajo en sodio": {
-   "g": 50.0,
+   "g": 17.0,
    "es": [
     "pepinillo",
     "pepinillos"
    ],
    "en": [
-    "pickle",
-    "pickles"
+    "gherkin",
+    "gherkins"
+   ],
+   "src": [
+    "https://fitia.app/calories-nutritional-information/pepinillos-en-vinagre-tradicional-12008006/"
    ]
   },
   "Encurtidos, pepino, al eneldo o kosher": {
-   "g": 50.0,
+   "g": 17.0,
    "es": [
     "pepinillo",
     "pepinillos"
    ],
    "en": [
-    "pickle",
-    "pickles"
+    "gherkin",
+    "gherkins"
+   ],
+   "src": [
+    "https://fitia.app/calories-nutritional-information/pepinillos-en-vinagre-tradicional-12008006/"
    ]
   },
   "Encurtidos, pepino, al eneldo, reducido en sodio": {
-   "g": 50.0,
+   "g": 17.0,
    "es": [
     "pepinillo",
     "pepinillos"
    ],
    "en": [
-    "pickle",
-    "pickles"
+    "gherkin",
+    "gherkins"
+   ],
+   "src": [
+    "https://fitia.app/calories-nutritional-information/pepinillos-en-vinagre-tradicional-12008006/"
    ]
   },
   "Encurtidos, pepino, dulce, bajos en sodio": {
-   "g": 30.0,
+   "g": 17.0,
    "es": [
     "pepinillo",
     "pepinillos"
    ],
    "en": [
-    "pickle",
-    "pickles"
+    "gherkin",
+    "gherkins"
+   ],
+   "src": [
+    "https://fitia.app/calories-nutritional-information/pepinillos-en-vinagre-tradicional-12008006/"
    ]
   },
   "Encurtidos, pepino, dulces": {
-   "g": 30.0,
+   "g": 17.0,
    "es": [
     "pepinillo",
     "pepinillos"
    ],
    "en": [
-    "pickle",
-    "pickles"
+    "gherkin",
+    "gherkins"
+   ],
+   "src": [
+    "https://fitia.app/calories-nutritional-information/pepinillos-en-vinagre-tradicional-12008006/"
    ]
   },
   "Ensalada China Con. Mazorquitas": {
@@ -3759,6 +5029,20 @@
   "Estofado de ternera, plato preparado en conserva": {
    "none": true
   },
+  "Extra Virgin Olive Oil": {
+   "g": 13.0,
+   "es": [
+    "cucharada",
+    "cucharadas"
+   ],
+   "en": [
+    "tablespoon",
+    "tablespoons"
+   ],
+   "src": [
+    "https://www.ocu.org/alimentacion/comer-bien/noticias/medidas-para-cocinar"
+   ]
+  },
   "FRUIT &Cie MANZANA": {
    "g": 90.0,
    "es": [
@@ -3825,6 +5109,20 @@
   },
   "Fanta naranja zero azúcares": {
    "none": true
+  },
+  "Fanta zero azúcares": {
+   "g": 5.0,
+   "es": [
+    "cucharadita",
+    "cucharaditas"
+   ],
+   "en": [
+    "teaspoon",
+    "teaspoons"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
   },
   "Fiambre con aceitunas, cerdo": {
    "g": 20.0,
@@ -4031,11 +5329,53 @@
   "Flautas de pollo y queso": {
    "none": true
   },
+  "Focaccia, pan plano italiano, natural": {
+   "g": 50.0,
+   "es": [
+    "rebanada",
+    "rebanadas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
   "Frambuesas, puré, con semillas": {
    "none": true
   },
   "Frambuesas, puré, sin pepitas": {
    "none": true
+  },
+  "Fresas": {
+   "g": 12.0,
+   "es": [
+    "fresa",
+    "fresas"
+   ],
+   "en": [
+    "strawberry",
+    "strawberries"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Fresas, crudo": {
+   "g": 12.0,
+   "es": [
+    "fresa",
+    "fresas"
+   ],
+   "en": [
+    "strawberry",
+    "strawberries"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
   },
   "Fritas batata": {
    "none": true
@@ -4064,7 +5404,7 @@
    "none": true
   },
   "Galleta María Ligera Sin Sal y Sin Azúcares Añadidos": {
-   "g": 7.0,
+   "g": 6.0,
    "es": [
     "galleta",
     "galletas"
@@ -4072,6 +5412,9 @@
    "en": [
     "biscuit",
     "biscuits"
+   ],
+   "src": [
+    "https://fitia.app/calories-nutritional-information/galleta-maria-F656kh92qp/"
    ]
   },
   "Galleta con mantequilla Tableta chocolate negro": {
@@ -4086,15 +5429,7 @@
    ]
   },
   "Galleta con pepitas de chocolate con edulcorante": {
-   "g": 60.0,
-   "es": [
-    "pita",
-    "pitas"
-   ],
-   "en": [
-    "pita",
-    "pitas"
-   ]
+   "none": true
   },
   "Galleta crocant con copos de avena zero": {
    "g": 10.0,
@@ -4152,7 +5487,7 @@
    ]
   },
   "Galleta maría": {
-   "g": 7.0,
+   "g": 6.0,
    "es": [
     "galleta",
     "galletas"
@@ -4160,6 +5495,9 @@
    "en": [
     "biscuit",
     "biscuits"
+   ],
+   "src": [
+    "https://fitia.app/calories-nutritional-information/galleta-maria-F656kh92qp/"
    ]
   },
   "Galleta rellena de crema y recubierta de chocolate blanco": {
@@ -4264,6 +5602,36 @@
     "biscuits"
    ]
   },
+  "Galletas Lotus": {
+   "g": 7.0,
+   "es": [
+    "galleta",
+    "galletas"
+   ],
+   "en": [
+    "cookie",
+    "cookies"
+   ],
+   "src": [
+    "https://www.jumbo.cl/galletas-biscoff-250-g-sabor-caramelo/p",
+    "https://world.openfoodfacts.org/product/5410126116236/biscoff-lotus"
+   ]
+  },
+  "Galletas Lotus con crema": {
+   "g": 7.0,
+   "es": [
+    "galleta",
+    "galletas"
+   ],
+   "en": [
+    "cookie",
+    "cookies"
+   ],
+   "src": [
+    "https://www.jumbo.cl/galletas-biscoff-250-g-sabor-caramelo/p",
+    "https://world.openfoodfacts.org/product/5410126116236/biscoff-lotus"
+   ]
+  },
   "Galletas Muesli Diet-Fibra": {
    "g": 10.0,
    "es": [
@@ -4365,15 +5733,7 @@
    ]
   },
   "Galletas caseras, galletas de nevera con pepitas de chocolate": {
-   "g": 60.0,
-   "es": [
-    "pita",
-    "pitas"
-   ],
-   "en": [
-    "pita",
-    "pitas"
-   ]
+   "none": true
   },
   "Galletas caseras, limón helado": {
    "g": 15.0,
@@ -4846,7 +6206,7 @@
    ]
   },
   "Galletas, brownies, preparado industrialmente, reducido en grasa, con fibra añadida": {
-   "g": 25.0,
+   "g": 30.0,
    "es": [
     "brownie",
     "brownies"
@@ -4854,6 +6214,9 @@
    "en": [
     "brownie",
     "brownies"
+   ],
+   "src": [
+    "reviewed by hand"
    ]
   },
   "Galletas, chocolate, hecho con cereal de arroz": {
@@ -4879,36 +6242,45 @@
    ]
   },
   "Galletas, con pepitas de chocolate, casero, hecho con margarina": {
-   "g": 60.0,
+   "g": 15.0,
    "es": [
-    "pita",
-    "pitas"
+    "galleta",
+    "galletas"
    ],
    "en": [
-    "pita",
-    "pitas"
+    "cookie",
+    "cookies"
+   ],
+   "src": [
+    "reviewed by hand"
    ]
   },
   "Galletas, con pepitas de chocolate, masa refrigerada": {
-   "g": 60.0,
+   "g": 15.0,
    "es": [
-    "pita",
-    "pitas"
+    "galleta",
+    "galletas"
    ],
    "en": [
-    "pita",
-    "pitas"
+    "cookie",
+    "cookies"
+   ],
+   "src": [
+    "reviewed by hand"
    ]
   },
   "Galletas, con pepitas de chocolate, masa refrigerada, al horno": {
-   "g": 60.0,
+   "g": 15.0,
    "es": [
-    "pita",
-    "pitas"
+    "galleta",
+    "galletas"
    ],
    "en": [
-    "pita",
-    "pitas"
+    "cookie",
+    "cookies"
+   ],
+   "src": [
+    "reviewed by hand"
    ]
   },
   "Galletas, con pepitas de chocolate, mezcla en polvo": {
@@ -5135,14 +6507,17 @@
    ]
   },
   "Galletas, galleta María": {
-   "g": 7.0,
+   "g": 6.0,
    "es": [
     "galleta",
     "galletas"
    ],
    "en": [
-    "cookie",
-    "cookies"
+    "biscuit",
+    "biscuits"
+   ],
+   "src": [
+    "https://fitia.app/calories-nutritional-information/galleta-maria-F656kh92qp/"
    ]
   },
   "Galletas, galletas de mantequilla, preparado industrialmente, natural": {
@@ -5204,14 +6579,17 @@
    ]
   },
   "Galletas, malvavisco, con cereal de arroz y pepitas de chocolate": {
-   "g": 60.0,
+   "g": 15.0,
    "es": [
-    "pita",
-    "pitas"
+    "galleta",
+    "galletas"
    ],
    "en": [
-    "pita",
-    "pitas"
+    "cookie",
+    "cookies"
+   ],
+   "src": [
+    "reviewed by hand"
    ]
   },
   "Galletas, malvavisco, cubierto de chocolate": {
@@ -5314,14 +6692,17 @@
    ]
   },
   "Galletas, sándwich con pepitas de chocolate, relleno de crema": {
-   "g": 60.0,
+   "g": 18.0,
    "es": [
-    "pita",
-    "pitas"
+    "galleta",
+    "galletas"
    ],
    "en": [
-    "pita",
-    "pitas"
+    "cookie",
+    "cookies"
+   ],
+   "src": [
+    "reviewed by hand"
    ]
   },
   "Galletas, sándwich de avena, relleno de crema": {
@@ -5434,6 +6815,48 @@
     "cookies"
    ]
   },
+  "Garbanzos Bote": {
+   "g": 400.0,
+   "es": [
+    "bote",
+    "botes"
+   ],
+   "en": [
+    "jar",
+    "jars"
+   ],
+   "src": [
+    "https://world.openfoodfacts.org/product/8420933000533/garbanzos-pedro"
+   ]
+  },
+  "Garbanzos a la jardinera": {
+   "g": 400.0,
+   "es": [
+    "bote",
+    "botes"
+   ],
+   "en": [
+    "jar",
+    "jars"
+   ],
+   "src": [
+    "https://world.openfoodfacts.org/product/8420933000533/garbanzos-pedro"
+   ]
+  },
+  "Garbanzos pedrosillanos": {
+   "g": 400.0,
+   "es": [
+    "bote",
+    "botes"
+   ],
+   "en": [
+    "jar",
+    "jars"
+   ],
+   "src": [
+    "https://world.openfoodfacts.org/product/8420933000533/garbanzos-pedro"
+   ]
+  },
   "Garbanzos, semillas maduras, cocido, hervido, con sal": {
    "g": 164.0,
    "es": [
@@ -5482,6 +6905,9 @@
    "none": true
   },
   "Gazpacho Gourmet con Almendras": {
+   "none": true
+  },
+  "Gazpacho blanco de almendras": {
    "none": true
   },
   "Gazpacho tradicional (SIN PAN)": {
@@ -5689,6 +7115,20 @@
     "yogurts"
    ]
   },
+  "Guayabas, fresa, crudo": {
+   "g": 100.0,
+   "es": [
+    "guayaba",
+    "guayabas"
+   ],
+   "en": [
+    "guava",
+    "guavas"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
   "Guisantes, partido, semillas maduras, cocido, hervido, sin sal": {
    "g": 196.0,
    "es": [
@@ -5700,8 +7140,50 @@
     "cups"
    ]
   },
+  "Guisantes, semillas maduras, germinado, cocido, hervido, escurrido, con sal": {
+   "g": 160.0,
+   "es": [
+    "taza",
+    "tazas"
+   ],
+   "en": [
+    "cup",
+    "cups"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Guisantes, semillas maduras, germinado, cocido, hervido, escurrido, sin sal": {
+   "g": 160.0,
+   "es": [
+    "taza",
+    "tazas"
+   ],
+   "en": [
+    "cup",
+    "cups"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Guisantes, semillas maduras, germinado, crudo": {
+   "g": 160.0,
+   "es": [
+    "taza",
+    "tazas"
+   ],
+   "en": [
+    "cup",
+    "cups"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
   "Gullon Maria Dorada": {
-   "g": 7.0,
+   "g": 6.0,
    "es": [
     "galleta",
     "galletas"
@@ -5709,6 +7191,10 @@
    "en": [
     "biscuit",
     "biscuits"
+   ],
+   "src": [
+    "https://fitia.app/calories-nutritional-information/galleta-maria-F656kh92qp/",
+    "https://world.openfoodfacts.org/product/8410376049862/galletas-maria-0-azucares-selecta"
    ]
   },
   "Gyozas pollo": {
@@ -5720,6 +7206,20 @@
    "en": [
     "gyoza",
     "gyozas"
+   ]
+  },
+  "HAMBURGUESAS Espinacas, Guisantes, Emmental": {
+   "g": 100.0,
+   "es": [
+    "hamburguesa",
+    "hamburguesas"
+   ],
+   "en": [
+    "burger",
+    "burgers"
+   ],
+   "src": [
+    "https://world.openfoodfacts.org/product/8027890010249/hamburguesas-vegetales-con-berenjenas-kioene"
    ]
   },
   "HIGH PROTEIN CLEAR WHEY DRINK TEA-LEMON FLAVOUR": {
@@ -5860,6 +7360,9 @@
   "Hierba de limón, crudo": {
    "none": true
   },
+  "High Protein Chocolate Pudding": {
+   "none": true
+  },
   "High Protein Chocolate Pudding***": {
    "g": 200.0,
    "es": [
@@ -5881,6 +7384,12 @@
     "pot",
     "pots"
    ]
+  },
+  "High Protein Mousse Chocolate": {
+   "none": true
+  },
+  "High Protein Natillas Chocolate": {
+   "none": true
   },
   "High Protein Pudding Chocolate": {
    "g": 200.0,
@@ -5951,6 +7460,20 @@
     "portions"
    ]
   },
+  "Higos chumbos, crudo": {
+   "g": 100.0,
+   "es": [
+    "higo",
+    "higos"
+   ],
+   "en": [
+    "fig",
+    "figs"
+   ],
+   "src": [
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/gen%C3%A9rico/higo-chumbo?frc=True"
+   ]
+  },
   "Higos, en conserva, en agua, con líquido": {
    "none": true
   },
@@ -5974,6 +7497,20 @@
   },
   "Hojas de boniato, crudo": {
    "none": true
+  },
+  "Horchata sin azúcares añadidos": {
+   "g": 5.0,
+   "es": [
+    "cucharadita",
+    "cucharaditas"
+   ],
+   "en": [
+    "teaspoon",
+    "teaspoons"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
   },
   "Huevo, blanco, crudo, congelado, pasteurizado": {
    "none": true
@@ -6002,7 +7539,7 @@
    "none": true
   },
   "Huevo, codorniz, entero, fresco, crudo": {
-   "g": 9.0,
+   "g": 10.0,
    "es": [
     "huevo de codorniz",
     "huevos de codorniz"
@@ -6010,6 +7547,9 @@
    "en": [
     "quail egg",
     "quail eggs"
+   ],
+   "src": [
+    "https://www.ecured.cu/Huevo_de_codorniz"
    ]
   },
   "Huevo, entero, crudo, congelado, salado, pasteurizado": {
@@ -6044,7 +7584,7 @@
    ]
   },
   "Huevo, pavo, entero, fresco, crudo": {
-   "g": 80.0,
+   "g": 70.0,
    "es": [
     "huevo de pavo",
     "huevos de pavo"
@@ -6052,6 +7592,9 @@
    "en": [
     "turkey egg",
     "turkey eggs"
+   ],
+   "src": [
+    "reviewed by hand"
    ]
   },
   "Huevo, yema, crudo, congelado, azucarado, pasteurizado": {
@@ -6112,7 +7655,7 @@
    "none": true
   },
   "Interstate Brands, panes de hamburguesa Wonder": {
-   "g": 55.0,
+   "g": 75.0,
    "es": [
     "pan de hamburguesa",
     "panes de hamburguesa"
@@ -6120,10 +7663,41 @@
    "en": [
     "hamburger bun",
     "hamburger buns"
+   ],
+   "src": [
+    "https://www.ucm.es/idinutricion/file/tablas-de-raciones-estandar_web"
    ]
   },
   "Iso Drink Naranja": {
    "none": true
+  },
+  "Jaleas, reducido en azúcar, conserva casera": {
+   "g": 6.0,
+   "es": [
+    "cucharadita",
+    "cucharaditas"
+   ],
+   "en": [
+    "teaspoon",
+    "teaspoons"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Jaleas, sin azúcar (con sacarina sódica)": {
+   "g": 6.0,
+   "es": [
+    "cucharadita",
+    "cucharaditas"
+   ],
+   "en": [
+    "teaspoon",
+    "teaspoons"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
   },
   "Jamón, picado": {
    "none": true
@@ -6244,6 +7818,21 @@
     "slices"
    ]
   },
+  "Kiwi, verde, crudo": {
+   "g": 69.0,
+   "es": [
+    "kiwi",
+    "kiwis"
+   ],
+   "en": [
+    "kiwi",
+    "kiwis"
+   ],
+   "src": [
+    "https://nutriscan.app/es/calories-nutrition/kiwi",
+    "https://calzen.ai/es/calories-in/kiwi/"
+   ]
+  },
   "Knackwurst, knackwurst, cerdo, ternera": {
    "g": 60.0,
    "es": [
@@ -6285,6 +7874,20 @@
   "KnowEats Solomillo de cerdo en salsa funghi": {
    "none": true
   },
+  "Kéfir 0% Suave Lima Limón": {
+   "g": 125.0,
+   "es": [
+    "yogur",
+    "yogures"
+   ],
+   "en": [
+    "yogurt",
+    "yogurts"
+   ],
+   "src": [
+    "https://world.openfoodfacts.org/product/8480000202871/yogur-natural-de-cabra-hacendado"
+   ]
+  },
   "Kéfir Fresa Plátano": {
    "g": 125.0,
    "es": [
@@ -6297,6 +7900,9 @@
    ]
   },
   "Kéfir Melocotón Y Maracuyá": {
+   "none": true
+  },
+  "Kéfir limón & yuzu": {
    "none": true
   },
   "Kéfir mango fresa": {
@@ -6565,14 +8171,17 @@
    ]
   },
   "Magdalenas, natural, casero, hecho con leche semidesnatada": {
-   "g": 60.0,
+   "g": 40.0,
    "es": [
     "magdalena",
     "magdalenas"
    ],
    "en": [
-    "muffin",
-    "muffins"
+    "muffin cake",
+    "muffin cakes"
+   ],
+   "src": [
+    "reviewed by hand"
    ]
   },
   "Magdalenas, salvado de avena": {
@@ -6592,11 +8201,81 @@
   "Mandarinas, en conserva, en su jugo": {
    "none": true
   },
+  "Mango": {
+   "g": 260.0,
+   "es": [
+    "mango",
+    "mangos"
+   ],
+   "en": [
+    "mango",
+    "mangos"
+   ],
+   "src": [
+    "https://www.ucm.es/data/cont/docs/429-2013-07-21-mango-raciones-comp.pdf"
+   ]
+  },
   "Mango deshidratado": {
    "none": true
   },
   "Mango, deshidratado, azucarado": {
    "none": true
+  },
+  "Mangos, crudo": {
+   "g": 260.0,
+   "es": [
+    "mango",
+    "mangos"
+   ],
+   "en": [
+    "mango",
+    "mangos"
+   ],
+   "src": [
+    "https://www.ucm.es/data/cont/docs/429-2013-07-21-mango-raciones-comp.pdf"
+   ]
+  },
+  "Manteca vegetal, doméstico, manteca de cerdo y aceite vegetal": {
+   "g": 12.0,
+   "es": [
+    "cucharada",
+    "cucharadas"
+   ],
+   "en": [
+    "tablespoon",
+    "tablespoons"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Mantequilla, mantequilla clarificada (ghee)": {
+   "g": 4.0,
+   "es": [
+    "cucharadita",
+    "cucharaditas"
+   ],
+   "en": [
+    "teaspoon",
+    "teaspoons"
+   ],
+   "src": [
+    "https://www.consumer.es/etiquetas/medidas-caseras"
+   ]
+  },
+  "Mantequilla, montado, con sal": {
+   "g": 3.0,
+   "es": [
+    "cucharadita",
+    "cucharaditas"
+   ],
+   "en": [
+    "teaspoon",
+    "teaspoons"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
   },
   "Manzana Fresa Sin azúcares añadidos*": {
    "g": 90.0,
@@ -6608,6 +8287,9 @@
     "pouch",
     "pouches"
    ]
+  },
+  "Manzana Mango Sin azúcares añadidos*": {
+   "none": true
   },
   "Manzana Pera Sin azúcares añadidos*": {
    "g": 90.0,
@@ -6669,7 +8351,7 @@
    ]
   },
   "Marbú Dorada 0% Azúcares Añadidos": {
-   "g": 7.0,
+   "g": 6.0,
    "es": [
     "galleta",
     "galletas"
@@ -6677,6 +8359,24 @@
    "en": [
     "biscuit",
     "biscuits"
+   ],
+   "src": [
+    "https://fitia.app/calories-nutritional-information/galleta-maria-F656kh92qp/",
+    "https://world.openfoodfacts.org/product/8410376049862/galletas-maria-0-azucares-selecta"
+   ]
+  },
+  "Margarina, 80% de grasa, en barra, aceites de maíz y soja normales e hidrogenados": {
+   "g": 12.0,
+   "es": [
+    "cucharada",
+    "cucharadas"
+   ],
+   "en": [
+    "tablespoon",
+    "tablespoons"
+   ],
+   "src": [
+    "reviewed by hand"
    ]
   },
   "María dorada": {
@@ -6689,6 +8389,9 @@
     "biscuit",
     "biscuits"
    ]
+  },
+  "María dorada 0%": {
+   "none": true
   },
   "Masa de tarta, tipo galleta, casero, barquillo de vainilla, refrigerado": {
    "none": true
@@ -6726,6 +8429,34 @@
   },
   "Mayonesa, hecho con tofu": {
    "none": true
+  },
+  "Mayonesa, reducido en grasa, con aceite de oliva": {
+   "g": 12.0,
+   "es": [
+    "cucharada",
+    "cucharadas"
+   ],
+   "en": [
+    "tablespoon",
+    "tablespoons"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Maíz con pimientos rojos y verdes, en conserva, con líquido": {
+   "g": 140.0,
+   "es": [
+    "lata",
+    "latas"
+   ],
+   "en": [
+    "can",
+    "cans"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
   },
   "Maíz en mazorca": {
    "g": 200.0,
@@ -6840,6 +8571,20 @@
     "cans"
    ]
   },
+  "Melocotones, amarillo, crudo": {
+   "g": 200.0,
+   "es": [
+    "melocotón",
+    "melocotones"
+   ],
+   "en": [
+    "peach",
+    "peaches"
+   ],
+   "src": [
+    "https://www.ucm.es/idinutricion/file/tablas-de-raciones-estandar_web"
+   ]
+  },
   "Melocotones, congelado, en rodajas, azucarado": {
    "none": true
   },
@@ -6853,7 +8598,7 @@
    "none": true
   },
   "Melocotones, deshidratado, sulfitado, sin cocinar": {
-   "g": 10.0,
+   "g": 7.0,
    "es": [
     "orejón",
     "orejones"
@@ -6861,6 +8606,9 @@
    "en": [
     "dried peach half",
     "dried peach halves"
+   ],
+   "src": [
+    "https://www.ucm.es/idinutricion/file/tablas-de-raciones-estandar_web"
    ]
   },
   "Melocotones, en conserva, en agua, con líquido": {
@@ -6888,6 +8636,15 @@
    "none": true
   },
   "Melón amargo, puntas de hojas, crudo": {
+   "none": true
+  },
+  "Melón amargo, vainas, cocido, hervido, escurrido, con sal": {
+   "none": true
+  },
+  "Melón amargo, vainas, cocido, hervido, escurrido, sin sal": {
+   "none": true
+  },
+  "Melón amargo, vainas, crudo": {
    "none": true
   },
   "Mermelada Arándanos": {
@@ -6924,6 +8681,12 @@
    "none": true
   },
   "Mezcla de arroz, sabor a queso, mezcla en polvo, sin preparar": {
+   "none": true
+  },
+  "Mezcla para magdalenas de arándano, seco": {
+   "none": true
+  },
+  "Mezcla para pasta, lasaña de cuatro quesos, sin preparar": {
    "none": true
   },
   "Mezcla para pasta, ternera clásica, sin preparar": {
@@ -6973,6 +8736,21 @@
     "croissants"
    ]
   },
+  "Mini Hamburguesas Espinacas Zanahoria": {
+   "g": 50.0,
+   "es": [
+    "hamburguesa",
+    "hamburguesas"
+   ],
+   "en": [
+    "mini burger",
+    "mini burgers"
+   ],
+   "src": [
+    "https://finditapp.es/product/61244/mini-hamburguesas-vegetales-hacendado-con-espinacas-y-zanahoria",
+    "https://world.openfoodfacts.org/product/8027890010232/mini-hamburguesas-vegetales-kioene"
+   ]
+  },
   "Mini Pocket Relleno de fresa": {
    "none": true
   },
@@ -7015,6 +8793,20 @@
   "Mini taquitos jamón curado": {
    "none": true
   },
+  "Mini tortillas de trigo": {
+   "g": 25.0,
+   "es": [
+    "tortilla",
+    "tortillas"
+   ],
+   "en": [
+    "tortilla",
+    "tortillas"
+   ],
+   "src": [
+    "https://world.openfoodfacts.org/product/8480000809391/12-mini-tortillas-trigo-hacendado"
+   ]
+  },
   "Minitortitas de arroz Chocolate Negro": {
    "g": 7.0,
    "es": [
@@ -7028,6 +8820,20 @@
   },
   "Mission Foods, tortillas de harina Mission, taco blando, 20 cm": {
    "none": true
+  },
+  "Mix Pan": {
+   "g": 30.0,
+   "es": [
+    "rebanada",
+    "rebanadas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/hacendado/pan-de-molde-blanco/2-rebanadas"
+   ]
   },
   "Mochi helado con mango": {
    "g": 40.0,
@@ -7223,7 +9029,7 @@
    ]
   },
   "Mozzarella con leche pasteurizada de vaca": {
-   "g": 125.0,
+   "g": 100.0,
    "es": [
     "bola",
     "bolas"
@@ -7231,6 +9037,9 @@
    "en": [
     "ball",
     "balls"
+   ],
+   "src": [
+    "https://academia-lab.com/enciclopedia/queso-mozzarella/"
    ]
   },
   "Mozzarella di Bufala Campana DOP": {
@@ -7299,6 +9108,62 @@
   "Muesli orgánico de chocolate negro": {
    "none": true
   },
+  "Muffins ingleses, blanco integral": {
+   "g": 57.0,
+   "es": [
+    "panecillo",
+    "panecillos"
+   ],
+   "en": [
+    "English muffin",
+    "English muffins"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Muffins ingleses, natural, enriquecido, sin propionato cálcico": {
+   "g": 57.0,
+   "es": [
+    "panecillo",
+    "panecillos"
+   ],
+   "en": [
+    "English muffin",
+    "English muffins"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Muffins ingleses, natural, sin enriquecer, con propionato cálcico": {
+   "g": 57.0,
+   "es": [
+    "panecillo",
+    "panecillos"
+   ],
+   "en": [
+    "English muffin",
+    "English muffins"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Muffins ingleses, natural, sin enriquecer, sin propionato cálcico": {
+   "g": 57.0,
+   "es": [
+    "panecillo",
+    "panecillos"
+   ],
+   "en": [
+    "English muffin",
+    "English muffins"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
   "Muslito De Pollo Asado Al Horno": {
    "g": 120.0,
    "es": [
@@ -7329,6 +9194,63 @@
   },
   "Naranja sin pulpa": {
    "none": true
+  },
+  "Naranjas, crudo": {
+   "g": 150.0,
+   "es": [
+    "naranja",
+    "naranjas"
+   ],
+   "en": [
+    "orange",
+    "oranges"
+   ],
+   "src": [
+    "https://www.ucm.es/idinutricion/file/tablas-de-raciones-estandar_web",
+    "https://fmed.uba.ar/sites/default/files/2020-08/Peso-Volumen-Medidas%20de%20alimentos.pdf"
+   ]
+  },
+  "Naranjas, crudo, con piel": {
+   "g": 150.0,
+   "es": [
+    "naranja",
+    "naranjas"
+   ],
+   "en": [
+    "orange",
+    "oranges"
+   ],
+   "src": [
+    "https://fmed.uba.ar/sites/default/files/2020-08/Peso-Volumen-Medidas%20de%20alimentos.pdf"
+   ]
+  },
+  "Naranjas, crudo, de California, valencias": {
+   "g": 150.0,
+   "es": [
+    "naranja",
+    "naranjas"
+   ],
+   "en": [
+    "orange",
+    "oranges"
+   ],
+   "src": [
+    "https://fmed.uba.ar/sites/default/files/2020-08/Peso-Volumen-Medidas%20de%20alimentos.pdf"
+   ]
+  },
+  "Naranjas, crudo, de Florida": {
+   "g": 150.0,
+   "es": [
+    "naranja",
+    "naranjas"
+   ],
+   "en": [
+    "orange",
+    "oranges"
+   ],
+   "src": [
+    "https://fmed.uba.ar/sites/default/files/2020-08/Peso-Volumen-Medidas%20de%20alimentos.pdf"
+   ]
   },
   "Natillas CHOCOLATE": {
    "g": 125.0,
@@ -7436,6 +9358,20 @@
    "en": [
     "nugget",
     "nuggets"
+   ]
+  },
+  "Néctar de Piña sin azúcares añadidos": {
+   "g": 5.0,
+   "es": [
+    "cucharadita",
+    "cucharaditas"
+   ],
+   "en": [
+    "teaspoon",
+    "teaspoons"
+   ],
+   "src": [
+    "reviewed by hand"
    ]
   },
   "Néctar de albaricoque, en conserva, con vitamina C añadida": {
@@ -7552,6 +9488,76 @@
     "sticks"
    ]
   },
+  "Pan 5 cereales - La Cestera": {
+   "g": 30.0,
+   "es": [
+    "rebanada",
+    "rebanadas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "https://www.ucm.es/data/cont/docs/429-2013-07-21-pan-blanco-molde-raciones.pdf"
+   ]
+  },
+  "Pan Millo": {
+   "g": 30.0,
+   "es": [
+    "rebanada",
+    "rebanadas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/hacendado/pan-de-molde-blanco/2-rebanadas"
+   ]
+  },
+  "Pan Tostado 100% Integral de Trigo": {
+   "g": 10.0,
+   "es": [
+    "rebanada",
+    "rebanadas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/bimbo/pan-tostado-tradicional/1-rebanada"
+   ]
+  },
+  "Pan Tostado Estilo Tradicional": {
+   "g": 10.0,
+   "es": [
+    "rebanada",
+    "rebanadas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/bimbo/pan-tostado-tradicional/1-rebanada"
+   ]
+  },
+  "Pan Tostado Sin Gluten": {
+   "g": 10.0,
+   "es": [
+    "rebanada",
+    "rebanadas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/bimbo/pan-tostado-tradicional/1-rebanada"
+   ]
+  },
   "Pan Tradicional": {
    "none": true
   },
@@ -7613,6 +9619,20 @@
   "Pan de Queso (snacks)": {
    "none": true
   },
+  "Pan de ajo, congelado": {
+   "g": 30.0,
+   "es": [
+    "rebanada",
+    "rebanadas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "https://www.ucm.es/data/cont/docs/429-2013-07-21-pan-blanco-molde-raciones.pdf"
+   ]
+  },
   "Pan de leche": {
    "g": 30.0,
    "es": [
@@ -7649,6 +9669,34 @@
     "cookies"
    ]
   },
+  "Pan fibra y sésamo": {
+   "g": 30.0,
+   "es": [
+    "rebanada",
+    "rebanadas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "https://www.ucm.es/data/cont/docs/429-2013-07-21-pan-blanco-molde-raciones.pdf"
+   ]
+  },
+  "Pan formato ahorro": {
+   "g": 30.0,
+   "es": [
+    "rebanada",
+    "rebanadas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/hacendado/pan-de-molde-blanco/2-rebanadas"
+   ]
+  },
   "Pan integral 3 cereales": {
    "g": 30.0,
    "es": [
@@ -7671,6 +9719,62 @@
     "slices"
    ]
   },
+  "Pan proteinK": {
+   "g": 30.0,
+   "es": [
+    "rebanada",
+    "rebanadas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "https://www.ucm.es/data/cont/docs/429-2013-07-21-pan-blanco-molde-raciones.pdf"
+   ]
+  },
+  "Pan semillas y pipas": {
+   "g": 30.0,
+   "es": [
+    "rebanada",
+    "rebanadas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "https://www.ucm.es/data/cont/docs/429-2013-07-21-pan-blanco-molde-raciones.pdf"
+   ]
+  },
+  "Pan tostado 100 % integral": {
+   "g": 10.0,
+   "es": [
+    "rebanada",
+    "rebanadas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/bimbo/pan-tostado-tradicional/1-rebanada"
+   ]
+  },
+  "Pan tostado 100% espelta integral": {
+   "g": 10.0,
+   "es": [
+    "rebanada",
+    "rebanadas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/bimbo/pan-tostado-tradicional/1-rebanada"
+   ]
+  },
   "Pan tostado 100% integral bajo en sal y en azúcares": {
    "g": 12.0,
    "es": [
@@ -7680,6 +9784,20 @@
    "en": [
     "toast",
     "toasts"
+   ]
+  },
+  "Pan tostado ajo y perejil": {
+   "g": 10.0,
+   "es": [
+    "rebanada",
+    "rebanadas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/bimbo/pan-tostado-tradicional/1-rebanada"
    ]
   },
   "Pan tostado cereales y semillas": {
@@ -7693,8 +9811,8 @@
     "cups"
    ]
   },
-  "Pan tostado integral sin sal y sin azúcar rebanadas": {
-   "g": 30.0,
+  "Pan tostado classic": {
+   "g": 10.0,
    "es": [
     "rebanada",
     "rebanadas"
@@ -7702,6 +9820,51 @@
    "en": [
     "slice",
     "slices"
+   ],
+   "src": [
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/bimbo/pan-tostado-tradicional/1-rebanada"
+   ]
+  },
+  "Pan tostado con pasas": {
+   "g": 10.0,
+   "es": [
+    "rebanada",
+    "rebanadas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/bimbo/pan-tostado-tradicional/1-rebanada"
+   ]
+  },
+  "Pan tostado integral": {
+   "g": 10.0,
+   "es": [
+    "rebanada",
+    "rebanadas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/bimbo/pan-tostado-tradicional/1-rebanada"
+   ]
+  },
+  "Pan tostado integral sin sal y sin azúcar rebanadas": {
+   "g": 10.0,
+   "es": [
+    "rebanada",
+    "rebanadas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/bimbo/pan-tostado-tradicional/1-rebanada"
    ]
   },
   "Pan tostado proteínas": {
@@ -7728,6 +9891,20 @@
   },
   "Pan tostado tomate": {
    "none": true
+  },
+  "Pan, canela": {
+   "g": 30.0,
+   "es": [
+    "rebanada",
+    "rebanadas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
   },
   "Pan, chapati o roti, integral, preparado industrialmente, congelado": {
    "g": 40.0,
@@ -7773,6 +9950,48 @@
     "slices"
    ]
   },
+  "Pan, francés o vienés": {
+   "g": 30.0,
+   "es": [
+    "rebanada",
+    "rebanadas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "https://www.ucm.es/data/cont/docs/429-2013-07-21-Pan-blanco-barra-raciones.pdf"
+   ]
+  },
+  "Pan, francés o vienés, integral": {
+   "g": 30.0,
+   "es": [
+    "rebanada",
+    "rebanadas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "https://www.ucm.es/data/cont/docs/429-2013-07-21-Pan-blanco-barra-raciones.pdf"
+   ]
+  },
+  "Pan, francés o vienés, tostado": {
+   "g": 30.0,
+   "es": [
+    "rebanada",
+    "rebanadas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "https://www.ucm.es/data/cont/docs/429-2013-07-21-Pan-blanco-barra-raciones.pdf"
+   ]
+  },
   "Pan, huevo": {
    "g": 30.0,
    "es": [
@@ -7800,6 +10019,20 @@
   },
   "Pan, migas, seco, rallado, sazonado": {
    "none": true
+  },
+  "Pan, multicereales": {
+   "g": 30.0,
+   "es": [
+    "rebanada",
+    "rebanadas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "https://www.ucm.es/data/cont/docs/429-2013-07-21-pan-blanco-molde-raciones.pdf"
+   ]
   },
   "Pan, multicereales, tostado": {
    "g": 30.0,
@@ -7856,6 +10089,9 @@
     "slices"
    ]
   },
+  "Pan, pan de maíz, mezcla en polvo, preparado con leche semidesnatada, 80% de margarina, y huevos": {
+   "none": true
+  },
   "Pan, pan de pita, blanco, enriquecido": {
    "g": 60.0,
    "es": [
@@ -7900,6 +10136,48 @@
     "flatbreads"
    ]
   },
+  "Pan, pasas, enriquecido": {
+   "g": 30.0,
+   "es": [
+    "rebanada",
+    "rebanadas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "https://www.ucm.es/data/cont/docs/429-2013-07-21-pan-blanco-molde-raciones.pdf"
+   ]
+  },
+  "Pan, pasas, enriquecido, tostado": {
+   "g": 30.0,
+   "es": [
+    "rebanada",
+    "rebanadas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "https://www.ucm.es/data/cont/docs/429-2013-07-21-pan-blanco-molde-raciones.pdf"
+   ]
+  },
+  "Pan, pasas, sin enriquecer": {
+   "g": 30.0,
+   "es": [
+    "rebanada",
+    "rebanadas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "https://www.ucm.es/data/cont/docs/429-2013-07-21-pan-blanco-molde-raciones.pdf"
+   ]
+  },
   "Pan, patata": {
    "g": 32.0,
    "es": [
@@ -7921,6 +10199,9 @@
     "slice",
     "slices"
    ]
+  },
+  "Pan, queso": {
+   "none": true
   },
   "Pan, reducido en calorías, salvado de avena": {
    "g": 25.0,
@@ -8154,6 +10435,9 @@
     "buns"
    ]
   },
+  "Panes especiales tomate y orégano": {
+   "none": true
+  },
   "Panes hot dog natural": {
    "g": 55.0,
    "es": [
@@ -8172,6 +10456,18 @@
    "none": true
   },
   "Pasta con salsa de tomate, sin carne, en conserva": {
+   "none": true
+  },
+  "Pasta danesa, fruta, sin enriquecer, canela, pasas, fresa": {
+   "none": true
+  },
+  "Pasta danesa, queso": {
+   "none": true
+  },
+  "Pasta pollo al pesto Hacendado￼": {
+   "none": true
+  },
+  "Pasta rellena de calabaza y crema de quesos": {
    "none": true
   },
   "Pasta, casero, con huevo, cocido": {
@@ -8987,7 +11283,7 @@
    ]
   },
   "Pechuga de pollo, panecillo, asado al horno": {
-   "g": 60.0,
+   "g": 70.0,
    "es": [
     "panecillo",
     "panecillos"
@@ -8995,6 +11291,9 @@
    "en": [
     "bun",
     "buns"
+   ],
+   "src": [
+    "https://www.consumer.es/?p=31491"
    ]
   },
   "Pechuga de pollo, sin grasa, sabor mezquite, en rodajas": {
@@ -9009,18 +11308,10 @@
    ]
   },
   "Pepitas de Chocolate Negro": {
-   "g": 60.0,
-   "es": [
-    "pita",
-    "pitas"
-   ],
-   "en": [
-    "pita",
-    "pitas"
-   ]
+   "none": true
   },
   "Pepperoni, ternera y cerdo, en rodajas": {
-   "g": 20.0,
+   "g": 4.0,
    "es": [
     "loncha",
     "lonchas"
@@ -9028,6 +11319,9 @@
    "en": [
     "slice",
     "slices"
+   ],
+   "src": [
+    "reviewed by hand"
    ]
   },
   "Pequeños empanados Semillas, trigo, espinacas, feta": {
@@ -9045,6 +11339,20 @@
    "en": [
     "pear",
     "pears"
+   ]
+  },
+  "Peras, crudo": {
+   "g": 178.0,
+   "es": [
+    "pera",
+    "peras"
+   ],
+   "en": [
+    "pear",
+    "pears"
+   ],
+   "src": [
+    "https://nutriscan.app/es/calories-nutrition/pear"
    ]
   },
   "Peras, deshidratado, sulfitado, sin cocinar": {
@@ -9066,7 +11374,7 @@
    "none": true
   },
   "Pescado azul en aceite de oliva escurrido (atún, anchoas, ventresca, caballa...)": {
-   "g": 56.0,
+   "g": 52.0,
    "es": [
     "lata",
     "latas"
@@ -9074,6 +11382,23 @@
    "en": [
     "can",
     "cans"
+   ],
+   "src": [
+    "https://www.jumbo.cl/pack-3-un-atun-van-camps-lomitos-en-aceite-52-g-drenado-80-g-neto-1498580/p"
+   ]
+  },
+  "Pescado azul: atún, bonito, salmón, trucha, pez espada, sardina, boquerón...": {
+   "g": 52.0,
+   "es": [
+    "lata",
+    "latas"
+   ],
+   "en": [
+    "can",
+    "cans"
+   ],
+   "src": [
+    "https://www.jumbo.cl/pack-3-un-atun-van-camps-lomitos-en-aceite-52-g-drenado-80-g-neto-1498580/p"
    ]
   },
   "Pescado, atún, blanco, en conserva en aceite, sin sal, escurrido": {
@@ -9384,6 +11709,9 @@
     "peppers"
    ]
   },
+  "Pimientos en tiras": {
+   "none": true
+  },
   "Pimientos, ancho, deshidratado": {
    "g": 40.0,
    "es": [
@@ -9396,7 +11724,7 @@
    ]
   },
   "Pimientos, chile picante, rojo, crudo": {
-   "g": 10.0,
+   "g": 5.0,
    "es": [
     "chile",
     "chiles"
@@ -9404,24 +11732,16 @@
    "en": [
     "chili pepper",
     "chili peppers"
+   ],
+   "src": [
+    "reviewed by hand"
    ]
   },
   "Pimientos, chile picante, rojo, en conserva, sin semillas, con líquido": {
    "none": true
   },
   "Pimientos, chile picante, secado al sol": {
-   "g": 3.0,
-   "es": [
-    "chile",
-    "chiles"
-   ],
-   "en": [
-    "chile pepper",
-    "chile peppers"
-   ]
-  },
-  "Pimientos, chile picante, verde, crudo": {
-   "g": 10.0,
+   "g": 5.0,
    "es": [
     "chile",
     "chiles"
@@ -9429,6 +11749,23 @@
    "en": [
     "chili pepper",
     "chili peppers"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Pimientos, chile picante, verde, crudo": {
+   "g": 5.0,
+   "es": [
+    "chile",
+    "chiles"
+   ],
+   "en": [
+    "chili pepper",
+    "chili peppers"
+   ],
+   "src": [
+    "reviewed by hand"
    ]
   },
   "Pimientos, dulce, rojo, cocido, hervido, escurrido, con sal": {
@@ -9462,14 +11799,17 @@
    "none": true
   },
   "Pimientos, jalapeño, crudo": {
-   "g": 25.0,
+   "g": 15.0,
    "es": [
     "chile",
     "chiles"
    ],
    "en": [
-    "chile pepper",
-    "chile peppers"
+    "jalapeño",
+    "jalapeños"
+   ],
+   "src": [
+    "https://www.maga.gob.gt/sitios/diplan/download/informacion_del_sector/fichasdemercado/Chile%20Jalapeño%20Mediano%20de%20Primera%20Mayorista.pdf"
    ]
   },
   "Pimientos, jalapeño, en conserva, con líquido": {
@@ -9498,15 +11838,7 @@
    ]
   },
   "Pipas girasol tostadas gigantes 0% sal añadida": {
-   "g": 20.0,
-   "es": [
-    "tostada",
-    "tostadas"
-   ],
-   "en": [
-    "crispbread",
-    "crispbreads"
-   ]
+   "none": true
   },
   "Pizza 4 quesos": {
    "g": 120.0,
@@ -9558,6 +11890,34 @@
   "Piña, congelado, en trozos, azucarado": {
    "none": true
   },
+  "Piña, crudo, variedad extradulce": {
+   "g": 124.0,
+   "es": [
+    "rebanada",
+    "rebanadas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "https://www.ucm.es/data/cont/docs/429-2013-07-21-piña-natural-raciones.pdf"
+   ]
+  },
+  "Piña, crudo, variedades tradicionales": {
+   "g": 124.0,
+   "es": [
+    "rebanada",
+    "rebanadas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "https://www.ucm.es/data/cont/docs/429-2013-07-21-piña-natural-raciones.pdf"
+   ]
+  },
   "Piña, en conserva, en agua, con líquido": {
    "none": true
   },
@@ -9575,6 +11935,20 @@
   },
   "Plátano chips": {
    "none": true
+  },
+  "Plátano macho": {
+   "g": 160.0,
+   "es": [
+    "plátano",
+    "plátanos"
+   ],
+   "en": [
+    "plantain",
+    "plantains"
+   ],
+   "src": [
+    "https://servicio.mapama.gob.es/fr/ministerio/servicios/informacion/platano_tcm36-102883.pdf"
+   ]
   },
   "Plátano macho, amarillo, al horno": {
    "g": 200.0,
@@ -9596,6 +11970,62 @@
    "en": [
     "plantain",
     "plantains"
+   ]
+  },
+  "Plátano macho, amarillo, frito, estilo restaurante latino": {
+   "g": 160.0,
+   "es": [
+    "plátano",
+    "plátanos"
+   ],
+   "en": [
+    "plantain",
+    "plantains"
+   ],
+   "src": [
+    "https://servicio.mapama.gob.es/fr/ministerio/servicios/informacion/platano_tcm36-102883.pdf"
+   ]
+  },
+  "Plátano macho, verde, crudo": {
+   "g": 160.0,
+   "es": [
+    "plátano",
+    "plátanos"
+   ],
+   "en": [
+    "plantain",
+    "plantains"
+   ],
+   "src": [
+    "https://servicio.mapama.gob.es/fr/ministerio/servicios/informacion/platano_tcm36-102883.pdf"
+   ]
+  },
+  "Plátano macho, verde, frito": {
+   "g": 160.0,
+   "es": [
+    "plátano",
+    "plátanos"
+   ],
+   "en": [
+    "plantain",
+    "plantains"
+   ],
+   "src": [
+    "https://servicio.mapama.gob.es/fr/ministerio/servicios/informacion/platano_tcm36-102883.pdf"
+   ]
+  },
+  "Plátano macho, verde, hervido": {
+   "g": 160.0,
+   "es": [
+    "plátano",
+    "plátanos"
+   ],
+   "en": [
+    "plantain",
+    "plantains"
+   ],
+   "src": [
+    "https://servicio.mapama.gob.es/fr/ministerio/servicios/informacion/platano_tcm36-102883.pdf"
    ]
   },
   "Plátanos, deshidratado, o plátano en polvo": {
@@ -10794,6 +13224,9 @@
   "Puerros, bulbo y base de las hojas, liofilizado": {
    "none": true
   },
+  "Pulpa de tomate con albahaca": {
+   "none": true
+  },
   "Pulpa de tomate en su jugo.": {
    "none": true
   },
@@ -10909,6 +13342,20 @@
   },
   "Queso de cabra, queso feta": {
    "none": true
+  },
+  "Queso de cerdo, cerdo": {
+   "g": 25.0,
+   "es": [
+    "loncha",
+    "lonchas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
   },
   "Queso de crema tradicional": {
    "none": true
@@ -11074,6 +13521,20 @@
     "portions"
    ]
   },
+  "Queso, cheshire": {
+   "g": 25.0,
+   "es": [
+    "loncha",
+    "lonchas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "https://www.fatsecret.com.mx/calor%C3%ADas-nutrici%C3%B3n/gen%C3%A9rico/queso-gruyere?frc=True"
+   ]
+  },
   "Queso, feta": {
    "g": 30.0,
    "es": [
@@ -11114,6 +13575,34 @@
   },
   "Queso, fresco, queso fresco": {
    "none": true
+  },
+  "Queso, gruyère": {
+   "g": 25.0,
+   "es": [
+    "loncha",
+    "lonchas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "https://www.fatsecret.com.mx/calor%C3%ADas-nutrici%C3%B3n/gen%C3%A9rico/queso-gruyere?frc=True"
+   ]
+  },
+  "Queso, limburgo": {
+   "g": 25.0,
+   "es": [
+    "loncha",
+    "lonchas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "https://www.fatsecret.com.mx/calor%C3%ADas-nutrici%C3%B3n/gen%C3%A9rico/queso-gruyere?frc=True"
+   ]
   },
   "Queso, mexicano, mezcla, reducido en grasa": {
    "none": true
@@ -11159,11 +13648,25 @@
   "Queso, procesado pasteurizado, pimiento morrón": {
    "none": true
   },
+  "Queso, romano": {
+   "g": 25.0,
+   "es": [
+    "loncha",
+    "lonchas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "https://www.fatsecret.com.mx/calor%C3%ADas-nutrici%C3%B3n/gen%C3%A9rico/queso-gruyere?frc=True"
+   ]
+  },
   "Queso, roquefort": {
    "none": true
   },
   "Raviolis, queso con salsa de tomate, congelado, sin preparar, incluye platos normales y ligeros": {
-   "g": 10.0,
+   "g": 12.0,
    "es": [
     "ravioli",
     "raviolis"
@@ -11171,6 +13674,9 @@
    "en": [
     "ravioli",
     "ravioli"
+   ],
+   "src": [
+    "reviewed by hand"
    ]
   },
   "Raviolis, relleno de carne, con salsa de tomate o de carne, en conserva": {
@@ -11259,7 +13765,7 @@
    ]
   },
   "Salami, cerdo, ternera, con menos sodio": {
-   "g": 20.0,
+   "g": 10.0,
    "es": [
     "loncha",
     "lonchas"
@@ -11267,6 +13773,9 @@
    "en": [
     "slice",
     "slices"
+   ],
+   "src": [
+    "reviewed by hand"
    ]
   },
   "Salami, cocido, pavo": {
@@ -11314,7 +13823,7 @@
    ]
   },
   "Salami, seco o duro, cerdo, ternera": {
-   "g": 20.0,
+   "g": 10.0,
    "es": [
     "loncha",
     "lonchas"
@@ -11322,6 +13831,41 @@
    "en": [
     "slice",
     "slices"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Salchicha de cerdo, en salchicha o hamburguesa, cocido, salteado en sartén": {
+   "none": true
+  },
+  "Salchicha de cerdo, en salchicha o hamburguesa, reducido en grasa, cocido, salteado en sartén": {
+   "none": true
+  },
+  "Salchicha de cerdo, en salchicha o hamburguesa, reducido en grasa, sin preparar": {
+   "none": true
+  },
+  "Salchicha de cerdo, en salchicha o hamburguesa, sin preparar": {
+   "none": true
+  },
+  "Salchicha de cerdo, en salchicha o hamburguesa, totalmente cocinado, cocinado en microondas": {
+   "none": true
+  },
+  "Salchicha de cerdo, en salchicha o hamburguesa, totalmente cocinado, sin calentar": {
+   "none": true
+  },
+  "Salchicha de cerdo, reducido en sodio, cocido": {
+   "g": 60.0,
+   "es": [
+    "salchicha",
+    "salchichas"
+   ],
+   "en": [
+    "sausage",
+    "sausages"
+   ],
+   "src": [
+    "https://www.adn40.mx/mexico/2025-03-22/profeco-salchicha-pavo-que-tiene-mas-proteina-y-si-es-real"
    ]
   },
   "Salchicha de cerveza, salami de cerveza, cerdo": {
@@ -11339,6 +13883,90 @@
    "en": [
     "slice",
     "slices"
+   ]
+  },
+  "Salchicha, cerdo y pavo, precocinado": {
+   "g": 60.0,
+   "es": [
+    "salchicha",
+    "salchichas"
+   ],
+   "en": [
+    "sausage",
+    "sausages"
+   ],
+   "src": [
+    "https://www.adn40.mx/mexico/2025-03-22/profeco-salchicha-pavo-que-tiene-mas-proteina-y-si-es-real"
+   ]
+  },
+  "Salchicha, cerdo y ternera, con queso cheddar, ahumado": {
+   "g": 60.0,
+   "es": [
+    "salchicha",
+    "salchichas"
+   ],
+   "en": [
+    "sausage",
+    "sausages"
+   ],
+   "src": [
+    "https://www.adn40.mx/mexico/2025-03-22/profeco-salchicha-pavo-que-tiene-mas-proteina-y-si-es-real"
+   ]
+  },
+  "Salchicha, cerdo y ternera, fresco, cocido": {
+   "g": 60.0,
+   "es": [
+    "salchicha",
+    "salchichas"
+   ],
+   "en": [
+    "sausage",
+    "sausages"
+   ],
+   "src": [
+    "https://www.adn40.mx/mexico/2025-03-22/profeco-salchicha-pavo-que-tiene-mas-proteina-y-si-es-real"
+   ]
+  },
+  "Salchicha, cerdo, chorizo, salchicha o picado, crudo": {
+   "g": 60.0,
+   "es": [
+    "salchicha",
+    "salchichas"
+   ],
+   "en": [
+    "sausage",
+    "sausages"
+   ],
+   "src": [
+    "https://www.adn40.mx/mexico/2025-03-22/profeco-salchicha-pavo-que-tiene-mas-proteina-y-si-es-real"
+   ]
+  },
+  "Salchicha, cerdo, pavo, y ternera, reducido en sodio": {
+   "g": 60.0,
+   "es": [
+    "salchicha",
+    "salchichas"
+   ],
+   "en": [
+    "sausage",
+    "sausages"
+   ],
+   "src": [
+    "https://www.adn40.mx/mexico/2025-03-22/profeco-salchicha-pavo-que-tiene-mas-proteina-y-si-es-real"
+   ]
+  },
+  "Salchicha, de verano, cerdo y ternera, palitos, con queso cheddar": {
+   "g": 20.0,
+   "es": [
+    "palito",
+    "palitos"
+   ],
+   "en": [
+    "stick",
+    "sticks"
+   ],
+   "src": [
+    "reviewed by hand"
    ]
   },
   "Salchicha, italiano, cerdo, suave, crudo": {
@@ -11363,8 +13991,78 @@
     "biscuits"
    ]
   },
+  "Salchicha, pavo, cerdo, y ternera, bajo en grasa, ahumado": {
+   "g": 60.0,
+   "es": [
+    "salchicha",
+    "salchichas"
+   ],
+   "en": [
+    "sausage",
+    "sausages"
+   ],
+   "src": [
+    "https://www.adn40.mx/mexico/2025-03-22/profeco-salchicha-pavo-que-tiene-mas-proteina-y-si-es-real"
+   ]
+  },
+  "Salchicha, pavo, fresco, cocido": {
+   "g": 60.0,
+   "es": [
+    "salchicha",
+    "salchichas"
+   ],
+   "en": [
+    "sausage",
+    "sausages"
+   ],
+   "src": [
+    "https://www.adn40.mx/mexico/2025-03-22/profeco-salchicha-pavo-que-tiene-mas-proteina-y-si-es-real"
+   ]
+  },
+  "Salchicha, pavo, fresco, crudo": {
+   "g": 60.0,
+   "es": [
+    "salchicha",
+    "salchichas"
+   ],
+   "en": [
+    "sausage",
+    "sausages"
+   ],
+   "src": [
+    "https://www.adn40.mx/mexico/2025-03-22/profeco-salchicha-pavo-que-tiene-mas-proteina-y-si-es-real"
+   ]
+  },
+  "Salchicha, pavo, picante, ahumado": {
+   "g": 60.0,
+   "es": [
+    "salchicha",
+    "salchichas"
+   ],
+   "en": [
+    "sausage",
+    "sausages"
+   ],
+   "src": [
+    "https://www.adn40.mx/mexico/2025-03-22/profeco-salchicha-pavo-que-tiene-mas-proteina-y-si-es-real"
+   ]
+  },
   "Salchicha, pavo, reducido en grasa, para dorar y servir, cocido": {
    "none": true
+  },
+  "Salchicha, pavo, salchichas de desayuno, suave, crudo": {
+   "g": 60.0,
+   "es": [
+    "salchicha",
+    "salchichas"
+   ],
+   "en": [
+    "sausage",
+    "sausages"
+   ],
+   "src": [
+    "https://www.adn40.mx/mexico/2025-03-22/profeco-salchicha-pavo-que-tiene-mas-proteina-y-si-es-real"
+   ]
   },
   "Salchicha, salchicha ahumada, cerdo y ternera (con leche desnatada en polvo añadida)": {
    "g": 60.0,
@@ -11389,7 +14087,7 @@
    ]
   },
   "Salmon ahumado en lonchas": {
-   "g": 15.0,
+   "g": 20.0,
    "es": [
     "loncha",
     "lonchas"
@@ -11397,6 +14095,9 @@
    "en": [
     "slice",
     "slices"
+   ],
+   "src": [
+    "https://servicio.mapama.gob.es/es/ministerio/servicios/informacion/salmon-ahumado_tcm30-102848.pdf"
    ]
   },
   "Salmón al natural": {
@@ -11493,6 +14194,9 @@
   "Salsa de tomate, en conserva, sin sal añadida": {
    "none": true
   },
+  "Salsa para mojar, salsa con queso, queso y salsa media": {
+   "none": true
+  },
   "Salsa, cacahuete, hecho con coco, agua, azúcar, cacahuetes": {
    "none": true
   },
@@ -11512,6 +14216,9 @@
    "none": true
   },
   "Salsa, salsa de tomate y chile, embotellado, con sal": {
+   "none": true
+  },
+  "Salteado a la Vasca Tomates, pimientos, cebollas y aceitunas verdes.": {
    "none": true
   },
   "Salteado campestre Judías verdes, zanahorias naranjas y amarillas, guisantes, champiñones": {
@@ -11549,7 +14256,7 @@
    ]
   },
   "Sapori d'Italia Mozzarella de Búfala Campana DOP": {
-   "g": 125.0,
+   "g": 100.0,
    "es": [
     "bola",
     "bolas"
@@ -11557,6 +14264,10 @@
    "en": [
     "ball",
     "balls"
+   ],
+   "src": [
+    "https://academia-lab.com/enciclopedia/queso-mozzarella/",
+    "https://finditapp.es/product/117376/queso-mozzarella-di-bufala-campana-galbani-125-g"
    ]
   },
   "Sardinas en aceite de oliva": {
@@ -11638,6 +14349,20 @@
   },
   "Schweppes Limón 33cl": {
    "none": true
+  },
+  "Schär, sin gluten, sin trigo, pan blanco clásico": {
+   "g": 30.0,
+   "es": [
+    "rebanada",
+    "rebanadas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "https://www.ucm.es/data/cont/docs/429-2013-07-21-pan-blanco-molde-raciones.pdf"
+   ]
   },
   "Semillas, pipas de girasol peladas, tostado en aceite, con sal añadida": {
    "g": 25.0,
@@ -11791,7 +14516,7 @@
    "none": true
   },
   "Sopa, caldo de ternera, en cubos, seco": {
-   "g": 5.0,
+   "g": 10.0,
    "es": [
     "pastilla",
     "pastillas"
@@ -11799,6 +14524,9 @@
    "en": [
     "bouillon cube",
     "bouillon cubes"
+   ],
+   "src": [
+    "https://finditapp.es/product/36633/pastillas-de-caldo-de-pollo-gallina-blanca-avecrem-caja-8-unidades"
    ]
   },
   "Sopa, caldo de ternera, en polvo, preparado con agua": {
@@ -11919,7 +14647,7 @@
    "none": true
   },
   "Sopa, pastillas de caldo de pollo, seco": {
-   "g": 5.0,
+   "g": 10.0,
    "es": [
     "pastilla",
     "pastillas"
@@ -11927,6 +14655,9 @@
    "en": [
     "bouillon cube",
     "bouillon cubes"
+   ],
+   "src": [
+    "https://finditapp.es/product/36633/pastillas-de-caldo-de-pollo-gallina-blanca-avecrem-caja-8-unidades"
    ]
   },
   "Sopa, pastillas de caldo de pollo, seco, preparado con agua": {
@@ -12150,6 +14881,20 @@
   "TORTILLA CHIPS Natural": {
    "none": true
   },
+  "TOSTADA Clásica": {
+   "g": 10.0,
+   "es": [
+    "rebanada",
+    "rebanadas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "https://www.ucm.es/data/cont/docs/429-2013-07-21-pan-blanco-molde-raciones.pdf"
+   ]
+  },
   "TOSTADAS CRUJIENTES No Gluten !*": {
    "g": 10.0,
    "es": [
@@ -12193,7 +14938,7 @@
    "none": true
   },
   "Tarta de queso": {
-   "g": 100.0,
+   "g": 120.0,
    "es": [
     "porción",
     "porciones"
@@ -12201,6 +14946,9 @@
    "en": [
     "portion",
     "portions"
+   ],
+   "src": [
+    "https://www.mdzol.com/tendencias/receta-tarta-queso-casera-facil-rapida-y-espectacular-n1485822"
    ]
   },
   "Tarta, cereza, casero": {
@@ -12717,6 +15465,90 @@
     "cups"
    ]
   },
+  "Toast crock' Trigo": {
+   "g": 10.0,
+   "es": [
+    "rebanada",
+    "rebanadas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "https://www.ucm.es/data/cont/docs/429-2013-07-21-pan-blanco-molde-raciones.pdf"
+   ]
+  },
+  "Tofu": {
+   "g": 250.0,
+   "es": [
+    "bloque",
+    "bloques"
+   ],
+   "en": [
+    "block",
+    "blocks"
+   ],
+   "src": [
+    "https://www.jumbo.cl/tofu-vegan-leben-200g-1956635/p"
+   ]
+  },
+  "Tofu Ahumado": {
+   "g": 250.0,
+   "es": [
+    "bloque",
+    "bloques"
+   ],
+   "en": [
+    "block",
+    "blocks"
+   ],
+   "src": [
+    "https://world.openfoodfacts.org/product/8422947520113/tofu-ahumado-soria-natural"
+   ]
+  },
+  "Tofu Albahaca": {
+   "g": 250.0,
+   "es": [
+    "bloque",
+    "bloques"
+   ],
+   "en": [
+    "block",
+    "blocks"
+   ],
+   "src": [
+    "https://world.openfoodfacts.org/product/8422947520113/tofu-ahumado-soria-natural"
+   ]
+  },
+  "Tofu natur": {
+   "g": 250.0,
+   "es": [
+    "bloque",
+    "bloques"
+   ],
+   "en": [
+    "block",
+    "blocks"
+   ],
+   "src": [
+    "https://world.openfoodfacts.org/product/8422947520106/tofu-natural-soria-natural"
+   ]
+  },
+  "Tofu sedoso": {
+   "g": 250.0,
+   "es": [
+    "bloque",
+    "bloques"
+   ],
+   "en": [
+    "block",
+    "blocks"
+   ],
+   "src": [
+    "https://world.openfoodfacts.org/product/8422947520106/tofu-natural-soria-natural"
+   ]
+  },
   "Tofu, blando, con sulfato de calcio y cloruro de magnesio (nigari)": {
    "none": true
   },
@@ -12729,11 +15561,67 @@
   "Tofu, deshidratado congelado (koyadofu)": {
    "none": true
   },
+  "Tofu, deshidratado congelado (koyadofu), preparado con sulfato de calcio": {
+   "g": 20.0,
+   "es": [
+    "bloque",
+    "bloques"
+   ],
+   "en": [
+    "block",
+    "blocks"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Tofu, duro, preparado con nigari": {
+   "g": 250.0,
+   "es": [
+    "bloque",
+    "bloques"
+   ],
+   "en": [
+    "block",
+    "blocks"
+   ],
+   "src": [
+    "https://world.openfoodfacts.org/product/8410789140118/tofu-firme-hacendado"
+   ]
+  },
+  "Tofu, extrafirme, preparado con nigari": {
+   "g": 250.0,
+   "es": [
+    "bloque",
+    "bloques"
+   ],
+   "en": [
+    "block",
+    "blocks"
+   ],
+   "src": [
+    "https://world.openfoodfacts.org/product/8410789140118/tofu-firme-hacendado"
+   ]
+  },
   "Tofu, firme, con sulfato de calcio y cloruro de magnesio (nigari)": {
    "none": true
   },
   "Tofu, frito": {
    "none": true
+  },
+  "Tofu, frito, preparado con sulfato de calcio": {
+   "g": 60.0,
+   "es": [
+    "bloque",
+    "bloques"
+   ],
+   "en": [
+    "block",
+    "blocks"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
   },
   "Tomate Concentrado": {
    "none": true
@@ -12743,6 +15631,20 @@
   },
   "Tomate Pelado Troceado": {
    "none": true
+  },
+  "Tomate Pera": {
+   "g": 120.0,
+   "es": [
+    "tomate",
+    "tomates"
+   ],
+   "en": [
+    "tomato",
+    "tomatoes"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
   },
   "Tomate Rallado Fresco": {
    "none": true
@@ -12842,6 +15744,20 @@
   "Tomates pelados en cubos en su jugo": {
    "none": true
   },
+  "Tomates, naranja, crudo": {
+   "g": 150.0,
+   "es": [
+    "tomate",
+    "tomates"
+   ],
+   "en": [
+    "tomato",
+    "tomatoes"
+   ],
+   "src": [
+    "https://www.ucm.es/idinutricion/file/tablas-de-raciones-estandar_web"
+   ]
+  },
   "Tomates, rojo, maduro, cocido": {
    "none": true
   },
@@ -12878,6 +15794,9 @@
    "none": true
   },
   "Tomato Ketchup": {
+   "none": true
+  },
+  "Tomato Puree": {
    "none": true
   },
   "Tomato ketchup -45% de azúcares": {
@@ -12920,14 +15839,17 @@
    ]
   },
   "Tortellini, pasta rellena de queso, fresco refrigerado, tal como se compra": {
-   "g": 4.0,
+   "g": 6.0,
    "es": [
     "tortellino",
     "tortellinos"
    ],
    "en": [
-    "tortellini",
+    "tortellino",
     "tortellini"
+   ],
+   "src": [
+    "reviewed by hand"
    ]
   },
   "Tortilla Chips Nachos": {
@@ -13042,6 +15964,20 @@
     "taco shells"
    ]
   },
+  "Tortillas de taco, al horno, sin sal añadida": {
+   "g": 30.0,
+   "es": [
+    "tortilla",
+    "tortillas"
+   ],
+   "en": [
+    "tortilla",
+    "tortillas"
+   ],
+   "src": [
+    "https://www.elimparcial.com/estilos/2026/09/21/cuantas-tortillas-equivalen-a-una-rebanada-de-pan-blanco/"
+   ]
+  },
   "Tortillas, listo para hornear o freír, harina, refrigerado": {
    "none": true
   },
@@ -13056,8 +15992,8 @@
     "corn tortillas"
    ]
   },
-  "Tortitas Arroz Chocolate Negro": {
-   "g": 9.0,
+  "Tortita de arroz, galleta de arroz": {
+   "g": 8.0,
    "es": [
     "tortita",
     "tortitas"
@@ -13065,6 +16001,85 @@
    "en": [
     "rice cake",
     "rice cakes"
+   ],
+   "src": [
+    "https://world.openfoodfacts.org/product/8480000140135/tortitas-de-arroz-hacendado",
+    "https://www.ocu.org/alimentacion/comer-bien/test/comparar-tortitas-cereales/hacendado-mercadona-tortita-de-arroz/82588_82672"
+   ]
+  },
+  "Tortita de arroz/ maíz de chocolate/ yogur": {
+   "g": 8.0,
+   "es": [
+    "tortita",
+    "tortitas"
+   ],
+   "en": [
+    "rice cake",
+    "rice cakes"
+   ],
+   "src": [
+    "https://world.openfoodfacts.org/product/8480000140135/tortitas-de-arroz-hacendado",
+    "https://www.ocu.org/alimentacion/comer-bien/test/comparar-tortitas-cereales/hacendado-mercadona-tortita-de-arroz/82588_82672"
+   ]
+  },
+  "Tortita de arroz/ maíz de jamón, queso, pizza...": {
+   "g": 8.0,
+   "es": [
+    "tortita",
+    "tortitas"
+   ],
+   "en": [
+    "rice cake",
+    "rice cakes"
+   ],
+   "src": [
+    "https://world.openfoodfacts.org/product/8480000140135/tortitas-de-arroz-hacendado",
+    "https://www.ocu.org/alimentacion/comer-bien/test/comparar-tortitas-cereales/hacendado-mercadona-tortita-de-arroz/82588_82672"
+   ]
+  },
+  "Tortitas Arroz Chocolate Negro": {
+   "g": 8.0,
+   "es": [
+    "tortita",
+    "tortitas"
+   ],
+   "en": [
+    "rice cake",
+    "rice cakes"
+   ],
+   "src": [
+    "https://world.openfoodfacts.org/product/8480000140135/tortitas-de-arroz-hacendado",
+    "https://www.ocu.org/alimentacion/comer-bien/test/comparar-tortitas-cereales/hacendado-mercadona-tortita-de-arroz/82588_82672"
+   ]
+  },
+  "Tortitas De Arroz High Protein": {
+   "g": 8.0,
+   "es": [
+    "tortita",
+    "tortitas"
+   ],
+   "en": [
+    "rice cake",
+    "rice cakes"
+   ],
+   "src": [
+    "https://world.openfoodfacts.org/product/8480000140135/tortitas-de-arroz-hacendado",
+    "https://www.ocu.org/alimentacion/comer-bien/test/comparar-tortitas-cereales/hacendado-mercadona-tortita-de-arroz/82588_82672"
+   ]
+  },
+  "Tortitas de Arroz": {
+   "g": 8.0,
+   "es": [
+    "tortita",
+    "tortitas"
+   ],
+   "en": [
+    "rice cake",
+    "rice cakes"
+   ],
+   "src": [
+    "https://world.openfoodfacts.org/product/8480000140135/tortitas-de-arroz-hacendado",
+    "https://www.ocu.org/alimentacion/comer-bien/test/comparar-tortitas-cereales/hacendado-mercadona-tortita-de-arroz/82588_82672"
    ]
   },
   "Tortitas de Maíz": {
@@ -13076,6 +16091,171 @@
    "en": [
     "corn cake",
     "corn cakes"
+   ]
+  },
+  "Tortitas de arroz": {
+   "g": 8.0,
+   "es": [
+    "tortita",
+    "tortitas"
+   ],
+   "en": [
+    "rice cake",
+    "rice cakes"
+   ],
+   "src": [
+    "https://world.openfoodfacts.org/product/8480000140135/tortitas-de-arroz-hacendado",
+    "https://www.ocu.org/alimentacion/comer-bien/test/comparar-tortitas-cereales/hacendado-mercadona-tortita-de-arroz/82588_82672"
+   ]
+  },
+  "Tortitas de arroz Chocolate Negro": {
+   "g": 8.0,
+   "es": [
+    "tortita",
+    "tortitas"
+   ],
+   "en": [
+    "rice cake",
+    "rice cakes"
+   ],
+   "src": [
+    "https://world.openfoodfacts.org/product/8480000140135/tortitas-de-arroz-hacendado",
+    "https://www.ocu.org/alimentacion/comer-bien/test/comparar-tortitas-cereales/hacendado-mercadona-tortita-de-arroz/82588_82672"
+   ]
+  },
+  "Tortitas de arroz Chocolate con leche": {
+   "g": 8.0,
+   "es": [
+    "tortita",
+    "tortitas"
+   ],
+   "en": [
+    "rice cake",
+    "rice cakes"
+   ],
+   "src": [
+    "https://world.openfoodfacts.org/product/8480000140135/tortitas-de-arroz-hacendado",
+    "https://www.ocu.org/alimentacion/comer-bien/test/comparar-tortitas-cereales/hacendado-mercadona-tortita-de-arroz/82588_82672"
+   ]
+  },
+  "Tortitas de arroz con chocolate blanco": {
+   "g": 8.0,
+   "es": [
+    "tortita",
+    "tortitas"
+   ],
+   "en": [
+    "rice cake",
+    "rice cakes"
+   ],
+   "src": [
+    "https://world.openfoodfacts.org/product/8480000140135/tortitas-de-arroz-hacendado",
+    "https://www.ocu.org/alimentacion/comer-bien/test/comparar-tortitas-cereales/hacendado-mercadona-tortita-de-arroz/82588_82672"
+   ]
+  },
+  "Tortitas de arroz con chocolate con leche": {
+   "g": 8.0,
+   "es": [
+    "tortita",
+    "tortitas"
+   ],
+   "en": [
+    "rice cake",
+    "rice cakes"
+   ],
+   "src": [
+    "https://world.openfoodfacts.org/product/8480000140135/tortitas-de-arroz-hacendado",
+    "https://www.ocu.org/alimentacion/comer-bien/test/comparar-tortitas-cereales/hacendado-mercadona-tortita-de-arroz/82588_82672"
+   ]
+  },
+  "Tortitas de arroz con chocolate con leche y trocitos de avellana": {
+   "g": 8.0,
+   "es": [
+    "tortita",
+    "tortitas"
+   ],
+   "en": [
+    "rice cake",
+    "rice cakes"
+   ],
+   "src": [
+    "https://world.openfoodfacts.org/product/8480000140135/tortitas-de-arroz-hacendado",
+    "https://www.ocu.org/alimentacion/comer-bien/test/comparar-tortitas-cereales/hacendado-mercadona-tortita-de-arroz/82588_82672"
+   ]
+  },
+  "Tortitas de arroz con sal": {
+   "g": 8.0,
+   "es": [
+    "tortita",
+    "tortitas"
+   ],
+   "en": [
+    "rice cake",
+    "rice cakes"
+   ],
+   "src": [
+    "https://world.openfoodfacts.org/product/8480000140135/tortitas-de-arroz-hacendado",
+    "https://www.ocu.org/alimentacion/comer-bien/test/comparar-tortitas-cereales/hacendado-mercadona-tortita-de-arroz/82588_82672"
+   ]
+  },
+  "Tortitas de arroz con sal - Sondey": {
+   "g": 8.0,
+   "es": [
+    "tortita",
+    "tortitas"
+   ],
+   "en": [
+    "rice cake",
+    "rice cakes"
+   ],
+   "src": [
+    "https://world.openfoodfacts.org/product/8480000140135/tortitas-de-arroz-hacendado",
+    "https://www.ocu.org/alimentacion/comer-bien/test/comparar-tortitas-cereales/hacendado-mercadona-tortita-de-arroz/82588_82672"
+   ]
+  },
+  "Tortitas de arroz integral": {
+   "g": 8.0,
+   "es": [
+    "tortita",
+    "tortitas"
+   ],
+   "en": [
+    "rice cake",
+    "rice cakes"
+   ],
+   "src": [
+    "https://world.openfoodfacts.org/product/8480000140135/tortitas-de-arroz-hacendado",
+    "https://www.ocu.org/alimentacion/comer-bien/test/comparar-tortitas-cereales/hacendado-mercadona-tortita-de-arroz/82588_82672"
+   ]
+  },
+  "Tortitas de arroz y legumbres": {
+   "g": 8.0,
+   "es": [
+    "tortita",
+    "tortitas"
+   ],
+   "en": [
+    "rice cake",
+    "rice cakes"
+   ],
+   "src": [
+    "https://world.openfoodfacts.org/product/8480000140135/tortitas-de-arroz-hacendado",
+    "https://www.ocu.org/alimentacion/comer-bien/test/comparar-tortitas-cereales/hacendado-mercadona-tortita-de-arroz/82588_82672"
+   ]
+  },
+  "Tortitas de arroz, maíz, avena, legumbre": {
+   "g": 8.0,
+   "es": [
+    "tortita",
+    "tortitas"
+   ],
+   "en": [
+    "rice cake",
+    "rice cakes"
+   ],
+   "src": [
+    "https://world.openfoodfacts.org/product/8480000140135/tortitas-de-arroz-hacendado",
+    "https://www.ocu.org/alimentacion/comer-bien/test/comparar-tortitas-cereales/hacendado-mercadona-tortita-de-arroz/82588_82672"
    ]
   },
   "Tortitas de chocolate y frutos rojos": {
@@ -13243,6 +16423,20 @@
     "pancakes"
    ]
   },
+  "Tostada golosa": {
+   "g": 10.0,
+   "es": [
+    "rebanada",
+    "rebanadas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/hacendado/pan-de-molde-blanco/2-rebanadas"
+   ]
+  },
   "Tostadas": {
    "g": 12.0,
    "es": [
@@ -13263,6 +16457,20 @@
    "en": [
     "crispbread",
     "crispbreads"
+   ]
+  },
+  "Tostadas Crujientes Centeno integral & sésamo": {
+   "g": 10.0,
+   "es": [
+    "rebanada",
+    "rebanadas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/bimbo/pan-tostado-tradicional/1-rebanada"
    ]
   },
   "Tostadas Crujientes Cereales & Semillas": {
@@ -13298,6 +16506,48 @@
     "crispbreads"
    ]
   },
+  "Tostadas crujientes Trigo sarraceno": {
+   "g": 10.0,
+   "es": [
+    "rebanada",
+    "rebanadas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/bimbo/pan-tostado-tradicional/1-rebanada"
+   ]
+  },
+  "Tostadas crujientes con centeno integral": {
+   "g": 10.0,
+   "es": [
+    "rebanada",
+    "rebanadas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/bimbo/pan-tostado-tradicional/1-rebanada"
+   ]
+  },
+  "Tostadas crujientes de fibra": {
+   "g": 10.0,
+   "es": [
+    "rebanada",
+    "rebanadas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/bimbo/pan-tostado-tradicional/1-rebanada"
+   ]
+  },
   "Tostadas de maíz, maíz": {
    "g": 12.0,
    "es": [
@@ -13331,6 +16581,20 @@
     "crispbreads"
    ]
   },
+  "Triple zero tostada": {
+   "g": 10.0,
+   "es": [
+    "rebanada",
+    "rebanadas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "https://www.fatsecret.es/calor%C3%ADas-nutrici%C3%B3n/hacendado/pan-de-molde-blanco/2-rebanadas"
+   ]
+  },
   "Trozos De Pechuga De Pollo": {
    "none": true
   },
@@ -13344,36 +16608,26 @@
    "none": true
   },
   "Uvas, en conserva, thompson sin pepitas, en agua, con líquido": {
-   "g": 60.0,
-   "es": [
-    "pita",
-    "pitas"
-   ],
-   "en": [
-    "pita",
-    "pitas"
-   ]
+   "none": true
   },
   "Uvas, en conserva, thompson sin pepitas, en almíbar espeso, con líquido": {
-   "g": 60.0,
-   "es": [
-    "pita",
-    "pitas"
-   ],
-   "en": [
-    "pita",
-    "pitas"
-   ]
+   "none": true
   },
   "Uvas, roja o verde (tipo europeo, como thompson sin pepitas), crudo": {
-   "g": 60.0,
+   "none": true
+  },
+  "Uvas, uva moscatel americana, crudo": {
+   "g": 6.0,
    "es": [
-    "pita",
-    "pitas"
+    "uva",
+    "uvas"
    ],
    "en": [
-    "pita",
-    "pitas"
+    "grape",
+    "grapes"
+   ],
+   "src": [
+    "https://www.ucm.es/data/cont/docs/429-2013-07-21-uvas-raciones.pdf"
    ]
   },
   "VEGETALES* Zanahoria, remolacha, boniato, chirivía": {
@@ -13400,6 +16654,9 @@
    "none": true
   },
   "Velouté Puerro & Patatas": {
+   "none": true
+  },
+  "Velouté Puerro y Patatas": {
    "none": true
   },
   "Velouté con Puerros & patatas": {
@@ -13495,15 +16752,7 @@
    ]
   },
   "Vitality* Pepitas de chocolate": {
-   "g": 60.0,
-   "es": [
-    "pita",
-    "pitas"
-   ],
-   "en": [
-    "pita",
-    "pitas"
-   ]
+   "none": true
   },
   "Vivesoy almendra original": {
    "none": true
@@ -13755,8 +17004,36 @@
   "Zanahorias, cocido, hervido, escurrido, sin sal": {
    "none": true
   },
+  "Zanahorias, congelado, cocido, hervido, escurrido, con sal": {
+   "g": 100.0,
+   "es": [
+    "zanahoria",
+    "zanahorias"
+   ],
+   "en": [
+    "carrot",
+    "carrots"
+   ],
+   "src": [
+    "https://www.ucm.es/idinutricion/file/tablas-de-raciones-estandar_web"
+   ]
+  },
   "Zanahorias, congelado, cocido, hervido, escurrido, sin sal": {
    "none": true
+  },
+  "Zanahorias, crudo": {
+   "g": 100.0,
+   "es": [
+    "zanahoria",
+    "zanahorias"
+   ],
+   "en": [
+    "carrot",
+    "carrots"
+   ],
+   "src": [
+    "https://www.ucm.es/idinutricion/file/tablas-de-raciones-estandar_web"
+   ]
   },
   "Zanahorias, en conserva, con líquido": {
    "none": true
@@ -13767,8 +17044,22 @@
   "Zanahorias, en conserva, sin sal añadida, con líquido": {
    "none": true
   },
+  "Zanahorias, en conserva, sin sal añadida, escurrido": {
+   "g": 100.0,
+   "es": [
+    "zanahoria",
+    "zanahorias"
+   ],
+   "en": [
+    "carrot",
+    "carrots"
+   ],
+   "src": [
+    "https://www.ucm.es/idinutricion/file/tablas-de-raciones-estandar_web"
+   ]
+  },
   "Zero sin azúcares María": {
-   "g": 7.0,
+   "g": 6.0,
    "es": [
     "galleta",
     "galletas"
@@ -13776,6 +17067,10 @@
    "en": [
     "biscuit",
     "biscuits"
+   ],
+   "src": [
+    "https://fitia.app/calories-nutritional-information/galleta-maria-F656kh92qp/",
+    "https://world.openfoodfacts.org/product/8410376049862/galletas-maria-0-azucares-selecta"
    ]
   },
   "Zumo Clementina": {
@@ -13979,6 +17274,48 @@
    "en": [
     "glass",
     "glasses"
+   ]
+  },
+  "Zumo de pomelo, blanco, concentrado congelado, sin azúcar, diluido con 3 partes de agua": {
+   "g": 5.0,
+   "es": [
+    "cucharadita",
+    "cucharaditas"
+   ],
+   "en": [
+    "teaspoon",
+    "teaspoons"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Zumo de pomelo, blanco, concentrado congelado, sin azúcar, sin diluir": {
+   "g": 5.0,
+   "es": [
+    "cucharadita",
+    "cucharaditas"
+   ],
+   "en": [
+    "teaspoon",
+    "teaspoons"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Zumo de pomelo, blanco, en conserva o botella, sin azúcar": {
+   "g": 5.0,
+   "es": [
+    "cucharadita",
+    "cucharaditas"
+   ],
+   "en": [
+    "teaspoon",
+    "teaspoons"
+   ],
+   "src": [
+    "reviewed by hand"
    ]
   },
   "Zumo de tomate": {

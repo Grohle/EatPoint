@@ -336,6 +336,9 @@ void main() {
     expect(_sync.calls, 1);
     expect(find.text(s.householdSynced('2')), findsOneWidget);
 
+    // Past the colour picker, and clear of the "synced" message.
+    await tester.drag(find.byType(Scrollable).first, const Offset(0, -600));
+    await tester.pumpAndSettle();
     await tester.tap(find.text(s.householdLeave));
     await tester.pumpAndSettle();
     expect(find.text(s.householdLeaveConfirm), findsOneWidget);

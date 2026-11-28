@@ -45,12 +45,17 @@ class MemberProfile {
   final DietProfile? diet;
   final bool allowEdits;
 
+  /// The colour the member chose for themselves (ARGB), or null for an
+  /// automatic one.
+  final int? color;
+
   const MemberProfile({
     this.slots = const [],
     this.budgets = const {},
     this.fibre = const {},
     this.diet,
     this.allowEdits = true,
+    this.color,
   });
 
   MemberSlot? slot(String id) => slots.where((s) => s.id == id).firstOrNull;
@@ -61,6 +66,7 @@ class MemberProfile {
     'fibre': fibre,
     if (diet != null) 'diet': diet!.toJson(),
     'allowEdits': allowEdits,
+    if (color != null) 'color': color,
   };
 
   static MemberProfile? fromJson(Object? json) {
@@ -86,6 +92,7 @@ class MemberProfile {
       },
       diet: json['diet'] == null ? null : DietProfile.fromJson(json['diet']),
       allowEdits: json['allowEdits'] != false,
+      color: json['color'] is int ? json['color'] as int : null,
     );
   }
 
@@ -167,4 +174,64 @@ class MenuEdit {
 
   /// [day] with this edit's foods in its meal.
   DayPlan applyTo(DayPlan day) => day.withMeal(slotId, items);
+}
+
+/// Each member's colour: the one they chose, unless an earlier member
+/// already has it; else the next free one. Never two members alike.
+class HouseholdColors {
+  HouseholdColors._();
+
+  static const palette = <int>[
+    0xFF1E88E5, // blue
+    0xFFE53935, // red
+    0xFF43A047, // green
+    0xFFFFB300, // amber
+    0xFF8E24AA, // purple
+    0xFF00ACC1, // cyan
+    0xFFF4511E, // deep orange
+    0xFFD81B60, // pink
+    0xFF6D4C41, // brown
+    0xFF3949AB, // indigo
+    0xFF7CB342, // light green
+    0xFF546E7A, // blue grey
+  ];
+
+  static int _start(String memberId) {
+    var hash = 0;
+    for (final unit in memberId.codeUnits) {
+      hash = (hash * 31 + unit) & 0x7fffffff;
+    }
+    return hash % palette.length;
+  }
+
+  /// [picks]: each member id and the colour they chose (null: automatic).
+  /// Members are settled in id order, so every phone reaches the same
+  /// answer.
+  static Map<String, int> resolve(Map<String, int?> picks) {
+    final ids = picks.keys.toList()..sort();
+    final used = <int>{};
+    final out = <String, int>{};
+    // Chosen colours first, then the automatic ones fill what is left.
+    for (final id in ids) {
+      final pick = picks[id];
+      if (pick != null && !used.contains(pick)) {
+        out[id] = pick;
+        used.add(pick);
+      }
+    }
+    for (final id in ids) {
+      if (out.containsKey(id)) continue;
+      final start = _start(id);
+      for (var i = 0; i < palette.length; i++) {
+        final c = palette[(start + i) % palette.length];
+        if (!used.contains(c)) {
+          out[id] = c;
+          used.add(c);
+          break;
+        }
+      }
+      out[id] ??= palette[start];
+    }
+    return out;
+  }
 }

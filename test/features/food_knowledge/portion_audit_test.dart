@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
@@ -65,9 +66,31 @@ void main() {
   });
 
   test('the shipped database has its own units', () {
-    final file = File('data/food_db/eatpoint-foods-v2.json.gz');
+    final manifest =
+        jsonDecode(File('data/food_db/manifest.json').readAsStringSync())
+            as Map<String, dynamic>;
+    final file = File('data/food_db/${manifest['file']}');
     final db = FoodDatabase.parseGzip(file.readAsBytesSync());
     final withUnit = db.foods.where((f) => f.unit.known).length;
     expect(withUnit, greaterThan(2000));
+    FoodPortions.configure(
+      database: (code) =>
+          db.byCode(code)?.unit ?? (known: false, portion: null),
+    );
+    String? label(String name, double grams) {
+      final meal = db.foods
+          .firstWhere((f) => f.nameEs == name)
+          .toMealEntity('es');
+      return PortionFormatter.forFood(
+        meal.name!,
+        grams,
+        code: meal.code,
+      )?.label('es');
+    }
+
+    // Medium sizes, as bought in Spain.
+    expect(label('Pan integral', 125), '4 rebanadas');
+    expect(label('Pan tostado integral', 20), '2 rebanadas');
+    expect(label('Mini tortillas de trigo', 50), '2 tortillas');
   });
 }

@@ -5209,5 +5209,134 @@
         "type": "String"
       }
     }
+  },
+  "householdYourColor": "Your colour",
+  "@householdYourColor": {
+    "description": "Member colour picker title"
+  },
+  "householdYourColorHint": "Your menus, meals and items show in it on every phone. Each person has a different one.",
+  "@householdYourColorHint": {
+    "description": "Hint"
+  },
+  "plannerWhoseMenu": "Whose menu?",
+  "@plannerWhoseMenu": {
+    "description": "Title of the sheet that picks whose menu the planner shows"
+  },
+  "plannerReadOnly": "Read only",
+  "@plannerReadOnly": {
+    "description": "Under a member who does not allow changes to their menu"
+  },
+  "plannerConfirmDeleteMeal": "Delete {meal} from this day?",
+  "@plannerConfirmDeleteMeal": {
+    "description": "Confirm after swiping a meal away",
+    "placeholders": {
+      "meal": {
+        "type": "String"
+      }
+    }
+  },
+  "plannerDeleteMealBody": "Its foods leave the menu and the shopping list.",
+  "@plannerDeleteMealBody": {
+    "description": "Body of the delete-meal confirmation"
+  },
+  "plannerRemoveItemTitle": "Remove {food}?",
+  "@plannerRemoveItemTitle": {
+    "description": "Confirm after swiping a food away",
+    "placeholders": {
+      "food": {
+        "type": "String"
+      }
+    }
+  },
+  "calendarHint": "Tap a day to see its meals. Long-press to choose several days.",
+  "@calendarHint": {
+    "description": "Hint under the planner calendar"
+  },
+  "calendarSelectedDays": "{count} days chosen",
+  "@calendarSelectedDays": {
+    "description": "Title while choosing days in the calendar",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "calendarDeleteMenus": "Delete menus",
+  "@calendarDeleteMenus": {
+    "description": "Action on the chosen days"
+  },
+  "calendarDeleteWhose": "Whose menus go?",
+  "@calendarDeleteWhose": {
+    "description": "Title of the dialog that deletes the chosen days' menus"
+  },
+  "calendarDeletedMenus": "Menus deleted",
+  "@calendarDeletedMenus": {
+    "description": "Snack bar after deleting the chosen days' menus"
+  },
+  "calendarCopyDay": "Copy a day",
+  "@calendarCopyDay": {
+    "description": "Action: copy one day's menu onto the chosen days"
+  },
+  "calendarCopyDayPick": "Day to copy",
+  "@calendarCopyDayPick": {
+    "description": "Help text of the date picker for the day to copy"
+  },
+  "calendarCopied": "Copied to {count} days",
+  "@calendarCopied": {
+    "description": "Snack bar after copying a day",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "calendarTravel": "Trip",
+  "@calendarTravel": {
+    "description": "Action: mark the chosen days as a trip"
+  },
+  "calendarTravelConfirm": "Travel mode from {from} to {to}?",
+  "@calendarTravelConfirm": {
+    "description": "Title of the dialog that plans a trip",
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "calendarTravelBody": "On those days the menu and shopping pause, and you only log what you eat.",
+  "@calendarTravelBody": {
+    "description": "Body of the dialog that plans a trip"
+  },
+  "calendarTravelPlanned": "Trip saved: {from} to {to}",
+  "@calendarTravelPlanned": {
+    "description": "Snack bar after planning a trip",
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "travelFromLabel": "First day of the trip",
+  "@travelFromLabel": {
+    "description": "Travel mode: the planned trip's first day"
+  },
+  "travelFromClear": "Start now",
+  "@travelFromClear": {
+    "description": "Travel mode: drop the planned first day"
+  },
+  "travelStartsOn": "Starts on {date}",
+  "@travelStartsOn": {
+    "description": "Travel mode switch subtitle for a trip planned ahead",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
   }
 }

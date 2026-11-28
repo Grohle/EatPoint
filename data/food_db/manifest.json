@@ -1,9 +1,9 @@
 {
   "format": "eatpoint-foods-manifest",
-  "version": 2,
-  "file": "eatpoint-foods-v2.json.gz",
-  "bytes": 339617,
-  "sha256": "16f89c7ce69c205b621218b827660bb734586208867f53ee48229e2a4c2c790f",
+  "version": 3,
+  "file": "eatpoint-foods-v3.json.gz",
+  "bytes": 342289,
+  "sha256": "fa988119dba965f8daf2e7eaf127f71744acce53ce8b328cadf83c97e9d48737",
   "count": 7514,
   "counts": {
     "eatpoint": 235,

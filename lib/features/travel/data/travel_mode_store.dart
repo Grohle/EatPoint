@@ -56,9 +56,21 @@ class TravelModeStore {
         until: enabled && mode.hasExpiredAt(now ?? DateTime.now())
             ? () => null
             : null,
+        // Turned on by hand, it starts now.
+        from: enabled ? () => null : null,
       ),
     );
   }
+
+  /// EatPoint: plans a trip from [first] to [last], both inclusive.
+  Future<void> planTrip(DateTime first, DateTime last) => save(
+    get().copyWith(
+      enabled: true,
+      from: () => DateTime(first.year, first.month, first.day),
+      until: () => DateTime(last.year, last.month, last.day),
+      since: () => DateTime.now(),
+    ),
+  );
 
   /// Turns travel mode off for good once its last day has passed, so the
   /// paused features come back. Returns true when it did.
