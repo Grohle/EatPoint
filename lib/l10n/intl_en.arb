@@ -5450,5 +5450,34 @@
         "type": "String"
       }
     }
+  },
+  "myDayLabel": "My day",
+  "@myDayLabel": {
+    "description": "Bottom bar tab joining the diary and the menu"
+  },
+  "myDayFullDiary": "Full diary",
+  "@myDayFullDiary": {
+    "description": "Opens the full diary (calendar, nutrients, copy entries)"
+  },
+  "myDayLogged": "Logged",
+  "@myDayLogged": {
+    "description": "Header above foods logged in the diary outside the menu"
+  },
+  "myDayActivities": "Activity",
+  "@myDayActivities": {
+    "description": "Header above the day's activities"
+  },
+  "myDayLogMore": "Log something else",
+  "@myDayLogMore": {
+    "description": "Adds a food straight to the diary for this meal"
+  },
+  "myDayRemoveEntry": "Delete {name} from the diary?",
+  "@myDayRemoveEntry": {
+    "description": "Confirm after swiping a diary entry away",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
   }
 }

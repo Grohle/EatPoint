@@ -2175,5 +2175,11 @@
   "editMealKcalTooHigh": "Troppe kcal per {base}",
   "editMealCheckValues": "Controlla i valori segnati in rosso",
   "generatorMemberNoProfile": "{name} non ha ancora condiviso pasti e punti: serve EatPoint 0.4 o successiva, aperta e sincronizzata sul telefono.",
-  "generatorMemberNoEdits": "{name} non permette di cambiare il suo menu (Nucleo condiviso → «Consenti alla casa di cambiare il mio menu»)."
+  "generatorMemberNoEdits": "{name} non permette di cambiare il suo menu (Nucleo condiviso → «Consenti alla casa di cambiare il mio menu»).",
+  "myDayLabel": "La mia giornata",
+  "myDayFullDiary": "Diario completo",
+  "myDayLogged": "Registrato",
+  "myDayActivities": "Attività",
+  "myDayLogMore": "Registra altro",
+  "myDayRemoveEntry": "Eliminare {name} dal diario?"
 }

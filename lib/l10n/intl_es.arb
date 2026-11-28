@@ -2504,5 +2504,11 @@
   "editMealKcalTooHigh": "Demasiadas kcal para {base}",
   "editMealCheckValues": "Revisa los valores marcados en rojo",
   "generatorMemberNoProfile": "{name} aún no ha compartido sus comidas y puntos: necesita EatPoint 0.4 o posterior, abierto y sincronizado en su móvil.",
-  "generatorMemberNoEdits": "{name} no permite que cambien su menú (Hogar compartido → «Permitir que el hogar cambie mi menú»)."
+  "generatorMemberNoEdits": "{name} no permite que cambien su menú (Hogar compartido → «Permitir que el hogar cambie mi menú»).",
+  "myDayLabel": "Mi día",
+  "myDayFullDiary": "Diario completo",
+  "myDayLogged": "Registrado",
+  "myDayActivities": "Actividad",
+  "myDayLogMore": "Registrar otra cosa",
+  "myDayRemoveEntry": "¿Borrar {name} del diario?"
 }

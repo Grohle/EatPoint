@@ -2206,5 +2206,11 @@
   "editMealKcalTooHigh": "Zu viele kcal für {base}",
   "editMealCheckValues": "Prüfe die rot markierten Werte",
   "generatorMemberNoProfile": "{name} hat Mahlzeiten und Punkte noch nicht geteilt: nötig ist EatPoint 0.4 oder neuer, geöffnet und synchronisiert auf dem Handy.",
-  "generatorMemberNoEdits": "{name} erlaubt keine Änderungen am Menü (Gemeinsamer Haushalt → „Haushalt darf mein Menü ändern“)."
+  "generatorMemberNoEdits": "{name} erlaubt keine Änderungen am Menü (Gemeinsamer Haushalt → „Haushalt darf mein Menü ändern“).",
+  "myDayLabel": "Mein Tag",
+  "myDayFullDiary": "Ganzes Tagebuch",
+  "myDayLogged": "Eingetragen",
+  "myDayActivities": "Aktivität",
+  "myDayLogMore": "Etwas anderes eintragen",
+  "myDayRemoveEntry": "{name} aus dem Tagebuch löschen?"
 }

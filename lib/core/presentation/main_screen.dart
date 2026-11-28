@@ -9,10 +9,14 @@ import 'package:opennutritracker/core/utils/health_rationale_service.dart';
 import 'package:opennutritracker/core/utils/locator.dart';
 import 'package:opennutritracker/core/utils/meal_type_suggester.dart';
 import 'package:opennutritracker/core/utils/navigation_options.dart';
-import 'package:opennutritracker/features/diary/diary_page.dart';
 import 'package:opennutritracker/core/presentation/widgets/home_appbar.dart';
 import 'package:opennutritracker/features/home/home_page.dart';
 import 'package:opennutritracker/core/presentation/widgets/main_appbar.dart';
+import 'package:opennutritracker/features/planner/data/planner_data_source.dart';
+import 'package:opennutritracker/features/planner/domain/entity/planner_entities.dart';
+import 'package:opennutritracker/features/planner/domain/shopping_list_builder.dart';
+import 'package:opennutritracker/features/planner/presentation/planner_screen.dart';
+import 'package:opennutritracker/features/planner/presentation/shopping_list_screen.dart';
 import 'package:opennutritracker/features/profile/profile_page.dart';
 import 'package:opennutritracker/features/trends/presentation/trends_page.dart';
 import 'package:opennutritracker/features/updates/presentation/update_prompt.dart';
@@ -112,15 +116,17 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
 
   @override
   void didChangeDependencies() {
+    // EatPoint: "My day" joins the diary and the menu; it brings its own
+    // app bar (whose menu, calendar, the full diary).
     _bodyPages = [
       const HomePage(),
-      const DiaryPage(),
+      const PlannerScreen(embedded: true),
       const TrendsPage(),
       const ProfilePage(),
     ];
     _appbarPages = [
       const HomeAppbar(),
-      MainAppbar(title: S.of(context).diaryLabel, iconData: Icons.book),
+      MainAppbar(title: S.of(context).myDayLabel, iconData: Icons.today),
       MainAppbar(title: S.of(context).trendsLabel, iconData: Icons.insights),
       MainAppbar(title: S.of(context).youLabel, iconData: Icons.account_circle),
     ];
@@ -132,7 +138,7 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final palette = isDark ? AppPalette.dark : AppPalette.light;
     return Scaffold(
-      appBar: _appbarPages[_selectedPageIndex],
+      appBar: _selectedPageIndex == 1 ? null : _appbarPages[_selectedPageIndex],
       body: Column(
         children: [
           if (_isDemoData) const DemoModeBanner(),
@@ -152,15 +158,15 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
           child: const Icon(Icons.add, size: 30),
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      // EatPoint: Add sits at the right, above the bar; the centre is the
+      // shopping list.
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       bottomNavigationBar: BottomAppBar(
         color: palette.surface,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         height: 78,
         padding: EdgeInsets.zero,
-        shape: const CircularNotchedRectangle(),
-        notchMargin: 8,
         child: Row(
           children: [
             _NavItem(
@@ -175,15 +181,15 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
             ),
             _NavItem(
               id: 'nav-diary',
-              icon: Icons.book_outlined,
-              selectedIcon: Icons.book_rounded,
-              label: S.of(context).diaryLabel,
+              icon: Icons.today_outlined,
+              selectedIcon: Icons.today_rounded,
+              label: S.of(context).myDayLabel,
               index: 1,
               selectedIndex: _selectedPageIndex,
               palette: palette,
               onTap: _setPage,
             ),
-            const SizedBox(width: 64), // notch gap for the centre Add FAB
+            const _ShoppingNavButton(),
             _NavItem(
               id: 'nav-trends',
               icon: Icons.insights_outlined,
@@ -235,6 +241,93 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
           ),
         );
       },
+    );
+  }
+}
+
+/// EatPoint: the shopping list, in the middle of the bar, with how many
+/// things of this week are still to buy.
+class _ShoppingNavButton extends StatefulWidget {
+  const _ShoppingNavButton();
+
+  @override
+  State<_ShoppingNavButton> createState() => _ShoppingNavButtonState();
+}
+
+class _ShoppingNavButtonState extends State<_ShoppingNavButton> {
+  final PlannerDataSource? _source = locator.isRegistered<PlannerDataSource>()
+      ? locator<PlannerDataSource>()
+      : null;
+
+  @override
+  void initState() {
+    super.initState();
+    _source?.revision.addListener(_refresh);
+  }
+
+  @override
+  void dispose() {
+    _source?.revision.removeListener(_refresh);
+    super.dispose();
+  }
+
+  void _refresh() {
+    if (mounted) setState(() {});
+  }
+
+  int _pending() {
+    final source = _source;
+    if (source == null) return 0;
+    final today = DateTime.now();
+    final state = source.getShopping(today);
+    final built = ShoppingListBuilder.build([
+      for (final d in source.getWeek(today)) (owner: 'me', plan: d),
+    ]);
+    final keys = {for (final i in built) i.key};
+    return [
+      ...built,
+      ...state.manualItems.where((m) => !keys.contains(m.key)),
+    ].where((i) => !state.checked.contains(i.key)).length;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final pending = _pending();
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 6),
+      child: Semantics(
+        identifier: 'nav-shopping',
+        button: true,
+        label: S.of(context).shoppingTitle,
+        child: Badge(
+          isLabelVisible: pending > 0,
+          label: Text('$pending'),
+          offset: const Offset(-4, 4),
+          child: Material(
+            color: scheme.primaryContainer,
+            shape: const CircleBorder(),
+            child: InkWell(
+              customBorder: const CircleBorder(),
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => ShoppingListScreen(
+                    weekOf: DayPlan.weekStart(DateTime.now()),
+                  ),
+                ),
+              ),
+              child: SizedBox.square(
+                dimension: 56,
+                child: Icon(
+                  Icons.shopping_cart_outlined,
+                  color: scheme.onPrimaryContainer,
+                  size: 28,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
