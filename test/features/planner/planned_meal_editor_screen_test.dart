@@ -82,4 +82,31 @@ void main() {
     expect(saved!.first.amount, 120);
     expect(saved!.last.points.protein, greaterThan(0));
   });
+
+  testWidgets('fits a phone in Spanish, with and without a known unit', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(1080, 2400);
+    tester.view.devicePixelRatio = 2.625;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(
+      localizedApp(
+        PlannedMealEditorScreen(
+          title: 'Comida',
+          day: DateTime(2026, 11, 28),
+          mealType: IntakeTypeEntity.lunch,
+          items: [
+            plannedItem('Tortillas de trigo integrales con semillas', 80),
+            plannedItem('Salsa de la casa muy especial', 40),
+          ],
+          budget: const MacroPoints(carbs: 4, protein: 3, fat: 2),
+          logged: true,
+        ),
+        locale: const Locale('es'),
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(tester.takeException(), isNull);
+    expect(find.textContaining('tortillas'), findsWidgets);
+  });
 }

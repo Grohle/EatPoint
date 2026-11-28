@@ -4978,5 +4978,236 @@
   "plannerUndo": "Undo",
   "@plannerUndo": {
     "description": "Undo a deletion"
+  },
+  "unitWeightTitle": "Weight of one unit",
+  "@unitWeightTitle": {
+    "description": "Dialog title"
+  },
+  "unitWeightHelp": "What one of these weighs for you (a tortilla, a slice, a piece). It's saved for you and used everywhere: when logging, in menus and on the shopping list.",
+  "@unitWeightHelp": {
+    "description": "Dialog help"
+  },
+  "unitWeightGrams": "One unit weighs",
+  "@unitWeightGrams": {
+    "description": "Field"
+  },
+  "unitWeightOne": "Unit (one)",
+  "@unitWeightOne": {
+    "description": "Singular unit name field"
+  },
+  "unitWeightOther": "Unit (several)",
+  "@unitWeightOther": {
+    "description": "Plural unit name field"
+  },
+  "unitWeightDefaultOne": "unit",
+  "@unitWeightDefaultOne": {
+    "description": "Default unit name"
+  },
+  "unitWeightDefaultOther": "units",
+  "@unitWeightDefaultOther": {
+    "description": "Default plural unit name"
+  },
+  "unitWeightReset": "Use the app's weight",
+  "@unitWeightReset": {
+    "description": "Drop the user's weight"
+  },
+  "unitWeightAdd": "Set weight per unit",
+  "@unitWeightAdd": {
+    "description": "When a food has no unit yet"
+  },
+  "unitWeightChange": "Weight per unit",
+  "@unitWeightChange": {
+    "description": "Chip to change a food's unit weight"
+  },
+  "myFoodsTitle": "My foods",
+  "@myFoodsTitle": {
+    "description": "Food editor title"
+  },
+  "myFoodsSubtitle": "Create, edit and set the weight per unit of any food",
+  "@myFoodsSubtitle": {
+    "description": "Profile entry subtitle"
+  },
+  "myFoodsIntro": "Your foods, and the whole food database when you search. Edit any food and it is kept as yours: it appears first when you log, plan or search.",
+  "@myFoodsIntro": {
+    "description": "Food editor intro"
+  },
+  "myFoodsSearch": "Search foods",
+  "@myFoodsSearch": {
+    "description": "Search hint"
+  },
+  "myFoodsMine": "My foods ({count})",
+  "@myFoodsMine": {
+    "description": "Section header",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "myFoodsDatabase": "Food database",
+  "@myFoodsDatabase": {
+    "description": "Section header"
+  },
+  "myFoodsNoneYet": "None yet. Create one, or search and edit a food from the database.",
+  "@myFoodsNoneYet": {
+    "description": "Empty state"
+  },
+  "myFoodsNoResults": "Nothing found.",
+  "@myFoodsNoResults": {
+    "description": "No search results"
+  },
+  "myFoodsNew": "New food",
+  "@myFoodsNew": {
+    "description": "Create button"
+  },
+  "myFoodsEdit": "Edit",
+  "@myFoodsEdit": {
+    "description": "Edit my food"
+  },
+  "myFoodsEditAsMine": "Edit and keep as mine",
+  "@myFoodsEditAsMine": {
+    "description": "Edit a database food"
+  },
+  "myFoodsUnitWeight": "1 {unit} = {grams}",
+  "@myFoodsUnitWeight": {
+    "description": "Unit weight shown in the list",
+    "placeholders": {
+      "unit": {
+        "type": "String"
+      },
+      "grams": {
+        "type": "String"
+      }
+    }
+  },
+  "backupTitle": "Backup",
+  "@backupTitle": {
+    "description": "Backup screen title"
+  },
+  "backupSubtitle": "Save everything to a file, any app or Google Drive, and restore it",
+  "@backupSubtitle": {
+    "description": "Entry subtitle"
+  },
+  "backupIntro": "One file with everything: diary, recipes, your foods, weight and goals, plus points, menus, shopping lists, diet, unit weights and settings. The household isn't included: a phone rejoins it with the invite.",
+  "@backupIntro": {
+    "description": "Backup intro"
+  },
+  "backupMakeTitle": "Make a copy now",
+  "@backupMakeTitle": {
+    "description": "Section"
+  },
+  "backupSavePhone": "Save on this phone",
+  "@backupSavePhone": {
+    "description": "Save to a file"
+  },
+  "backupSavePhoneHint": "Pick a folder, e.g. Downloads",
+  "@backupSavePhoneHint": {
+    "description": "Hint"
+  },
+  "backupSendTo": "Send to…",
+  "@backupSendTo": {
+    "description": "Share the backup"
+  },
+  "backupSendToHint": "Google Drive, Dropbox, OneDrive, email or any other app",
+  "@backupSendToHint": {
+    "description": "Hint"
+  },
+  "backupDriveTitle": "Google Drive",
+  "@backupDriveTitle": {
+    "description": "Section"
+  },
+  "backupDriveHint": "Copies go to an \"EatPoint backups\" folder in your Drive; the latest 10 are kept.",
+  "@backupDriveHint": {
+    "description": "Drive hint"
+  },
+  "backupDriveSetupHint": "Uses the same one-time Google setup as the Drive household (the web client ID). You'll be asked for it the first time.",
+  "@backupDriveSetupHint": {
+    "description": "Drive setup hint"
+  },
+  "backupDriveUpload": "Copy to Drive now",
+  "@backupDriveUpload": {
+    "description": "Upload button"
+  },
+  "backupAuto": "Automatic copy to Drive",
+  "@backupAuto": {
+    "description": "Auto backup label"
+  },
+  "backupAutoOff": "Off",
+  "@backupAutoOff": {
+    "description": "Auto backup off"
+  },
+  "backupAutoDaily": "Daily",
+  "@backupAutoDaily": {
+    "description": "Auto backup daily"
+  },
+  "backupAutoWeekly": "Weekly",
+  "@backupAutoWeekly": {
+    "description": "Auto backup weekly"
+  },
+  "backupLast": "Last copy to Drive: {when}",
+  "@backupLast": {
+    "description": "Last backup time",
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "backupNever": "never",
+  "@backupNever": {
+    "description": "No backup yet"
+  },
+  "backupRestoreTitle": "Restore a copy",
+  "@backupRestoreTitle": {
+    "description": "Section and dialog title"
+  },
+  "backupRestoreBody": "Your current data on this phone is replaced by the copy. This can't be undone.",
+  "@backupRestoreBody": {
+    "description": "Restore warning"
+  },
+  "backupRestore": "Restore",
+  "@backupRestore": {
+    "description": "Restore button"
+  },
+  "backupRestoreFile": "From a file",
+  "@backupRestoreFile": {
+    "description": "Restore from file"
+  },
+  "backupRestoreFileHint": "A backup (.zip) or an earlier EatPoint export (.json)",
+  "@backupRestoreFileHint": {
+    "description": "Hint"
+  },
+  "backupRestoreDrive": "From Google Drive",
+  "@backupRestoreDrive": {
+    "description": "Restore from Drive"
+  },
+  "backupDriveNone": "No copies in Drive yet.",
+  "@backupDriveNone": {
+    "description": "Empty list"
+  },
+  "backupSaved": "Copy saved",
+  "@backupSaved": {
+    "description": "Snackbar"
+  },
+  "backupUploaded": "Copy uploaded to Google Drive",
+  "@backupUploaded": {
+    "description": "Snackbar"
+  },
+  "backupRestored": "Copy restored",
+  "@backupRestored": {
+    "description": "Snackbar"
+  },
+  "backupNotABackup": "That file isn't an EatPoint backup.",
+  "@backupNotABackup": {
+    "description": "Error"
+  },
+  "backupFailed": "It didn't work: {reason}",
+  "@backupFailed": {
+    "description": "Error",
+    "placeholders": {
+      "reason": {
+        "type": "String"
+      }
+    }
   }
 }

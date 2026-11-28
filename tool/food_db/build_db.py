@@ -28,7 +28,7 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 OUT_DIR = os.path.join(ROOT, "data", "food_db")
-VERSION = 1
+VERSION = 2
 
 sys.path.insert(0, HERE)
 try:
@@ -273,6 +273,9 @@ def main():
     sr_dir = sys.argv[1]
     off_dir = sys.argv[2] if len(sys.argv) > 2 else None
     foods = eatpoint_list() + usda(sr_dir) + open_food_facts(off_dir)
+    # Each food's own household unit, reviewed by name (apply_portions.py).
+    from apply_portions import with_units
+    with_units(foods)
     counts = {}
     for f in foods:
         counts[f["s"]] = counts.get(f["s"], 0) + 1

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:opennutritracker/core/domain/usecase/get_config_usecase.dart';
 import 'package:opennutritracker/core/presentation/widgets/add_item_bottom_sheet.dart';
@@ -15,6 +17,7 @@ import 'package:opennutritracker/features/profile/profile_page.dart';
 import 'package:opennutritracker/features/trends/presentation/trends_page.dart';
 import 'package:opennutritracker/features/updates/presentation/update_prompt.dart';
 import 'package:opennutritracker/generated/l10n.dart';
+import 'package:opennutritracker/features/backup/presentation/backup_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -79,7 +82,10 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
     setState(() => _isDemoData = config.isDemoData);
     await _maybeOpenHealthRationale();
     // EatPoint: offer a newer release, if any (off in demo mode).
-    if (mounted && !config.isDemoData) await maybeOfferUpdate(context);
+    if (mounted && !config.isDemoData) {
+      unawaited(maybeAutoBackup());
+      await maybeOfferUpdate(context);
+    }
   }
 
   /// Opens the health-sync screen when Health Connect asked the app to explain

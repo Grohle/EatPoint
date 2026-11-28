@@ -1,0 +1,72 @@
+{
+  "about": "Corrections to the catalogue's household portions, applied by apply_audit.py after build.py. Weights are average edible weights as bought in Spain (grams, or ml for drinks), checked against supermarket pack sizes (weight / number of units), Spanish household-measure tables and USDA FoodData Central. 'exclude' words stop a concept from matching a food whose name contains them.",
+  "portions": [
+    {"concept": "tortilla_wrap", "unit": "tortilla", "grams": 40, "es": ["tortilla", "tortillas"], "en": ["tortilla", "tortillas"], "note": "Wheat tortillas sold in Spain: 8 x 40 g (320 g) packs; large 60 g, mini 25 g."},
+    {"concept": "chicken_breast", "unit": "fillet", "grams": 120, "note": "Supermarket 'filetes de pechuga' 100-140 g."},
+    {"concept": "tuna_can", "unit": "can", "grams": 60, "note": "Standard 80 g can, about 60 g drained."},
+    {"concept": "sardines_can", "unit": "can", "grams": 85, "note": "Club can 120 g, about 85 g drained."},
+    {"concept": "sardines_can", "unit": "unit", "grams": 22, "note": "3-4 sardines per can."},
+    {"concept": "ham", "unit": "slice_thin", "grams": 12, "note": "Packaged thin slices 8-15 g."},
+    {"concept": "bread_slice", "unit": "slice", "grams": 25, "note": "Sliced bread 23-28 g per slice."},
+    {"concept": "potato", "unit": "unit", "grams": 200},
+    {"concept": "sweet_potato", "unit": "unit", "grams": 200},
+    {"concept": "tomato", "unit": "unit", "grams": 150},
+    {"concept": "carrot", "unit": "unit", "grams": 80},
+    {"concept": "onion", "unit": "unit", "grams": 150},
+    {"concept": "cucumber", "unit": "unit", "grams": 250},
+    {"concept": "garlic", "unit": "clove", "grams": 4},
+    {"concept": "kiwi", "unit": "unit", "grams": 85},
+    {"concept": "plum", "unit": "unit", "grams": 60},
+    {"concept": "biscuit", "unit": "cookie", "grams": 6, "note": "Maria biscuits about 6 g."}
+  ],
+  "remove_portions": [
+    {"concept": "minced_meat", "unit": "unit", "note": "Minced meat has no unit; burgers are their own concept."}
+  ],
+  "names": {
+    "ham": {"remove": ["fiambre de pavo", "turkey slices"]},
+    "minced_meat": {"remove": ["hamburguesa", "burger"]},
+    "chorizo": {"remove": ["salchicha", "sausage"]},
+    "rice_cake": {"add_es": ["tortitas de maiz", "tortitas de maíz", "tortita de maíz"], "add_en": ["corn cakes", "corn cake"]},
+    "biscuit": {"remove": []}
+  },
+  "exclude": {
+    "tortilla_wrap": ["patata", "patatas", "española", "espanola", "chips", "maiz", "maíz"],
+    "chicken_breast": ["loncha", "lonchas", "fiambre", "alita", "alitas", "ala", "alas", "muslo", "muslos", "contramuslo", "nugget", "nuggets", "caldo", "sopa", "entero", "empanado", "empanados", "croqueta", "croquetas"],
+    "turkey_breast": ["loncha", "lonchas", "fiambre", "finas"],
+    "pork_loin": ["loncha", "lonchas", "embuchado"],
+    "beef_steak": ["picada", "hamburguesa", "caldo", "sopa"],
+    "bread_slice": ["rallado", "pita", "hamburguesa", "perrito", "hot dog", "molde sin"],
+    "potato": ["chips", "fritas", "pure", "puré", "tortilla", "copos"],
+    "tomato": ["frito", "triturado", "salsa", "ketchup", "concentrado", "zumo", "sopa", "gazpacho"],
+    "corn": ["tortita", "tortitas", "harina", "copos", "palomitas", "tortilla", "tortillas", "aceite", "chips"],
+    "milk": ["chocolate", "arroz", "cafe", "café", "condensada", "polvo", "coco", "galleta", "galletas", "pan", "batido"],
+    "dark_chocolate": ["bebida", "batido", "cacao en polvo", "cereales", "galleta", "galletas", "bizcocho", "helado", "crema", "barrita", "leche"],
+    "biscuit": ["digestive"],
+    "olive_oil": ["atun", "atún", "sardina", "sardinas", "caballa", "melva", "anchoa", "anchoas", "en aceite"],
+    "egg": ["codorniz", "pasta", "fideos", "liquido", "líquido"],
+    "yogurt": ["helado", "bebible", "beber"]
+  },
+  "exclude_groups": {
+    "about": "Prepared forms that make a fruit or vegetable unit meaningless.",
+    "words": ["zumo", "zumos", "nectar", "néctar", "compota", "pure", "puré", "mermelada", "almibar", "almíbar", "batido", "smoothie", "yogur", "salsa", "sopa", "crema", "helado", "bebida", "deshidratado", "deshidratada", "seco", "seca", "secos", "secas", "en polvo", "chips", "juice", "jam", "sauce", "soup", "dried"],
+    "concepts": ["apple", "banana", "orange", "mandarin", "pear", "kiwi", "strawberries", "grapes", "peach", "plum", "apricot", "cherries", "melon", "watermelon", "pineapple", "mango", "figs", "pomegranate", "lemon", "avocado", "carrot", "onion", "pepper", "zucchini", "cucumber", "eggplant", "leek", "potato", "sweet_potato", "tomato", "cherry_tomato", "broccoli", "cauliflower", "mushrooms", "asparagus", "lettuce", "spinach"]
+  },
+  "new": [
+    {"id": "spanish_omelette", "names": {"es": ["tortilla de patatas", "tortilla de patata", "tortilla española", "tortilla espanola"], "en": ["spanish omelette", "potato omelette"]}, "tags": ["protein"], "portions": [{"unit": "serving", "es": ["ración", "raciones"], "en": ["serving", "servings"], "grams": 150, "default": true}]},
+    {"id": "pita_bread", "names": {"es": ["pan de pita", "pita"], "en": ["pita bread", "pita"]}, "tags": ["carb"], "portions": [{"unit": "unit", "es": ["pan de pita", "panes de pita"], "en": ["pita", "pitas"], "grams": 60, "default": true}]},
+    {"id": "burger_bun", "names": {"es": ["pan de hamburguesa", "panecillo de hamburguesa", "panecillos de hamburguesa"], "en": ["burger bun", "hamburger bun"]}, "tags": ["carb"], "portions": [{"unit": "bun", "es": ["pan", "panes"], "en": ["bun", "buns"], "grams": 60, "default": true}]},
+    {"id": "hot_dog_bun", "names": {"es": ["pan de perrito", "pan de perritos", "pan de hot dog"], "en": ["hot dog bun"]}, "tags": ["carb"], "portions": [{"unit": "bun", "es": ["pan", "panes"], "en": ["bun", "buns"], "grams": 50, "default": true}]},
+    {"id": "croissant", "names": {"es": ["croissant", "cruasán", "cruasan"], "en": ["croissant"]}, "tags": ["carb", "fat"], "portions": [{"unit": "unit", "es": ["cruasán", "cruasanes"], "en": ["croissant", "croissants"], "grams": 60, "default": true}]},
+    {"id": "magdalena", "names": {"es": ["magdalena", "magdalenas"], "en": ["muffin", "fairy cake"]}, "tags": ["carb", "sweet"], "portions": [{"unit": "unit", "es": ["magdalena", "magdalenas"], "en": ["muffin", "muffins"], "grams": 30, "default": true}]},
+    {"id": "digestive", "names": {"es": ["galleta digestive", "galletas digestive", "digestive"], "en": ["digestive biscuit", "digestive"]}, "tags": ["carb", "sweet"], "portions": [{"unit": "cookie", "es": ["galleta", "galletas"], "en": ["biscuit", "biscuits"], "grams": 15, "default": true}]},
+    {"id": "napolitana", "names": {"es": ["napolitana", "napolitanas", "napolitana de chocolate"], "en": ["chocolate croissant", "pain au chocolat"]}, "tags": ["carb", "sweet"], "portions": [{"unit": "unit", "es": ["napolitana", "napolitanas"], "en": ["pastry", "pastries"], "grams": 80, "default": true}]},
+    {"id": "cereal_bar", "names": {"es": ["barrita de cereales", "barritas de cereales", "barrita"], "en": ["cereal bar", "granola bar"]}, "tags": ["carb"], "portions": [{"unit": "bar", "es": ["barrita", "barritas"], "en": ["bar", "bars"], "grams": 25, "default": true}]},
+    {"id": "empanadilla", "names": {"es": ["empanadilla", "empanadillas"], "en": ["pasty", "empanada"]}, "tags": ["carb"], "portions": [{"unit": "unit", "es": ["empanadilla", "empanadillas"], "en": ["pasty", "pasties"], "grams": 50, "default": true}]},
+    {"id": "nugget", "names": {"es": ["nuggets", "nugget", "nuggets de pollo"], "en": ["chicken nuggets", "nuggets", "nugget"]}, "tags": ["protein"], "portions": [{"unit": "unit", "es": ["nugget", "nuggets"], "en": ["nugget", "nuggets"], "grams": 18, "default": true}]},
+    {"id": "sausage", "names": {"es": ["salchicha", "salchichas", "salchichas frankfurt", "frankfurt"], "en": ["sausage", "sausages", "frankfurter", "hot dog sausage"]}, "tags": ["protein", "processed_meat"], "portions": [{"unit": "link", "es": ["salchicha", "salchichas"], "en": ["sausage", "sausages"], "grams": 45, "default": true}]},
+    {"id": "burger_patty", "names": {"es": ["hamburguesa", "hamburguesas", "burger meat"], "en": ["burger", "burgers", "beef patty"]}, "exclude": ["pan", "panecillo", "bollo", "salsa"], "tags": ["protein", "b12"], "portions": [{"unit": "unit", "es": ["hamburguesa", "hamburguesas"], "en": ["burger", "burgers"], "grams": 120, "default": true}]},
+    {"id": "quail_egg", "names": {"es": ["huevo de codorniz", "huevos de codorniz"], "en": ["quail egg", "quail eggs"]}, "tags": ["protein", "b12"], "portions": [{"unit": "egg", "es": ["huevo", "huevos"], "en": ["egg", "eggs"], "grams": 10, "default": true}]},
+    {"id": "turkey_slices", "names": {"es": ["pavo en lonchas", "fiambre de pavo", "pechuga de pavo en lonchas", "lonchas de pavo", "pechuga de pavo finas lonchas"], "en": ["turkey slices", "sliced turkey"]}, "tags": ["protein", "processed_meat"], "portions": [{"unit": "slice_thin", "es": ["loncha", "lonchas"], "en": ["slice", "slices"], "grams": 10, "default": true}]},
+    {"id": "chicken_slices", "names": {"es": ["pollo en lonchas", "fiambre de pollo", "pechuga de pollo en lonchas", "lonchas de pollo"], "en": ["chicken slices", "sliced chicken"]}, "tags": ["protein", "processed_meat"], "portions": [{"unit": "slice_thin", "es": ["loncha", "lonchas"], "en": ["slice", "slices"], "grams": 10, "default": true}]}
+  ]
+}

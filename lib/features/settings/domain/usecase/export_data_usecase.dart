@@ -142,7 +142,8 @@ class ExportDataUsecase {
   ///
   /// Extracted from @AzazelSensei's #1083, which had the seam and the test
   /// this exists for.
-  @visibleForTesting
+  ///
+  /// EatPoint's backup builds its file from it too.
   Future<Archive> assembleArchive({
     required ExportFormat format,
     required String userActivityJsonFileName,

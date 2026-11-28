@@ -22,6 +22,7 @@ import 'package:opennutritracker/features/points/presentation/points_format.dart
 import 'package:opennutritracker/features/meal_closer/domain/meal_closer.dart';
 import 'package:opennutritracker/features/meal_closer/presentation/meal_closer_panel.dart';
 import 'package:opennutritracker/generated/l10n.dart';
+import 'package:opennutritracker/features/food_knowledge/presentation/unit_weight_dialog.dart';
 
 /// The points half of the amount sheet: a points field kept in sync with
 /// the grams field, quarter-point steps, the practical-grams note and the
@@ -171,9 +172,36 @@ class _PointsAmountPanelState extends State<PointsAmountPanel> {
   /// "≈ 1½ filetes" for the amount entered, and quick choices in the
   /// food's household unit, when EatPoint knows the food.
   List<Widget> _portionRow(BuildContext context, double grams) {
-    final concept = FoodKnowledge.instance?.match(widget.product.name ?? '');
-    final portion = concept?.mainPortion;
-    if (portion == null) return const [];
+    final portion = FoodPortions.of(
+      widget.product.name ?? '',
+      code: widget.product.code,
+    );
+    final editWeight = Semantics(
+      identifier: 'portion-edit-weight',
+      child: ActionChip(
+        visualDensity: VisualDensity.compact,
+        avatar: const Icon(Icons.scale_outlined, size: 16),
+        label: Text(
+          portion == null
+              ? S.of(context).unitWeightAdd
+              : S.of(context).unitWeightChange,
+        ),
+        onPressed: () async {
+          final changed = await showUnitWeightDialog(
+            context,
+            name: widget.product.name ?? '',
+            code: widget.product.code,
+          );
+          if (changed && mounted) setState(() {});
+        },
+      ),
+    );
+    if (portion == null) {
+      return [
+        const SizedBox(height: Dimens.spacing8),
+        Align(alignment: AlignmentDirectional.centerStart, child: editWeight),
+      ];
+    }
     final language = Localizations.localeOf(context).languageCode;
     final current = PortionFormatter.describe(grams, portion);
     final theme = Theme.of(context);
@@ -201,6 +229,7 @@ class _PointsAmountPanelState extends State<PointsAmountPanel> {
                 onPressed: () => _applyGrams(portion.grams * count),
               ),
             ),
+          editWeight,
         ],
       ),
     ];

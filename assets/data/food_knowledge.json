@@ -45,6 +45,13 @@
       "factor": 1.0
      }
     }
+   ],
+   "exclude": [
+    "codorniz",
+    "fideos",
+    "liquido",
+    "líquido",
+    "pasta"
    ]
   },
   {
@@ -77,16 +84,34 @@
       "fillet",
       "fillets"
      ],
-     "grams": 136.0,
+     "grams": 120,
      "default": true,
      "source": {
-      "kind": "usda_sr_legacy",
-      "fdc_id": 171077,
-      "food": "Chicken, broiler or fryers, breast, skinless, boneless, meat only, raw",
-      "portion": "piece",
-      "factor": 0.5
+      "kind": "audit",
+      "note": "Supermarket 'filetes de pechuga' 100-140 g."
      }
     }
+   ],
+   "exclude": [
+    "ala",
+    "alas",
+    "alita",
+    "alitas",
+    "caldo",
+    "contramuslo",
+    "croqueta",
+    "croquetas",
+    "empanado",
+    "empanados",
+    "entero",
+    "fiambre",
+    "loncha",
+    "lonchas",
+    "muslo",
+    "muslos",
+    "nugget",
+    "nuggets",
+    "sopa"
    ]
   },
   {
@@ -160,6 +185,12 @@
       "kind": "estimate"
      }
     }
+   ],
+   "exclude": [
+    "fiambre",
+    "finas",
+    "loncha",
+    "lonchas"
    ]
   },
   {
@@ -201,6 +232,11 @@
       "factor": 0.6
      }
     }
+   ],
+   "exclude": [
+    "embuchado",
+    "loncha",
+    "lonchas"
    ]
   },
   {
@@ -242,19 +278,23 @@
       "kind": "estimate"
      }
     }
+   ],
+   "exclude": [
+    "caldo",
+    "hamburguesa",
+    "picada",
+    "sopa"
    ]
   },
   {
    "id": "minced_meat",
    "names": {
     "es": [
-     "carne picada",
-     "hamburguesa"
+     "carne picada"
     ],
     "en": [
      "ground beef",
-     "minced meat",
-     "burger"
+     "minced meat"
     ]
    },
    "tags": [
@@ -262,24 +302,7 @@
     "b12",
     "iron"
    ],
-   "portions": [
-    {
-     "unit": "unit",
-     "es": [
-      "hamburguesa",
-      "hamburguesas"
-     ],
-     "en": [
-      "burger",
-      "burgers"
-     ],
-     "grams": 125,
-     "default": true,
-     "source": {
-      "kind": "estimate"
-     }
-    }
-   ]
+   "portions": []
   },
   {
    "id": "salmon",
@@ -401,10 +424,11 @@
       "can",
       "cans"
      ],
-     "grams": 56,
+     "grams": 60,
      "default": true,
      "source": {
-      "kind": "estimate"
+      "kind": "audit",
+      "note": "Standard 80 g can, about 60 g drained."
      }
     }
    ]
@@ -439,14 +463,11 @@
       "can",
       "cans"
      ],
-     "grams": 92.0,
+     "grams": 85,
      "default": true,
      "source": {
-      "kind": "usda_sr_legacy",
-      "fdc_id": 175139,
-      "food": "Fish, sardine, Atlantic, canned in oil, drained solids with bone",
-      "portion": "can (3.75 oz)",
-      "factor": 1.0
+      "kind": "audit",
+      "note": "Club can 120 g, about 85 g drained."
      }
     },
     {
@@ -459,14 +480,11 @@
       "sardine",
       "sardines"
      ],
-     "grams": 12.0,
+     "grams": 22,
      "default": false,
      "source": {
-      "kind": "usda_sr_legacy",
-      "fdc_id": 175139,
-      "food": "Fish, sardine, Atlantic, canned in oil, drained solids with bone",
-      "portion": "small (2-2/3\" x 1/2\" x 1/4\")",
-      "factor": 1.0
+      "kind": "audit",
+      "note": "3-4 sardines per can."
      }
     }
    ]
@@ -511,14 +529,12 @@
    "id": "ham",
    "names": {
     "es": [
-     "fiambre de pavo",
      "jamon serrano",
      "jamon cocido",
      "jamon york",
      "jamon"
     ],
     "en": [
-     "turkey slices",
      "ham"
     ]
    },
@@ -538,14 +554,11 @@
       "slice",
       "slices"
      ],
-     "grams": 16.8,
+     "grams": 12,
      "default": true,
      "source": {
-      "kind": "usda_sr_legacy",
-      "fdc_id": 168295,
-      "food": "Pork, cured, ham, boneless, extra lean and regular, unheated",
-      "portion": "slice (6-1/4\" x 4\" x 1/16\") (1 oz)",
-      "factor": 0.6
+      "kind": "audit",
+      "note": "Packaged thin slices 8-15 g."
      }
     }
    ]
@@ -555,12 +568,10 @@
    "names": {
     "es": [
      "salchichon",
-     "salchicha",
      "chorizo",
      "fuet"
     ],
     "en": [
-     "sausage",
      "chorizo"
     ]
    },
@@ -684,6 +695,19 @@
       "factor": 1.0
      }
     }
+   ],
+   "exclude": [
+    "arroz",
+    "batido",
+    "cafe",
+    "café",
+    "chocolate",
+    "coco",
+    "condensada",
+    "galleta",
+    "galletas",
+    "pan",
+    "polvo"
    ]
   },
   {
@@ -767,6 +791,11 @@
       "kind": "estimate"
      }
     }
+   ],
+   "exclude": [
+    "beber",
+    "bebible",
+    "helado"
    ]
   },
   {
@@ -923,16 +952,21 @@
       "slice",
       "slices"
      ],
-     "grams": 32.0,
+     "grams": 25,
      "default": true,
      "source": {
-      "kind": "usda_sr_legacy",
-      "fdc_id": 172688,
-      "food": "Bread, whole-wheat, commercially prepared",
-      "portion": "slice",
-      "factor": 1.0
+      "kind": "audit",
+      "note": "Sliced bread 23-28 g per slice."
      }
     }
+   ],
+   "exclude": [
+    "hamburguesa",
+    "hot dog",
+    "molde sin",
+    "perrito",
+    "pita",
+    "rallado"
    ]
   },
   {
@@ -991,23 +1025,29 @@
     {
      "unit": "tortilla",
      "es": [
-      "tortita",
-      "tortitas"
+      "tortilla",
+      "tortillas"
      ],
      "en": [
       "tortilla",
       "tortillas"
      ],
-     "grams": 49.0,
+     "grams": 40,
      "default": true,
      "source": {
-      "kind": "usda_sr_legacy",
-      "fdc_id": 173242,
-      "food": "Tortillas, ready-to-bake or -fry, flour, without added calcium",
-      "portion": "tortilla (approx 7-8\" dia)",
-      "factor": 1.0
+      "kind": "audit",
+      "note": "Wheat tortillas sold in Spain: 8 x 40 g (320 g) packs; large 60 g, mini 25 g."
      }
     }
+   ],
+   "exclude": [
+    "chips",
+    "espanola",
+    "española",
+    "maiz",
+    "maíz",
+    "patata",
+    "patatas"
    ]
   },
   {
@@ -1137,16 +1177,49 @@
       "potato",
       "potatoes"
      ],
-     "grams": 213.0,
+     "grams": 200,
      "default": true,
      "source": {
-      "kind": "usda_sr_legacy",
-      "fdc_id": 170026,
-      "food": "Potatoes, flesh and skin, raw",
-      "portion": "Potato medium (2-1/4\" to 3-1/4\" dia)",
-      "factor": 1.0
+      "kind": "audit",
+      "note": ""
      }
     }
+   ],
+   "exclude": [
+    "almibar",
+    "almíbar",
+    "batido",
+    "bebida",
+    "chips",
+    "compota",
+    "copos",
+    "crema",
+    "deshidratada",
+    "deshidratado",
+    "dried",
+    "en polvo",
+    "fritas",
+    "helado",
+    "jam",
+    "juice",
+    "mermelada",
+    "nectar",
+    "néctar",
+    "pure",
+    "puré",
+    "salsa",
+    "sauce",
+    "seca",
+    "secas",
+    "seco",
+    "secos",
+    "smoothie",
+    "sopa",
+    "soup",
+    "tortilla",
+    "yogur",
+    "zumo",
+    "zumos"
    ]
   },
   {
@@ -1175,16 +1248,46 @@
       "sweet potato",
       "sweet potatoes"
      ],
-     "grams": 130.0,
+     "grams": 200,
      "default": true,
      "source": {
-      "kind": "usda_sr_legacy",
-      "fdc_id": 168482,
-      "food": "Sweet potato, raw, unprepared (Includes foods for USDA's Food Distribution Program)",
-      "portion": "sweetpotato, 5\" long",
-      "factor": 1.0
+      "kind": "audit",
+      "note": ""
      }
     }
+   ],
+   "exclude": [
+    "almibar",
+    "almíbar",
+    "batido",
+    "bebida",
+    "chips",
+    "compota",
+    "crema",
+    "deshidratada",
+    "deshidratado",
+    "dried",
+    "en polvo",
+    "helado",
+    "jam",
+    "juice",
+    "mermelada",
+    "nectar",
+    "néctar",
+    "pure",
+    "puré",
+    "salsa",
+    "sauce",
+    "seca",
+    "secas",
+    "seco",
+    "secos",
+    "smoothie",
+    "sopa",
+    "soup",
+    "yogur",
+    "zumo",
+    "zumos"
    ]
   },
   {
@@ -1193,11 +1296,16 @@
     "es": [
      "tortitas de arroz",
      "tortita de arroz",
-     "tortita de maiz"
+     "tortita de maiz",
+     "tortitas de maiz",
+     "tortitas de maíz",
+     "tortita de maíz"
     ],
     "en": [
      "rice cakes",
-     "rice cake"
+     "rice cake",
+     "corn cakes",
+     "corn cake"
     ]
    },
    "tags": [
@@ -1254,16 +1362,16 @@
       "biscuit",
       "biscuits"
      ],
-     "grams": 5.6,
+     "grams": 6,
      "default": true,
      "source": {
-      "kind": "usda_sr_legacy",
-      "fdc_id": 171867,
-      "food": "Cookies, Marie biscuit",
-      "portion": "cookie",
-      "factor": 1.0
+      "kind": "audit",
+      "note": "Maria biscuits about 6 g."
      }
     }
+   ],
+   "exclude": [
+    "digestive"
    ]
   },
   {
@@ -1429,14 +1537,11 @@
       "tomato",
       "tomatoes"
      ],
-     "grams": 123.0,
+     "grams": 150,
      "default": true,
      "source": {
-      "kind": "usda_sr_legacy",
-      "fdc_id": 170457,
-      "food": "Tomatoes, red, ripe, raw, year round average",
-      "portion": "medium whole (2-3/5\" dia)",
-      "factor": 1.0
+      "kind": "audit",
+      "note": ""
      }
     },
     {
@@ -1459,6 +1564,44 @@
       "factor": 1.0
      }
     }
+   ],
+   "exclude": [
+    "almibar",
+    "almíbar",
+    "batido",
+    "bebida",
+    "chips",
+    "compota",
+    "concentrado",
+    "crema",
+    "deshidratada",
+    "deshidratado",
+    "dried",
+    "en polvo",
+    "frito",
+    "gazpacho",
+    "helado",
+    "jam",
+    "juice",
+    "ketchup",
+    "mermelada",
+    "nectar",
+    "néctar",
+    "pure",
+    "puré",
+    "salsa",
+    "sauce",
+    "seca",
+    "secas",
+    "seco",
+    "secos",
+    "smoothie",
+    "sopa",
+    "soup",
+    "triturado",
+    "yogur",
+    "zumo",
+    "zumos"
    ]
   },
   {
@@ -1498,6 +1641,39 @@
       "factor": 1.0
      }
     }
+   ],
+   "exclude": [
+    "almibar",
+    "almíbar",
+    "batido",
+    "bebida",
+    "chips",
+    "compota",
+    "crema",
+    "deshidratada",
+    "deshidratado",
+    "dried",
+    "en polvo",
+    "helado",
+    "jam",
+    "juice",
+    "mermelada",
+    "nectar",
+    "néctar",
+    "pure",
+    "puré",
+    "salsa",
+    "sauce",
+    "seca",
+    "secas",
+    "seco",
+    "secos",
+    "smoothie",
+    "sopa",
+    "soup",
+    "yogur",
+    "zumo",
+    "zumos"
    ]
   },
   {
@@ -1524,16 +1700,46 @@
       "carrot",
       "carrots"
      ],
-     "grams": 61.0,
+     "grams": 80,
      "default": true,
      "source": {
-      "kind": "usda_sr_legacy",
-      "fdc_id": 170393,
-      "food": "Carrots, raw",
-      "portion": "medium",
-      "factor": 1.0
+      "kind": "audit",
+      "note": ""
      }
     }
+   ],
+   "exclude": [
+    "almibar",
+    "almíbar",
+    "batido",
+    "bebida",
+    "chips",
+    "compota",
+    "crema",
+    "deshidratada",
+    "deshidratado",
+    "dried",
+    "en polvo",
+    "helado",
+    "jam",
+    "juice",
+    "mermelada",
+    "nectar",
+    "néctar",
+    "pure",
+    "puré",
+    "salsa",
+    "sauce",
+    "seca",
+    "secas",
+    "seco",
+    "secos",
+    "smoothie",
+    "sopa",
+    "soup",
+    "yogur",
+    "zumo",
+    "zumos"
    ]
   },
   {
@@ -1560,16 +1766,46 @@
       "onion",
       "onions"
      ],
-     "grams": 110.0,
+     "grams": 150,
      "default": true,
      "source": {
-      "kind": "usda_sr_legacy",
-      "fdc_id": 170000,
-      "food": "Onions, raw",
-      "portion": "medium (2-1/2\" dia)",
-      "factor": 1.0
+      "kind": "audit",
+      "note": ""
      }
     }
+   ],
+   "exclude": [
+    "almibar",
+    "almíbar",
+    "batido",
+    "bebida",
+    "chips",
+    "compota",
+    "crema",
+    "deshidratada",
+    "deshidratado",
+    "dried",
+    "en polvo",
+    "helado",
+    "jam",
+    "juice",
+    "mermelada",
+    "nectar",
+    "néctar",
+    "pure",
+    "puré",
+    "salsa",
+    "sauce",
+    "seca",
+    "secas",
+    "seco",
+    "secos",
+    "smoothie",
+    "sopa",
+    "soup",
+    "yogur",
+    "zumo",
+    "zumos"
    ]
   },
   {
@@ -1608,6 +1844,39 @@
       "factor": 1.0
      }
     }
+   ],
+   "exclude": [
+    "almibar",
+    "almíbar",
+    "batido",
+    "bebida",
+    "chips",
+    "compota",
+    "crema",
+    "deshidratada",
+    "deshidratado",
+    "dried",
+    "en polvo",
+    "helado",
+    "jam",
+    "juice",
+    "mermelada",
+    "nectar",
+    "néctar",
+    "pure",
+    "puré",
+    "salsa",
+    "sauce",
+    "seca",
+    "secas",
+    "seco",
+    "secos",
+    "smoothie",
+    "sopa",
+    "soup",
+    "yogur",
+    "zumo",
+    "zumos"
    ]
   },
   {
@@ -1645,6 +1914,39 @@
       "factor": 1.0
      }
     }
+   ],
+   "exclude": [
+    "almibar",
+    "almíbar",
+    "batido",
+    "bebida",
+    "chips",
+    "compota",
+    "crema",
+    "deshidratada",
+    "deshidratado",
+    "dried",
+    "en polvo",
+    "helado",
+    "jam",
+    "juice",
+    "mermelada",
+    "nectar",
+    "néctar",
+    "pure",
+    "puré",
+    "salsa",
+    "sauce",
+    "seca",
+    "secas",
+    "seco",
+    "secos",
+    "smoothie",
+    "sopa",
+    "soup",
+    "yogur",
+    "zumo",
+    "zumos"
    ]
   },
   {
@@ -1671,16 +1973,46 @@
       "cucumber",
       "cucumbers"
      ],
-     "grams": 301.0,
+     "grams": 250,
      "default": true,
      "source": {
-      "kind": "usda_sr_legacy",
-      "fdc_id": 168409,
-      "food": "Cucumber, with peel, raw",
-      "portion": "cucumber (8-1/4\")",
-      "factor": 1.0
+      "kind": "audit",
+      "note": ""
      }
     }
+   ],
+   "exclude": [
+    "almibar",
+    "almíbar",
+    "batido",
+    "bebida",
+    "chips",
+    "compota",
+    "crema",
+    "deshidratada",
+    "deshidratado",
+    "dried",
+    "en polvo",
+    "helado",
+    "jam",
+    "juice",
+    "mermelada",
+    "nectar",
+    "néctar",
+    "pure",
+    "puré",
+    "salsa",
+    "sauce",
+    "seca",
+    "secas",
+    "seco",
+    "secos",
+    "smoothie",
+    "sopa",
+    "soup",
+    "yogur",
+    "zumo",
+    "zumos"
    ]
   },
   {
@@ -1724,6 +2056,39 @@
       "factor": 1.0
      }
     }
+   ],
+   "exclude": [
+    "almibar",
+    "almíbar",
+    "batido",
+    "bebida",
+    "chips",
+    "compota",
+    "crema",
+    "deshidratada",
+    "deshidratado",
+    "dried",
+    "en polvo",
+    "helado",
+    "jam",
+    "juice",
+    "mermelada",
+    "nectar",
+    "néctar",
+    "pure",
+    "puré",
+    "salsa",
+    "sauce",
+    "seca",
+    "secas",
+    "seco",
+    "secos",
+    "smoothie",
+    "sopa",
+    "soup",
+    "yogur",
+    "zumo",
+    "zumos"
    ]
   },
   {
@@ -1761,6 +2126,39 @@
       "kind": "estimate"
      }
     }
+   ],
+   "exclude": [
+    "almibar",
+    "almíbar",
+    "batido",
+    "bebida",
+    "chips",
+    "compota",
+    "crema",
+    "deshidratada",
+    "deshidratado",
+    "dried",
+    "en polvo",
+    "helado",
+    "jam",
+    "juice",
+    "mermelada",
+    "nectar",
+    "néctar",
+    "pure",
+    "puré",
+    "salsa",
+    "sauce",
+    "seca",
+    "secas",
+    "seco",
+    "secos",
+    "smoothie",
+    "sopa",
+    "soup",
+    "yogur",
+    "zumo",
+    "zumos"
    ]
   },
   {
@@ -1795,6 +2193,39 @@
       "kind": "estimate"
      }
     }
+   ],
+   "exclude": [
+    "almibar",
+    "almíbar",
+    "batido",
+    "bebida",
+    "chips",
+    "compota",
+    "crema",
+    "deshidratada",
+    "deshidratado",
+    "dried",
+    "en polvo",
+    "helado",
+    "jam",
+    "juice",
+    "mermelada",
+    "nectar",
+    "néctar",
+    "pure",
+    "puré",
+    "salsa",
+    "sauce",
+    "seca",
+    "secas",
+    "seco",
+    "secos",
+    "smoothie",
+    "sopa",
+    "soup",
+    "yogur",
+    "zumo",
+    "zumos"
    ]
   },
   {
@@ -1832,6 +2263,39 @@
       "factor": 1.0
      }
     }
+   ],
+   "exclude": [
+    "almibar",
+    "almíbar",
+    "batido",
+    "bebida",
+    "chips",
+    "compota",
+    "crema",
+    "deshidratada",
+    "deshidratado",
+    "dried",
+    "en polvo",
+    "helado",
+    "jam",
+    "juice",
+    "mermelada",
+    "nectar",
+    "néctar",
+    "pure",
+    "puré",
+    "salsa",
+    "sauce",
+    "seca",
+    "secas",
+    "seco",
+    "secos",
+    "smoothie",
+    "sopa",
+    "soup",
+    "yogur",
+    "zumo",
+    "zumos"
    ]
   },
   {
@@ -1871,6 +2335,39 @@
       "factor": 1.0
      }
     }
+   ],
+   "exclude": [
+    "almibar",
+    "almíbar",
+    "batido",
+    "bebida",
+    "chips",
+    "compota",
+    "crema",
+    "deshidratada",
+    "deshidratado",
+    "dried",
+    "en polvo",
+    "helado",
+    "jam",
+    "juice",
+    "mermelada",
+    "nectar",
+    "néctar",
+    "pure",
+    "puré",
+    "salsa",
+    "sauce",
+    "seca",
+    "secas",
+    "seco",
+    "secos",
+    "smoothie",
+    "sopa",
+    "soup",
+    "yogur",
+    "zumo",
+    "zumos"
    ]
   },
   {
@@ -1941,6 +2438,39 @@
       "factor": 1.0
      }
     }
+   ],
+   "exclude": [
+    "almibar",
+    "almíbar",
+    "batido",
+    "bebida",
+    "chips",
+    "compota",
+    "crema",
+    "deshidratada",
+    "deshidratado",
+    "dried",
+    "en polvo",
+    "helado",
+    "jam",
+    "juice",
+    "mermelada",
+    "nectar",
+    "néctar",
+    "pure",
+    "puré",
+    "salsa",
+    "sauce",
+    "seca",
+    "secas",
+    "seco",
+    "secos",
+    "smoothie",
+    "sopa",
+    "soup",
+    "yogur",
+    "zumo",
+    "zumos"
    ]
   },
   {
@@ -1978,6 +2508,39 @@
       "factor": 0.6
      }
     }
+   ],
+   "exclude": [
+    "almibar",
+    "almíbar",
+    "batido",
+    "bebida",
+    "chips",
+    "compota",
+    "crema",
+    "deshidratada",
+    "deshidratado",
+    "dried",
+    "en polvo",
+    "helado",
+    "jam",
+    "juice",
+    "mermelada",
+    "nectar",
+    "néctar",
+    "pure",
+    "puré",
+    "salsa",
+    "sauce",
+    "seca",
+    "secas",
+    "seco",
+    "secos",
+    "smoothie",
+    "sopa",
+    "soup",
+    "yogur",
+    "zumo",
+    "zumos"
    ]
   },
   {
@@ -2014,6 +2577,39 @@
       "factor": 1.0
      }
     }
+   ],
+   "exclude": [
+    "almibar",
+    "almíbar",
+    "batido",
+    "bebida",
+    "chips",
+    "compota",
+    "crema",
+    "deshidratada",
+    "deshidratado",
+    "dried",
+    "en polvo",
+    "helado",
+    "jam",
+    "juice",
+    "mermelada",
+    "nectar",
+    "néctar",
+    "pure",
+    "puré",
+    "salsa",
+    "sauce",
+    "seca",
+    "secas",
+    "seco",
+    "secos",
+    "smoothie",
+    "sopa",
+    "soup",
+    "yogur",
+    "zumo",
+    "zumos"
    ]
   },
   {
@@ -2041,14 +2637,11 @@
       "clove",
       "cloves"
      ],
-     "grams": 3.0,
+     "grams": 4,
      "default": true,
      "source": {
-      "kind": "usda_sr_legacy",
-      "fdc_id": 169230,
-      "food": "Garlic, raw",
-      "portion": "clove",
-      "factor": 1.0
+      "kind": "audit",
+      "note": ""
      }
     }
    ]
@@ -2085,6 +2678,17 @@
       "kind": "estimate"
      }
     }
+   ],
+   "exclude": [
+    "aceite",
+    "chips",
+    "copos",
+    "harina",
+    "palomitas",
+    "tortilla",
+    "tortillas",
+    "tortita",
+    "tortitas"
    ]
   },
   {
@@ -2122,6 +2726,39 @@
       "factor": 1.0
      }
     }
+   ],
+   "exclude": [
+    "almibar",
+    "almíbar",
+    "batido",
+    "bebida",
+    "chips",
+    "compota",
+    "crema",
+    "deshidratada",
+    "deshidratado",
+    "dried",
+    "en polvo",
+    "helado",
+    "jam",
+    "juice",
+    "mermelada",
+    "nectar",
+    "néctar",
+    "pure",
+    "puré",
+    "salsa",
+    "sauce",
+    "seca",
+    "secas",
+    "seco",
+    "secos",
+    "smoothie",
+    "sopa",
+    "soup",
+    "yogur",
+    "zumo",
+    "zumos"
    ]
   },
   {
@@ -2196,6 +2833,39 @@
       "factor": 1.0
      }
     }
+   ],
+   "exclude": [
+    "almibar",
+    "almíbar",
+    "batido",
+    "bebida",
+    "chips",
+    "compota",
+    "crema",
+    "deshidratada",
+    "deshidratado",
+    "dried",
+    "en polvo",
+    "helado",
+    "jam",
+    "juice",
+    "mermelada",
+    "nectar",
+    "néctar",
+    "pure",
+    "puré",
+    "salsa",
+    "sauce",
+    "seca",
+    "secas",
+    "seco",
+    "secos",
+    "smoothie",
+    "sopa",
+    "soup",
+    "yogur",
+    "zumo",
+    "zumos"
    ]
   },
   {
@@ -2233,6 +2903,39 @@
       "factor": 1.0
      }
     }
+   ],
+   "exclude": [
+    "almibar",
+    "almíbar",
+    "batido",
+    "bebida",
+    "chips",
+    "compota",
+    "crema",
+    "deshidratada",
+    "deshidratado",
+    "dried",
+    "en polvo",
+    "helado",
+    "jam",
+    "juice",
+    "mermelada",
+    "nectar",
+    "néctar",
+    "pure",
+    "puré",
+    "salsa",
+    "sauce",
+    "seca",
+    "secas",
+    "seco",
+    "secos",
+    "smoothie",
+    "sopa",
+    "soup",
+    "yogur",
+    "zumo",
+    "zumos"
    ]
   },
   {
@@ -2270,6 +2973,39 @@
       "factor": 1.0
      }
     }
+   ],
+   "exclude": [
+    "almibar",
+    "almíbar",
+    "batido",
+    "bebida",
+    "chips",
+    "compota",
+    "crema",
+    "deshidratada",
+    "deshidratado",
+    "dried",
+    "en polvo",
+    "helado",
+    "jam",
+    "juice",
+    "mermelada",
+    "nectar",
+    "néctar",
+    "pure",
+    "puré",
+    "salsa",
+    "sauce",
+    "seca",
+    "secas",
+    "seco",
+    "secos",
+    "smoothie",
+    "sopa",
+    "soup",
+    "yogur",
+    "zumo",
+    "zumos"
    ]
   },
   {
@@ -2310,6 +3046,39 @@
       "factor": 1.0
      }
     }
+   ],
+   "exclude": [
+    "almibar",
+    "almíbar",
+    "batido",
+    "bebida",
+    "chips",
+    "compota",
+    "crema",
+    "deshidratada",
+    "deshidratado",
+    "dried",
+    "en polvo",
+    "helado",
+    "jam",
+    "juice",
+    "mermelada",
+    "nectar",
+    "néctar",
+    "pure",
+    "puré",
+    "salsa",
+    "sauce",
+    "seca",
+    "secas",
+    "seco",
+    "secos",
+    "smoothie",
+    "sopa",
+    "soup",
+    "yogur",
+    "zumo",
+    "zumos"
    ]
   },
   {
@@ -2346,6 +3115,39 @@
       "factor": 1.0
      }
     }
+   ],
+   "exclude": [
+    "almibar",
+    "almíbar",
+    "batido",
+    "bebida",
+    "chips",
+    "compota",
+    "crema",
+    "deshidratada",
+    "deshidratado",
+    "dried",
+    "en polvo",
+    "helado",
+    "jam",
+    "juice",
+    "mermelada",
+    "nectar",
+    "néctar",
+    "pure",
+    "puré",
+    "salsa",
+    "sauce",
+    "seca",
+    "secas",
+    "seco",
+    "secos",
+    "smoothie",
+    "sopa",
+    "soup",
+    "yogur",
+    "zumo",
+    "zumos"
    ]
   },
   {
@@ -2374,16 +3176,46 @@
       "kiwi",
       "kiwis"
      ],
-     "grams": 69.0,
+     "grams": 85,
      "default": true,
      "source": {
-      "kind": "usda_sr_legacy",
-      "fdc_id": 168153,
-      "food": "Kiwifruit, green, raw",
-      "portion": "fruit (2\" dia)",
-      "factor": 1.0
+      "kind": "audit",
+      "note": ""
      }
     }
+   ],
+   "exclude": [
+    "almibar",
+    "almíbar",
+    "batido",
+    "bebida",
+    "chips",
+    "compota",
+    "crema",
+    "deshidratada",
+    "deshidratado",
+    "dried",
+    "en polvo",
+    "helado",
+    "jam",
+    "juice",
+    "mermelada",
+    "nectar",
+    "néctar",
+    "pure",
+    "puré",
+    "salsa",
+    "sauce",
+    "seca",
+    "secas",
+    "seco",
+    "secos",
+    "smoothie",
+    "sopa",
+    "soup",
+    "yogur",
+    "zumo",
+    "zumos"
    ]
   },
   {
@@ -2424,6 +3256,39 @@
       "factor": 1.0
      }
     }
+   ],
+   "exclude": [
+    "almibar",
+    "almíbar",
+    "batido",
+    "bebida",
+    "chips",
+    "compota",
+    "crema",
+    "deshidratada",
+    "deshidratado",
+    "dried",
+    "en polvo",
+    "helado",
+    "jam",
+    "juice",
+    "mermelada",
+    "nectar",
+    "néctar",
+    "pure",
+    "puré",
+    "salsa",
+    "sauce",
+    "seca",
+    "secas",
+    "seco",
+    "secos",
+    "smoothie",
+    "sopa",
+    "soup",
+    "yogur",
+    "zumo",
+    "zumos"
    ]
   },
   {
@@ -2462,6 +3327,39 @@
       "factor": 1.0
      }
     }
+   ],
+   "exclude": [
+    "almibar",
+    "almíbar",
+    "batido",
+    "bebida",
+    "chips",
+    "compota",
+    "crema",
+    "deshidratada",
+    "deshidratado",
+    "dried",
+    "en polvo",
+    "helado",
+    "jam",
+    "juice",
+    "mermelada",
+    "nectar",
+    "néctar",
+    "pure",
+    "puré",
+    "salsa",
+    "sauce",
+    "seca",
+    "secas",
+    "seco",
+    "secos",
+    "smoothie",
+    "sopa",
+    "soup",
+    "yogur",
+    "zumo",
+    "zumos"
    ]
   },
   {
@@ -2501,6 +3399,39 @@
       "factor": 1.0
      }
     }
+   ],
+   "exclude": [
+    "almibar",
+    "almíbar",
+    "batido",
+    "bebida",
+    "chips",
+    "compota",
+    "crema",
+    "deshidratada",
+    "deshidratado",
+    "dried",
+    "en polvo",
+    "helado",
+    "jam",
+    "juice",
+    "mermelada",
+    "nectar",
+    "néctar",
+    "pure",
+    "puré",
+    "salsa",
+    "sauce",
+    "seca",
+    "secas",
+    "seco",
+    "secos",
+    "smoothie",
+    "sopa",
+    "soup",
+    "yogur",
+    "zumo",
+    "zumos"
    ]
   },
   {
@@ -2527,16 +3458,46 @@
       "plum",
       "plums"
      ],
-     "grams": 66.0,
+     "grams": 60,
      "default": true,
      "source": {
-      "kind": "usda_sr_legacy",
-      "fdc_id": 169949,
-      "food": "Plums, raw",
-      "portion": "fruit (2-1/8\" dia)",
-      "factor": 1.0
+      "kind": "audit",
+      "note": ""
      }
     }
+   ],
+   "exclude": [
+    "almibar",
+    "almíbar",
+    "batido",
+    "bebida",
+    "chips",
+    "compota",
+    "crema",
+    "deshidratada",
+    "deshidratado",
+    "dried",
+    "en polvo",
+    "helado",
+    "jam",
+    "juice",
+    "mermelada",
+    "nectar",
+    "néctar",
+    "pure",
+    "puré",
+    "salsa",
+    "sauce",
+    "seca",
+    "secas",
+    "seco",
+    "secos",
+    "smoothie",
+    "sopa",
+    "soup",
+    "yogur",
+    "zumo",
+    "zumos"
    ]
   },
   {
@@ -2573,6 +3534,39 @@
       "factor": 1.0
      }
     }
+   ],
+   "exclude": [
+    "almibar",
+    "almíbar",
+    "batido",
+    "bebida",
+    "chips",
+    "compota",
+    "crema",
+    "deshidratada",
+    "deshidratado",
+    "dried",
+    "en polvo",
+    "helado",
+    "jam",
+    "juice",
+    "mermelada",
+    "nectar",
+    "néctar",
+    "pure",
+    "puré",
+    "salsa",
+    "sauce",
+    "seca",
+    "secas",
+    "seco",
+    "secos",
+    "smoothie",
+    "sopa",
+    "soup",
+    "yogur",
+    "zumo",
+    "zumos"
    ]
   },
   {
@@ -2611,6 +3605,39 @@
       "factor": 1.0
      }
     }
+   ],
+   "exclude": [
+    "almibar",
+    "almíbar",
+    "batido",
+    "bebida",
+    "chips",
+    "compota",
+    "crema",
+    "deshidratada",
+    "deshidratado",
+    "dried",
+    "en polvo",
+    "helado",
+    "jam",
+    "juice",
+    "mermelada",
+    "nectar",
+    "néctar",
+    "pure",
+    "puré",
+    "salsa",
+    "sauce",
+    "seca",
+    "secas",
+    "seco",
+    "secos",
+    "smoothie",
+    "sopa",
+    "soup",
+    "yogur",
+    "zumo",
+    "zumos"
    ]
   },
   {
@@ -2648,6 +3675,39 @@
       "factor": 1.5
      }
     }
+   ],
+   "exclude": [
+    "almibar",
+    "almíbar",
+    "batido",
+    "bebida",
+    "chips",
+    "compota",
+    "crema",
+    "deshidratada",
+    "deshidratado",
+    "dried",
+    "en polvo",
+    "helado",
+    "jam",
+    "juice",
+    "mermelada",
+    "nectar",
+    "néctar",
+    "pure",
+    "puré",
+    "salsa",
+    "sauce",
+    "seca",
+    "secas",
+    "seco",
+    "secos",
+    "smoothie",
+    "sopa",
+    "soup",
+    "yogur",
+    "zumo",
+    "zumos"
    ]
   },
   {
@@ -2684,6 +3744,39 @@
       "factor": 1.0
      }
     }
+   ],
+   "exclude": [
+    "almibar",
+    "almíbar",
+    "batido",
+    "bebida",
+    "chips",
+    "compota",
+    "crema",
+    "deshidratada",
+    "deshidratado",
+    "dried",
+    "en polvo",
+    "helado",
+    "jam",
+    "juice",
+    "mermelada",
+    "nectar",
+    "néctar",
+    "pure",
+    "puré",
+    "salsa",
+    "sauce",
+    "seca",
+    "secas",
+    "seco",
+    "secos",
+    "smoothie",
+    "sopa",
+    "soup",
+    "yogur",
+    "zumo",
+    "zumos"
    ]
   },
   {
@@ -2721,6 +3814,39 @@
       "factor": 1.0
      }
     }
+   ],
+   "exclude": [
+    "almibar",
+    "almíbar",
+    "batido",
+    "bebida",
+    "chips",
+    "compota",
+    "crema",
+    "deshidratada",
+    "deshidratado",
+    "dried",
+    "en polvo",
+    "helado",
+    "jam",
+    "juice",
+    "mermelada",
+    "nectar",
+    "néctar",
+    "pure",
+    "puré",
+    "salsa",
+    "sauce",
+    "seca",
+    "secas",
+    "seco",
+    "secos",
+    "smoothie",
+    "sopa",
+    "soup",
+    "yogur",
+    "zumo",
+    "zumos"
    ]
   },
   {
@@ -2758,6 +3884,39 @@
       "factor": 1.0
      }
     }
+   ],
+   "exclude": [
+    "almibar",
+    "almíbar",
+    "batido",
+    "bebida",
+    "chips",
+    "compota",
+    "crema",
+    "deshidratada",
+    "deshidratado",
+    "dried",
+    "en polvo",
+    "helado",
+    "jam",
+    "juice",
+    "mermelada",
+    "nectar",
+    "néctar",
+    "pure",
+    "puré",
+    "salsa",
+    "sauce",
+    "seca",
+    "secas",
+    "seco",
+    "secos",
+    "smoothie",
+    "sopa",
+    "soup",
+    "yogur",
+    "zumo",
+    "zumos"
    ]
   },
   {
@@ -2796,6 +3955,39 @@
       "factor": 1.0
      }
     }
+   ],
+   "exclude": [
+    "almibar",
+    "almíbar",
+    "batido",
+    "bebida",
+    "chips",
+    "compota",
+    "crema",
+    "deshidratada",
+    "deshidratado",
+    "dried",
+    "en polvo",
+    "helado",
+    "jam",
+    "juice",
+    "mermelada",
+    "nectar",
+    "néctar",
+    "pure",
+    "puré",
+    "salsa",
+    "sauce",
+    "seca",
+    "secas",
+    "seco",
+    "secos",
+    "smoothie",
+    "sopa",
+    "soup",
+    "yogur",
+    "zumo",
+    "zumos"
    ]
   },
   {
@@ -2897,6 +4089,39 @@
       "factor": 1.0
      }
     }
+   ],
+   "exclude": [
+    "almibar",
+    "almíbar",
+    "batido",
+    "bebida",
+    "chips",
+    "compota",
+    "crema",
+    "deshidratada",
+    "deshidratado",
+    "dried",
+    "en polvo",
+    "helado",
+    "jam",
+    "juice",
+    "mermelada",
+    "nectar",
+    "néctar",
+    "pure",
+    "puré",
+    "salsa",
+    "sauce",
+    "seca",
+    "secas",
+    "seco",
+    "secos",
+    "smoothie",
+    "sopa",
+    "soup",
+    "yogur",
+    "zumo",
+    "zumos"
    ]
   },
   {
@@ -2934,6 +4159,39 @@
       "factor": 1.0
      }
     }
+   ],
+   "exclude": [
+    "almibar",
+    "almíbar",
+    "batido",
+    "bebida",
+    "chips",
+    "compota",
+    "crema",
+    "deshidratada",
+    "deshidratado",
+    "dried",
+    "en polvo",
+    "helado",
+    "jam",
+    "juice",
+    "mermelada",
+    "nectar",
+    "néctar",
+    "pure",
+    "puré",
+    "salsa",
+    "sauce",
+    "seca",
+    "secas",
+    "seco",
+    "secos",
+    "smoothie",
+    "sopa",
+    "soup",
+    "yogur",
+    "zumo",
+    "zumos"
    ]
   },
   {
@@ -2994,6 +4252,17 @@
       "factor": 1.0
      }
     }
+   ],
+   "exclude": [
+    "anchoa",
+    "anchoas",
+    "atun",
+    "atún",
+    "caballa",
+    "en aceite",
+    "melva",
+    "sardina",
+    "sardinas"
    ]
   },
   {
@@ -3391,6 +4660,19 @@
       "kind": "estimate"
      }
     }
+   ],
+   "exclude": [
+    "barrita",
+    "batido",
+    "bebida",
+    "bizcocho",
+    "cacao en polvo",
+    "cereales",
+    "crema",
+    "galleta",
+    "galletas",
+    "helado",
+    "leche"
    ]
   },
   {
@@ -3517,6 +4799,584 @@
       "food": "Sugars, granulated",
       "portion": "tsp",
       "factor": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "spanish_omelette",
+   "names": {
+    "es": [
+     "tortilla de patatas",
+     "tortilla de patata",
+     "tortilla española",
+     "tortilla espanola"
+    ],
+    "en": [
+     "spanish omelette",
+     "potato omelette"
+    ]
+   },
+   "tags": [
+    "protein"
+   ],
+   "portions": [
+    {
+     "unit": "serving",
+     "es": [
+      "ración",
+      "raciones"
+     ],
+     "en": [
+      "serving",
+      "servings"
+     ],
+     "grams": 150,
+     "default": true,
+     "source": {
+      "kind": "audit"
+     }
+    }
+   ]
+  },
+  {
+   "id": "pita_bread",
+   "names": {
+    "es": [
+     "pan de pita",
+     "pita"
+    ],
+    "en": [
+     "pita bread",
+     "pita"
+    ]
+   },
+   "tags": [
+    "carb"
+   ],
+   "portions": [
+    {
+     "unit": "unit",
+     "es": [
+      "pan de pita",
+      "panes de pita"
+     ],
+     "en": [
+      "pita",
+      "pitas"
+     ],
+     "grams": 60,
+     "default": true,
+     "source": {
+      "kind": "audit"
+     }
+    }
+   ]
+  },
+  {
+   "id": "burger_bun",
+   "names": {
+    "es": [
+     "pan de hamburguesa",
+     "panecillo de hamburguesa",
+     "panecillos de hamburguesa"
+    ],
+    "en": [
+     "burger bun",
+     "hamburger bun"
+    ]
+   },
+   "tags": [
+    "carb"
+   ],
+   "portions": [
+    {
+     "unit": "bun",
+     "es": [
+      "pan",
+      "panes"
+     ],
+     "en": [
+      "bun",
+      "buns"
+     ],
+     "grams": 60,
+     "default": true,
+     "source": {
+      "kind": "audit"
+     }
+    }
+   ]
+  },
+  {
+   "id": "hot_dog_bun",
+   "names": {
+    "es": [
+     "pan de perrito",
+     "pan de perritos",
+     "pan de hot dog"
+    ],
+    "en": [
+     "hot dog bun"
+    ]
+   },
+   "tags": [
+    "carb"
+   ],
+   "portions": [
+    {
+     "unit": "bun",
+     "es": [
+      "pan",
+      "panes"
+     ],
+     "en": [
+      "bun",
+      "buns"
+     ],
+     "grams": 50,
+     "default": true,
+     "source": {
+      "kind": "audit"
+     }
+    }
+   ]
+  },
+  {
+   "id": "croissant",
+   "names": {
+    "es": [
+     "croissant",
+     "cruasán",
+     "cruasan"
+    ],
+    "en": [
+     "croissant"
+    ]
+   },
+   "tags": [
+    "carb",
+    "fat"
+   ],
+   "portions": [
+    {
+     "unit": "unit",
+     "es": [
+      "cruasán",
+      "cruasanes"
+     ],
+     "en": [
+      "croissant",
+      "croissants"
+     ],
+     "grams": 60,
+     "default": true,
+     "source": {
+      "kind": "audit"
+     }
+    }
+   ]
+  },
+  {
+   "id": "magdalena",
+   "names": {
+    "es": [
+     "magdalena",
+     "magdalenas"
+    ],
+    "en": [
+     "muffin",
+     "fairy cake"
+    ]
+   },
+   "tags": [
+    "carb",
+    "sweet"
+   ],
+   "portions": [
+    {
+     "unit": "unit",
+     "es": [
+      "magdalena",
+      "magdalenas"
+     ],
+     "en": [
+      "muffin",
+      "muffins"
+     ],
+     "grams": 30,
+     "default": true,
+     "source": {
+      "kind": "audit"
+     }
+    }
+   ]
+  },
+  {
+   "id": "digestive",
+   "names": {
+    "es": [
+     "galleta digestive",
+     "galletas digestive",
+     "digestive"
+    ],
+    "en": [
+     "digestive biscuit",
+     "digestive"
+    ]
+   },
+   "tags": [
+    "carb",
+    "sweet"
+   ],
+   "portions": [
+    {
+     "unit": "cookie",
+     "es": [
+      "galleta",
+      "galletas"
+     ],
+     "en": [
+      "biscuit",
+      "biscuits"
+     ],
+     "grams": 15,
+     "default": true,
+     "source": {
+      "kind": "audit"
+     }
+    }
+   ]
+  },
+  {
+   "id": "napolitana",
+   "names": {
+    "es": [
+     "napolitana",
+     "napolitanas",
+     "napolitana de chocolate"
+    ],
+    "en": [
+     "chocolate croissant",
+     "pain au chocolat"
+    ]
+   },
+   "tags": [
+    "carb",
+    "sweet"
+   ],
+   "portions": [
+    {
+     "unit": "unit",
+     "es": [
+      "napolitana",
+      "napolitanas"
+     ],
+     "en": [
+      "pastry",
+      "pastries"
+     ],
+     "grams": 80,
+     "default": true,
+     "source": {
+      "kind": "audit"
+     }
+    }
+   ]
+  },
+  {
+   "id": "cereal_bar",
+   "names": {
+    "es": [
+     "barrita de cereales",
+     "barritas de cereales",
+     "barrita"
+    ],
+    "en": [
+     "cereal bar",
+     "granola bar"
+    ]
+   },
+   "tags": [
+    "carb"
+   ],
+   "portions": [
+    {
+     "unit": "bar",
+     "es": [
+      "barrita",
+      "barritas"
+     ],
+     "en": [
+      "bar",
+      "bars"
+     ],
+     "grams": 25,
+     "default": true,
+     "source": {
+      "kind": "audit"
+     }
+    }
+   ]
+  },
+  {
+   "id": "empanadilla",
+   "names": {
+    "es": [
+     "empanadilla",
+     "empanadillas"
+    ],
+    "en": [
+     "pasty",
+     "empanada"
+    ]
+   },
+   "tags": [
+    "carb"
+   ],
+   "portions": [
+    {
+     "unit": "unit",
+     "es": [
+      "empanadilla",
+      "empanadillas"
+     ],
+     "en": [
+      "pasty",
+      "pasties"
+     ],
+     "grams": 50,
+     "default": true,
+     "source": {
+      "kind": "audit"
+     }
+    }
+   ]
+  },
+  {
+   "id": "nugget",
+   "names": {
+    "es": [
+     "nuggets",
+     "nugget",
+     "nuggets de pollo"
+    ],
+    "en": [
+     "chicken nuggets",
+     "nuggets",
+     "nugget"
+    ]
+   },
+   "tags": [
+    "protein"
+   ],
+   "portions": [
+    {
+     "unit": "unit",
+     "es": [
+      "nugget",
+      "nuggets"
+     ],
+     "en": [
+      "nugget",
+      "nuggets"
+     ],
+     "grams": 18,
+     "default": true,
+     "source": {
+      "kind": "audit"
+     }
+    }
+   ]
+  },
+  {
+   "id": "sausage",
+   "names": {
+    "es": [
+     "salchicha",
+     "salchichas",
+     "salchichas frankfurt",
+     "frankfurt"
+    ],
+    "en": [
+     "sausage",
+     "sausages",
+     "frankfurter",
+     "hot dog sausage"
+    ]
+   },
+   "tags": [
+    "protein",
+    "processed_meat"
+   ],
+   "portions": [
+    {
+     "unit": "link",
+     "es": [
+      "salchicha",
+      "salchichas"
+     ],
+     "en": [
+      "sausage",
+      "sausages"
+     ],
+     "grams": 45,
+     "default": true,
+     "source": {
+      "kind": "audit"
+     }
+    }
+   ]
+  },
+  {
+   "id": "burger_patty",
+   "names": {
+    "es": [
+     "hamburguesa",
+     "hamburguesas",
+     "burger meat"
+    ],
+    "en": [
+     "burger",
+     "burgers",
+     "beef patty"
+    ]
+   },
+   "exclude": [
+    "pan",
+    "panecillo",
+    "bollo",
+    "salsa"
+   ],
+   "tags": [
+    "protein",
+    "b12"
+   ],
+   "portions": [
+    {
+     "unit": "unit",
+     "es": [
+      "hamburguesa",
+      "hamburguesas"
+     ],
+     "en": [
+      "burger",
+      "burgers"
+     ],
+     "grams": 120,
+     "default": true,
+     "source": {
+      "kind": "audit"
+     }
+    }
+   ]
+  },
+  {
+   "id": "quail_egg",
+   "names": {
+    "es": [
+     "huevo de codorniz",
+     "huevos de codorniz"
+    ],
+    "en": [
+     "quail egg",
+     "quail eggs"
+    ]
+   },
+   "tags": [
+    "protein",
+    "b12"
+   ],
+   "portions": [
+    {
+     "unit": "egg",
+     "es": [
+      "huevo",
+      "huevos"
+     ],
+     "en": [
+      "egg",
+      "eggs"
+     ],
+     "grams": 10,
+     "default": true,
+     "source": {
+      "kind": "audit"
+     }
+    }
+   ]
+  },
+  {
+   "id": "turkey_slices",
+   "names": {
+    "es": [
+     "pavo en lonchas",
+     "fiambre de pavo",
+     "pechuga de pavo en lonchas",
+     "lonchas de pavo",
+     "pechuga de pavo finas lonchas"
+    ],
+    "en": [
+     "turkey slices",
+     "sliced turkey"
+    ]
+   },
+   "tags": [
+    "protein",
+    "processed_meat"
+   ],
+   "portions": [
+    {
+     "unit": "slice_thin",
+     "es": [
+      "loncha",
+      "lonchas"
+     ],
+     "en": [
+      "slice",
+      "slices"
+     ],
+     "grams": 10,
+     "default": true,
+     "source": {
+      "kind": "audit"
+     }
+    }
+   ]
+  },
+  {
+   "id": "chicken_slices",
+   "names": {
+    "es": [
+     "pollo en lonchas",
+     "fiambre de pollo",
+     "pechuga de pollo en lonchas",
+     "lonchas de pollo"
+    ],
+    "en": [
+     "chicken slices",
+     "sliced chicken"
+    ]
+   },
+   "tags": [
+    "protein",
+    "processed_meat"
+   ],
+   "portions": [
+    {
+     "unit": "slice_thin",
+     "es": [
+      "loncha",
+      "lonchas"
+     ],
+     "en": [
+      "slice",
+      "slices"
+     ],
+     "grams": 10,
+     "default": true,
+     "source": {
+      "kind": "audit"
      }
     }
    ]

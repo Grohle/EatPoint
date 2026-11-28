@@ -279,6 +279,21 @@ class GoogleDriveSyncBackend implements SyncBackend {
     if (created['id'] is String) _ids[name] = created['id'] as String;
   }
 
+  /// Moves [name] to the bin (EatPoint backups keep only the latest few).
+  Future<void> delete(String name) async {
+    final id = await _idOf(name);
+    if (id == null) return;
+    final r = await _send(
+      (h) => _client.patch(
+        Uri.parse('$_api/files/$id?supportsAllDrives=true'),
+        headers: {...h, 'Content-Type': 'application/json'},
+        body: jsonEncode({'trashed': true}),
+      ),
+    );
+    _check(r, 'Delete');
+    _ids.remove(name);
+  }
+
   /// Creates the household's folder in the signed-in account's Drive.
   static Future<String> createFolder(
     http.Client client,

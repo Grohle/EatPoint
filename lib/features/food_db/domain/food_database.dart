@@ -59,6 +59,11 @@ class FoodDbEntry {
   final Set<DietTrait> traces;
   final Set<FoodLabel> labels;
 
+  /// EatPoint: the food's own household unit ("tortilla", 40 g), reviewed
+  /// by name; known with no portion when the food has none (a drink, a
+  /// sauce). Unknown means the generic catalogue decides.
+  final ({bool known, FoodPortion? portion}) unit;
+
   /// The name folded for search, in both languages.
   final String searchText;
 
@@ -82,6 +87,7 @@ class FoodDbEntry {
     this.allergens = const {},
     this.traces = const {},
     this.labels = const {},
+    this.unit = (known: false, portion: null),
   }) : searchText = FoodKnowledge.fold(
          [nameEs, nameEn, brand].whereType<String>().join(' | '),
        );
@@ -175,7 +181,23 @@ class FoodDbEntry {
       return null;
     }
     final labels = json['lb'];
+    final rawUnit = json['u'];
+    final unit = rawUnit == 0
+        ? (known: true, portion: null)
+        : rawUnit is Map
+        ? (
+            known: true,
+            portion: FoodPortion.fromJson({
+              'unit': 'piece',
+              'es': rawUnit['es'],
+              'en': rawUnit['en'],
+              'grams': rawUnit['g'],
+              'default': true,
+            }),
+          )
+        : (known: false, portion: null);
     return FoodDbEntry(
+      unit: unit,
       id: id,
       source: json['s'] as String? ?? '',
       nameEs: es,

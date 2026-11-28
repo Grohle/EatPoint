@@ -141,6 +141,10 @@ def main(sr_dir):
     print(f'{len(concepts)} concepts, '
           f'{sum(len(c["portions"]) for c in concepts)} portions, '
           f'{len(foods)} foods -> {OUT}')
+    # Corrections checked by hand (portion_audit.json) win over the raw
+    # USDA portions.
+    import apply_audit
+    apply_audit.main()
 
 
 if __name__ == '__main__':
