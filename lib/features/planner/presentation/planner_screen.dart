@@ -464,6 +464,39 @@ class _PlannerScreenState extends State<PlannerScreen> {
     messenger.showSnackBar(SnackBar(content: Text(copied)));
   }
 
+  /// [base] in [accent]'s colours, buttons included: the app's button
+  /// themes set their own colours, which a new scheme alone wouldn't reach.
+  static ThemeData _tinted(ThemeData base, Color accent) {
+    final scheme = ColorScheme.fromSeed(
+      seedColor: accent,
+      brightness: base.brightness,
+    );
+    WidgetStateProperty<Color?> all(Color c) => WidgetStatePropertyAll(c);
+    return base.copyWith(
+      colorScheme: scheme,
+      filledButtonTheme: FilledButtonThemeData(
+        style: (base.filledButtonTheme.style ?? const ButtonStyle()).copyWith(
+          backgroundColor: all(scheme.primary),
+          foregroundColor: all(scheme.onPrimary),
+          iconColor: all(scheme.onPrimary),
+        ),
+      ),
+      textButtonTheme: TextButtonThemeData(
+        style: (base.textButtonTheme.style ?? const ButtonStyle()).copyWith(
+          foregroundColor: all(scheme.primary),
+          iconColor: all(scheme.primary),
+        ),
+      ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: (base.outlinedButtonTheme.style ?? const ButtonStyle())
+            .copyWith(
+              foregroundColor: all(scheme.primary),
+              iconColor: all(scheme.primary),
+            ),
+      ),
+    );
+  }
+
   /// Picks whose menu shows: the user's or another member's.
   Future<void> _pickMember() async {
     final household = _household?.getHousehold();
@@ -1209,12 +1242,7 @@ class _PlannerScreenState extends State<PlannerScreen> {
     final accent = _accent;
     final themed = accent == null
         ? base
-        : base.copyWith(
-            colorScheme: ColorScheme.fromSeed(
-              seedColor: accent,
-              brightness: base.brightness,
-            ),
-          );
+        : _tinted(base, accent);
 
     return Theme(
       data: themed,
@@ -1226,7 +1254,10 @@ class _PlannerScreenState extends State<PlannerScreen> {
               children: [
                 Text(
                   member != null
-                      ? s.householdMemberMenu(member.name)
+                      // As a tab, the name is enough beside its circle.
+                      ? (widget.embedded
+                            ? member.name
+                            : s.householdMemberMenu(member.name))
                       // As a tab it is just "Menu", with room for its buttons.
                       : widget.embedded
                       ? s.myDayLabel
