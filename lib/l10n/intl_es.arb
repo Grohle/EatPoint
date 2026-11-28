@@ -2510,5 +2510,8 @@
   "myDayLogged": "Registrado",
   "myDayActivities": "Actividad",
   "myDayLogMore": "Registrar otra cosa",
-  "myDayRemoveEntry": "¿Borrar {name} del diario?"
+  "myDayRemoveEntry": "¿Borrar {name} del diario?",
+  "generatorFixedTitle": "Alimentos que siempre tomas",
+  "generatorFixedAdd": "Añadir",
+  "generatorFixedHelp": "Van en esa comida todos los días, como la leche o el pan del desayuno, y el resto de la comida se planifica alrededor. Se guardan para la próxima vez."
 }

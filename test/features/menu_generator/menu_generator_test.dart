@@ -7,6 +7,7 @@ import 'package:opennutritracker/features/diet_profile/domain/diet_profile.dart'
 import 'package:opennutritracker/features/food_knowledge/domain/food_knowledge.dart';
 import 'package:opennutritracker/features/insights/domain/week_insights.dart';
 import 'package:opennutritracker/features/menu_generator/domain/menu_generator.dart';
+import 'package:opennutritracker/features/menu_import/domain/imported_menu.dart';
 import 'package:opennutritracker/features/menu_import/domain/menu_import_plan.dart';
 import 'package:opennutritracker/core/utils/calc/points_calc.dart';
 import 'package:opennutritracker/features/planner/domain/entity/planner_entities.dart';
@@ -247,6 +248,98 @@ void main() {
         );
       }
       expect(liked, greaterThan(plain));
+    });
+  });
+
+  // EatPoint: variety, and the user's fixed foods.
+  group('variety and fixed foods', () {
+    Set<String> dayFoods(ImportedDay day, {bool skipLeftovers = true}) => {
+      for (final meal in day.meals)
+        if (!skipLeftovers || meal.dish == null)
+          for (final f in meal.foods)
+            if (!FoodKnowledge.fold(f.name).contains('aceite')) f.name,
+    };
+
+    for (final efficient in [false, true]) {
+      test('no food two days running (efficient: $efficient)', () {
+        for (final seed in [1, 2, 3, 4, 5]) {
+          final menu = MenuGenerator.generate(
+            slots: slots,
+            nameOf: nameOf,
+            pool: corePool(),
+            options: MenuGeneratorOptions(
+              days: days,
+              seed: seed,
+              efficient: efficient,
+              leftoversLabel: 'Sobras',
+            ),
+          ).menu;
+          for (var i = 1; i < menu.days.length; i++) {
+            final today = dayFoods(menu.days[i]);
+            final yesterday = dayFoods(menu.days[i - 1], skipLeftovers: false);
+            expect(
+              today.intersection(yesterday),
+              isEmpty,
+              reason: 'seed $seed, day $i',
+            );
+          }
+        }
+      });
+    }
+
+    test('an efficient week still buys fewer products than a varied one', () {
+      Set<String> distinct(bool efficient) => {
+        for (final day in MenuGenerator.generate(
+          slots: slots,
+          nameOf: nameOf,
+          pool: corePool(),
+          options: MenuGeneratorOptions(
+            days: days,
+            seed: 3,
+            efficient: efficient,
+          ),
+        ).menu.days)
+          ...dayFoods(day, skipLeftovers: false),
+      };
+      expect(distinct(true).length, lessThan(distinct(false).length));
+    });
+
+    test('fixed foods are in their meal every day, in place of the choice', () {
+      final pool = corePool();
+      final bread = pool.firstWhere((f) => f.conceptId == 'bread_slice');
+      final milk = pool.firstWhere((f) => f.conceptId == 'milk');
+      final breakfast = slots.firstWhere(
+        (s) => s.baseType == IntakeTypeEntity.breakfast,
+      );
+      final menu = MenuGenerator.generate(
+        slots: slots,
+        nameOf: nameOf,
+        pool: pool,
+        options: MenuGeneratorOptions(
+          days: days,
+          seed: 2,
+          efficient: true,
+          fixed: {
+            breakfast.id: [FixedFood(bread, 62), FixedFood(milk, 200)],
+          },
+        ),
+      ).menu;
+      for (final day in menu.days) {
+        final meal = day.meals.firstWhere((m) => m.label == 'breakfast');
+        final names = meal.foods.map((f) => f.name).toList();
+        expect(names.where((n) => n == bread.name), hasLength(1));
+        expect(names.where((n) => n == milk.name), hasLength(1));
+        expect(meal.foods.firstWhere((f) => f.name == milk.name).amount, 200);
+        // Milk took the drink's place: no yogurt besides it.
+        expect(
+          meal.foods.where(
+            (f) => pool
+                .where((p) => p.name == f.name)
+                .any((p) => p.conceptId == 'yogurt'),
+          ),
+          isEmpty,
+        );
+      }
     });
   });
 }

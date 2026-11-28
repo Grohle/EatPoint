@@ -2212,5 +2212,8 @@
   "myDayLogged": "Eingetragen",
   "myDayActivities": "Aktivität",
   "myDayLogMore": "Etwas anderes eintragen",
-  "myDayRemoveEntry": "{name} aus dem Tagebuch löschen?"
+  "myDayRemoveEntry": "{name} aus dem Tagebuch löschen?",
+  "generatorFixedTitle": "Lebensmittel, die du immer isst",
+  "generatorFixedAdd": "Hinzufügen",
+  "generatorFixedHelp": "Sie kommen jeden Tag in diese Mahlzeit, etwa Milch oder Brot zum Frühstück, und der Rest wird drumherum geplant. Sie bleiben für das nächste Mal gespeichert."
 }

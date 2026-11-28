@@ -119,6 +119,11 @@ class MenuGeneratorOptions {
   /// The note on a meal made from leftovers ("Leftovers from dinner").
   final String? leftoversLabel;
 
+  /// EatPoint: foods the user always has in a meal (milk at breakfast,
+  /// bread every morning), by meal id. They take the place of what the
+  /// generator would choose for the same part of the meal, or are added.
+  final Map<String, List<FixedFood>> fixed;
+
   const MenuGeneratorOptions({
     required this.days,
     this.diet = DietStyle.omnivore,
@@ -130,9 +135,18 @@ class MenuGeneratorOptions {
     this.efficient = false,
     this.companions = const [],
     this.leftoversLabel,
+    this.fixed = const {},
   });
 
   DietStyle get effectiveDiet => checker?.profile.diet ?? diet;
+}
+
+/// A food the user always has in a meal, and how much of it.
+class FixedFood {
+  final GenFood food;
+  final double grams;
+
+  const FixedFood(this.food, this.grams);
 }
 
 /// Someone else the menu is also for.
@@ -250,12 +264,39 @@ class MenuGenerator {
     // The foods of the meal before, not repeated in the next one when
     // another fits.
     var previousMeal = <String>{};
+    // EatPoint: the foods of each day so far, so none comes back the same
+    // day or the next (oil aside), and the user's fixed foods of the meal
+    // being planned.
+    final dayFoods = <Set<String>>[];
+    var slotFixed = <FixedFood>[];
+    final fixedGrams = <String, double>{};
+    // The user's fixed foods come every day, so they are always "fresh".
+    var checkingFixed = false;
+    bool fresh(GenFood f) =>
+        checkingFixed ||
+        !(dayFoods.isNotEmpty && dayFoods.last.contains(f.name)) &&
+            !(dayFoods.length > 1 &&
+                dayFoods[dayFoods.length - 2].contains(f.name));
 
     GenFood? pick(
       bool Function(GenFood) where, {
       bool preferOwn = true,
       String? group,
+      bool varied = true,
     }) {
+      // The user's own choice for this part of the meal comes first.
+      for (final fx in slotFixed) {
+        checkingFixed = true;
+        final fits = where(fx.food);
+        checkingFixed = false;
+        if (fits) {
+          slotFixed = [...slotFixed]..remove(fx);
+          named[fx.food.name] = fx.food;
+          fixedGrams[fx.food.name] = fx.grams;
+          uses[fx.food.name] = (uses[fx.food.name] ?? 0) + 1;
+          return fx.food;
+        }
+      }
       var candidates = usable.where(where).toList();
       if (candidates.isEmpty) return null;
       // Shared meals: foods everyone at the table can eat first.
@@ -272,12 +313,27 @@ class MenuGenerator {
             : (groupLimits[group] ?? 2) * weeks;
         if (used.length >= limit) {
           final again = candidates.where((f) => used.contains(f.name)).toList();
-          if (again.isNotEmpty) candidates = again;
+          // Few products, but not the same one two days running: when every
+          // one bought was eaten today or yesterday, one more comes in.
+          final againFresh = again.where(fresh).toList();
+          final anyFresh = candidates.where(fresh).toList();
+          if (againFresh.isNotEmpty) {
+            candidates = againFresh;
+          } else if (varied && anyFresh.isNotEmpty) {
+            candidates = anyFresh;
+          } else if (again.isNotEmpty) {
+            candidates = again;
+          }
         }
-        final fresh = candidates
+        final notBefore = candidates
             .where((f) => !previousMeal.contains(f.name))
             .toList();
-        if (fresh.isNotEmpty) candidates = fresh;
+        if (notBefore.isNotEmpty) candidates = notBefore;
+      }
+      // Nothing the same day or the day after, when something else fits.
+      if (varied) {
+        final notRecent = candidates.where(fresh).toList();
+        if (notRecent.isNotEmpty) candidates = notRecent;
       }
       final own = candidates.where((f) => f.own).toList();
       // Foods the user likes come up more often, as long as they are not
@@ -311,11 +367,14 @@ class MenuGenerator {
       return chosen;
     }
 
-    ImportedFood food(GenFood f, [double? grams]) => ImportedFood(
-      name: f.name,
-      amount: grams,
-      unit: grams == null ? null : (f.meal.isLiquid ? 'ml' : 'g'),
-    );
+    ImportedFood food(GenFood f, [double? grams]) {
+      final amount = fixedGrams[f.name] ?? grams;
+      return ImportedFood(
+        name: f.name,
+        amount: amount,
+        unit: amount == null ? null : (f.meal.isLiquid ? 'ml' : 'g'),
+      );
+    }
 
     double portionGrams(GenFood f, double fallback) {
       final concept = FoodKnowledge.instance?.conceptById(f.conceptId ?? '');
@@ -355,14 +414,15 @@ class MenuGenerator {
           if (usable.any((f) => _isProteinKind(f, k))) k,
       },
     );
-    if (options.efficient) {
-      _perishablesFirst(kinds, [
-        for (var w = 0; w < options.days.length; w += 7)
-          cookedPerDay
-              .sublist(w, math.min(w + 7, cookedPerDay.length))
-              .fold(0, (a, b) => a + b),
-      ]);
-    }
+    final weekCounts = [
+      for (var w = 0; w < options.days.length; w += 7)
+        cookedPerDay
+            .sublist(w, math.min(w + 7, cookedPerDay.length))
+            .fold(0, (a, b) => a + b),
+    ];
+    if (options.efficient) _perishablesFirst(kinds, weekCounts);
+    // Not the same kind the same day or the next, where another can go.
+    _spread(kinds, weekCounts);
     var mainIndex = 0;
     var snackIndex = 0;
     // Leftovers: the dinner just planned, eaten again at the next lunch.
@@ -372,11 +432,13 @@ class MenuGenerator {
     final days = <ImportedDay>[];
     for (final date in options.days) {
       dayIndex++;
+      dayFoods.add(<String>{});
       final meals = <ImportedMeal>[];
       final hasDinner = slots.any((s) => s.baseType == IntakeTypeEntity.dinner);
       for (final slot in slots) {
         final foods = <ImportedFood>[];
         String? dish;
+        slotFixed = [...?options.fixed[slot.id]];
         final leftovers =
             leftoverDay(dayIndex) &&
             slot.baseType == IntakeTypeEntity.lunch &&
@@ -399,7 +461,16 @@ class MenuGenerator {
           if (protein != null) foods.add(food(protein));
           if (kind != ProteinKind.legume) {
             final wholegrain = random.nextDouble() < 0.65;
+            // Not eaten today or yesterday first, wholegrain or not.
             final starch =
+                pick(
+                  (f) =>
+                      _isStarch(f) &&
+                      f.has('wholegrain') == wholegrain &&
+                      fresh(f),
+                  group: 'starch',
+                ) ??
+                pick((f) => _isStarch(f) && fresh(f), group: 'starch') ??
                 pick(
                   (f) => _isStarch(f) && f.has('wholegrain') == wholegrain,
                   group: 'starch',
@@ -416,24 +487,28 @@ class MenuGenerator {
               food(veg, veg.conceptId == 'lettuce' ? saladGrams : vegGrams),
             );
           }
-          final oil = pick((f) => f.conceptId == 'olive_oil', preferOwn: false);
+          final oil = pick(
+            (f) => f.conceptId == 'olive_oil',
+            preferOwn: false,
+            varied: false,
+          );
           if (oil != null) foods.add(food(oil, oilGrams));
         } else if (slot.baseType == IntakeTypeEntity.breakfast) {
-          final grain = pick(
-            (f) =>
-                f.conceptId == 'bread_slice' ||
-                f.conceptId == 'oats' ||
-                f.conceptId == 'baguette' ||
-                f.conceptId == 'rice_cake',
-            group: 'grain',
-          );
+          bool isGrain(GenFood f) =>
+              f.conceptId == 'bread_slice' ||
+              f.conceptId == 'oats' ||
+              f.conceptId == 'baguette' ||
+              f.conceptId == 'rice_cake';
+          final grain =
+              pick((f) => isGrain(f) && fresh(f), group: 'grain') ??
+              pick(isGrain, group: 'grain');
           if (grain != null) foods.add(food(grain));
-          final drink = pick(
-            (f) => options.effectiveDiet == DietStyle.vegan
-                ? f.conceptId == 'plant_milk'
-                : f.conceptId == 'milk' || f.conceptId == 'yogurt',
-            group: 'breakfast-drink',
-          );
+          bool isDrink(GenFood f) => options.effectiveDiet == DietStyle.vegan
+              ? f.conceptId == 'plant_milk'
+              : f.conceptId == 'milk' || f.conceptId == 'yogurt';
+          final drink =
+              pick((f) => isDrink(f) && fresh(f), group: 'breakfast-drink') ??
+              pick(isDrink, group: 'breakfast-drink');
           if (drink != null) {
             foods.add(
               food(drink, drink.conceptId == 'yogurt' ? yogurtGrams : milkMl),
@@ -448,8 +523,11 @@ class MenuGenerator {
                   grain.conceptId == 'baguette');
           final fat = bread
               ? pick(
-                  (f) => f.conceptId == 'olive_oil' || f.conceptId == 'avocado',
+                  (f) =>
+                      f.conceptId == 'olive_oil' ||
+                      f.conceptId == 'avocado' && fresh(f),
                   preferOwn: false,
+                  varied: false,
                 )
               : grain?.conceptId == 'rice_cake'
               ? pick((f) => f.conceptId == 'peanut_butter')
@@ -466,7 +544,7 @@ class MenuGenerator {
             );
           }
           if (bread && random.nextBool()) {
-            final tomato = pick((f) => f.conceptId == 'tomato');
+            final tomato = pick((f) => f.conceptId == 'tomato' && fresh(f));
             if (tomato != null) foods.add(food(tomato, 60));
           }
           final fruit = pick(
@@ -477,12 +555,18 @@ class MenuGenerator {
         } else {
           // Snack: a sandwich, or fruit with yogurt and nuts, alternating;
           // the bread, filling, yogurt and nuts fit the meal's points.
-          final sandwich = (snackIndex++).isOdd;
+          // EatPoint: no sandwich when the bread was eaten today or yesterday.
+          final bread = (snackIndex++).isOdd
+              ? pick(
+                  (f) =>
+                      (f.conceptId == 'bread_slice' ||
+                          f.conceptId == 'baguette') &&
+                      fresh(f),
+                )
+              : null;
+          final sandwich = bread != null;
           if (sandwich) {
-            final bread = pick(
-              (f) => f.conceptId == 'bread_slice' || f.conceptId == 'baguette',
-            );
-            if (bread != null) foods.add(food(bread));
+            foods.add(food(bread));
             final filling = pick(
               (f) => options.effectiveDiet == DietStyle.vegan
                   ? f.conceptId == 'chickpeas' && f.name.contains('ummus') ||
@@ -495,7 +579,7 @@ class MenuGenerator {
               group: 'filling',
             );
             if (filling != null) foods.add(food(filling));
-            final tomato = pick((f) => f.conceptId == 'tomato');
+            final tomato = pick((f) => f.conceptId == 'tomato' && fresh(f));
             if (tomato != null) foods.add(food(tomato, 60));
           } else {
             final fruit = pick(
@@ -503,22 +587,41 @@ class MenuGenerator {
               group: 'fruit',
             );
             if (fruit != null) foods.add(food(fruit, portionGrams(fruit, 120)));
+            // Optional parts of the snack only when not eaten lately.
             final dairy = options.effectiveDiet == DietStyle.vegan
-                ? pick((f) => f.conceptId == 'plant_milk', group: 'snack-dairy')
-                : pick((f) => f.conceptId == 'yogurt', group: 'snack-dairy');
+                ? pick(
+                    (f) => f.conceptId == 'plant_milk' && fresh(f),
+                    group: 'snack-dairy',
+                  )
+                : pick(
+                    (f) => f.conceptId == 'yogurt' && fresh(f),
+                    group: 'snack-dairy',
+                  );
             if (dairy != null) {
               foods.add(
                 food(dairy, dairy.conceptId == 'yogurt' ? yogurtGrams : milkMl),
               );
             }
             // Oats fill the rest of the snack's points.
-            final oats = pick((f) => f.conceptId == 'oats');
+            final oats = pick((f) => f.conceptId == 'oats' && fresh(f));
             if (oats != null) foods.add(food(oats));
             final nuts = pick(
               (f) => f.has('nuts') && f.conceptId != 'peanut_butter',
               group: 'nuts',
             );
             if (nuts != null) foods.add(food(nuts, nutsGrams));
+          }
+        }
+        // Fixed foods no part of the meal took: added as they are.
+        for (final fx in slotFixed) {
+          named[fx.food.name] = fx.food;
+          fixedGrams[fx.food.name] = fx.grams;
+          foods.add(food(fx.food, fx.grams));
+        }
+        slotFixed = const [];
+        for (final f in foods) {
+          if (named[f.name]?.conceptId != 'olive_oil') {
+            dayFoods.last.add(f.name);
           }
         }
         if (foods.isNotEmpty) {
@@ -559,6 +662,34 @@ class MenuGenerator {
   /// Whether [f] fits [diet], with no exclusions.
   static bool allowedFor(GenFood f, DietStyle diet) =>
       _allowed(f, MenuGeneratorOptions(days: const [], diet: diet));
+
+  /// Reorders each week's [kinds] so the same kind doesn't come back within
+  /// three main meals (today and yesterday) where another can, keeping the
+  /// order otherwise (perishables first).
+  static void _spread(List<ProteinKind> kinds, List<int> weeks) {
+    var start = 0;
+    for (final count in weeks) {
+      final end = math.min(start + count, kinds.length);
+      final pool = kinds.sublist(start, end);
+      final out = <ProteinKind>[];
+      while (pool.isNotEmpty) {
+        bool clashes(ProteinKind k, int back) =>
+            out.length >= back && out[out.length - back] == k;
+        // Three main meals back covers today and yesterday.
+        final i = [
+          pool.indexWhere(
+            (k) => !clashes(k, 1) && !clashes(k, 2) && !clashes(k, 3),
+          ),
+          pool.indexWhere((k) => !clashes(k, 1) && !clashes(k, 2)),
+          pool.indexWhere((k) => !clashes(k, 1)),
+          0,
+        ].firstWhere((i) => i >= 0);
+        out.add(pool.removeAt(i));
+      }
+      kinds.setRange(start, end, out);
+      start = end;
+    }
+  }
 
   /// How soon a kind of protein should be eaten after shopping: fresh fish
   /// first, then fresh meat, then eggs and tofu, then pulses.

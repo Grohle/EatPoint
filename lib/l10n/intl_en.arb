@@ -5479,5 +5479,17 @@
         "type": "String"
       }
     }
+  },
+  "generatorFixedTitle": "Foods you always have",
+  "@generatorFixedTitle": {
+    "description": "Generator section: fixed foods per meal"
+  },
+  "generatorFixedAdd": "Add",
+  "@generatorFixedAdd": {
+    "description": "Adds a fixed food to a meal"
+  },
+  "generatorFixedHelp": "They go into that meal every day, such as milk or bread at breakfast, and the rest of the meal is planned around them. They're kept for next time.",
+  "@generatorFixedHelp": {
+    "description": "Help under the fixed foods section"
   }
 }

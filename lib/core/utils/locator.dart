@@ -85,6 +85,7 @@ import 'package:opennutritracker/features/planner/data/planner_data_source.dart'
 import 'package:opennutritracker/features/food_knowledge/domain/food_knowledge.dart';
 import 'package:opennutritracker/features/points/data/meal_slot_assignments.dart';
 import 'package:opennutritracker/features/diet_profile/data/diet_profile_store.dart';
+import 'package:opennutritracker/features/menu_generator/data/fixed_foods_store.dart';
 import 'package:opennutritracker/features/food_db/data/food_db_service.dart';
 import 'package:opennutritracker/features/diet_profile/data/food_facts_store.dart';
 import 'package:opennutritracker/features/travel/data/travel_mode_store.dart';
@@ -749,6 +750,10 @@ Future<void> initLocator() async {
   );
   locator.registerLazySingleton<FoodFactsStore>(
     () => FoodFactsStore(hiveDBProvider),
+  );
+  // EatPoint: the foods the menu generator keeps in each meal.
+  locator.registerLazySingleton<FixedFoodsStore>(
+    () => FixedFoodsStore(hiveDBProvider),
   );
   locator.registerLazySingleton<DietProfileStore>(
     () => DietProfileStore(hiveDBProvider),

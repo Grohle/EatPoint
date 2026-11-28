@@ -2296,5 +2296,8 @@
   "myDayLogged": "Enregistré",
   "myDayActivities": "Activité",
   "myDayLogMore": "Enregistrer autre chose",
-  "myDayRemoveEntry": "Supprimer {name} du journal ?"
+  "myDayRemoveEntry": "Supprimer {name} du journal ?",
+  "generatorFixedTitle": "Aliments que vous prenez toujours",
+  "generatorFixedAdd": "Ajouter",
+  "generatorFixedHelp": "Ils vont dans ce repas tous les jours, comme le lait ou le pain du petit-déjeuner, et le reste du repas est planifié autour. Ils sont gardés pour la prochaine fois."
 }

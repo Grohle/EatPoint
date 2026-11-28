@@ -10,7 +10,10 @@ import 'package:opennutritracker/features/diet_profile/presentation/diet_profile
 import 'package:opennutritracker/features/diet_profile/presentation/diet_text.dart';
 import 'package:opennutritracker/features/food_knowledge/domain/food_knowledge.dart';
 import 'package:opennutritracker/features/label_scan/data/remote_nutrition_extractor.dart';
+import 'package:opennutritracker/features/menu_generator/data/fixed_foods_store.dart';
 import 'package:opennutritracker/features/menu_generator/data/menu_generator_sources.dart';
+import 'package:opennutritracker/features/planner/presentation/dish_picker_screen.dart';
+import 'package:opennutritracker/features/points/presentation/points_format.dart';
 import 'package:opennutritracker/features/menu_generator/domain/menu_generator.dart';
 import 'package:opennutritracker/features/menu_import/data/menu_food_matcher.dart';
 import 'package:opennutritracker/features/menu_import/data/remote_menu_extractor.dart';
@@ -84,6 +87,41 @@ class _MenuGeneratorScreenState extends State<MenuGeneratorScreen> {
   /// Whether the menu is also for this user; off plans only for others.
   bool _forMe = true;
 
+  /// EatPoint: foods the user always has in a meal, by meal id.
+  Map<String, List<PlannedItem>> _fixed = const {};
+  final FixedFoodsStore? _fixedStore = locator.isRegistered<FixedFoodsStore>()
+      ? locator<FixedFoodsStore>()
+      : null;
+
+  Future<void> _addFixed(MealSlot slot) async {
+    final item = await Navigator.of(context).push<PlannedItem>(
+      MaterialPageRoute(
+        builder: (_) => DishPickerScreen(day: _start, mealType: slot.baseType),
+      ),
+    );
+    if (item == null || !mounted) return;
+    setState(() {
+      _fixed = {
+        ..._fixed,
+        slot.id: [...?_fixed[slot.id], item],
+      };
+    });
+    await _fixedStore?.save(_fixed);
+  }
+
+  Future<void> _removeFixed(MealSlot slot, PlannedItem item) async {
+    setState(() {
+      _fixed = {
+        ..._fixed,
+        slot.id: [
+          for (final i in _fixed[slot.id] ?? const <PlannedItem>[])
+            if (i.id != item.id) i,
+        ],
+      };
+    });
+    await _fixedStore?.save(_fixed);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -96,6 +134,7 @@ class _MenuGeneratorScreenState extends State<MenuGeneratorScreen> {
       _slots = settings.effectiveMealSlots;
     }
     _readProfile();
+    _fixed = _fixedStore?.get() ?? const {};
     if (locator.isRegistered<HouseholdStore>()) {
       final store = locator<HouseholdStore>();
       if (store.getHousehold() != null) {
@@ -204,6 +243,13 @@ class _MenuGeneratorScreenState extends State<MenuGeneratorScreen> {
           profile: _profile,
           languageCode: lang,
           ownDishes: _preferOwn ? MenuGeneratorPool.ownNames(pool) : const [],
+          fixed: {
+            for (final e in _fixed.entries)
+              e.key: [
+                for (final i in e.value)
+                  '${i.name} (${i.amount.round()} ${i.unit})',
+              ],
+          },
         );
         menu = await RemoteMenuExtractor(
           http.Client(),
@@ -224,6 +270,16 @@ class _MenuGeneratorScreenState extends State<MenuGeneratorScreen> {
             efficient: _efficient,
             companions: companions.values.toList(),
             leftoversLabel: s.generatorLeftovers,
+            fixed: {
+              for (final e in _fixed.entries)
+                e.key: [
+                  for (final i in e.value)
+                    FixedFood(
+                      GenFood.of(i.meal, knowledge: knowledge, own: true),
+                      i.amount,
+                    ),
+                ],
+            },
           ),
         );
         menu = generated.menu;
@@ -412,6 +468,54 @@ class _MenuGeneratorScreenState extends State<MenuGeneratorScreen> {
               }),
             ),
           ),
+          // EatPoint: foods the user always has in a meal.
+          section(s.generatorFixedTitle),
+          for (final slot in _slots)
+            Padding(
+              padding: const EdgeInsets.only(bottom: Dimens.spacing8),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: 96,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: Dimens.spacing8),
+                      child: Text(
+                        mealSlotLabel(context, slot),
+                        style: theme.textTheme.bodyMedium,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Wrap(
+                      spacing: Dimens.spacing8,
+                      runSpacing: Dimens.spacing4,
+                      children: [
+                        for (final item
+                            in _fixed[slot.id] ?? const <PlannedItem>[])
+                          InputChip(
+                            label: Text(
+                              '${item.name} · '
+                              '${PointsFormat.of(context).grams(item.amount)} '
+                              '${item.unit}',
+                            ),
+                            onDeleted: () => _removeFixed(slot, item),
+                          ),
+                        Semantics(
+                          identifier: 'generator-fixed-add-${slot.id}',
+                          child: ActionChip(
+                            avatar: const Icon(Icons.add_rounded, size: 18),
+                            label: Text(s.generatorFixedAdd),
+                            onPressed: () => _addFixed(slot),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          help(s.generatorFixedHelp),
           // EatPoint: everyone in the household, chosen by hand; who can't
           // be planned for yet is shown with the reason.
           if (_everyone.isNotEmpty) ...[

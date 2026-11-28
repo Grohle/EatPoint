@@ -2181,5 +2181,8 @@
   "myDayLogged": "Registrato",
   "myDayActivities": "Attività",
   "myDayLogMore": "Registra altro",
-  "myDayRemoveEntry": "Eliminare {name} dal diario?"
+  "myDayRemoveEntry": "Eliminare {name} dal diario?",
+  "generatorFixedTitle": "Alimenti che prendi sempre",
+  "generatorFixedAdd": "Aggiungi",
+  "generatorFixedHelp": "Vanno in quel pasto ogni giorno, come il latte o il pane a colazione, e il resto del pasto viene pianificato attorno. Restano salvati per la prossima volta."
 }

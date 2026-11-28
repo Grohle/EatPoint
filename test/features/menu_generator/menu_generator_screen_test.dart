@@ -72,6 +72,11 @@ void main() {
     );
     expect(find.textContaining('Set up an AI provider'), findsOneWidget);
 
+    await tester.scrollUntilVisible(
+      find.text('3 days'),
+      -300,
+      scrollable: find.byType(Scrollable).first,
+    );
     await tester.tap(find.text('3 days'));
     await tester.pumpAndSettle();
     final generate = bySemanticsId('generator-generate');
