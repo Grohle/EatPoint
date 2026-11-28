@@ -61,6 +61,7 @@ import 'package:opennutritracker/features/settings/presentation/widgets/settings
 import 'package:opennutritracker/features/points/presentation/meal_slots_screen.dart';
 import 'package:opennutritracker/features/travel/presentation/travel_mode_screen.dart';
 import 'package:opennutritracker/features/updates/presentation/update_prompt.dart';
+import 'package:opennutritracker/features/backup/presentation/backup_screen.dart';
 
 /// What the settings route was opened *for*.
 ///
@@ -323,6 +324,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         MaterialPageRoute(
                           builder: (_) => const ShareHubScreen(),
                         ),
+                      ),
+                    ),
+                    SettingsTile(
+                      identifier: 'settings-backup',
+                      palette: palette,
+                      icon: Icons.backup_outlined,
+                      title: S.of(context).backupTitle,
+                      subtitle: S.of(context).backupSubtitle,
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_) => const BackupScreen()),
                       ),
                     ),
                     SettingsTile(

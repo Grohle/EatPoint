@@ -5,6 +5,7 @@ import 'package:opennutritracker/features/food_db/data/food_db_service.dart';
 import 'package:opennutritracker/features/food_db/domain/food_database.dart';
 import 'package:opennutritracker/generated/l10n.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:opennutritracker/features/food_db/presentation/my_foods_screen.dart';
 
 /// Settings → Food database: download, update or remove EatPoint's food
 /// database, and its sources and licences.
@@ -122,6 +123,21 @@ class _FoodDbScreenState extends State<FoodDbScreen> {
             padding: const EdgeInsets.all(Dimens.spacing16),
             children: [
               Text(s.foodDbIntro, style: theme.textTheme.bodyMedium),
+              const SizedBox(height: Dimens.spacing8),
+              // EatPoint: the editor for the user's own foods.
+              Align(
+                alignment: AlignmentDirectional.centerStart,
+                child: Semantics(
+                  identifier: 'food-db-my-foods',
+                  child: OutlinedButton.icon(
+                    icon: const Icon(Icons.edit_note_rounded),
+                    label: Text(s.myFoodsTitle),
+                    onPressed: () => Navigator.of(context).push(
+                      MaterialPageRoute(builder: (_) => const MyFoodsScreen()),
+                    ),
+                  ),
+                ),
+              ),
               const SizedBox(height: Dimens.spacing16),
               Card(
                 margin: EdgeInsets.zero,

@@ -1034,7 +1034,11 @@ class _PlannerScreenState extends State<PlannerScreen> {
                       child: Text(
                         [
                           '${format.grams(item.amount)} ${item.unit}',
-                          if (PortionFormatter.forFood(item.name, item.amount)
+                          if (PortionFormatter.forFood(
+                            item.name,
+                            item.amount,
+                            code: item.meal.code,
+                          )
                               case final portion?)
                             '≈ ${portion.label(Localizations.localeOf(context).languageCode)}',
                           '${format.points(item.points.total)} ${s.pointsShort}',

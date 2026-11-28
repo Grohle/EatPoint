@@ -89,6 +89,9 @@ import 'package:opennutritracker/features/food_db/data/food_db_service.dart';
 import 'package:opennutritracker/features/diet_profile/data/food_facts_store.dart';
 import 'package:opennutritracker/features/travel/data/travel_mode_store.dart';
 import 'package:opennutritracker/features/updates/data/update_store.dart';
+import 'package:opennutritracker/features/food_knowledge/data/portion_override_store.dart';
+import 'package:opennutritracker/features/food_knowledge/domain/portion_formatter.dart';
+import 'package:opennutritracker/features/food_db/domain/food_database.dart';
 import 'package:opennutritracker/features/sync/domain/household_menu.dart';
 import 'package:opennutritracker/features/planner/data/planner_reminder_service.dart';
 import 'package:opennutritracker/features/mcp/data/mcp_controller.dart';
@@ -163,6 +166,8 @@ import 'package:opennutritracker/features/settings/presentation/bloc/settings_bl
 import 'package:opennutritracker/features/settings/data/tip_store.dart';
 import 'package:opennutritracker/features/settings/presentation/bloc/tip_jar_cubit.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:opennutritracker/features/backup/data/backup_service.dart';
+import 'package:opennutritracker/features/backup/data/backup_settings.dart';
 
 final locator = GetIt.instance;
 
@@ -750,6 +755,23 @@ Future<void> initLocator() async {
   );
   locator.registerLazySingleton<TravelModeStore>(
     () => TravelModeStore(hiveDBProvider),
+  );
+  // EatPoint: the user's own unit weights, consulted before the app's.
+  locator.registerLazySingleton<PortionOverrideStore>(
+    () => PortionOverrideStore(hiveDBProvider),
+  );
+  FoodPortions.configure(
+    user: (name, code) => locator<PortionOverrideStore>().portionFor(name, code),
+    database: (code) =>
+        FoodDatabase.instance?.byCode(code)?.unit ??
+        (known: false, portion: null),
+  );
+  // EatPoint: backups (to a file, any app or Google Drive).
+  locator.registerLazySingleton<BackupSettings>(
+    () => BackupSettings(hiveDBProvider),
+  );
+  locator.registerLazySingleton<BackupService>(
+    () => BackupService(locator(), locator(), hiveDBProvider),
   );
   // EatPoint: checking GitHub for newer releases.
   locator.registerLazySingleton<UpdateStore>(() => UpdateStore(hiveDBProvider));

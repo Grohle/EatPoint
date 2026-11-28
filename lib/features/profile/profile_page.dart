@@ -42,6 +42,7 @@ import 'package:opennutritracker/features/diet_profile/presentation/diet_profile
 import 'package:opennutritracker/features/food_db/presentation/food_db_screen.dart';
 import 'package:opennutritracker/generated/l10n.dart';
 import 'package:opennutritracker/features/sync/presentation/household_edits_switch.dart';
+import 'package:opennutritracker/features/food_db/presentation/my_foods_screen.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -207,6 +208,17 @@ class _ProfilePageState extends State<ProfilePage> {
                 showChevron: true,
                 onTap: () => Navigator.of(context).push(
                   MaterialPageRoute(builder: (_) => const FoodDbScreen()),
+                ),
+              ),
+              _ProfileTile(
+                identifier: 'profile-my-foods',
+                palette: palette,
+                icon: Icons.edit_note_rounded,
+                title: S.of(context).myFoodsTitle,
+                subtitle: S.of(context).myFoodsSubtitle,
+                showChevron: true,
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const MyFoodsScreen()),
                 ),
               ),
               _ProfileTile(

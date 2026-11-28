@@ -26,6 +26,34 @@ class PortionAmount {
   }
 }
 
+/// What one unit of a food weighs, from the most specific source that
+/// knows: the user's own weight for it, then the food's own entry in the
+/// downloaded database (which may say it has no unit at all), then the
+/// everyday-food catalogue matched by name.
+class FoodPortions {
+  FoodPortions._();
+
+  static FoodPortion? Function(String name, String? code)? _user;
+  static ({bool known, FoodPortion? portion}) Function(String? code)? _database;
+
+  /// Set once at start-up; null leaves a source out (as in most tests).
+  static void configure({
+    FoodPortion? Function(String name, String? code)? user,
+    ({bool known, FoodPortion? portion}) Function(String? code)? database,
+  }) {
+    _user = user;
+    _database = database;
+  }
+
+  static FoodPortion? of(String name, {String? code}) {
+    final mine = _user?.call(name, code);
+    if (mine != null) return mine;
+    final fromDb = _database?.call(code);
+    if (fromDb != null && fromDb.known) return fromDb.portion;
+    return FoodKnowledge.instance?.match(name)?.mainPortion;
+  }
+}
+
 /// Turns grams into household units and back.
 class PortionFormatter {
   PortionFormatter._();
@@ -56,9 +84,8 @@ class PortionFormatter {
 
   /// [grams] of a food called [foodName], in its main household unit, using
   /// the loaded catalogue. Null when the food is unknown or no count fits.
-  static PortionAmount? forFood(String foodName, double grams) {
-    final concept = FoodKnowledge.instance?.match(foodName);
-    final portion = concept?.mainPortion;
+  static PortionAmount? forFood(String foodName, double grams, {String? code}) {
+    final portion = FoodPortions.of(foodName, code: code);
     return portion == null ? null : describe(grams, portion);
   }
 
@@ -77,13 +104,13 @@ class PortionFormatter {
     'bun',
     'link',
     'slice',
+    'piece',
   };
 
   /// What to buy for [grams] of a food called [foodName]: whole units,
   /// rounded up. Null for foods bought by weight or volume.
   static PortionAmount? forShopping(String foodName, double grams) {
-    final concept = FoodKnowledge.instance?.match(foodName);
-    final portion = concept?.mainPortion;
+    final portion = FoodPortions.of(foodName);
     if (portion == null || grams <= 0) return null;
     if (!_buyableUnits.contains(portion.unit)) return null;
     final count = (grams / portion.grams - 0.15).ceilToDouble();

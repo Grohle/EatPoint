@@ -493,6 +493,7 @@ class _DishPickerScreenState extends State<DishPickerScreen> {
     final portion = PortionFormatter.forFood(
       dish.meal.name ?? '',
       amount,
+      code: dish.meal.code,
     )?.label(Localizations.localeOf(context).languageCode);
     final points = dish.meal.nutriments.macroPointsFor(amount);
     final fits = widget.remaining != null && _fitScore(dish) < 0.35;

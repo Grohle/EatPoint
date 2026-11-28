@@ -97,9 +97,12 @@ class ImportDataUsecase {
     String customActivityTemplateJsonFileName, {
     String goalSettingsJsonFileName = 'goal_settings.json',
     String favouriteJsonFileName = 'user_favourites.json',
+    // EatPoint: a backup restored from Google Drive arrives as bytes, not
+    // through the file picker.
+    Archive? fromBackup,
   }) async {
     final startedOn = ProfileStamp.now();
-    final archive = await _pickAndDecodeArchive();
+    final archive = fromBackup ?? await _pickAndDecodeArchive();
 
     // Decode every entry before writing anything (#1357): the upserts
     // below replace and delete rows on the device, so an archive with a

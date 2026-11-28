@@ -54,12 +54,18 @@ class FoodConcept {
   final Set<String> tags;
   final List<FoodPortion> portions;
 
+  /// Words that rule this concept out even when one of its names is in a
+  /// food's name: "tortilla" is a wheat wrap, but not in "tortilla de
+  /// patatas"; "pechuga de pavo" is a fillet, but not in "pavo en lonchas".
+  final List<String> exclude;
+
   const FoodConcept({
     required this.id,
     required this.namesEs,
     required this.namesEn,
     required this.tags,
     required this.portions,
+    this.exclude = const [],
   });
 
   /// The portion to describe amounts with: the default one, else the first.
@@ -82,6 +88,7 @@ class FoodConcept {
       namesEs: list(names['es']),
       namesEn: list(names['en']),
       tags: {...list(json['tags'])},
+      exclude: [for (final w in list(json['exclude'])) FoodKnowledge.fold(w)],
       portions: [
         if (json['portions'] is List)
           for (final p in json['portions'] as List) ?FoodPortion.fromJson(p),
@@ -299,6 +306,11 @@ class FoodKnowledge {
     if (_cache.containsKey(key)) return _cache[key];
     FoodConcept? found;
     for (final entry in _names) {
+      if (entry.concept.exclude.any(
+        (w) => RegExp('(^| )${RegExp.escape(w)}(e?s)?( |\$)').hasMatch(key),
+      )) {
+        continue;
+      }
       final pattern = RegExp('(^| )${RegExp.escape(entry.name)}(e?s)?( |\$)');
       if (pattern.hasMatch(key)) {
         found = entry.concept;

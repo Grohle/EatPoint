@@ -6,6 +6,7 @@ import 'package:opennutritracker/core/utils/calc/points_calc.dart';
 import 'package:opennutritracker/core/utils/id_generator.dart';
 import 'package:opennutritracker/features/diet_profile/presentation/diet_warning.dart';
 import 'package:opennutritracker/features/food_knowledge/domain/portion_formatter.dart';
+import 'package:opennutritracker/features/food_knowledge/presentation/unit_weight_dialog.dart';
 import 'package:opennutritracker/features/meal_closer/domain/meal_closer.dart';
 import 'package:opennutritracker/features/meal_closer/presentation/meal_closer_panel.dart';
 import 'package:opennutritracker/features/planner/domain/entity/planner_entities.dart';
@@ -196,13 +197,59 @@ class _PlannedMealEditorScreenState extends State<PlannedMealEditorScreen> {
                   ),
                 ],
               ),
-              subtitle: Text(
-                [
-                  '${format.points(item.points.total)} ${s.pointsShort}',
-                  if (PortionFormatter.forFood(item.name, item.amount)
-                      case final portion?)
-                    '≈ ${portion.label(lang)}',
-                ].join(' · '),
+              subtitle: Wrap(
+                crossAxisAlignment: WrapCrossAlignment.center,
+                spacing: Dimens.spacing4,
+                children: [
+                  Text('${format.points(item.points.total)} ${s.pointsShort}'),
+                  // EatPoint: tap to set what one unit of it weighs.
+                  Semantics(
+                    identifier: 'meal-editor-unit-weight',
+                    child: InkWell(
+                      borderRadius: Dimens.borderRadiusM,
+                      onTap: () async {
+                        final changed = await showUnitWeightDialog(
+                          context,
+                          name: item.name,
+                          code: item.meal.code,
+                        );
+                        if (changed && mounted) setState(() {});
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 2),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Flexible(
+                              child: Text(
+                                switch (PortionFormatter.forFood(
+                                  item.name,
+                                  item.amount,
+                                  code: item.meal.code,
+                                )) {
+                                  final portion? =>
+                                    '· ≈ ${portion.label(lang)}',
+                                  null => '· ${s.unitWeightAdd}',
+                                },
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 2),
+                            Icon(
+                              Icons.edit_rounded,
+                              size: 12,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
