@@ -2207,7 +2207,7 @@
   "editMealCheckValues": "Prüfe die rot markierten Werte",
   "generatorMemberNoProfile": "{name} hat Mahlzeiten und Punkte noch nicht geteilt: nötig ist EatPoint 0.4 oder neuer, geöffnet und synchronisiert auf dem Handy.",
   "generatorMemberNoEdits": "{name} erlaubt keine Änderungen am Menü (Gemeinsamer Haushalt → „Haushalt darf mein Menü ändern“).",
-  "myDayLabel": "Mein Tag",
+  "myDayLabel": "Menü",
   "myDayFullDiary": "Ganzes Tagebuch",
   "myDayLogged": "Eingetragen",
   "myDayActivities": "Aktivität",
@@ -2215,5 +2215,8 @@
   "myDayRemoveEntry": "{name} aus dem Tagebuch löschen?",
   "generatorFixedTitle": "Lebensmittel, die du immer isst",
   "generatorFixedAdd": "Hinzufügen",
-  "generatorFixedHelp": "Sie kommen jeden Tag in diese Mahlzeit, etwa Milch oder Brot zum Frühstück, und der Rest wird drumherum geplant. Sie bleiben für das nächste Mal gespeichert."
+  "generatorFixedHelp": "Sie kommen jeden Tag in diese Mahlzeit, etwa Milch oder Brot zum Frühstück, und der Rest wird drumherum geplant. Sie bleiben für das nächste Mal gespeichert.",
+  "plannerPlanMenu": "Menü planen",
+  "plannerPlanGenerateHint": "Tage und Mahlzeiten für dich gefüllt, auf dem Handy oder mit KI",
+  "plannerPlanImportHint": "Aus einem Text, einer Tabelle, einer Datei oder einem Foto"
 }

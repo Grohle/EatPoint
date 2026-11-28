@@ -2505,7 +2505,7 @@
   "editMealCheckValues": "Revisa los valores marcados en rojo",
   "generatorMemberNoProfile": "{name} aún no ha compartido sus comidas y puntos: necesita EatPoint 0.4 o posterior, abierto y sincronizado en su móvil.",
   "generatorMemberNoEdits": "{name} no permite que cambien su menú (Hogar compartido → «Permitir que el hogar cambie mi menú»).",
-  "myDayLabel": "Mi día",
+  "myDayLabel": "Menú",
   "myDayFullDiary": "Diario completo",
   "myDayLogged": "Registrado",
   "myDayActivities": "Actividad",
@@ -2513,5 +2513,8 @@
   "myDayRemoveEntry": "¿Borrar {name} del diario?",
   "generatorFixedTitle": "Alimentos que siempre tomas",
   "generatorFixedAdd": "Añadir",
-  "generatorFixedHelp": "Van en esa comida todos los días, como la leche o el pan del desayuno, y el resto de la comida se planifica alrededor. Se guardan para la próxima vez."
+  "generatorFixedHelp": "Van en esa comida todos los días, como la leche o el pan del desayuno, y el resto de la comida se planifica alrededor. Se guardan para la próxima vez.",
+  "plannerPlanMenu": "Planificar menú",
+  "plannerPlanGenerateHint": "Rellena días y comidas por ti, en el móvil o con IA",
+  "plannerPlanImportHint": "Desde un texto, una tabla, un archivo o una foto"
 }

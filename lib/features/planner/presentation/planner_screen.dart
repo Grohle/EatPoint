@@ -9,11 +9,22 @@ import 'package:opennutritracker/core/domain/entity/intake_type_entity.dart';
 import 'package:opennutritracker/core/domain/entity/user_activity_entity.dart';
 import 'package:opennutritracker/core/domain/usecase/get_config_usecase.dart';
 import 'package:opennutritracker/core/domain/usecase/get_user_activity_usecase.dart';
+import 'package:opennutritracker/core/domain/usecase/get_intake_usecase.dart';
+import 'package:opennutritracker/core/domain/usecase/get_user_usecase.dart';
+import 'package:opennutritracker/features/home/presentation/bloc/home_bloc.dart';
+import 'package:opennutritracker/core/presentation/widgets/activity_vertial_list.dart';
+import 'package:opennutritracker/core/presentation/widgets/copy_dialog.dart';
+import 'package:opennutritracker/core/presentation/widgets/copy_or_delete_dialog.dart';
+import 'package:opennutritracker/core/presentation/widgets/delete_dialog.dart';
+import 'package:opennutritracker/core/presentation/widgets/edit_activity_dialog.dart';
 import 'package:opennutritracker/core/presentation/widgets/edit_dialog.dart';
+import 'package:opennutritracker/core/utils/calc/met_calc.dart';
+import 'package:opennutritracker/features/activity_detail/presentation/bloc/activity_detail_bloc.dart';
+import 'package:opennutritracker/features/diary/presentation/widgets/daily_nutrient_panel.dart';
+import 'package:opennutritracker/features/diary/presentation/widgets/diary_sort_type.dart';
+import 'package:opennutritracker/features/home/presentation/widgets/intake_vertical_list.dart';
 import 'package:opennutritracker/core/presentation/widgets/main_appbar.dart';
 import 'package:opennutritracker/core/styles/app_palette.dart';
-import 'package:opennutritracker/core/utils/navigation_options.dart';
-import 'package:opennutritracker/features/add_meal/presentation/add_meal_screen.dart';
 import 'package:opennutritracker/features/add_meal/presentation/add_meal_type.dart';
 import 'package:opennutritracker/features/diary/diary_page.dart';
 import 'package:opennutritracker/features/diary/presentation/bloc/calendar_day_bloc.dart';
@@ -162,6 +173,19 @@ class _PlannerScreenState extends State<PlannerScreen> {
   int _offsetHours = 0;
   int _offsetMinutes = 0;
 
+  /// The diary's own settings, for its sections on the Menu tab.
+  bool _showMealMacros = true;
+  bool _showActivityTracking = true;
+  final Map<IntakeTypeEntity, DiarySortType> _sortByType = {};
+
+  /// A diary section's sort, kept as the diary keeps it.
+  void _setSort(IntakeTypeEntity type, DiarySortType value) {
+    setState(() => _sortByType[type] = value);
+    if (locator.isRegistered<CalendarDayBloc>()) {
+      locator<CalendarDayBloc>().setDiarySortPreference(type.name, value.index);
+    }
+  }
+
   /// What the diary has for [slot] that the menu didn't put there.
   List<IntakeEntity> _diaryExtra(DayPlan day, MealSlot slot) {
     final fromMenu = day.loggedIntakes[slot.id] ?? const <String>[];
@@ -247,27 +271,6 @@ class _PlannerScreenState extends State<PlannerScreen> {
     await _afterDiaryChange();
   }
 
-  Future<bool> _confirmDeleteEntry(String name) async {
-    final s = S.of(context);
-    final ok = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(s.myDayRemoveEntry(name)),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
-          ),
-          FilledButton(
-            onPressed: () => Navigator.of(context).pop(true),
-            child: Text(s.plannerDeleteDay),
-          ),
-        ],
-      ),
-    );
-    return ok == true;
-  }
-
   Future<void> _deleteIntake(IntakeEntity intake) async {
     final day = _selected;
     setState(() {
@@ -297,19 +300,6 @@ class _PlannerScreenState extends State<PlannerScreen> {
       day,
     );
     await _afterDiaryChange();
-  }
-
-  /// Logs a food straight into the diary for [slot] on the selected day.
-  Future<void> _logMore(MealSlot slot) async {
-    MealSlotContext.select(slot);
-    await Navigator.of(context).pushNamed(
-      NavigationOptions.addMealRoute,
-      arguments: AddMealScreenArguments(
-        AddMealExtension.fromIntakeTypeEntity(slot.baseType),
-        _selected,
-      ),
-    );
-    await _loadDiary();
   }
 
   void _openFullDiary() => Navigator.of(context).push(
@@ -388,6 +378,18 @@ class _PlannerScreenState extends State<PlannerScreen> {
         _imperial = c.usesImperialFoodUnits;
         _offsetHours = c.dayStartOffsetHours;
         _offsetMinutes = c.dayStartOffsetMinutes;
+        _showMealMacros = c.showMealMacros;
+        _showActivityTracking = c.showActivityTracking;
+        for (final e in (c.diarySortPreferences ?? const {}).entries) {
+          final type = IntakeTypeEntity.values
+              .where((t) => t.name == e.key)
+              .firstOrNull;
+          if (type != null &&
+              e.value >= 0 &&
+              e.value < DiarySortType.values.length) {
+            _sortByType[type] = DiarySortType.values[e.value];
+          }
+        }
         _loadDiary();
       });
     }
@@ -970,6 +972,91 @@ class _PlannerScreenState extends State<PlannerScreen> {
     }
   }
 
+  /// EatPoint: every way to plan the menu, in one clear place.
+  Future<void> _showPlanSheet() async {
+    final day = _day;
+    final action = await showModalBottomSheet<_DayAction>(
+      context: context,
+      showDragHandle: true,
+      builder: (context) {
+        final s = S.of(context);
+        Widget tile(
+          _DayAction value,
+          IconData icon,
+          String title, {
+          String? subtitle,
+          bool enabled = true,
+        }) => Semantics(
+          identifier: 'plan-menu-${value.name}',
+          child: ListTile(
+            leading: Icon(icon),
+            title: Text(title),
+            subtitle: subtitle == null ? null : Text(subtitle),
+            enabled: enabled,
+            onTap: () => Navigator.of(context).pop(value),
+          ),
+        );
+        return SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(
+                    Dimens.spacing16,
+                    0,
+                    Dimens.spacing16,
+                    Dimens.spacing8,
+                  ),
+                  child: Text(
+                    s.plannerPlanMenu,
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ),
+                tile(
+                  _DayAction.generateMenu,
+                  Icons.auto_awesome_rounded,
+                  s.generatorTitle,
+                  subtitle: s.plannerPlanGenerateHint,
+                ),
+                tile(
+                  _DayAction.importMenu,
+                  Icons.file_download_outlined,
+                  s.menuImportTitle,
+                  subtitle: s.plannerPlanImportHint,
+                ),
+                tile(
+                  _DayAction.copyPreviousWeek,
+                  Icons.content_copy_rounded,
+                  s.plannerCopyPreviousWeek,
+                ),
+                tile(
+                  _DayAction.copyDayTo,
+                  Icons.event_repeat_rounded,
+                  s.plannerCopyDayTo,
+                  enabled: !day.isEmpty,
+                ),
+                tile(
+                  _DayAction.shareWeek,
+                  Icons.share_outlined,
+                  s.plannerShareWeek,
+                ),
+                tile(
+                  _DayAction.reminders,
+                  Icons.notifications_outlined,
+                  s.plannerReminders,
+                ),
+                const SizedBox(height: Dimens.spacing8),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+    if (action != null && mounted) await _onAction(action);
+  }
+
   Future<void> _onAction(_DayAction action) async {
     final s = S.of(context);
     final messenger = ScaffoldMessenger.of(context);
@@ -1138,9 +1225,12 @@ class _PlannerScreenState extends State<PlannerScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  member == null
-                      ? s.plannerTitle
-                      : s.householdMemberMenu(member.name),
+                  member != null
+                      ? s.householdMemberMenu(member.name)
+                      // As a tab it is just "Menu", with room for its buttons.
+                      : widget.embedded
+                      ? s.myDayLabel
+                      : s.plannerTitle,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -1263,6 +1353,24 @@ class _PlannerScreenState extends State<PlannerScreen> {
                     widget.embedded ? 96 : Dimens.spacing16,
                   ),
                   children: [
+                    // EatPoint: a clear way in to planning the menu.
+                    if (member == null)
+                      Padding(
+                        padding: const EdgeInsets.only(top: Dimens.spacing8),
+                        child: Semantics(
+                          identifier: 'planner-plan-menu',
+                          child: FilledButton.tonalIcon(
+                            style: FilledButton.styleFrom(
+                              minimumSize: const Size.fromHeight(
+                                Dimens.minTouchTarget,
+                              ),
+                            ),
+                            onPressed: _showPlanSheet,
+                            icon: const Icon(Icons.edit_calendar_rounded),
+                            label: Text(s.plannerPlanMenu),
+                          ),
+                        ),
+                      ),
                     if (member != null && !member.allowsEdits)
                       Padding(
                         padding: const EdgeInsets.only(top: Dimens.spacing8),
@@ -1302,10 +1410,8 @@ class _PlannerScreenState extends State<PlannerScreen> {
                       ),
                     for (final slot in _slotsFor(day))
                       _mealCard(context, day, slot),
-                    if (widget.embedded &&
-                        member == null &&
-                        _activities.isNotEmpty)
-                      _activitiesCard(context),
+                    // The diary's day: nutrients and activities.
+                    if (_diaryShown) ..._diaryDayExtras(context),
                     if (!day.isEmpty && _canEdit)
                       Align(
                         alignment: Alignment.center,
@@ -1493,16 +1599,28 @@ class _PlannerScreenState extends State<PlannerScreen> {
     final format = PointsFormat.of(context);
     final items = day.itemsFor(slot.id);
     final mine = _viewed == null;
-    // EatPoint (My day): what the diary has beyond the menu counts too.
-    final extra = widget.embedded && mine
-        ? _diaryExtra(day, slot)
+    final logged = day.logged.contains(slot.id);
+    // EatPoint (Menu tab): the diary's own section of this meal, with all
+    // its options, for today and the days before.
+    final diaryShown = _diaryShown;
+    final entries = diaryShown
+        ? _diary[slot.id] ?? const <IntakeEntity>[]
         : const <IntakeEntity>[];
-    final points = extra.fold(
-      day.pointsFor(slot.id),
+    // A meal logged from the menu is in the diary already: shown there.
+    final showPlanned = !(diaryShown && logged && entries.isNotEmpty);
+    final extraPoints = entries.fold(
+      MacroPoints.zero,
       (sum, i) => sum + _intakePoints(i),
     );
+    final points = !diaryShown
+        ? day.pointsFor(slot.id)
+        : logged && entries.isNotEmpty
+        ? _diaryExtra(
+            day,
+            slot,
+          ).fold(day.pointsFor(slot.id), (sum, i) => sum + _intakePoints(i))
+        : day.pointsFor(slot.id) + extraPoints;
     final mealBudget = _slotBudget(slot.id);
-    final logged = day.logged.contains(slot.id);
     final over = mealBudget != null && points.total > mealBudget.total + 0.001;
     final canEdit = _canEdit;
     final busy = _logging.contains(slot.id);
@@ -1614,7 +1732,7 @@ class _PlannerScreenState extends State<PlannerScreen> {
                   ),
               ],
             ),
-            if (items.isEmpty && extra.isEmpty)
+            if (items.isEmpty && !diaryShown)
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: Dimens.spacing8),
                 child: Text(
@@ -1624,7 +1742,7 @@ class _PlannerScreenState extends State<PlannerScreen> {
                   ),
                 ),
               ),
-            for (final item in items)
+            for (final item in showPlanned ? items : const <PlannedItem>[])
               Dismissible(
                 key: ValueKey('planner-item-${item.id}'),
                 direction: canEdit && !logged
@@ -1695,48 +1813,45 @@ class _PlannerScreenState extends State<PlannerScreen> {
                         ),
                 ),
               ),
-            if (extra.isNotEmpty) ...[
-              Padding(
-                padding: const EdgeInsets.only(top: Dimens.spacing4),
-                child: Text(
-                  s.myDayLogged,
-                  style: theme.textTheme.labelMedium?.copyWith(
-                    color: theme.colorScheme.primary,
+            if (!logged && canEdit)
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Semantics(
+                  identifier: 'planner-add-${slot.id}',
+                  child: TextButton.icon(
+                    onPressed: () => _addDish(slot),
+                    icon: const Icon(Icons.add_rounded),
+                    label: Text(s.plannerAddDish),
                   ),
                 ),
               ),
-              for (final intake in extra) _diaryRow(context, intake),
-            ],
-            Wrap(
-              spacing: Dimens.spacing4,
-              children: [
-                if (!logged && canEdit)
-                  Semantics(
-                    identifier: 'planner-add-${slot.id}',
-                    child: TextButton.icon(
-                      onPressed: () => _addDish(slot),
-                      icon: const Icon(Icons.add_rounded),
-                      label: Text(s.plannerAddDish),
-                    ),
-                  ),
-                // Straight into the diary, today or before.
-                if (widget.embedded &&
-                    mine &&
-                    !_selected.isAfter(DayPlan.dateOnly(DateTime.now())))
-                  Semantics(
-                    identifier: 'my-day-log-more-${slot.id}',
-                    child: TextButton.icon(
-                      onPressed: () => _logMore(slot),
-                      icon: const Icon(Icons.playlist_add_check_rounded),
-                      label: Text(s.myDayLogMore),
-                    ),
-                  ),
-              ],
-            ),
           ],
         ),
       ),
     );
+    // EatPoint (Menu tab): the meal's card holds its diary section too.
+    final mealBlock = !diaryShown
+        ? card
+        : Card(
+            margin: const EdgeInsets.only(bottom: Dimens.spacing12),
+            clipBehavior: Clip.antiAlias,
+            shape: card.shape,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                // The planner part, without a card of its own.
+                card.child!,
+                Divider(height: 1, color: theme.colorScheme.outlineVariant),
+                // Food added here goes to this meal (#custom meals).
+                Listener(
+                  behavior: HitTestBehavior.translucent,
+                  onPointerDown: (_) => MealSlotContext.select(slot),
+                  child: _diarySection(context, slot, entries),
+                ),
+                const SizedBox(height: Dimens.spacing8),
+              ],
+            ),
+          );
     // Swipe a meal left to delete it; the card stays, empty.
     return KeyedSubtree(
       key: _slotKeys.putIfAbsent(slot.id, GlobalKey.new),
@@ -1753,96 +1868,181 @@ class _PlannerScreenState extends State<PlannerScreen> {
           await _deleteMeal(slot, ask: true);
           return false;
         },
-        child: card,
+        child: mealBlock,
       ),
     );
   }
 }
 
 extension on _PlannerScreenState {
-  /// One diary entry on My day: tap to change the amount, swipe left to
-  /// delete it after asking.
-  Widget _diaryRow(BuildContext context, IntakeEntity intake) {
-    final s = S.of(context);
-    final format = PointsFormat.of(context);
-    final scheme = Theme.of(context).colorScheme;
-    final name = intake.meal.name ?? '';
-    return Dismissible(
-      key: ValueKey('my-day-intake-${intake.id}'),
-      direction: DismissDirection.endToStart,
-      background: _swipeBackground(context),
-      confirmDismiss: (_) => _confirmDeleteEntry(name),
-      onDismissed: (_) => _deleteIntake(intake),
-      child: ListTile(
-        contentPadding: EdgeInsets.zero,
-        dense: true,
-        onTap: () => _editIntake(intake),
-        leading: Icon(
-          Icons.check_circle_rounded,
-          size: 18,
-          color: scheme.primary,
-        ),
-        minLeadingWidth: 20,
-        title: Text(name, maxLines: 1, overflow: TextOverflow.ellipsis),
-        subtitle: Text(
-          '${format.grams(intake.amount)} ${intake.unit} · '
-          '${format.points(_PlannerScreenState._intakePoints(intake).total)} '
-          '${s.pointsShort}',
-        ),
-      ),
+  /// Whether the selected day shows the diary too: the Menu tab, the
+  /// user's own menu, today or before.
+  bool get _diaryShown =>
+      widget.embedded &&
+      _viewed == null &&
+      !_selected.isAfter(DayPlan.dateOnly(DateTime.now())) &&
+      // The diary's sections need the app's blocs.
+      locator.isRegistered<MealDetailBloc>() &&
+      locator.isRegistered<HomeBloc>();
+
+  bool get _isToday => _selected == DayPlan.dateOnly(DateTime.now());
+
+  /// The diary's section of [slot], as the diary shows it: tap to change
+  /// an amount, long-press to copy or delete, share by QR, copy or delete
+  /// the whole meal, import or paste a code, sort, drag between meals,
+  /// and add food.
+  Widget _diarySection(
+    BuildContext context,
+    MealSlot slot,
+    List<IntakeEntity> entries,
+  ) {
+    final sort = _sortByType[slot.baseType] ?? DiarySortType.timeAdded;
+    return IntakeVerticalList(
+      key: ValueKey('menu-diary-${slot.id}'),
+      day: _selected,
+      title: S.of(context).diaryLabel,
+      listIcon: Icons.menu_book_outlined,
+      addMealType: AddMealExtension.fromIntakeTypeEntity(slot.baseType),
+      intakeList: sort.apply(entries),
+      usesImperialUnits: _imperial,
+      showMealMacros: _showMealMacros,
+      onDeleteIntakeCallback: (intake, _) => _deleteIntake(intake),
+      onItemLongPressedCallback: _onIntakeLongPressed,
+      onItemTappedCallback: (context, intake, _) => _editIntake(intake),
+      onCopyIntakeCallback: _isToday
+          ? null
+          : (intake, _, type) => _copyIntake(intake, type),
+      sortType: sort,
+      onSortTypeChanged: (value) => _setSort(slot.baseType, value),
     );
   }
 
-  /// The day's activities, each swipeable away.
-  Widget _activitiesCard(BuildContext context) {
-    final s = S.of(context);
-    final theme = Theme.of(context);
-    return Card(
-      margin: const EdgeInsets.only(bottom: Dimens.spacing12),
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(
-          Dimens.spacing16,
-          Dimens.spacing12,
-          Dimens.spacing8,
-          Dimens.spacing8,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Row(
-              children: [
-                Icon(
-                  Icons.directions_run_rounded,
-                  size: 20,
-                  color: theme.colorScheme.primary,
-                ),
-                const SizedBox(width: Dimens.spacing8),
-                Text(s.myDayActivities, style: theme.textTheme.titleSmall),
-              ],
-            ),
-            for (final a in _activities)
-              Dismissible(
-                key: ValueKey('my-day-activity-${a.id}'),
-                direction: DismissDirection.endToStart,
-                background: _swipeBackground(context),
-                confirmDismiss: (_) => _confirmDeleteEntry(
-                  a.physicalActivityEntity.getName(context),
-                ),
-                onDismissed: (_) => _deleteActivity(a),
-                child: ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  dense: true,
-                  title: Text(a.physicalActivityEntity.getName(context)),
-                  subtitle: Text(
-                    '${a.duration.round()} min · '
-                    '${(a.userKcal ?? a.burnedKcal).round()} kcal',
-                  ),
-                ),
-              ),
-          ],
-        ),
+  /// The diary's long press: delete today; copy or delete another day.
+  Future<void> _onIntakeLongPressed(
+    BuildContext context,
+    IntakeEntity intake,
+  ) async {
+    if (_isToday) {
+      final ok = await showDialog<bool>(
+        context: context,
+        builder: (context) => const DeleteDialog(),
+      );
+      if (ok != null) await _deleteIntake(intake);
+      return;
+    }
+    final copy = await showDialog<bool>(
+      context: context,
+      builder: (context) => const CopyOrDeleteDialog(),
+    );
+    if (copy == null || !context.mounted) return;
+    if (!copy) {
+      final ok = await showDialog<bool>(
+        context: context,
+        builder: (context) => const DeleteDialog(),
+      );
+      if (ok != null) await _deleteIntake(intake);
+      return;
+    }
+    final type = await showDialog<AddMealType>(
+      context: context,
+      builder: (context) => CopyDialog(
+        initialValue: AddMealExtension.fromIntakeTypeEntity(intake.type),
       ),
     );
+    if (type != null) await _copyIntake(intake, type);
+  }
+
+  /// Copies a diary entry to today, as the diary does.
+  Future<void> _copyIntake(IntakeEntity intake, AddMealType? type) async {
+    if (!locator.isRegistered<MealDetailBloc>()) return;
+    await locator<MealDetailBloc>().addIntake(
+      context,
+      intake.unit,
+      intake.amount.toString(),
+      type?.getIntakeType() ?? intake.type,
+      intake.meal,
+      DateTime.now(),
+    );
+    await _afterDiaryChange();
+  }
+
+  /// The day's activities and nutrients, as the diary shows them.
+  List<Widget> _diaryDayExtras(BuildContext context) {
+    final s = S.of(context);
+    final all = [for (final list in _diary.values) ...list];
+    return [
+      if (all.isNotEmpty && locator.isRegistered<GetIntakeUsecase>())
+        DailyNutrientPanel(intakes: all, selectedDay: _selected),
+      if (_showActivityTracking)
+        ActivityVerticalList(
+          day: _selected,
+          title: s.activityLabel,
+          userActivityList: _activities,
+          onItemLongPressedCallback: _onActivityLongPressed,
+          onItemTappedCallback: (context, a) => _editActivity(a),
+          onCopyActivityCallback: _isToday ? null : _copyActivity,
+        ),
+    ];
+  }
+
+  Future<void> _onActivityLongPressed(
+    BuildContext context,
+    UserActivityEntity activity,
+  ) async {
+    if (_isToday) {
+      final ok = await showDialog<bool>(
+        context: context,
+        builder: (context) => const DeleteDialog(),
+      );
+      if (ok != null) await _deleteActivity(activity);
+      return;
+    }
+    final copy = await showDialog<bool>(
+      context: context,
+      builder: (context) => const CopyOrDeleteDialog(),
+    );
+    if (copy == false) await _deleteActivity(activity);
+    if (copy == true) await _copyActivity(activity);
+  }
+
+  Future<void> _editActivity(UserActivityEntity activity) async {
+    final day = _selected;
+    final duration = await showDialog<double>(
+      context: context,
+      builder: (context) => EditActivityDialog(activityEntity: activity),
+    );
+    if (duration == null) return;
+    await locator<CalendarDayBloc>().updateUserActivityItem(
+      activity,
+      duration,
+      day,
+    );
+    await _afterDiaryChange();
+  }
+
+  /// Copies an activity to today, as the diary does.
+  Future<void> _copyActivity(UserActivityEntity entry) async {
+    if (!locator.isRegistered<ActivityDetailBloc>()) return;
+    final bloc = locator<ActivityDetailBloc>();
+    final activity = entry.physicalActivityEntity;
+    if (activity.isCustom) {
+      final kcal = entry.userKcal ?? entry.burnedKcal;
+      await bloc.persistActivity(
+        kcal.toString(),
+        kcal,
+        activity,
+        DateTime.now(),
+      );
+    } else {
+      final user = await locator<GetUserUsecase>().getUserData();
+      await bloc.persistActivity(
+        entry.duration.toString(),
+        METCalc.getTotalBurnedKcal(user, activity, entry.duration),
+        activity,
+        DateTime.now(),
+      );
+    }
+    await _afterDiaryChange();
   }
 }
 

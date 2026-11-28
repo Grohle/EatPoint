@@ -181,8 +181,8 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
             ),
             _NavItem(
               id: 'nav-diary',
-              icon: Icons.today_outlined,
-              selectedIcon: Icons.today_rounded,
+              icon: Icons.restaurant_menu_outlined,
+              selectedIcon: Icons.restaurant_menu_rounded,
               label: S.of(context).myDayLabel,
               index: 1,
               selectedIndex: _selectedPageIndex,

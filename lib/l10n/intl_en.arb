@@ -5451,7 +5451,7 @@
       }
     }
   },
-  "myDayLabel": "My day",
+  "myDayLabel": "Menu",
   "@myDayLabel": {
     "description": "Bottom bar tab joining the diary and the menu"
   },
@@ -5491,5 +5491,17 @@
   "generatorFixedHelp": "They go into that meal every day, such as milk or bread at breakfast, and the rest of the meal is planned around them. They're kept for next time.",
   "@generatorFixedHelp": {
     "description": "Help under the fixed foods section"
+  },
+  "plannerPlanMenu": "Plan the menu",
+  "@plannerPlanMenu": {
+    "description": "Button and sheet title gathering every way to plan the menu"
+  },
+  "plannerPlanGenerateHint": "Days and meals filled for you, on the phone or with AI",
+  "@plannerPlanGenerateHint": {
+    "description": "Subtitle of Generate in the plan sheet"
+  },
+  "plannerPlanImportHint": "From a text, a table, a file or a photo",
+  "@plannerPlanImportHint": {
+    "description": "Subtitle of Import in the plan sheet"
   }
 }

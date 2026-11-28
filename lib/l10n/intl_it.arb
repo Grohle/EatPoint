@@ -2176,7 +2176,7 @@
   "editMealCheckValues": "Controlla i valori segnati in rosso",
   "generatorMemberNoProfile": "{name} non ha ancora condiviso pasti e punti: serve EatPoint 0.4 o successiva, aperta e sincronizzata sul telefono.",
   "generatorMemberNoEdits": "{name} non permette di cambiare il suo menu (Nucleo condiviso → «Consenti alla casa di cambiare il mio menu»).",
-  "myDayLabel": "La mia giornata",
+  "myDayLabel": "Menù",
   "myDayFullDiary": "Diario completo",
   "myDayLogged": "Registrato",
   "myDayActivities": "Attività",
@@ -2184,5 +2184,8 @@
   "myDayRemoveEntry": "Eliminare {name} dal diario?",
   "generatorFixedTitle": "Alimenti che prendi sempre",
   "generatorFixedAdd": "Aggiungi",
-  "generatorFixedHelp": "Vanno in quel pasto ogni giorno, come il latte o il pane a colazione, e il resto del pasto viene pianificato attorno. Restano salvati per la prossima volta."
+  "generatorFixedHelp": "Vanno in quel pasto ogni giorno, come il latte o il pane a colazione, e il resto del pasto viene pianificato attorno. Restano salvati per la prossima volta.",
+  "plannerPlanMenu": "Pianifica il menù",
+  "plannerPlanGenerateHint": "Giorni e pasti riempiti per te, sul telefono o con l'IA",
+  "plannerPlanImportHint": "Da un testo, una tabella, un file o una foto"
 }
