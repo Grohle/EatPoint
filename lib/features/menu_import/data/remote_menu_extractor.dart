@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:logging/logging.dart';
+import 'package:opennutritracker/core/utils/gemini_fallback_client.dart';
 import 'package:opennutritracker/core/utils/ai_credential_storage.dart';
 import 'package:opennutritracker/core/utils/ai_model_catalogue.dart';
 import 'package:opennutritracker/core/utils/plaintext_destination_guard.dart';
@@ -130,7 +131,11 @@ class RemoteMenuExtractor {
           image,
         ),
         AiProvider.ownServer => await _chat(
-          GuardedPlaintextClient(_client),
+          // EatPoint: a busy or silent Gemini model falls back to another.
+          withGeminiFallback(
+            GuardedPlaintextClient(_client),
+            Uri.parse(selection.endpoint!),
+          ),
           Uri.parse(selection.endpoint!),
           selection.apiKey,
           model,

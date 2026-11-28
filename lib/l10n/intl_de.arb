@@ -2196,5 +2196,13 @@
   "travelFromLabel": "Erster Reisetag",
   "travelFromClear": "Jetzt beginnen",
   "travelStartsOn": "Beginnt am {date}",
-  "foodDbAutoUpdated": "Lebensmitteldatenbank auf Version {version} aktualisiert"
+  "foodDbAutoUpdated": "Lebensmitteldatenbank auf Version {version} aktualisiert",
+  "nutritionCheckKcalHint": "Die Nährstoffe ergeben {kcal} kcal",
+  "nutritionCheckMacroHint": "= {kcal} kcal",
+  "nutritionCheckBody": "Du hast {entered} kcal eingegeben, aber Kohlenhydrate ({carbs} kcal), Eiweiß ({protein} kcal) und Fett ({fat} kcal) ergeben {expected} kcal. Die Werte sind rot markiert. Trotzdem speichern oder prüfen?",
+  "nutritionCheckKj": "Die Energie scheint in kJ zu sein: {kj} kJ sind etwa {kcal} kcal.",
+  "editMealMacroOverBase": "Mehr als die Grundmenge ({base})",
+  "editMealMacrosOverBase": "Die Makros ergeben {total} g, mehr als die Grundmenge ({base})",
+  "editMealKcalTooHigh": "Zu viele kcal für {base}",
+  "editMealCheckValues": "Prüfe die rot markierten Werte"
 }

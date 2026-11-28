@@ -2165,5 +2165,13 @@
   "travelFromLabel": "Primo giorno del viaggio",
   "travelFromClear": "Inizia ora",
   "travelStartsOn": "Inizia il {date}",
-  "foodDbAutoUpdated": "Database degli alimenti aggiornato alla versione {version}"
+  "foodDbAutoUpdated": "Database degli alimenti aggiornato alla versione {version}",
+  "nutritionCheckKcalHint": "I nutrienti fanno {kcal} kcal",
+  "nutritionCheckMacroHint": "= {kcal} kcal",
+  "nutritionCheckBody": "Hai inserito {entered} kcal, ma carboidrati ({carbs} kcal), proteine ({protein} kcal) e grassi ({fat} kcal) fanno {expected} kcal. I valori sono segnati in rosso. Salvare comunque o controllarli?",
+  "nutritionCheckKj": "Sembra che l'energia sia in kJ: {kj} kJ sono circa {kcal} kcal.",
+  "editMealMacroOverBase": "Più della quantità di base ({base})",
+  "editMealMacrosOverBase": "I macro fanno {total} g, più della quantità di base ({base})",
+  "editMealKcalTooHigh": "Troppe kcal per {base}",
+  "editMealCheckValues": "Controlla i valori segnati in rosso"
 }

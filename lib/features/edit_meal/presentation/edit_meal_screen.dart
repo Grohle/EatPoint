@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:math' as math;
-
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -28,6 +26,7 @@ import 'package:opennutritracker/core/utils/navigation_predicates.dart';
 import 'package:opennutritracker/features/label_scan/presentation/label_scan_screen.dart';
 import 'package:opennutritracker/features/add_meal/presentation/log_tray.dart';
 import 'package:opennutritracker/features/add_meal/domain/entity/meal_entity.dart';
+import 'package:opennutritracker/features/edit_meal/domain/nutrition_check.dart';
 import 'package:opennutritracker/features/edit_meal/presentation/bloc/edit_meal_bloc.dart';
 import 'package:opennutritracker/features/edit_meal/presentation/widgets/default_meal_image.dart';
 import 'package:opennutritracker/features/meal_detail/meal_detail_screen.dart';
@@ -86,6 +85,14 @@ class _EditMealScreenState extends State<EditMealScreen> {
   final _units = ['g', 'ml', 'g/ml'];
   String? selectedUnit;
   bool _isTotal = false;
+
+  /// EatPoint: what doesn't add up on save, shown in red under its field
+  /// (base, kcal, carbs, fat, protein).
+  Map<String, String> _fieldErrors = const {};
+
+  void _clearFieldErrors() {
+    if (_fieldErrors.isNotEmpty) setState(() => _fieldErrors = const {});
+  }
   // Default on so behaviour matches what existing users are used to — the
   // meal is saved to their custom list unless they actively untick the box.
   // #249 adds the *option* to skip the save; it does not change the default.
@@ -512,8 +519,11 @@ class _EditMealScreenState extends State<EditMealScreen> {
           TextFormField(
             controller: _baseQuantityTextController,
             inputFormatters: CustomTextInputFormatter.doubleOnly(),
+            onChanged: (_) => _clearFieldErrors(),
             decoration: InputDecoration(
                 labelText: '${S.of(context).baseQuantityLabel} ($unitSuffix)',
+                errorText: _fieldErrors['base'],
+                errorMaxLines: 2,
                 border: const OutlineInputBorder(borderRadius: Dimens.borderRadiusM)),
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
           ),
@@ -545,10 +555,13 @@ class _EditMealScreenState extends State<EditMealScreen> {
         TextFormField(
           controller: _kcalTextController,
           inputFormatters: CustomTextInputFormatter.doubleOnly(),
+          onChanged: (_) => _clearFieldErrors(),
           decoration: InputDecoration(
               labelText:
                   '${S.of(context).mealEnergyLabel} ($energyUnitSuffix)',
               helperText: energyHelper,
+              errorText: _fieldErrors['kcal'],
+              errorMaxLines: 2,
               border: const OutlineInputBorder(borderRadius: Dimens.borderRadiusM)),
           keyboardType: const TextInputType.numberWithOptions(decimal: true),
         ),
@@ -556,9 +569,12 @@ class _EditMealScreenState extends State<EditMealScreen> {
         TextFormField(
           controller: _carbsTextController,
           inputFormatters: CustomTextInputFormatter.doubleOnly(),
+          onChanged: (_) => _clearFieldErrors(),
           decoration: InputDecoration(
               labelText: S.of(context).mealCarbsLabel,
               helperText: macroHelper,
+              errorText: _fieldErrors['carbs'],
+              errorMaxLines: 2,
               border: const OutlineInputBorder(borderRadius: Dimens.borderRadiusM)),
           keyboardType: const TextInputType.numberWithOptions(decimal: true),
         ),
@@ -566,9 +582,12 @@ class _EditMealScreenState extends State<EditMealScreen> {
         TextFormField(
           controller: _fatTextController,
           inputFormatters: CustomTextInputFormatter.doubleOnly(),
+          onChanged: (_) => _clearFieldErrors(),
           decoration: InputDecoration(
               labelText: S.of(context).mealFatLabel,
               helperText: macroHelper,
+              errorText: _fieldErrors['fat'],
+              errorMaxLines: 2,
               border: const OutlineInputBorder(borderRadius: Dimens.borderRadiusM)),
           keyboardType: const TextInputType.numberWithOptions(decimal: true),
         ),
@@ -576,9 +595,12 @@ class _EditMealScreenState extends State<EditMealScreen> {
         TextFormField(
           controller: _proteinTextController,
           inputFormatters: CustomTextInputFormatter.doubleOnly(),
+          onChanged: (_) => _clearFieldErrors(),
           decoration: InputDecoration(
               labelText: S.of(context).mealProteinLabel,
               helperText: macroHelper,
+              errorText: _fieldErrors['protein'],
+              errorMaxLines: 2,
               border: const OutlineInputBorder(borderRadius: Dimens.borderRadiusM)),
           keyboardType: const TextInputType.numberWithOptions(decimal: true),
         ),
@@ -740,6 +762,16 @@ class _EditMealScreenState extends State<EditMealScreen> {
         final kcalTextForSimple = (enteredEnergyRaw != null && usesKjOnSave)
             ? UnitCalc.kjToKcal(enteredEnergyRaw).toStringAsFixed(1)
             : _kcalTextController.text;
+        // EatPoint: the same check as the advanced form, on the serving.
+        final simpleCheck = NutritionCheck.of(
+          kcal: double.tryParse(kcalTextForSimple),
+          carbs: double.tryParse(_carbsTextController.text),
+          protein: double.tryParse(_proteinTextController.text),
+          fat: double.tryParse(_fatTextController.text),
+        );
+        if (simpleCheck != null && !await _confirmNutritionCheck(simpleCheck)) {
+          return;
+        }
         // Treat empty Simple-mode macro fields as an explicit zero rather
         // than null. A user filling out a custom meal in Simple mode is the
         // source of truth for that food — many real foods genuinely have
@@ -788,55 +820,57 @@ class _EditMealScreenState extends State<EditMealScreen> {
         final enteredFat = double.tryParse(_fatTextController.text);
         final enteredProtein = double.tryParse(_proteinTextController.text);
 
-        for (final entry in {
-          'Carbs': enteredCarbs,
-          'Fat': enteredFat,
-          'Protein': enteredProtein,
-        }.entries) {
-          if (entry.value != null && entry.value! > baseQty) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text(
-                    '${entry.key} cannot exceed base quantity (${baseQty}g/ml)')));
-            return;
-          }
-        }
-
-        if (enteredCarbs != null &&
+        // EatPoint: each problem is marked in red under its own field.
+        final s = S.of(context);
+        final baseLabel = '${baseQty.toStringAsFixed(0)} g/ml';
+        final over = <String, String>{
+          for (final entry in {
+            'carbs': enteredCarbs,
+            'fat': enteredFat,
+            'protein': enteredProtein,
+          }.entries)
+            if (entry.value != null && entry.value! > baseQty)
+              entry.key: s.editMealMacroOverBase(baseLabel),
+        };
+        if (over.isEmpty &&
+            enteredCarbs != null &&
             enteredFat != null &&
             enteredProtein != null) {
           final totalMacros = enteredCarbs + enteredFat + enteredProtein;
           if (totalMacros > baseQty * 1.05) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text(
-                    'Total macros (${totalMacros.toStringAsFixed(1)}g) exceed base quantity (${baseQty.toStringAsFixed(0)}g)')));
-            return;
+            final message = s.editMealMacrosOverBase(
+                totalMacros.toStringAsFixed(1), baseLabel);
+            over.addAll({
+              'carbs': message,
+              'fat': message,
+              'protein': message,
+              'base': message,
+            });
           }
         }
-
         if (enteredKcal != null && enteredKcal > baseQty * 9) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text(
-                  'Kcal value seems too high for ${baseQty.toStringAsFixed(0)}g/ml')));
+          over['kcal'] = s.editMealKcalTooHigh(baseLabel);
+        }
+        if (over.isNotEmpty) {
+          setState(() => _fieldErrors = over);
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(s.editMealCheckValues)));
           return;
         }
 
         // Atwater consistency check (#213): warn if entered kcal disagrees
         // with 4·carbs + 4·protein + 9·fat by more than 5%. Non-blocking.
-        if (enteredKcal != null &&
-            enteredCarbs != null &&
-            enteredFat != null &&
-            enteredProtein != null) {
-          final expectedKcal =
-              4 * enteredCarbs + 4 * enteredProtein + 9 * enteredFat;
-          final delta = (enteredKcal - expectedKcal).abs();
-          final ceiling = math.max(enteredKcal.abs(), expectedKcal.abs());
-          if (ceiling > 0 && delta > 0.05 * ceiling) {
-            final shouldSaveAnyway = await _showAtwaterWarningDialog();
-            if (!mounted) return;
-            if (shouldSaveAnyway != true) {
-              return;
-            }
-          }
+        // EatPoint: fibre's 2 kcal/g counts too, as on European labels, and
+        // what doesn't add up is marked in red, with what it brings.
+        final check = NutritionCheck.of(
+          kcal: enteredKcal,
+          carbs: enteredCarbs,
+          protein: enteredProtein,
+          fat: enteredFat,
+          fibre: double.tryParse(_fiberTextController.text),
+        );
+        if (check != null && !await _confirmNutritionCheck(check)) {
+          return;
         }
 
         // Convert meal size back to metric units if necessary
@@ -1094,13 +1128,49 @@ class _EditMealScreenState extends State<EditMealScreen> {
     });
   }
 
-  Future<bool?> _showAtwaterWarningDialog() {
+  /// EatPoint: marks what doesn't add up in red and asks whether to save
+  /// anyway. True to go on saving.
+  Future<bool> _confirmNutritionCheck(NutritionCheck check) async {
+    final s = S.of(context);
+    String k(double v) => v.round().toString();
+    setState(() => _fieldErrors = {
+          'kcal': s.nutritionCheckKcalHint(k(check.expectedKcal)),
+          'carbs': s.nutritionCheckMacroHint(k(check.carbsKcal)),
+          'protein': s.nutritionCheckMacroHint(k(check.proteinKcal)),
+          'fat': s.nutritionCheckMacroHint(k(check.fatKcal)),
+        });
+    final saveAnyway = await _showAtwaterWarningDialog(check);
+    if (!mounted || saveAnyway != true) return false;
+    setState(() => _fieldErrors = const {});
+    return true;
+  }
+
+  Future<bool?> _showAtwaterWarningDialog([NutritionCheck? check]) {
     return showDialog<bool>(
       context: context,
       builder: (dialogContext) {
+        final s = S.of(dialogContext);
+        String k(double v) => v.round().toString();
         return AlertDialog(
-          title: Text(S.of(dialogContext).inconsistentNutritionWarningTitle),
-          content: Text(S.of(dialogContext).inconsistentNutritionWarningBody),
+          title: Text(s.inconsistentNutritionWarningTitle),
+          // EatPoint: say what doesn't add up, not only that something
+          // doesn't.
+          content: Text(check == null
+              ? s.inconsistentNutritionWarningBody
+              : [
+                  s.nutritionCheckBody(
+                    k(check.enteredKcal),
+                    k(check.carbsKcal),
+                    k(check.proteinKcal),
+                    k(check.fatKcal),
+                    k(check.expectedKcal),
+                  ),
+                  if (check.looksLikeKj)
+                    s.nutritionCheckKj(
+                      k(check.enteredKcal),
+                      k(check.enteredKcal / 4.184),
+                    ),
+                ].join('\n\n')),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(dialogContext).pop(false),

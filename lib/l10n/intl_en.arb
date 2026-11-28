@@ -5347,5 +5347,90 @@
         "type": "String"
       }
     }
+  },
+  "nutritionCheckKcalHint": "The nutrients add up to {kcal} kcal",
+  "@nutritionCheckKcalHint": {
+    "description": "Under the energy field when it doesn't match the macros",
+    "placeholders": {
+      "kcal": {
+        "type": "String"
+      }
+    }
+  },
+  "nutritionCheckMacroHint": "= {kcal} kcal",
+  "@nutritionCheckMacroHint": {
+    "description": "Under a macro field: the energy it brings",
+    "placeholders": {
+      "kcal": {
+        "type": "String"
+      }
+    }
+  },
+  "nutritionCheckBody": "You entered {entered} kcal, but carbohydrates ({carbs} kcal), protein ({protein} kcal) and fat ({fat} kcal) add up to {expected} kcal. The values are marked in red. Save anyway or check them again?",
+  "@nutritionCheckBody": {
+    "description": "Save warning when energy and macros disagree",
+    "placeholders": {
+      "entered": {
+        "type": "String"
+      },
+      "carbs": {
+        "type": "String"
+      },
+      "protein": {
+        "type": "String"
+      },
+      "fat": {
+        "type": "String"
+      },
+      "expected": {
+        "type": "String"
+      }
+    }
+  },
+  "nutritionCheckKj": "It looks like the energy is in kJ: {kj} kJ is about {kcal} kcal.",
+  "@nutritionCheckKj": {
+    "description": "Extra line when the energy looks entered in kJ",
+    "placeholders": {
+      "kj": {
+        "type": "String"
+      },
+      "kcal": {
+        "type": "String"
+      }
+    }
+  },
+  "editMealMacroOverBase": "More than the base quantity ({base})",
+  "@editMealMacroOverBase": {
+    "description": "Under a macro field larger than the base quantity",
+    "placeholders": {
+      "base": {
+        "type": "String"
+      }
+    }
+  },
+  "editMealMacrosOverBase": "The macros add up to {total} g, more than the base quantity ({base})",
+  "@editMealMacrosOverBase": {
+    "description": "When the macros together exceed the base quantity",
+    "placeholders": {
+      "total": {
+        "type": "String"
+      },
+      "base": {
+        "type": "String"
+      }
+    }
+  },
+  "editMealKcalTooHigh": "Too many kcal for {base}",
+  "@editMealKcalTooHigh": {
+    "description": "Under the energy field when it is impossible for the base quantity",
+    "placeholders": {
+      "base": {
+        "type": "String"
+      }
+    }
+  },
+  "editMealCheckValues": "Check the values marked in red",
+  "@editMealCheckValues": {
+    "description": "Snack bar when a food can't be saved as entered"
   }
 }

@@ -116,6 +116,36 @@ void main() {
     await tester.pumpAndSettle();
   }
 
+  // EatPoint: what doesn't add up is said and marked in red.
+  testWidgets('energy that does not match the macros is marked in red',
+      (tester) async {
+    await pumpEditor(tester, customMeal(code: 'uuid-oats', name: 'Oats'));
+
+    final energy = find.widgetWithText(
+      TextFormField,
+      '${l10nEn.mealEnergyLabel} (kcal)',
+    );
+    await tester.ensureVisible(energy);
+    await tester.enterText(energy, '500');
+    await save(tester);
+
+    expect(
+      find.text(l10nEn.nutritionCheckBody('500', '240', '52', '63', '355')),
+      findsOneWidget,
+    );
+    await tester.tap(find.text(l10nEn.inconsistentNutritionWarningEdit));
+    await tester.pumpAndSettle();
+    expect(dataSource.saves, isEmpty);
+    expect(find.text(l10nEn.nutritionCheckKcalHint('355')), findsOneWidget);
+    expect(find.text(l10nEn.nutritionCheckMacroHint('240')), findsOneWidget);
+    expect(find.text(l10nEn.nutritionCheckMacroHint('63')), findsOneWidget);
+
+    // Fixing a value clears the marks.
+    await tester.enterText(energy, '355');
+    await tester.pumpAndSettle();
+    expect(find.text(l10nEn.nutritionCheckKcalHint('355')), findsNothing);
+  });
+
   testWidgets('adding a barcode saves with the meal as it was before',
       (tester) async {
     await pumpEditor(tester, customMeal(code: 'uuid-oats', name: 'Oats'));
