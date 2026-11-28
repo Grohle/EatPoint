@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:opennutritracker/features/food_db/domain/food_database.dart';
+import 'package:opennutritracker/features/diet_profile/domain/food_facts.dart';
 import 'package:opennutritracker/features/food_knowledge/domain/food_knowledge.dart';
 import 'package:opennutritracker/features/food_knowledge/domain/portion_formatter.dart';
 
@@ -92,5 +93,20 @@ void main() {
     expect(label('Pan integral', 125), '4 rebanadas');
     expect(label('Pan tostado integral', 20), '2 rebanadas');
     expect(label('Mini tortillas de trigo', 50), '2 tortillas');
+    // EatPoint's own vegan and world dishes.
+    expect(label('Falafel', 60), '3 falafels');
+    expect(label('Tofu firme', 250), '1 bloque');
+    expect(label('Nigiri de salmón', 60), '2 piezas');
+    expect(label('Sashimi de salmón', 60), '5 lonchas');
+    expect(label('Arepa de maíz', 100), '1 arepa');
+    expect(label('Lentejas estofadas con verduras', 300), '1 plato');
+    final tofu = db.foods.firstWhere((f) => f.nameEs == 'Tofu ahumado');
+    expect(tofu.labels, contains(FoodLabel.vegan));
+    expect(tofu.fibre, 1.5);
+    // Plant-based products from Spanish shops.
+    expect(
+      db.foods.where((f) => f.source == 'off' && f.labels.contains(FoodLabel.vegan)),
+      hasLength(greaterThan(500)),
+    );
   });
 }

@@ -112,6 +112,7 @@ class MenuGeneratorBrief {
     required DietProfile profile,
     required String languageCode,
     List<String> ownDishes = const [],
+    Map<String, List<String>> fixed = const {},
   }) {
     String date(DateTime d) =>
         '${d.year.toString().padLeft(4, '0')}-'
@@ -130,6 +131,11 @@ class MenuGeneratorBrief {
               '${(b.total * PointsCalc.kcalPerPoint).round()} kcal; '
               'carbs ${pts(b.carbs)}, protein ${pts(b.protein)}, '
               'fat ${pts(b.fat)} points.',
+      // EatPoint: foods the user always has in a meal.
+      for (final slot in slots)
+        if (fixed[slot.id] case final foods? when foods.isNotEmpty)
+          'Always include in "${nameOf(slot)}" every day: '
+              '${foods.join(', ')} (count them in its budget).',
       'Diet: ${profile.diet.name}.',
       if (profile.religion != ReligiousDiet.none)
         'Religious diet: ${profile.religion.name}'

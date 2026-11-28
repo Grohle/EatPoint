@@ -1,4 +1,5 @@
 import 'package:http/http.dart' as http;
+import 'package:opennutritracker/core/utils/gemini_fallback_client.dart';
 import 'package:opennutritracker/core/utils/ai_credential_storage.dart';
 import 'package:opennutritracker/core/utils/ai_model_catalogue.dart';
 import 'package:opennutritracker/core/utils/gemini_endpoint.dart';
@@ -143,7 +144,11 @@ MealItemsApi mealItemsApiFor(
       // where plaintext is possible at all — the other three are compiled-in
       // `https://`. Wrapping here rather than at the call site means any
       // future caller of this factory is covered without knowing to ask.
-      GuardedPlaintextClient(client),
+      // EatPoint: a busy or silent Gemini model falls back to another.
+      withGeminiFallback(
+        GuardedPlaintextClient(client),
+        Uri.parse(selection.endpoint!),
+      ),
       selection.apiKey == null ? null : key,
       model: modelId,
       endpoint: Uri.parse(selection.endpoint!),

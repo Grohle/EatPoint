@@ -10,7 +10,10 @@ Two steps, both resumable (results are cached in the output directory):
   2. Fetch each product's nutrition, allergens and labels from the v2
      product endpoint, politely throttled.
 
-Usage: python3 tool/food_db/off_es.py <output dir> [max products]
+Usage: python3 tool/food_db/off_es.py <output dir> [max products] [terms]
+  terms: "general" (the default, single words), "vegan" (plant-based
+  products) or "world" (dishes and breads from other cuisines, sushi and
+  ready meals), the last two searched by whole phrases.
 """
 
 import json
@@ -51,6 +54,45 @@ yogur griego queso fresco requeson skyr cuajada
 tortitas de arroz tortitas de maiz palomitas""".split("\n")
 
 
+# Plant-based products, searched as whole phrases.
+VEGAN_TERMS = [
+    "tofu", "tofu sedoso", "tofu ahumado", "tofu firme", "tofu marinado",
+    "tofu albahaca", "tofu frito", "soja texturizada", "proteina de soja",
+    "proteina de guisante", "seitan", "tempeh", "heura", "falafel", "hummus",
+    "salmon vegano", "atun vegano", "gambas veganas", "pescado vegetal",
+    "hamburguesa vegetal", "hamburguesa vegana", "burger vegana",
+    "salchichas veganas", "salchicha vegetal", "nuggets veganos",
+    "nuggets vegetales", "albondigas veganas", "albondigas vegetales",
+    "carne picada vegetal", "picada vegetal", "pollo vegetal", "pollo vegano",
+    "chorizo vegano", "chorizo vegetal", "embutido vegetal", "lonchas veganas",
+    "fiambre vegano", "bacon vegano", "kebab vegano", "croquetas veganas",
+    "queso vegano", "queso vegetal", "alternativa vegetal al queso",
+    "yogur de soja", "yogur vegetal", "postre de soja", "yogur de coco",
+    "bebida de avena", "bebida de almendra", "bebida de arroz",
+    "bebida de soja", "bebida de coco", "nata vegetal", "nata de soja",
+    "nata de avena", "mantequilla vegana", "margarina vegetal",
+    "mayonesa vegana", "levadura nutricional", "edamame", "altramuces",
+    "lentejas rojas", "pate vegetal", "untable vegetal", "helado vegano",
+    "plant based", "vegano", "vegana", "veggie",
+]
+
+
+# Dishes and breads from other cuisines, sushi and ready meals.
+WORLD_TERMS = [
+    "arepa", "harina de maiz precocida", "tortilla de trigo", "tortillas de maiz",
+    "wrap", "fajitas", "burrito", "tacos", "nachos", "quesadilla",
+    "pan de pita", "naan", "pan bao", "sushi", "maki", "nigiri", "uramaki",
+    "california roll", "sashimi", "arroz para sushi", "alga nori", "wakame",
+    "gyoza", "dumplings", "rollitos de primavera", "noodles", "fideos de arroz",
+    "ramen", "udon", "pad thai", "arroz tres delicias", "curry", "tikka masala",
+    "kebab", "shawarma", "falafel", "cuscus", "tabule", "baba ganoush",
+    "paella", "lentejas cocinadas", "fabada", "cocido", "pisto",
+    "crema de verduras", "albondigas", "croquetas de jamon", "lasaña",
+    "canelones", "empanada", "empanadillas", "ensalada preparada",
+    "plato preparado", "poke", "ceviche", "salmon ahumado", "gulas",
+]
+
+
 def get(url, retries=4):
     for attempt in range(retries):
         try:
@@ -64,12 +106,13 @@ def get(url, retries=4):
     return None
 
 
-def collect(out_dir, limit):
+def collect(out_dir, limit, terms="general"):
     path = os.path.join(out_dir, "off_candidates.json")
     if os.path.exists(path):
         return json.load(open(path))
     found = {}
-    words = [w for line in TERMS for w in line.split() if len(w) > 2]
+    words = ({"vegan": VEGAN_TERMS, "world": WORLD_TERMS}.get(terms) or
+             [w for line in TERMS for w in line.split() if len(w) > 2])
     seen_q = set()
     for q in words:
         if q in seen_q:
@@ -125,8 +168,9 @@ def fetch(out_dir, codes):
 def main():
     out_dir = sys.argv[1]
     limit = int(sys.argv[2]) if len(sys.argv) > 2 else 4000
+    terms = sys.argv[3] if len(sys.argv) > 3 else "general"
     os.makedirs(out_dir, exist_ok=True)
-    codes = collect(out_dir, limit)
+    codes = collect(out_dir, limit, terms)
     print(f"{len(codes)} products to fetch", file=sys.stderr)
     fetch(out_dir, codes)
 

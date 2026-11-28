@@ -164,7 +164,9 @@ def eatpoint_list():
     for n, item in enumerate(json.load(open(os.path.join(HERE, "eatpoint_list.json")))):
         rows.append(food(f"e:{n}", "eatpoint", item["name"], None,
                          item["kcal"], item["carbs"], item["protein"],
-                         item["fat"], l=1 if item.get("liquid") else None))
+                         item["fat"], l=1 if item.get("liquid") else None,
+                         fi=item.get("fibre"), a=item.get("allergens") or [],
+                         lb=item.get("labels") or []))
     return rows
 
 
