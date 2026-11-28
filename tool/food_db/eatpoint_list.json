@@ -1878,5 +1878,763 @@
 "fat": 0.0,
 "kcal": 50,
 "liquid": true
+},
+{
+"name": "Tofu firme",
+"carbs": 1.5,
+"protein": 15.0,
+"fat": 8.5,
+"kcal": 145,
+"liquid": false,
+"fibre": 1.5,
+"allergens": [
+"soy"
+],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Tofu sedoso (suave)",
+"carbs": 1.5,
+"protein": 5.5,
+"fat": 2.8,
+"kcal": 55,
+"liquid": false,
+"fibre": 0.3,
+"allergens": [
+"soy"
+],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Tofu ahumado",
+"carbs": 1.5,
+"protein": 17.0,
+"fat": 10.5,
+"kcal": 170,
+"liquid": false,
+"fibre": 1.5,
+"allergens": [
+"soy"
+],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Tofu marinado",
+"carbs": 4.0,
+"protein": 16.0,
+"fat": 12.0,
+"kcal": 190,
+"liquid": false,
+"fibre": 1.0,
+"allergens": [
+"soy"
+],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Tofu a las finas hierbas o albahaca",
+"carbs": 1.5,
+"protein": 15.0,
+"fat": 9.0,
+"kcal": 150,
+"liquid": false,
+"fibre": 1.0,
+"allergens": [
+"soy"
+],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Tofu frito en dados",
+"carbs": 4.0,
+"protein": 17.0,
+"fat": 20.0,
+"kcal": 270,
+"liquid": false,
+"fibre": 1.0,
+"allergens": [
+"soy"
+],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Soja texturizada gruesa (seca)",
+"carbs": 17.0,
+"protein": 50.0,
+"fat": 1.5,
+"kcal": 340,
+"liquid": false,
+"fibre": 14.0,
+"allergens": [
+"soy"
+],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Soja texturizada hidratada",
+"carbs": 5.5,
+"protein": 16.0,
+"fat": 0.5,
+"kcal": 110,
+"liquid": false,
+"fibre": 4.5,
+"allergens": [
+"soy"
+],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Seitán natural",
+"carbs": 4.0,
+"protein": 22.0,
+"fat": 1.5,
+"kcal": 120,
+"liquid": false,
+"fibre": 0.5,
+"allergens": [
+"gluten"
+],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Seitán marinado a la plancha",
+"carbs": 7.0,
+"protein": 20.0,
+"fat": 4.5,
+"kcal": 150,
+"liquid": false,
+"fibre": 1.0,
+"allergens": [
+"gluten",
+"soy"
+],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Tempeh ahumado",
+"carbs": 6.0,
+"protein": 19.0,
+"fat": 11.0,
+"kcal": 205,
+"liquid": false,
+"fibre": 5.0,
+"allergens": [
+"soy"
+],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Falafel",
+"carbs": 22.0,
+"protein": 7.5,
+"fat": 11.5,
+"kcal": 230,
+"liquid": false,
+"fibre": 6.5,
+"allergens": [],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Hummus de remolacha",
+"carbs": 10.0,
+"protein": 5.0,
+"fat": 12.0,
+"kcal": 170,
+"liquid": false,
+"fibre": 4.0,
+"allergens": [
+"sesame"
+],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Hamburguesa vegana de proteína de guisante",
+"carbs": 5.0,
+"protein": 18.0,
+"fat": 17.0,
+"kcal": 250,
+"liquid": false,
+"fibre": 3.0,
+"allergens": [],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Hamburguesa de legumbres (lentejas o garbanzos)",
+"carbs": 22.0,
+"protein": 7.0,
+"fat": 7.0,
+"kcal": 190,
+"liquid": false,
+"fibre": 5.0,
+"allergens": [],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Salchichas veganas",
+"carbs": 6.0,
+"protein": 15.0,
+"fat": 16.0,
+"kcal": 230,
+"liquid": false,
+"fibre": 3.0,
+"allergens": [
+"soy"
+],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Nuggets veganos",
+"carbs": 18.0,
+"protein": 13.0,
+"fat": 11.0,
+"kcal": 230,
+"liquid": false,
+"fibre": 4.0,
+"allergens": [
+"gluten",
+"soy"
+],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Albóndigas veganas",
+"carbs": 8.0,
+"protein": 15.0,
+"fat": 11.5,
+"kcal": 200,
+"liquid": false,
+"fibre": 3.0,
+"allergens": [
+"soy"
+],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Picada vegetal (tipo carne picada)",
+"carbs": 4.0,
+"protein": 18.0,
+"fat": 9.5,
+"kcal": 180,
+"liquid": false,
+"fibre": 4.0,
+"allergens": [
+"soy"
+],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Pollo vegano en tiras",
+"carbs": 4.0,
+"protein": 20.0,
+"fat": 8.5,
+"kcal": 180,
+"liquid": false,
+"fibre": 4.0,
+"allergens": [
+"soy"
+],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Kebab vegano",
+"carbs": 6.0,
+"protein": 22.0,
+"fat": 9.0,
+"kcal": 200,
+"liquid": false,
+"fibre": 3.0,
+"allergens": [
+"gluten",
+"soy"
+],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Chorizo vegano",
+"carbs": 8.0,
+"protein": 18.0,
+"fat": 17.0,
+"kcal": 260,
+"liquid": false,
+"fibre": 3.0,
+"allergens": [
+"gluten",
+"soy"
+],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Bacon vegano",
+"carbs": 10.0,
+"protein": 14.0,
+"fat": 18.0,
+"kcal": 260,
+"liquid": false,
+"fibre": 2.0,
+"allergens": [
+"gluten",
+"soy"
+],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Lonchas veganas tipo fiambre",
+"carbs": 9.0,
+"protein": 13.0,
+"fat": 6.5,
+"kcal": 150,
+"liquid": false,
+"fibre": 2.0,
+"allergens": [
+"gluten"
+],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Croquetas veganas",
+"carbs": 22.0,
+"protein": 4.0,
+"fat": 11.0,
+"kcal": 210,
+"liquid": false,
+"fibre": 2.0,
+"allergens": [
+"gluten"
+],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Gyozas veganas de verduras",
+"carbs": 30.0,
+"protein": 5.0,
+"fat": 4.0,
+"kcal": 180,
+"liquid": false,
+"fibre": 2.5,
+"allergens": [
+"gluten",
+"soy"
+],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Queso vegano rallado (base de coco)",
+"carbs": 21.0,
+"protein": 0.5,
+"fat": 22.5,
+"kcal": 285,
+"liquid": false,
+"fibre": 0.5,
+"allergens": [],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Mozzarella vegana",
+"carbs": 20.0,
+"protein": 0.5,
+"fat": 19.0,
+"kcal": 250,
+"liquid": false,
+"fibre": 0.5,
+"allergens": [],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Queso feta vegano",
+"carbs": 20.0,
+"protein": 0.5,
+"fat": 21.0,
+"kcal": 270,
+"liquid": false,
+"fibre": 0.5,
+"allergens": [],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Queso vegano untable de anacardos",
+"carbs": 9.0,
+"protein": 7.0,
+"fat": 23.0,
+"kcal": 270,
+"liquid": false,
+"fibre": 2.0,
+"allergens": [
+"treeNut"
+],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Yogur de soja natural",
+"carbs": 2.1,
+"protein": 4.0,
+"fat": 2.3,
+"kcal": 50,
+"liquid": false,
+"fibre": 1.0,
+"allergens": [
+"soy"
+],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Yogur de soja de sabores",
+"carbs": 11.0,
+"protein": 3.5,
+"fat": 2.2,
+"kcal": 80,
+"liquid": false,
+"fibre": 0.6,
+"allergens": [
+"soy"
+],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Yogur de coco",
+"carbs": 7.0,
+"protein": 0.8,
+"fat": 8.0,
+"kcal": 105,
+"liquid": false,
+"fibre": 0.5,
+"allergens": [],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Natillas de soja",
+"carbs": 13.0,
+"protein": 3.0,
+"fat": 2.2,
+"kcal": 85,
+"liquid": false,
+"fibre": 0.5,
+"allergens": [
+"soy"
+],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Helado vegano",
+"carbs": 25.0,
+"protein": 2.0,
+"fat": 10.0,
+"kcal": 200,
+"liquid": false,
+"fibre": 1.0,
+"allergens": [],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Bebida de avena",
+"carbs": 6.8,
+"protein": 1.0,
+"fat": 1.5,
+"kcal": 45,
+"liquid": true,
+"fibre": 0.8,
+"allergens": [
+"gluten"
+],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Bebida de almendra sin azúcar",
+"carbs": 0.1,
+"protein": 0.4,
+"fat": 1.1,
+"kcal": 13,
+"liquid": true,
+"fibre": 0.4,
+"allergens": [
+"treeNut"
+],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Bebida de arroz",
+"carbs": 9.5,
+"protein": 0.1,
+"fat": 1.0,
+"kcal": 49,
+"liquid": true,
+"fibre": 0.1,
+"allergens": [],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Bebida de coco",
+"carbs": 2.7,
+"protein": 0.1,
+"fat": 0.9,
+"kcal": 20,
+"liquid": true,
+"fibre": 0.1,
+"allergens": [],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Bebida de soja original (con azúcar)",
+"carbs": 2.5,
+"protein": 3.0,
+"fat": 1.8,
+"kcal": 39,
+"liquid": true,
+"fibre": 0.6,
+"allergens": [
+"soy"
+],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Nata vegetal para cocinar (soja o avena)",
+"carbs": 6.0,
+"protein": 1.0,
+"fat": 13.5,
+"kcal": 150,
+"liquid": true,
+"fibre": 0.5,
+"allergens": [
+"soy"
+],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Leche de coco para cocinar (lata)",
+"carbs": 2.8,
+"protein": 2.0,
+"fat": 21.0,
+"kcal": 197,
+"liquid": true,
+"fibre": 0.5,
+"allergens": [],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Mantequilla vegetal (80 % grasa)",
+"carbs": 0.5,
+"protein": 0.2,
+"fat": 79.0,
+"kcal": 715,
+"liquid": false,
+"fibre": 0.0,
+"allergens": [],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Mayonesa vegana",
+"carbs": 3.0,
+"protein": 0.5,
+"fat": 61.0,
+"kcal": 560,
+"liquid": false,
+"fibre": 0.0,
+"allergens": [],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Paté vegetal untable",
+"carbs": 9.0,
+"protein": 4.0,
+"fat": 18.5,
+"kcal": 220,
+"liquid": false,
+"fibre": 2.5,
+"allergens": [],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Miso",
+"carbs": 21.1,
+"protein": 11.7,
+"fat": 6.0,
+"kcal": 199,
+"liquid": false,
+"fibre": 5.4,
+"allergens": [
+"soy"
+],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Altramuces cocidos",
+"carbs": 7.1,
+"protein": 15.6,
+"fat": 2.9,
+"kcal": 119,
+"liquid": false,
+"fibre": 2.8,
+"allergens": [
+"lupin"
+],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Lentejas rojas (secas)",
+"carbs": 52.0,
+"protein": 24.0,
+"fat": 2.2,
+"kcal": 345,
+"liquid": false,
+"fibre": 10.8,
+"allergens": [],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Proteína de guisante en polvo",
+"carbs": 2.0,
+"protein": 80.0,
+"fat": 7.0,
+"kcal": 385,
+"liquid": false,
+"fibre": 1.0,
+"allergens": [],
+"labels": [
+"vegan",
+"vegetarian"
+]
 }
 ]
