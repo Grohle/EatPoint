@@ -77,6 +77,13 @@ class _MenuGeneratorScreenState extends State<MenuGeneratorScreen> {
   List<MemberSnapshot> _members = const [];
   final Set<String> _with = {};
 
+  /// Every other member, the ones who can't be planned for yet included,
+  /// so the section shows why.
+  List<MemberSnapshot> _everyone = const [];
+
+  /// Whether the menu is also for this user; off plans only for others.
+  bool _forMe = true;
+
   @override
   void initState() {
     super.initState();
@@ -92,8 +99,9 @@ class _MenuGeneratorScreenState extends State<MenuGeneratorScreen> {
     if (locator.isRegistered<HouseholdStore>()) {
       final store = locator<HouseholdStore>();
       if (store.getHousehold() != null) {
+        _everyone = store.otherMembers();
         _members = [
-          for (final m in store.otherMembers())
+          for (final m in _everyone)
             if (m.allowsEdits && m.profile != null) m,
         ];
       }
@@ -178,6 +186,8 @@ class _MenuGeneratorScreenState extends State<MenuGeneratorScreen> {
       for (final m in _members)
         if (_with.contains(m.memberId)) m: _companionFor(m),
     };
+    // Only for others: the first one's diet leads, instead of this user's.
+    final lead = _forMe || companions.isEmpty ? null : companions.values.first;
     ImportedMenu menu;
     MenuFoodMatcher? matcher;
     GeneratedMenu? generated;
@@ -206,10 +216,10 @@ class _MenuGeneratorScreenState extends State<MenuGeneratorScreen> {
           pool: pool,
           options: MenuGeneratorOptions(
             days: _dates,
-            diet: _profile.diet,
+            diet: lead?.diet ?? _profile.diet,
             preferOwn: _preferOwn,
             seed: _seed++,
-            checker: checker,
+            checker: lead == null ? checker : lead.checker,
             languageCode: lang,
             efficient: _efficient,
             companions: companions.values.toList(),
@@ -232,6 +242,12 @@ class _MenuGeneratorScreenState extends State<MenuGeneratorScreen> {
     setState(() => _busy = false);
     if (menu.isEmpty) {
       setState(() => _error = s.generatorNothing);
+      return;
+    }
+    // Only for others: nothing goes into this user's menu.
+    if (!_forMe && generated != null) {
+      await _sendToMembers(generated, pool, companions, names, lang);
+      if (mounted) Navigator.of(context).pop(_dates.length);
       return;
     }
     final saved = await Navigator.of(context).push<int>(
@@ -396,18 +412,26 @@ class _MenuGeneratorScreenState extends State<MenuGeneratorScreen> {
               }),
             ),
           ),
-          if (_members.isNotEmpty) ...[
+          // EatPoint: everyone in the household, chosen by hand; who can't
+          // be planned for yet is shown with the reason.
+          if (_everyone.isNotEmpty) ...[
             section(s.generatorForWhom),
             Wrap(
               spacing: Dimens.spacing8,
               runSpacing: Dimens.spacing8,
               children: [
-                FilterChip(
-                  label: Text(s.generatorForMe),
-                  selected: true,
-                  onSelected: null,
+                Semantics(
+                  identifier: 'generator-for-me',
+                  child: FilterChip(
+                    label: Text(s.generatorForMe),
+                    selected: _forMe,
+                    // Someone has to be left to plan for.
+                    onSelected: _forMe && _with.isEmpty
+                        ? null
+                        : (v) => setState(() => _forMe = v),
+                  ),
                 ),
-                for (final m in _members)
+                for (final m in _everyone)
                   Semantics(
                     identifier: 'generator-with-${m.memberId}',
                     child: FilterChip(
@@ -418,15 +442,26 @@ class _MenuGeneratorScreenState extends State<MenuGeneratorScreen> {
                       ),
                       label: Text(m.name),
                       selected: _with.contains(m.memberId),
-                      onSelected: (v) => setState(() {
-                        v ? _with.add(m.memberId) : _with.remove(m.memberId);
-                        if (v) _engine = _Engine.phone;
-                      }),
+                      onSelected: !_members.contains(m)
+                          ? null
+                          : (v) => setState(() {
+                              v
+                                  ? _with.add(m.memberId)
+                                  : _with.remove(m.memberId);
+                              if (v) _engine = _Engine.phone;
+                              // Leaving nobody: back to this user.
+                              if (_with.isEmpty) _forMe = true;
+                            }),
                     ),
                   ),
               ],
             ),
             help(s.generatorForWhomHelp),
+            for (final m in _everyone)
+              if (m.profile == null)
+                help(s.generatorMemberNoProfile(m.name))
+              else if (!m.allowsEdits)
+                help(s.generatorMemberNoEdits(m.name)),
           ],
           section(s.generatorEngineTitle),
           Semantics(

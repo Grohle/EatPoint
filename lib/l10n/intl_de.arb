@@ -2204,5 +2204,7 @@
   "editMealMacroOverBase": "Mehr als die Grundmenge ({base})",
   "editMealMacrosOverBase": "Die Makros ergeben {total} g, mehr als die Grundmenge ({base})",
   "editMealKcalTooHigh": "Zu viele kcal für {base}",
-  "editMealCheckValues": "Prüfe die rot markierten Werte"
+  "editMealCheckValues": "Prüfe die rot markierten Werte",
+  "generatorMemberNoProfile": "{name} hat Mahlzeiten und Punkte noch nicht geteilt: nötig ist EatPoint 0.4 oder neuer, geöffnet und synchronisiert auf dem Handy.",
+  "generatorMemberNoEdits": "{name} erlaubt keine Änderungen am Menü (Gemeinsamer Haushalt → „Haushalt darf mein Menü ändern“)."
 }

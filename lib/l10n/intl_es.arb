@@ -2502,5 +2502,7 @@
   "editMealMacroOverBase": "Más que la cantidad base ({base})",
   "editMealMacrosOverBase": "Los macros suman {total} g, más que la cantidad base ({base})",
   "editMealKcalTooHigh": "Demasiadas kcal para {base}",
-  "editMealCheckValues": "Revisa los valores marcados en rojo"
+  "editMealCheckValues": "Revisa los valores marcados en rojo",
+  "generatorMemberNoProfile": "{name} aún no ha compartido sus comidas y puntos: necesita EatPoint 0.4 o posterior, abierto y sincronizado en su móvil.",
+  "generatorMemberNoEdits": "{name} no permite que cambien su menú (Hogar compartido → «Permitir que el hogar cambie mi menú»)."
 }

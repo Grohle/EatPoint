@@ -16,6 +16,7 @@ import 'package:opennutritracker/features/points/domain/entity/meal_slot.dart';
 import 'package:opennutritracker/features/sync/data/household_store.dart';
 import 'package:opennutritracker/features/sync/domain/household.dart';
 import 'package:opennutritracker/features/sync/domain/household_menu.dart';
+import 'package:opennutritracker/generated/l10n.dart';
 import 'package:opennutritracker/features/sync/domain/sync_backend.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
@@ -179,6 +180,137 @@ void main() {
         );
       }
     }
+  });
+
+  Future<HouseholdStore> householdWith(List<MemberSnapshot> members) async {
+    final household = HouseholdStore(
+      FakeHiveDBProvider(pointsSettingsBox: _KeyedBox()),
+      _NoSecrets(),
+    );
+    await household.saveHousehold(
+      const Household(
+        householdId: '0123456789abcdef0123456789abcdef',
+        memberId: 'aaaaaaaaaaaaaaaa',
+        memberName: 'Ann',
+        backend: SyncBackendConfig(
+          kind: SyncBackendKind.webdav,
+          url: 'https://example.org/dav',
+        ),
+      ),
+    );
+    for (final m in members) {
+      await household.saveMember(m);
+    }
+    locator.registerSingleton<HouseholdStore>(household);
+    return household;
+  }
+
+  MemberProfile profile({bool allowEdits = true}) => MemberProfile(
+    allowEdits: allowEdits,
+    slots: [
+      for (final slot in MealSlot.builtIn())
+        MemberSlot(id: slot.id, baseType: slot.baseType),
+    ],
+    budgets: {
+      for (final slot in MealSlot.builtIn())
+        slot.id: const MacroPoints(carbs: 4, protein: 3, fat: 2),
+    },
+  );
+
+  testWidgets('everyone in the household shows, with why some can\'t be chosen', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(1080, 2400);
+    tester.view.devicePixelRatio = 2.625;
+    addTearDown(tester.view.reset);
+    await householdWith([
+      MemberSnapshot(
+        memberId: 'bbbbbbbbbbbbbbbb',
+        name: 'Bo',
+        updatedAt: DateTime(2026, 11, 30),
+      ),
+      MemberSnapshot(
+        memberId: 'cccccccccccccccc',
+        name: 'Cy',
+        updatedAt: DateTime(2026, 11, 30),
+        profile: profile(allowEdits: false),
+      ),
+    ]);
+    await tester.pumpWidget(
+      localizedApp(MenuGeneratorScreen(initialDay: DateTime(2026, 11, 30))),
+    );
+    await tester.pumpAndSettle();
+    final s = S.of(tester.element(find.byType(MenuGeneratorScreen)));
+    await tester.scrollUntilVisible(
+      find.text(s.generatorMemberNoEdits('Cy')),
+      300,
+      scrollable: find.byType(Scrollable).first,
+    );
+    expect(find.text(s.generatorMemberNoProfile('Bo')), findsOneWidget);
+    expect(find.text(s.generatorMemberNoEdits('Cy')), findsOneWidget);
+    final chip = tester.widget<FilterChip>(
+      find.descendant(
+        of: bySemanticsId('generator-with-bbbbbbbbbbbbbbbb'),
+        matching: find.byType(FilterChip),
+      ),
+    );
+    expect(chip.onSelected, isNull);
+  });
+
+  testWidgets('a menu can be made only for another member', (tester) async {
+    tester.view.physicalSize = const Size(1080, 2400);
+    tester.view.devicePixelRatio = 2.625;
+    addTearDown(tester.view.reset);
+    final household = await householdWith([
+      MemberSnapshot(
+        memberId: 'bbbbbbbbbbbbbbbb',
+        name: 'Bo',
+        updatedAt: DateTime(2026, 11, 30),
+        profile: profile(),
+      ),
+    ]);
+    int? popped;
+    await tester.pumpWidget(
+      localizedApp(
+        Builder(
+          builder: (context) => TextButton(
+            onPressed: () async => popped = await Navigator.of(context).push(
+              MaterialPageRoute<int>(
+                builder: (_) =>
+                    MenuGeneratorScreen(initialDay: DateTime(2026, 11, 30)),
+              ),
+            ),
+            child: const Text('open'),
+          ),
+        ),
+      ),
+    );
+    await tester.tap(find.text('open'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('1 day'));
+    Future<void> tapId(String id) async {
+      final f = bySemanticsId(id);
+      await tester.scrollUntilVisible(
+        f,
+        300,
+        scrollable: find.byType(Scrollable).first,
+      );
+      await tester.tap(f);
+      await tester.pumpAndSettle();
+    }
+
+    await tapId('generator-with-bbbbbbbbbbbbbbbb');
+    await tapId('generator-for-me');
+    await tapId('generator-generate');
+    await tester.runAsync(
+      () => Future<void>.delayed(const Duration(milliseconds: 200)),
+    );
+    await tester.pumpAndSettle();
+
+    // Straight to Bo, nothing into this user's menu.
+    expect(find.byType(MenuImportReviewScreen), findsNothing);
+    expect(popped, 1);
+    expect(household.pendingEdits(), hasLength(4));
   });
 
   test('the AI brief carries the meals, points and diet', () {

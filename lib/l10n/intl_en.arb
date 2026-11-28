@@ -5432,5 +5432,23 @@
   "editMealCheckValues": "Check the values marked in red",
   "@editMealCheckValues": {
     "description": "Snack bar when a food can't be saved as entered"
+  },
+  "generatorMemberNoProfile": "{name} hasn't shared their meals and points yet: they need EatPoint 0.4 or later, opened and synced on their phone.",
+  "@generatorMemberNoProfile": {
+    "description": "Generator: why a household member can't be planned for",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "generatorMemberNoEdits": "{name} doesn't let others change their menu (Shared household → \"Let the household change my menu\").",
+  "@generatorMemberNoEdits": {
+    "description": "Generator: why a household member can't be planned for",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
   }
 }

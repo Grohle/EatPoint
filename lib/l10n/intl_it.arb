@@ -2173,5 +2173,7 @@
   "editMealMacroOverBase": "Più della quantità di base ({base})",
   "editMealMacrosOverBase": "I macro fanno {total} g, più della quantità di base ({base})",
   "editMealKcalTooHigh": "Troppe kcal per {base}",
-  "editMealCheckValues": "Controlla i valori segnati in rosso"
+  "editMealCheckValues": "Controlla i valori segnati in rosso",
+  "generatorMemberNoProfile": "{name} non ha ancora condiviso pasti e punti: serve EatPoint 0.4 o successiva, aperta e sincronizzata sul telefono.",
+  "generatorMemberNoEdits": "{name} non permette di cambiare il suo menu (Nucleo condiviso → «Consenti alla casa di cambiare il mio menu»)."
 }

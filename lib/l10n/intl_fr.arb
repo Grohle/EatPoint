@@ -2288,5 +2288,7 @@
   "editMealMacroOverBase": "Plus que la quantité de base ({base})",
   "editMealMacrosOverBase": "Les macros font {total} g, plus que la quantité de base ({base})",
   "editMealKcalTooHigh": "Trop de kcal pour {base}",
-  "editMealCheckValues": "Vérifiez les valeurs marquées en rouge"
+  "editMealCheckValues": "Vérifiez les valeurs marquées en rouge",
+  "generatorMemberNoProfile": "{name} n'a pas encore partagé ses repas et ses points : il faut EatPoint 0.4 ou plus, ouvert et synchronisé sur son téléphone.",
+  "generatorMemberNoEdits": "{name} ne permet pas qu'on modifie son menu (Foyer partagé → « Laisser le foyer modifier mon menu »)."
 }
