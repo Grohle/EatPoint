@@ -2636,5 +2636,977 @@
 "vegan",
 "vegetarian"
 ]
+},
+{
+"name": "Arepa de maíz",
+"carbs": 41.0,
+"protein": 4.5,
+"fat": 3.0,
+"kcal": 215,
+"liquid": false,
+"fibre": 3.0,
+"allergens": [],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Arepa rellena de queso",
+"carbs": 30.0,
+"protein": 10.0,
+"fat": 11.0,
+"kcal": 260,
+"liquid": false,
+"fibre": 2.0,
+"allergens": [
+"milk"
+],
+"labels": [
+"vegetarian"
+]
+},
+{
+"name": "Arepa reina pepiada (pollo y aguacate)",
+"carbs": 22.0,
+"protein": 11.0,
+"fat": 8.5,
+"kcal": 210,
+"liquid": false,
+"fibre": 3.0,
+"allergens": [],
+"labels": []
+},
+{
+"name": "Harina de maíz precocida (para arepas)",
+"carbs": 70.0,
+"protein": 9.3,
+"fat": 3.8,
+"kcal": 364,
+"liquid": false,
+"fibre": 6.4,
+"allergens": [],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Tortilla de trigo (wrap)",
+"carbs": 48.0,
+"protein": 8.5,
+"fat": 7.5,
+"kcal": 300,
+"liquid": false,
+"fibre": 2.5,
+"allergens": [
+"gluten"
+],
+"labels": [
+"vegetarian"
+]
+},
+{
+"name": "Tortilla de trigo integral",
+"carbs": 42.0,
+"protein": 9.0,
+"fat": 7.5,
+"kcal": 290,
+"liquid": false,
+"fibre": 6.5,
+"allergens": [
+"gluten"
+],
+"labels": [
+"vegetarian"
+]
+},
+{
+"name": "Tortilla de maíz (para tacos)",
+"carbs": 38.3,
+"protein": 5.7,
+"fat": 2.9,
+"kcal": 218,
+"liquid": false,
+"fibre": 6.3,
+"allergens": [],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Tostada de maíz frita (taco crujiente)",
+"carbs": 55.3,
+"protein": 7.2,
+"fat": 22.6,
+"kcal": 467,
+"liquid": false,
+"fibre": 7.1,
+"allergens": [],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Pan de pita",
+"carbs": 53.5,
+"protein": 9.1,
+"fat": 1.2,
+"kcal": 275,
+"liquid": false,
+"fibre": 2.2,
+"allergens": [
+"gluten"
+],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Pan naan",
+"carbs": 48.0,
+"protein": 9.0,
+"fat": 6.5,
+"kcal": 290,
+"liquid": false,
+"fibre": 2.0,
+"allergens": [
+"gluten",
+"milk"
+],
+"labels": [
+"vegetarian"
+]
+},
+{
+"name": "Pan bao al vapor",
+"carbs": 44.0,
+"protein": 7.0,
+"fat": 2.5,
+"kcal": 230,
+"liquid": false,
+"fibre": 1.5,
+"allergens": [
+"gluten"
+],
+"labels": [
+"vegetarian"
+]
+},
+{
+"name": "Maki de salmón",
+"carbs": 25.0,
+"protein": 6.0,
+"fat": 2.5,
+"kcal": 148,
+"liquid": false,
+"fibre": 0.8,
+"allergens": [
+"fish"
+],
+"labels": []
+},
+{
+"name": "Maki de atún",
+"carbs": 25.0,
+"protein": 7.0,
+"fat": 0.8,
+"kcal": 137,
+"liquid": false,
+"fibre": 0.8,
+"allergens": [
+"fish"
+],
+"labels": []
+},
+{
+"name": "Maki de pepino",
+"carbs": 25.0,
+"protein": 2.5,
+"fat": 0.4,
+"kcal": 115,
+"liquid": false,
+"fibre": 1.0,
+"allergens": [],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Maki de aguacate",
+"carbs": 25.0,
+"protein": 2.5,
+"fat": 3.5,
+"kcal": 144,
+"liquid": false,
+"fibre": 1.5,
+"allergens": [],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "California roll (uramaki de surimi y aguacate)",
+"carbs": 25.0,
+"protein": 4.0,
+"fat": 3.5,
+"kcal": 150,
+"liquid": false,
+"fibre": 1.5,
+"allergens": [
+"fish",
+"sesame"
+],
+"labels": []
+},
+{
+"name": "Uramaki de salmón, aguacate y queso crema",
+"carbs": 26.0,
+"protein": 6.0,
+"fat": 6.5,
+"kcal": 188,
+"liquid": false,
+"fibre": 1.0,
+"allergens": [
+"fish",
+"milk",
+"sesame"
+],
+"labels": []
+},
+{
+"name": "Nigiri de salmón",
+"carbs": 26.0,
+"protein": 8.0,
+"fat": 3.5,
+"kcal": 168,
+"liquid": false,
+"fibre": 0.3,
+"allergens": [
+"fish"
+],
+"labels": []
+},
+{
+"name": "Nigiri de atún",
+"carbs": 26.0,
+"protein": 9.5,
+"fat": 0.6,
+"kcal": 148,
+"liquid": false,
+"fibre": 0.3,
+"allergens": [
+"fish"
+],
+"labels": []
+},
+{
+"name": "Nigiri de langostino",
+"carbs": 26.0,
+"protein": 8.0,
+"fat": 0.5,
+"kcal": 140,
+"liquid": false,
+"fibre": 0.3,
+"allergens": [
+"crustacean"
+],
+"labels": []
+},
+{
+"name": "Nigiri de pez mantequilla",
+"carbs": 26.0,
+"protein": 7.0,
+"fat": 5.0,
+"kcal": 177,
+"liquid": false,
+"fibre": 0.3,
+"allergens": [
+"fish"
+],
+"labels": []
+},
+{
+"name": "Nigiri de anguila (unagi)",
+"carbs": 30.0,
+"protein": 8.0,
+"fat": 5.0,
+"kcal": 197,
+"liquid": false,
+"fibre": 0.3,
+"allergens": [
+"fish",
+"soy",
+"gluten"
+],
+"labels": []
+},
+{
+"name": "Sashimi de salmón",
+"carbs": 0.0,
+"protein": 20.4,
+"fat": 13.4,
+"kcal": 208,
+"liquid": false,
+"fibre": 0.0,
+"allergens": [
+"fish"
+],
+"labels": []
+},
+{
+"name": "Sashimi de atún rojo",
+"carbs": 0.0,
+"protein": 23.3,
+"fat": 4.9,
+"kcal": 144,
+"liquid": false,
+"fibre": 0.0,
+"allergens": [
+"fish"
+],
+"labels": []
+},
+{
+"name": "Sashimi de atún de aleta amarilla",
+"carbs": 0.0,
+"protein": 24.4,
+"fat": 0.5,
+"kcal": 109,
+"liquid": false,
+"fibre": 0.0,
+"allergens": [
+"fish"
+],
+"labels": []
+},
+{
+"name": "Sashimi de pez mantequilla",
+"carbs": 0.0,
+"protein": 17.0,
+"fat": 13.0,
+"kcal": 185,
+"liquid": false,
+"fibre": 0.0,
+"allergens": [
+"fish"
+],
+"labels": []
+},
+{
+"name": "Sashimi de dorada",
+"carbs": 0.0,
+"protein": 19.8,
+"fat": 4.6,
+"kcal": 121,
+"liquid": false,
+"fibre": 0.0,
+"allergens": [
+"fish"
+],
+"labels": []
+},
+{
+"name": "Sashimi de lubina",
+"carbs": 0.0,
+"protein": 18.4,
+"fat": 2.0,
+"kcal": 97,
+"liquid": false,
+"fibre": 0.0,
+"allergens": [
+"fish"
+],
+"labels": []
+},
+{
+"name": "Sashimi de pez limón (hamachi)",
+"carbs": 0.0,
+"protein": 23.1,
+"fat": 5.2,
+"kcal": 146,
+"liquid": false,
+"fibre": 0.0,
+"allergens": [
+"fish"
+],
+"labels": []
+},
+{
+"name": "Sashimi de caballa",
+"carbs": 0.0,
+"protein": 18.6,
+"fat": 13.9,
+"kcal": 205,
+"liquid": false,
+"fibre": 0.0,
+"allergens": [
+"fish"
+],
+"labels": []
+},
+{
+"name": "Sashimi de pulpo",
+"carbs": 4.4,
+"protein": 29.8,
+"fat": 2.1,
+"kcal": 164,
+"liquid": false,
+"fibre": 0.0,
+"allergens": [
+"mollusc"
+],
+"labels": []
+},
+{
+"name": "Sashimi de vieira",
+"carbs": 3.2,
+"protein": 12.1,
+"fat": 0.5,
+"kcal": 69,
+"liquid": false,
+"fibre": 0.0,
+"allergens": [
+"mollusc"
+],
+"labels": []
+},
+{
+"name": "Sashimi de gamba dulce",
+"carbs": 0.0,
+"protein": 20.1,
+"fat": 0.5,
+"kcal": 85,
+"liquid": false,
+"fibre": 0.0,
+"allergens": [
+"crustacean"
+],
+"labels": []
+},
+{
+"name": "Arroz de sushi (preparado)",
+"carbs": 33.0,
+"protein": 2.6,
+"fat": 0.3,
+"kcal": 145,
+"liquid": false,
+"fibre": 0.4,
+"allergens": [],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Ensalada de algas wakame",
+"carbs": 9.0,
+"protein": 1.0,
+"fat": 3.0,
+"kcal": 70,
+"liquid": false,
+"fibre": 3.0,
+"allergens": [
+"sesame",
+"soy"
+],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Gyozas de cerdo",
+"carbs": 22.0,
+"protein": 8.0,
+"fat": 9.0,
+"kcal": 204,
+"liquid": false,
+"fibre": 1.5,
+"allergens": [
+"gluten",
+"soy"
+],
+"labels": []
+},
+{
+"name": "Paella de marisco",
+"carbs": 20.0,
+"protein": 8.0,
+"fat": 4.0,
+"kcal": 150,
+"liquid": false,
+"fibre": 0.7,
+"allergens": [
+"crustacean",
+"mollusc"
+],
+"labels": []
+},
+{
+"name": "Paella valenciana (pollo y conejo)",
+"carbs": 20.0,
+"protein": 9.0,
+"fat": 5.0,
+"kcal": 160,
+"liquid": false,
+"fibre": 1.0,
+"allergens": [],
+"labels": []
+},
+{
+"name": "Lentejas estofadas con verduras",
+"carbs": 14.0,
+"protein": 6.5,
+"fat": 2.5,
+"kcal": 110,
+"liquid": false,
+"fibre": 4.0,
+"allergens": [],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Lentejas con chorizo",
+"carbs": 13.0,
+"protein": 8.0,
+"fat": 6.0,
+"kcal": 140,
+"liquid": false,
+"fibre": 3.5,
+"allergens": [],
+"labels": []
+},
+{
+"name": "Garbanzos con espinacas",
+"carbs": 14.0,
+"protein": 6.0,
+"fat": 3.5,
+"kcal": 120,
+"liquid": false,
+"fibre": 4.5,
+"allergens": [],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Cocido madrileño",
+"carbs": 11.0,
+"protein": 11.0,
+"fat": 8.0,
+"kcal": 160,
+"liquid": false,
+"fibre": 3.0,
+"allergens": [],
+"labels": []
+},
+{
+"name": "Fabada asturiana",
+"carbs": 11.0,
+"protein": 9.0,
+"fat": 9.0,
+"kcal": 165,
+"liquid": false,
+"fibre": 4.5,
+"allergens": [],
+"labels": []
+},
+{
+"name": "Pisto",
+"carbs": 6.0,
+"protein": 1.3,
+"fat": 4.5,
+"kcal": 70,
+"liquid": false,
+"fibre": 1.8,
+"allergens": [],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Crema de calabaza",
+"carbs": 6.0,
+"protein": 1.0,
+"fat": 2.3,
+"kcal": 50,
+"liquid": false,
+"fibre": 1.0,
+"allergens": [],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Croquetas de jamón",
+"carbs": 20.0,
+"protein": 7.0,
+"fat": 13.5,
+"kcal": 230,
+"liquid": false,
+"fibre": 0.8,
+"allergens": [
+"gluten",
+"milk",
+"egg"
+],
+"labels": []
+},
+{
+"name": "Croquetas de pollo",
+"carbs": 20.0,
+"protein": 8.0,
+"fat": 12.0,
+"kcal": 220,
+"liquid": false,
+"fibre": 0.8,
+"allergens": [
+"gluten",
+"milk",
+"egg"
+],
+"labels": []
+},
+{
+"name": "Albóndigas en salsa",
+"carbs": 6.0,
+"protein": 12.0,
+"fat": 12.0,
+"kcal": 180,
+"liquid": false,
+"fibre": 0.5,
+"allergens": [
+"gluten",
+"egg"
+],
+"labels": []
+},
+{
+"name": "Pollo al curry",
+"carbs": 5.0,
+"protein": 14.0,
+"fat": 7.0,
+"kcal": 140,
+"liquid": false,
+"fibre": 1.0,
+"allergens": [],
+"labels": []
+},
+{
+"name": "Macarrones con tomate y carne",
+"carbs": 20.0,
+"protein": 7.0,
+"fat": 4.5,
+"kcal": 150,
+"liquid": false,
+"fibre": 1.5,
+"allergens": [
+"gluten"
+],
+"labels": []
+},
+{
+"name": "Espaguetis a la carbonara",
+"carbs": 24.0,
+"protein": 8.0,
+"fat": 9.0,
+"kcal": 210,
+"liquid": false,
+"fibre": 1.0,
+"allergens": [
+"gluten",
+"egg",
+"milk"
+],
+"labels": []
+},
+{
+"name": "Lasaña de carne",
+"carbs": 13.0,
+"protein": 9.0,
+"fat": 8.0,
+"kcal": 160,
+"liquid": false,
+"fibre": 1.0,
+"allergens": [
+"gluten",
+"milk",
+"egg"
+],
+"labels": []
+},
+{
+"name": "Arroz a la cubana",
+"carbs": 22.0,
+"protein": 5.0,
+"fat": 5.5,
+"kcal": 160,
+"liquid": false,
+"fibre": 1.0,
+"allergens": [
+"egg"
+],
+"labels": [
+"vegetarian"
+]
+},
+{
+"name": "Ensalada mixta",
+"carbs": 3.0,
+"protein": 2.5,
+"fat": 4.0,
+"kcal": 60,
+"liquid": false,
+"fibre": 1.5,
+"allergens": [
+"egg",
+"fish"
+],
+"labels": []
+},
+{
+"name": "Salmón al horno",
+"carbs": 0.0,
+"protein": 22.0,
+"fat": 12.4,
+"kcal": 206,
+"liquid": false,
+"fibre": 0.0,
+"allergens": [
+"fish"
+],
+"labels": []
+},
+{
+"name": "Merluza a la plancha",
+"carbs": 0.0,
+"protein": 19.5,
+"fat": 2.5,
+"kcal": 100,
+"liquid": false,
+"fibre": 0.0,
+"allergens": [
+"fish"
+],
+"labels": []
+},
+{
+"name": "Pechuga de pollo a la plancha",
+"carbs": 0.0,
+"protein": 31.0,
+"fat": 3.6,
+"kcal": 165,
+"liquid": false,
+"fibre": 0.0,
+"allergens": [],
+"labels": []
+},
+{
+"name": "Huevos revueltos",
+"carbs": 1.6,
+"protein": 10.0,
+"fat": 11.0,
+"kcal": 149,
+"liquid": false,
+"fibre": 0.0,
+"allergens": [
+"egg",
+"milk"
+],
+"labels": [
+"vegetarian"
+]
+},
+{
+"name": "Guacamole",
+"carbs": 3.5,
+"protein": 2.0,
+"fat": 13.5,
+"kcal": 155,
+"liquid": false,
+"fibre": 6.0,
+"allergens": [],
+"labels": [
+"vegan",
+"vegetarian"
+]
+},
+{
+"name": "Burrito de pollo",
+"carbs": 21.0,
+"protein": 10.0,
+"fat": 6.0,
+"kcal": 180,
+"liquid": false,
+"fibre": 2.5,
+"allergens": [
+"gluten",
+"milk"
+],
+"labels": []
+},
+{
+"name": "Tacos de carne al pastor",
+"carbs": 18.0,
+"protein": 11.0,
+"fat": 10.0,
+"kcal": 210,
+"liquid": false,
+"fibre": 2.0,
+"allergens": [],
+"labels": []
+},
+{
+"name": "Quesadilla de queso",
+"carbs": 26.0,
+"protein": 13.0,
+"fat": 16.0,
+"kcal": 300,
+"liquid": false,
+"fibre": 1.5,
+"allergens": [
+"gluten",
+"milk"
+],
+"labels": [
+"vegetarian"
+]
+},
+{
+"name": "Empanada gallega de atún",
+"carbs": 28.0,
+"protein": 9.0,
+"fat": 12.5,
+"kcal": 260,
+"liquid": false,
+"fibre": 1.5,
+"allergens": [
+"gluten",
+"fish",
+"egg"
+],
+"labels": []
+},
+{
+"name": "Patatas bravas",
+"carbs": 18.0,
+"protein": 2.0,
+"fat": 9.0,
+"kcal": 160,
+"liquid": false,
+"fibre": 2.0,
+"allergens": [],
+"labels": []
+},
+{
+"name": "Ceviche de pescado",
+"carbs": 4.0,
+"protein": 15.0,
+"fat": 1.5,
+"kcal": 90,
+"liquid": false,
+"fibre": 0.5,
+"allergens": [
+"fish"
+],
+"labels": []
+},
+{
+"name": "Pad thai de pollo",
+"carbs": 22.0,
+"protein": 8.0,
+"fat": 5.5,
+"kcal": 170,
+"liquid": false,
+"fibre": 1.5,
+"allergens": [
+"peanut",
+"egg",
+"soy"
+],
+"labels": []
+},
+{
+"name": "Ramen de cerdo",
+"carbs": 10.0,
+"protein": 5.0,
+"fat": 3.0,
+"kcal": 90,
+"liquid": false,
+"fibre": 0.5,
+"allergens": [
+"gluten",
+"egg",
+"soy"
+],
+"labels": []
+},
+{
+"name": "Arroz frito tres delicias",
+"carbs": 25.0,
+"protein": 5.0,
+"fat": 5.0,
+"kcal": 165,
+"liquid": false,
+"fibre": 1.0,
+"allergens": [
+"egg",
+"soy"
+],
+"labels": []
+},
+{
+"name": "Pollo tikka masala",
+"carbs": 6.0,
+"protein": 13.0,
+"fat": 8.0,
+"kcal": 150,
+"liquid": false,
+"fibre": 1.0,
+"allergens": [
+"milk"
+],
+"labels": []
+},
+{
+"name": "Hamburguesa completa (pan, carne y queso)",
+"carbs": 22.0,
+"protein": 13.0,
+"fat": 12.0,
+"kcal": 250,
+"liquid": false,
+"fibre": 1.5,
+"allergens": [
+"gluten",
+"milk"
+],
+"labels": []
+},
+{
+"name": "Pizza margarita",
+"carbs": 32.0,
+"protein": 10.0,
+"fat": 9.0,
+"kcal": 250,
+"liquid": false,
+"fibre": 2.0,
+"allergens": [
+"gluten",
+"milk"
+],
+"labels": [
+"vegetarian"
+]
 }
 ]

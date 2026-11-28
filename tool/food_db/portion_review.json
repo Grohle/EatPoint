@@ -559,6 +559,20 @@
   "Albaricoques, en conserva, en almíbar muy espeso, sin piel, con líquido": {
    "none": true
   },
+  "Albóndigas en salsa": {
+   "g": 30.0,
+   "es": [
+    "albóndiga",
+    "albóndigas"
+   ],
+   "en": [
+    "meatball",
+    "meatballs"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
   "Albóndigas veganas": {
    "g": 20.0,
    "es": [
@@ -1255,6 +1269,48 @@
   "Aquarius melocotón": {
    "none": true
   },
+  "Arepa de maíz": {
+   "g": 100.0,
+   "es": [
+    "arepa",
+    "arepas"
+   ],
+   "en": [
+    "arepa",
+    "arepas"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Arepa reina pepiada (pollo y aguacate)": {
+   "g": 200.0,
+   "es": [
+    "arepa",
+    "arepas"
+   ],
+   "en": [
+    "arepa",
+    "arepas"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Arepa rellena de queso": {
+   "g": 150.0,
+   "es": [
+    "arepa",
+    "arepas"
+   ],
+   "en": [
+    "arepa",
+    "arepas"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
   "Aros de cebolla, empanado, prefrito, congelado, preparado, calentado al horno": {
    "g": 15.0,
    "es": [
@@ -1277,6 +1333,20 @@
     "onion rings"
    ]
   },
+  "Arroz a la cubana": {
+   "g": 300.0,
+   "es": [
+    "plato",
+    "platos"
+   ],
+   "en": [
+    "plate",
+    "plates"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
   "Arroz con Leche": {
    "g": 125.0,
    "es": [
@@ -1286,6 +1356,23 @@
    "en": [
     "pot",
     "pots"
+   ]
+  },
+  "Arroz de sushi (preparado)": {
+   "none": true
+  },
+  "Arroz frito tres delicias": {
+   "g": 250.0,
+   "es": [
+    "ración",
+    "raciones"
+   ],
+   "en": [
+    "serving",
+    "servings"
+   ],
+   "src": [
+    "reviewed by hand"
    ]
   },
   "Artinata galletas de barquillo rellenas de nata sin azúcar": {
@@ -2716,6 +2803,20 @@
     "burgers"
    ]
   },
+  "Burrito de pollo": {
+   "g": 250.0,
+   "es": [
+    "burrito",
+    "burritos"
+   ],
+   "en": [
+    "burrito",
+    "burritos"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
   "Burrito, alubias y queso, congelado": {
    "g": 170.0,
    "es": [
@@ -2885,6 +2986,20 @@
   },
   "Caldo natural de pollo": {
    "none": true
+  },
+  "California roll (uramaki de surimi y aguacate)": {
+   "g": 30.0,
+   "es": [
+    "pieza",
+    "piezas"
+   ],
+   "en": [
+    "piece",
+    "pieces"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
   },
   "Captain Rondo galletas con crema de chocolate": {
    "g": 12.0,
@@ -3449,6 +3564,20 @@
   },
   "Cerveza 0,0 tostada": {
    "none": true
+  },
+  "Ceviche de pescado": {
+   "g": 200.0,
+   "es": [
+    "ración",
+    "raciones"
+   ],
+   "en": [
+    "serving",
+    "servings"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
   },
   "Champiñones, blanco, cocido, hervido, escurrido, sin sal": {
    "none": true
@@ -4103,6 +4232,20 @@
   "Cobertura, piña": {
    "none": true
   },
+  "Cocido madrileño": {
+   "g": 400.0,
+   "es": [
+    "plato",
+    "platos"
+   ],
+   "en": [
+    "plate",
+    "plates"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
   "Compota de manzana, en conserva, azucarado, sin sal": {
    "none": true
   },
@@ -4297,6 +4440,20 @@
   "Crema de calabacín": {
    "none": true
   },
+  "Crema de calabaza": {
+   "g": 300.0,
+   "es": [
+    "plato",
+    "platos"
+   ],
+   "en": [
+    "plate",
+    "plates"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
   "Crema de calabaza y zanahoria": {
    "none": true
   },
@@ -4397,6 +4554,20 @@
     "croquettes"
    ]
   },
+  "Croquetas de jamón": {
+   "g": 30.0,
+   "es": [
+    "croqueta",
+    "croquetas"
+   ],
+   "en": [
+    "croquette",
+    "croquettes"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
   "Croquetas de patata, congelado, calentado al horno": {
    "g": 20.0,
    "es": [
@@ -4413,6 +4584,20 @@
   },
   "Croquetas de patata, congelado, sin preparar": {
    "g": 20.0,
+   "es": [
+    "croqueta",
+    "croquetas"
+   ],
+   "en": [
+    "croquette",
+    "croquettes"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Croquetas de pollo": {
+   "g": 30.0,
    "es": [
     "croqueta",
     "croquetas"
@@ -4812,6 +4997,20 @@
     "empanadas"
    ]
   },
+  "Empanada gallega de atún": {
+   "g": 150.0,
+   "es": [
+    "porción",
+    "porciones"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
   "Empanadilla china o wonton, cerdo y verduras, congelado, sin preparar": {
    "g": 20.0,
    "es": [
@@ -5006,10 +5205,16 @@
   "Ensalada césar": {
    "none": true
   },
+  "Ensalada de algas wakame": {
+   "none": true
+  },
   "Ensalada de pasta con pollo al pesto congelada": {
    "none": true
   },
   "Ensalada de patatas": {
+   "none": true
+  },
+  "Ensalada mixta": {
    "none": true
   },
   "Ensaladas sin gluten con tomate y espinacas": {
@@ -5020,6 +5225,20 @@
   },
   "Ensaladilla de patata, casero": {
    "none": true
+  },
+  "Espaguetis a la carbonara": {
+   "g": 300.0,
+   "es": [
+    "plato",
+    "platos"
+   ],
+   "en": [
+    "plate",
+    "plates"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
   },
   "Especialidad vegetal de soja arándanos y frutos rojos": {
    "g": 125.0,
@@ -5159,6 +5378,20 @@
    "en": [
     "pouch",
     "pouches"
+   ]
+  },
+  "Fabada asturiana": {
+   "g": 300.0,
+   "es": [
+    "plato",
+    "platos"
+   ],
+   "en": [
+    "plate",
+    "plates"
+   ],
+   "src": [
+    "reviewed by hand"
    ]
   },
   "Falafel": {
@@ -6920,6 +7153,20 @@
     "https://world.openfoodfacts.org/product/8420933000533/garbanzos-pedro"
    ]
   },
+  "Garbanzos con espinacas": {
+   "g": 300.0,
+   "es": [
+    "plato",
+    "platos"
+   ],
+   "en": [
+    "plate",
+    "plates"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
   "Garbanzos pedrosillanos": {
    "g": 400.0,
    "es": [
@@ -7192,6 +7439,9 @@
     "yogurts"
    ]
   },
+  "Guacamole": {
+   "none": true
+  },
   "Guayabas, fresa, crudo": {
    "g": 100.0,
    "es": [
@@ -7274,6 +7524,20 @@
     "https://world.openfoodfacts.org/product/8410376049862/galletas-maria-0-azucares-selecta"
    ]
   },
+  "Gyozas de cerdo": {
+   "g": 25.0,
+   "es": [
+    "gyoza",
+    "gyozas"
+   ],
+   "en": [
+    "gyoza",
+    "gyozas"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
   "Gyozas pollo": {
    "g": 20.0,
    "es": [
@@ -7316,6 +7580,20 @@
   "HIGH PROTEIN CLEAR WHEY DRINK TEA-LEMON FLAVOUR": {
    "none": true
   },
+  "Hamburguesa completa (pan, carne y queso)": {
+   "g": 220.0,
+   "es": [
+    "hamburguesa",
+    "hamburguesas"
+   ],
+   "en": [
+    "burger",
+    "burgers"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
   "Hamburguesa de legumbres (lentejas o garbanzos)": {
    "g": 100.0,
    "es": [
@@ -7345,6 +7623,9 @@
    ]
   },
   "Hamburguesas vegetales o de soja, sin preparar": {
+   "none": true
+  },
+  "Harina de maíz precocida (para arepas)": {
    "none": true
   },
   "Harina de patata": {
@@ -7742,6 +8023,20 @@
   "Huevo, yema, deshidratado": {
    "none": true
   },
+  "Huevos revueltos": {
+   "g": 120.0,
+   "es": [
+    "ración",
+    "raciones"
+   ],
+   "en": [
+    "serving",
+    "servings"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
   "Huevos, revuelto, mezcla congelada": {
    "none": true
   },
@@ -8045,6 +8340,20 @@
   "Lasagna espinacas y requesón": {
    "none": true
   },
+  "Lasaña de carne": {
+   "g": 250.0,
+   "es": [
+    "ración",
+    "raciones"
+   ],
+   "en": [
+    "serving",
+    "servings"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
   "Lasaña de pollo": {
    "none": true
   },
@@ -8113,6 +8422,34 @@
    "en": [
     "glass",
     "glasses"
+   ]
+  },
+  "Lentejas con chorizo": {
+   "g": 300.0,
+   "es": [
+    "plato",
+    "platos"
+   ],
+   "en": [
+    "plate",
+    "plates"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Lentejas estofadas con verduras": {
+   "g": 300.0,
+   "es": [
+    "plato",
+    "platos"
+   ],
+   "en": [
+    "plate",
+    "plates"
+   ],
+   "src": [
+    "reviewed by hand"
    ]
   },
   "Lentejas rojas (secas)": {
@@ -8215,6 +8552,20 @@
   },
   "Lunettes con fresa": {
    "none": true
+  },
+  "Macarrones con tomate y carne": {
+   "g": 300.0,
+   "es": [
+    "plato",
+    "platos"
+   ],
+   "en": [
+    "plate",
+    "plates"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
   },
   "Macedonia de frutas, melocotón, pera, albaricoque, piña y cereza, en conserva, en agua, con líquido": {
    "g": 150.0,
@@ -8341,6 +8692,62 @@
    "en": [
     "muffin",
     "muffins"
+   ]
+  },
+  "Maki de aguacate": {
+   "g": 22.0,
+   "es": [
+    "pieza",
+    "piezas"
+   ],
+   "en": [
+    "piece",
+    "pieces"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Maki de atún": {
+   "g": 25.0,
+   "es": [
+    "pieza",
+    "piezas"
+   ],
+   "en": [
+    "piece",
+    "pieces"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Maki de pepino": {
+   "g": 20.0,
+   "es": [
+    "pieza",
+    "piezas"
+   ],
+   "en": [
+    "piece",
+    "pieces"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Maki de salmón": {
+   "g": 25.0,
+   "es": [
+    "pieza",
+    "piezas"
+   ],
+   "en": [
+    "piece",
+    "pieces"
+   ],
+   "src": [
+    "reviewed by hand"
    ]
   },
   "Mandarinas, en conserva, en almíbar ligero": {
@@ -8800,6 +9207,20 @@
   },
   "Melón amargo, vainas, crudo": {
    "none": true
+  },
+  "Merluza a la plancha": {
+   "g": 150.0,
+   "es": [
+    "filete",
+    "filetes"
+   ],
+   "en": [
+    "fillet",
+    "fillets"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
   },
   "Mermelada Arándanos": {
    "none": true
@@ -9487,6 +9908,76 @@
   "Nidos al Huevo": {
    "none": true
   },
+  "Nigiri de anguila (unagi)": {
+   "g": 32.0,
+   "es": [
+    "pieza",
+    "piezas"
+   ],
+   "en": [
+    "piece",
+    "pieces"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Nigiri de atún": {
+   "g": 30.0,
+   "es": [
+    "pieza",
+    "piezas"
+   ],
+   "en": [
+    "piece",
+    "pieces"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Nigiri de langostino": {
+   "g": 30.0,
+   "es": [
+    "pieza",
+    "piezas"
+   ],
+   "en": [
+    "piece",
+    "pieces"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Nigiri de pez mantequilla": {
+   "g": 30.0,
+   "es": [
+    "pieza",
+    "piezas"
+   ],
+   "en": [
+    "piece",
+    "pieces"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Nigiri de salmón": {
+   "g": 30.0,
+   "es": [
+    "pieza",
+    "piezas"
+   ],
+   "en": [
+    "piece",
+    "pieces"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
   "Nueces de macadamia, tostadas y con sal": {
    "none": true
   },
@@ -9632,6 +10123,48 @@
     "pots"
    ]
   },
+  "Pad thai de pollo": {
+   "g": 300.0,
+   "es": [
+    "plato",
+    "platos"
+   ],
+   "en": [
+    "plate",
+    "plates"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Paella de marisco": {
+   "g": 300.0,
+   "es": [
+    "plato",
+    "platos"
+   ],
+   "en": [
+    "plate",
+    "plates"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Paella valenciana (pollo y conejo)": {
+   "g": 300.0,
+   "es": [
+    "plato",
+    "platos"
+   ],
+   "en": [
+    "plate",
+    "plates"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
   "Palitos de beicon y ternera": {
    "g": 15.0,
    "es": [
@@ -9752,6 +10285,20 @@
   "Pan Tradicional": {
    "none": true
   },
+  "Pan bao al vapor": {
+   "g": 40.0,
+   "es": [
+    "pan bao",
+    "panes bao"
+   ],
+   "en": [
+    "bao bun",
+    "bao buns"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
   "Pan brioche burger": {
    "g": 60.0,
    "es": [
@@ -9849,6 +10396,20 @@
   "Pan de molde 35% avena": {
    "none": true
   },
+  "Pan de pita": {
+   "g": 60.0,
+   "es": [
+    "pan de pita",
+    "panes de pita"
+   ],
+   "en": [
+    "pitta",
+    "pittas"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
   "Pan di stelle": {
    "g": 10.0,
    "es": [
@@ -9908,6 +10469,20 @@
    "en": [
     "slice",
     "slices"
+   ]
+  },
+  "Pan naan": {
+   "g": 90.0,
+   "es": [
+    "naan",
+    "naans"
+   ],
+   "en": [
+    "naan",
+    "naans"
+   ],
+   "src": [
+    "reviewed by hand"
    ]
   },
   "Pan proteinK": {
@@ -10795,6 +11370,20 @@
   "Patatas Wedges condimentadas": {
    "none": true
   },
+  "Patatas bravas": {
+   "g": 200.0,
+   "es": [
+    "ración",
+    "raciones"
+   ],
+   "en": [
+    "serving",
+    "servings"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
   "Patatas corte fino": {
    "none": true
   },
@@ -11454,6 +12043,20 @@
     "slices"
    ]
   },
+  "Pechuga de pollo a la plancha": {
+   "g": 120.0,
+   "es": [
+    "filete",
+    "filetes"
+   ],
+   "en": [
+    "fillet",
+    "fillets"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
   "Pechuga de pollo, asado al horno, sin grasa, en rodajas": {
    "g": 20.0,
    "es": [
@@ -12037,6 +12640,9 @@
   "Pipas girasol tostadas gigantes 0% sal añadida": {
    "none": true
   },
+  "Pisto": {
+   "none": true
+  },
   "Pizza 4 quesos": {
    "g": 120.0,
    "es": [
@@ -12071,6 +12677,20 @@
    "en": [
     "portion",
     "portions"
+   ]
+  },
+  "Pizza margarita": {
+   "g": 110.0,
+   "es": [
+    "porción",
+    "porciones"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "reviewed by hand"
    ]
   },
   "Pizza queso cabra ecológica": {
@@ -12235,10 +12855,35 @@
    "none": true
   },
   "Pollo al curry": {
-   "none": true
+   "g": 250.0,
+   "es": [
+    "ración",
+    "raciones"
+   ],
+   "en": [
+    "serving",
+    "servings"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
   },
   "Pollo crispy estilo americano": {
    "none": true
+  },
+  "Pollo tikka masala": {
+   "g": 250.0,
+   "es": [
+    "ración",
+    "raciones"
+   ],
+   "en": [
+    "serving",
+    "servings"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
   },
   "Pollo vegano en tiras": {
    "none": true
@@ -13474,6 +14119,20 @@
   "Quark Queso Natural": {
    "none": true
   },
+  "Quesadilla de queso": {
+   "g": 150.0,
+   "es": [
+    "quesadilla",
+    "quesadillas"
+   ],
+   "en": [
+    "quesadilla",
+    "quesadillas"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
   "Queso Burgos Natural": {
    "none": true
   },
@@ -13876,6 +14535,20 @@
   },
   "Queso, roquefort": {
    "none": true
+  },
+  "Ramen de cerdo": {
+   "g": 500.0,
+   "es": [
+    "bol",
+    "boles"
+   ],
+   "en": [
+    "bowl",
+    "bowls"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
   },
   "Raviolis, queso con salsa de tomate, congelado, sin preparar, incluye platos normales y ligeros": {
    "g": 12.0,
@@ -14326,6 +14999,20 @@
     "https://servicio.mapama.gob.es/es/ministerio/servicios/informacion/salmon-ahumado_tcm30-102848.pdf"
    ]
   },
+  "Salmón al horno": {
+   "g": 150.0,
+   "es": [
+    "filete",
+    "filetes"
+   ],
+   "en": [
+    "fillet",
+    "fillets"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
   "Salmón al natural": {
    "g": 100.0,
    "es": [
@@ -14571,6 +15258,160 @@
    "en": [
     "can",
     "cans"
+   ]
+  },
+  "Sashimi de atún de aleta amarilla": {
+   "g": 12.0,
+   "es": [
+    "loncha",
+    "lonchas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Sashimi de atún rojo": {
+   "g": 12.0,
+   "es": [
+    "loncha",
+    "lonchas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Sashimi de caballa": {
+   "g": 12.0,
+   "es": [
+    "loncha",
+    "lonchas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Sashimi de dorada": {
+   "g": 10.0,
+   "es": [
+    "loncha",
+    "lonchas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Sashimi de gamba dulce": {
+   "g": 10.0,
+   "es": [
+    "gamba",
+    "gambas"
+   ],
+   "en": [
+    "prawn",
+    "prawns"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Sashimi de lubina": {
+   "g": 10.0,
+   "es": [
+    "loncha",
+    "lonchas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Sashimi de pez limón (hamachi)": {
+   "g": 12.0,
+   "es": [
+    "loncha",
+    "lonchas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Sashimi de pez mantequilla": {
+   "g": 12.0,
+   "es": [
+    "loncha",
+    "lonchas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Sashimi de pulpo": {
+   "g": 10.0,
+   "es": [
+    "loncha",
+    "lonchas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Sashimi de salmón": {
+   "g": 12.0,
+   "es": [
+    "loncha",
+    "lonchas"
+   ],
+   "en": [
+    "slice",
+    "slices"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Sashimi de vieira": {
+   "g": 20.0,
+   "es": [
+    "vieira",
+    "vieiras"
+   ],
+   "en": [
+    "scallop",
+    "scallops"
+   ],
+   "src": [
+    "reviewed by hand"
    ]
   },
   "Schweppes Limón 33cl": {
@@ -15142,6 +15983,20 @@
    "en": [
     "crispbread",
     "crispbreads"
+   ]
+  },
+  "Tacos de carne al pastor": {
+   "g": 80.0,
+   "es": [
+    "taco",
+    "tacos"
+   ],
+   "en": [
+    "taco",
+    "tacos"
+   ],
+   "src": [
+    "reviewed by hand"
    ]
   },
   "Takis Queso Volcano": {
@@ -16181,6 +17036,20 @@
   "Tortilla chips Natural": {
    "none": true
   },
+  "Tortilla de maíz (para tacos)": {
+   "g": 30.0,
+   "es": [
+    "tortilla",
+    "tortillas"
+   ],
+   "en": [
+    "tortilla",
+    "tortillas"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
   "Tortilla de patata con cebolla": {
    "g": 100.0,
    "es": [
@@ -16201,6 +17070,34 @@
    "en": [
     "portion",
     "portions"
+   ]
+  },
+  "Tortilla de trigo (wrap)": {
+   "g": 40.0,
+   "es": [
+    "tortilla",
+    "tortillas"
+   ],
+   "en": [
+    "tortilla",
+    "tortillas"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
+  "Tortilla de trigo integral": {
+   "g": 40.0,
+   "es": [
+    "tortilla",
+    "tortillas"
+   ],
+   "en": [
+    "tortilla",
+    "tortillas"
+   ],
+   "src": [
+    "reviewed by hand"
    ]
   },
   "Tortilla nachos": {
@@ -16726,6 +17623,20 @@
     "pancakes"
    ]
   },
+  "Tostada de maíz frita (taco crujiente)": {
+   "g": 13.0,
+   "es": [
+    "tostada",
+    "tostadas"
+   ],
+   "en": [
+    "shell",
+    "shells"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
+  },
   "Tostada golosa": {
    "g": 10.0,
    "es": [
@@ -16909,6 +17820,20 @@
   },
   "Unsweetened Almond": {
    "none": true
+  },
+  "Uramaki de salmón, aguacate y queso crema": {
+   "g": 30.0,
+   "es": [
+    "pieza",
+    "piezas"
+   ],
+   "en": [
+    "piece",
+    "pieces"
+   ],
+   "src": [
+    "reviewed by hand"
+   ]
   },
   "Uvas, en conserva, thompson sin pepitas, en agua, con líquido": {
    "none": true

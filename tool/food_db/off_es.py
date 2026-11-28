@@ -11,8 +11,9 @@ Two steps, both resumable (results are cached in the output directory):
      product endpoint, politely throttled.
 
 Usage: python3 tool/food_db/off_es.py <output dir> [max products] [terms]
-  terms: "general" (the default, single words) or "vegan" (plant-based
-  products, searched by whole phrases).
+  terms: "general" (the default, single words), "vegan" (plant-based
+  products) or "world" (dishes and breads from other cuisines, sushi and
+  ready meals), the last two searched by whole phrases.
 """
 
 import json
@@ -76,6 +77,22 @@ VEGAN_TERMS = [
 ]
 
 
+# Dishes and breads from other cuisines, sushi and ready meals.
+WORLD_TERMS = [
+    "arepa", "harina de maiz precocida", "tortilla de trigo", "tortillas de maiz",
+    "wrap", "fajitas", "burrito", "tacos", "nachos", "quesadilla",
+    "pan de pita", "naan", "pan bao", "sushi", "maki", "nigiri", "uramaki",
+    "california roll", "sashimi", "arroz para sushi", "alga nori", "wakame",
+    "gyoza", "dumplings", "rollitos de primavera", "noodles", "fideos de arroz",
+    "ramen", "udon", "pad thai", "arroz tres delicias", "curry", "tikka masala",
+    "kebab", "shawarma", "falafel", "cuscus", "tabule", "baba ganoush",
+    "paella", "lentejas cocinadas", "fabada", "cocido", "pisto",
+    "crema de verduras", "albondigas", "croquetas de jamon", "lasaña",
+    "canelones", "empanada", "empanadillas", "ensalada preparada",
+    "plato preparado", "poke", "ceviche", "salmon ahumado", "gulas",
+]
+
+
 def get(url, retries=4):
     for attempt in range(retries):
         try:
@@ -94,7 +111,7 @@ def collect(out_dir, limit, terms="general"):
     if os.path.exists(path):
         return json.load(open(path))
     found = {}
-    words = (VEGAN_TERMS if terms == "vegan" else
+    words = ({"vegan": VEGAN_TERMS, "world": WORLD_TERMS}.get(terms) or
              [w for line in TERMS for w in line.split() if len(w) > 2])
     seen_q = set()
     for q in words:

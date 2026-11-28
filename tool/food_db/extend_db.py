@@ -3,15 +3,16 @@ Open Food Facts dumps that build_db.py needs:
 
   * EatPoint's own foods are read again from eatpoint_list.json (new ones
     are appended there, so the ids of the others stay);
-  * Open Food Facts products collected by off_es.py into [OFF dir] are
-    added when the database doesn't have them yet; with --plant-based,
-    only products labelled vegan or plainly plant-based by their name;
+  * Open Food Facts products collected by off_es.py into each OFF dir are
+    added when the database doesn't have them yet; for a dir written as
+    DIR:plant, only products labelled vegan or plainly plant-based by
+    their name;
   * every food's household unit is applied again (portion_review.json).
 
 It writes the next version, eatpoint-foods-v<N+1>.json.gz, and updates
 the manifest, like apply_portions.py.
 
-    python3 tool/food_db/extend_db.py [OFF dir] [--plant-based]
+    python3 tool/food_db/extend_db.py [OFF dir[:plant] ...]
 """
 import datetime
 import gzip
@@ -59,8 +60,10 @@ def plant_based(row):
 
 
 def main():
-    args = [a for a in sys.argv[1:] if not a.startswith("--")]
-    plant_only = "--plant-based" in sys.argv
+    dirs = []
+    for arg in sys.argv[1:]:
+        path, _, kind = arg.partition(":")
+        dirs.append((path, kind == "plant"))
     manifest_path = os.path.join(OUT_DIR, "manifest.json")
     manifest = json.load(open(manifest_path, encoding="utf-8"))
     current = os.path.join(OUT_DIR, manifest["file"])
@@ -68,10 +71,10 @@ def main():
     foods = [f for f in payload["foods"] if f.get("s") != "eatpoint"]
     foods = build_db.eatpoint_list() + foods
     added = 0
-    if args:
-        have = {f["i"] for f in foods}
-        names = {(f.get("es") or "").lower() for f in foods}
-        for row in build_db.open_food_facts(args[0]):
+    have = {f["i"] for f in foods}
+    names = {(f.get("es") or "").lower() for f in foods}
+    for off_dir, plant_only in dirs:
+        for row in build_db.open_food_facts(off_dir):
             name = (row.get("es") or "").lower()
             if row["i"] in have or name in names:
                 continue
