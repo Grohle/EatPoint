@@ -118,7 +118,7 @@ void main() {
   testWidgets('the weekly menu on its own keeps its shopping button', (
     tester,
   ) async {
-    final s = await open(tester, embedded: false);
+    await open(tester, embedded: false);
     expect(bySemanticsId('planner-shopping-list'), findsOneWidget);
     expect(bySemanticsId('intake-section-menu'), findsNothing);
     expect(bySemanticsId('my-day-full-diary'), findsNothing);
